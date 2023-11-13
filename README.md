@@ -31,7 +31,7 @@ A continuación se detallan los procesos de desarollo siguientes:
   - [Crear una utilidad](#crear-una-utilidad).
   - [Crear un modelo de dato](#crear-un-modelo-de-dato).
   - [Crear un comando](#crear-un-comando).
-  - [Crear una configuración](#crear-un-configuración).
+  - [Crear una configuración](#crear-una-configuración).
 
 ### Crear un controlador
 
