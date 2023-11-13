@@ -98,6 +98,7 @@ const setupDatabaseConnection = async function (api) {
 const setupApplication = async function (api) {
   api.app.use(cors());
   api.app.use(bodyParser.json({ extended: true }));
+  api.app.use("/ui", express.static(__dirname + "/Interface/www"));
 };
 const setupControllers = async function (api) {
   const files = fs.readdirSync(__dirname + "/Controllers");

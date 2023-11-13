@@ -4,6 +4,7 @@
   "description": "",
   "main": "src/main.js",
   "scripts": {
+    "build-ui": "cp src/Interface/www/index.1.html src/Interface/www/index.html",
     "start": "node src/main.js"
   },
   "keywords": [],
