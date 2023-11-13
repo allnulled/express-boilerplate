@@ -7,7 +7,7 @@ module.exports = class {
           const creationSentences = creationScript.split(/;[ \t]*(\n)/g).filter(text => text.trim().length !== 0);
           for(let index=0; index<creationSentences.length; index++) {
             const creationSentence = creationSentences[index].trim();
-            this.api.Db.Connection.Execute(creationSentence);
+            this.api.Database.Connection.Execute(creationSentence);
           }
         }
         MigrationScript: {
@@ -15,7 +15,7 @@ module.exports = class {
           const migrationSentences = migrationScript.split(/;[ \t]*(\n)/g).filter(text => text.trim().length !== 0);
           for(let index=0; index<migrationSentences.length; index++) {
             const migrationSentence = migrationSentences[index].trim();
-            this.api.Db.Connection.Execute(migrationSentence);
+            this.api.Database.Connection.Execute(migrationSentence);
           }
         }
 

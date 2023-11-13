@@ -14,8 +14,7 @@ Para ejecutarlo simplemente `npm start`.
 
 Este proyecto es completamente **minimalista**.
 
-La ejecución se basa prácticamente en 2 ficheros:
-  - `src/run.js`: ejecuta el proceso principal.
+La ejecución se basa prácticamente en 1 fichero:
   - `src/main.js`: define el proceso principal.
 
 Los datos se basan en 2 ficheros más:
@@ -54,7 +53,7 @@ En `src/Utilities` puedes crear un fichero como éste:
 module.exports = class {
     action() {
         this.api.Utilities.Trace("api.Utilities.GetDatabaseConnection");
-        return this.api.Db.Connection;
+        return this.api.Database.Connection;
     }
 }
 ```
@@ -68,3 +67,7 @@ En `src/Database/scripts/creation.sql` añades la tabla de datos que deseas.
 ### Crear un comando
 
 En `package.json` el apartado `scripts` te será de ayuda en esto. Los comandos se ejecutarían mediante `npm`.
+
+### Crear una configuración
+
+En `src/main.js` tienes la función `setupConfigurations`, donde se establecen los valores para las variables de entorno de `process.env`. Puedes añadrila ahí.

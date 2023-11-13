@@ -60,7 +60,7 @@ const setupDatabaseConnection = async function (api) {
   const conexionNeta = {
     NativeConnection: conexionBruta,
     Execute: function (consultaUnica) {
-      api.Utilities.Trace("api.Db.Connection.Execute");
+      api.Utilities.Trace("api.Database.Connection.Execute");
       return new Promise(function (ok, fail) {
         try {
           conexionBruta.serialize(function () {
@@ -88,8 +88,8 @@ const setupDatabaseConnection = async function (api) {
       });
     }
   };
-  api.Db = {};
-  api.Db.Connection = conexionNeta;
+  api.Database = {};
+  api.Database.Connection = conexionNeta;
   if(process.env.DATABASE_RESET) {
     await api.Utilities.InitializeDatabase();
   }
@@ -133,7 +133,7 @@ const deployApplication = function (api) {
     });
   })
 };
-module.exports = async function (api = {}) {
+const main = async function (api = {}) {
   try {
     await setupInitialization(api);
     await setupConfigurations(api);
@@ -147,4 +147,6 @@ module.exports = async function (api = {}) {
     console.log(error);
     throw error;
   }
-};;
+};
+
+module.exports = main();
