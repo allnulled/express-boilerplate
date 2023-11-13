@@ -2,6 +2,19 @@
 
 Código fuente base para servidores basados en Node.js + Express + SQLite.
 
+## Índice
+
+1. [Instalación](#instalación)
+2. [Ejecución](#ejecución)
+3. [Filosofía](#filosofía)
+4. [Uso](#uso)
+    1. [Crear un controlador](#crear-un-controlador).
+    2. [Crear una utilidad](#crear-una-utilidad).
+    3. [Crear un modelo de dato](#crear-un-modelo-de-dato).
+    4. [Crear un comando](#crear-un-comando).
+    5. [Crear una configuración](#crear-una-configuración).
+5. [¿Qué más ofrece el boilerplate?](#qué-más-ofrece-el-boilerplate)
+
 ## Instalación
 
 Descarga el proyecto y ejecuta `npm install` para instalar las dependencias.
@@ -27,11 +40,11 @@ Además, en el código original, la base de datos es SQLite, por lo cual es un p
 
 A continuación se detallan los procesos de desarollo siguientes:
 
-  - [Crear un controlador](#crear-un-controlador).
-  - [Crear una utilidad](#crear-una-utilidad).
-  - [Crear un modelo de dato](#crear-un-modelo-de-dato).
-  - [Crear un comando](#crear-un-comando).
-  - [Crear una configuración](#crear-una-configuración).
+  1. [Crear un controlador](#crear-un-controlador).
+  2. [Crear una utilidad](#crear-una-utilidad).
+  3. [Crear un modelo de dato](#crear-un-modelo-de-dato).
+  4. [Crear un comando](#crear-un-comando).
+  5. [Crear una configuración](#crear-una-configuración).
 
 ### Crear un controlador
 
