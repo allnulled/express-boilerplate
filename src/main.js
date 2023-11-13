@@ -3,7 +3,6 @@ const path = require("path");
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const multer = require("multer");
 const sqlite = require("sqlite3");
 const setupInitialization = async function (api) {
   api.app = express();
