@@ -27,7 +27,13 @@ Además, en el código original, la base de datos es SQLite, por lo cual es un p
 
 A continuación se detallan los procesos de desarollo siguientes:
 
-### Crear nuevo controlador
+  - [Crear un controlador](#crear-un-controlador).
+  - [Crear una utilidad](#crear-una-utilidad).
+  - [Crear un modelo de dato](#crear-un-modelo-de-dato).
+  - [Crear un comando](#crear-un-comando).
+  - [Crear una configuración](#crear-un-configuración).
+
+### Crear un controlador
 
 En `src/Controllers` puedes crear un fichero como éste, que es el de `IndexController`:
 
@@ -59,7 +65,7 @@ module.exports = class {
 
 La `api` (con `Utilities`) se inyecta en todas las clases de controlador, una vez instanciado. También se recibe como parámetro en el `constructor`.
 
-### Crear una utilidad nueva
+### Crear una utilidad
 
 En `src/Utilities` puedes crear un fichero como éste:
 
