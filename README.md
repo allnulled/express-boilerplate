@@ -31,25 +31,39 @@ A continuación se detallan los procesos de desarollo siguientes:
 
 En `src/Controllers` puedes crear un fichero como éste, que es el de `IndexController`:
 
-```
+```js
 module.exports = class {
     method = "use";
     route = "/";
     getMiddleware() { return []; }
     async dispatch(request, response, next) {
         this.api.Utilities.Trace("api.Controllers.IndexController");
-        const db = this.api.Utilities.GetDatabaseConnection();
-        const [result] = await db.Execute("SELECT 100;");
-        response.json({ message: "OK!", result });
+        try {
+            const errorParameter = this.api.Utilities.GetRequestParameter(request, "error", false);
+            if(typeof errorParameter === "string") {
+                throw new Error(errorParameter);
+            }
+            const db = this.api.Utilities.GetDatabaseConnection();
+            const [{ Result: result }] = await db.Execute("SELECT 100 as 'Result';");
+            const [{ Result: result2 }] = await this.api.Utilities.QueryDatabase("SELECT 200 as 'Result';");
+            return this.api.Utilities.DispatchSuccess(response, {
+                message: "The API is working",
+                result: result + result2
+            });
+        } catch (error) {
+            return this.api.Utilities.DispatchError(response, error);
+        }
     }
 };
 ```
+
+La `api` (con `Utilities`) se inyecta en todas las clases de controlador, una vez instanciado. También se recibe como parámetro en el `constructor`.
 
 ### Crear una utilidad nueva
 
 En `src/Utilities` puedes crear un fichero como éste:
 
-```
+```js
 module.exports = class {
     action() {
         this.api.Utilities.Trace("api.Utilities.GetDatabaseConnection");
@@ -59,6 +73,8 @@ module.exports = class {
 ```
 
 Esta utilidad es una `action`, pero también puedes crear una utilidad `factory` simplemente escribiendo el método `factory` (y no `action`) a modo de *factory* propiamente, o fábrica del valor final de la utilidad.
+
+La `api` (con `Utilities`) se inyecta en todas las clases de utilidad, una vez instanciada. También se recibe como parámetro en el `constructor`.
 
 ### Crear un modelo de dato
 
@@ -71,3 +87,11 @@ En `package.json` el apartado `scripts` te será de ayuda en esto. Los comandos 
 ### Crear una configuración
 
 En `src/main.js` tienes la función `setupConfigurations`, donde se establecen los valores para las variables de entorno de `process.env`. Puedes añadrila ahí.
+
+## ¿Qué más ofrece el boilerplate?
+
+Unas pocas clases utilitarias:
+
+ - Para homogeneizar las salidas y entradas JSON de los controladores: `DispatchSuccess` y `DispatchError`.
+ - Para tratamiento de fechas y texto general: `GetDateFromString`, `GetDateToString`, `GetStringLeftPadded`.
+ - Para bases de datos: `GetDatabaseConnection`, `InitializeDatabase`, `QueryDatabase`.

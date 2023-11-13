@@ -8,6 +8,7 @@ const setupInitialization = async function (api) {
   api.app = express();
 };
 const setupConfigurations = async function (api) {
+  process.env.APP_IDENTIFIER = "Express Boilerplate - Example";
   process.env.APP_PORT = 5054;
   process.env.DATABASE_FILE = path.resolve(__dirname + "/Database/database.sqlite");
   process.env.DATABASE_RESET = true;
@@ -38,7 +39,7 @@ const setupUtilities = async function (api) {
       throw new Error("Required utility «" + file + "» to have either «action» or «factory» methods");
     }
     console.log("[*] Utilidad nº" + (index + 1) + ":");
-    console.log("    - Nombre:      " + file);
+    console.log("    - Origen:      " + file);
     if(typeof api.Utilities[utilityName] === "function") {
       console.log("    - Tipo:        " + utilityType);
     }
@@ -94,6 +95,10 @@ const setupDatabaseConnection = async function (api) {
     await api.Utilities.InitializeDatabase();
   }
 };
+const setupApplication = async function (api) {
+  api.app.use(cors());
+  api.app.use(bodyParser.json({ extended: true }));
+};
 const setupControllers = async function (api) {
   const files = fs.readdirSync(__dirname + "/Controllers");
   for (let index = 0; index < files.length; index++) {
@@ -111,18 +116,13 @@ const setupControllers = async function (api) {
     const controllerMethod = controllerInstance.method;
     const controllerMiddlewares = controllerInstance.middleware || controllerInstance.middlewares || controllerInstance.getMiddleware();
     console.log("[*] Controlador nº" + (index + 1) + ":");
-    console.log("    - Nombre:      " + file);
+    console.log("    - Origen:      " + file);
     console.log("    - Ruta:        " + controllerRoute);
     console.log("    - Método:      " + controllerMethod.toUpperCase());
     console.log("    - Middlewares: " + controllerMiddlewares.length);
     console.log("    - Controlador: " + controllerCallback.toString().length + "B");
     api.app[controllerMethod](controllerRoute, controllerMiddlewares, controllerCallback);
   }
-};
-const setupApplication = async function (api) {
-  api.app.use(cors());
-  // api.app.use(bodyParser.urlencoded({ extended: true }));
-  api.app.use(bodyParser.json({ extended: true }));
 };
 const deployApplication = function (api) {
   return new Promise(function (ok, fail) {
@@ -139,8 +139,8 @@ const main = async function (api = {}) {
     await setupConfigurations(api);
     await setupUtilities(api);
     await setupDatabaseConnection(api);
-    await setupControllers(api);
     await setupApplication(api);
+    await setupControllers(api);
     await deployApplication(api);
   } catch (error) {
     console.log("Error in source «src/main.js»");
