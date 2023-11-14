@@ -114,3 +114,4 @@ Unas pocas clases utilitarias:
  - Para homogeneizar las salidas y entradas JSON de los controladores: `DispatchSuccess` y `DispatchError`.
  - Para tratamiento de fechas y texto general: `GetDateFromString`, `GetDateToString`, `GetStringLeftPadded`.
  - Para bases de datos: `GetDatabaseConnection`, `InitializeDatabase`, `QueryDatabase`.
+ - Para gestionar peticiones: `GetRequestParameter`.
