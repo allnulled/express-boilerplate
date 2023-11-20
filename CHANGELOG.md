@@ -1,6 +1,7 @@
-[x] Versión 0.0.1
-  [x] Controlador de Login
-  [x] Controlador de Logout
-  [x] Utilidad de GetRandomString
-  [x] Iniciado changelog en versión 0.0.1
-
+[x] Versión 0.0.2
+  [x] IndexController para redireccionar a index.html
+  [x] Controlllers/ControllerForIndex para devolver index.html
+  [x] Controlllers/ControllerForTemplates para devolver plantillas ejs
+  [x] Controlllers/Esquema para devolver esquema de bd
+  [x] Utilities/DispatchErrorAsHtml
+  [x] Utilities/DispatchSuccessAsHtml
