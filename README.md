@@ -1,19 +1,24 @@
 # express-boilerplate
 
-Código fuente base para servidores basados en Node.js + Express + SQLite.
+Código fuente base para servidores basados en Node.js + Express + SQLite y finalmente EJS para simular algo similar al PHP clásico de plantillas.
 
 ## Índice
 
-1. [Instalación](#instalación)
-2. [Ejecución](#ejecución)
-3. [Filosofía](#filosofía)
-4. [Uso](#uso)
-    1. [Crear un controlador](#crear-un-controlador).
-    2. [Crear una utilidad](#crear-una-utilidad).
-    3. [Crear un modelo de dato](#crear-un-modelo-de-dato).
-    4. [Crear un comando](#crear-un-comando).
-    5. [Crear una configuración](#crear-una-configuración).
-5. [¿Qué más ofrece el boilerplate?](#qué-más-ofrece-el-boilerplate)
+- [express-boilerplate](#express-boilerplate)
+  - [Índice](#índice)
+  - [Instalación](#instalación)
+  - [Ejecución](#ejecución)
+  - [Filosofía](#filosofía)
+  - [Uso](#uso)
+    - [Crear un fichero estático](#crear-un-fichero-estático)
+    - [Crear una plantilla HTML con EJS](#crear-una-plantilla-html-con-ejs)
+    - [Crear una plantilla CSS con EJS](#crear-una-plantilla-css-con-ejs)
+    - [Crear un controlador](#crear-un-controlador)
+    - [Crear una utilidad](#crear-una-utilidad)
+    - [Crear un modelo de dato](#crear-un-modelo-de-dato)
+    - [Crear un comando](#crear-un-comando)
+    - [Crear una configuración](#crear-una-configuración)
+  - [¿Qué más ofrece el boilerplate?](#qué-más-ofrece-el-boilerplate)
 
 ## Instalación
 
@@ -38,13 +43,19 @@ Además, en el código original, la base de datos es SQLite, por lo cual es un p
 
 ## Uso
 
-A continuación se detallan los procesos de desarollo siguientes:
+En esta sección se desarrollan una serie de procesos que el usuario probablemente quiera hacer.
 
-  1. [Crear un controlador](#crear-un-controlador).
-  2. [Crear una utilidad](#crear-una-utilidad).
-  3. [Crear un modelo de dato](#crear-un-modelo-de-dato).
-  4. [Crear un comando](#crear-un-comando).
-  5. [Crear una configuración](#crear-una-configuración).
+### Crear un fichero estático
+
+Simplemente añadiendo un fichero cualquiera bajo la carpeta `src/Interface/www`.
+
+### Crear una plantilla HTML con EJS
+
+Simplemente añadiendo un fichero `*.html` bajo la carpeta `src/Interface/ejs`.
+
+### Crear una plantilla CSS con EJS
+
+Simplemente añadiendo un fichero `*.css` bajo la carpeta `src/Interface/ejs`.
 
 ### Crear un controlador
 

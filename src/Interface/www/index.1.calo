@@ -20,11 +20,9 @@ Ejecutable como documento HTML5
 </head>
 <body><div id="app"></div></body>.
 
-### importo api nativa.
-
 asigno window.PaginaDeInicio como un componente vue2 con nombre "PaginaDeInicio" con plantilla {
   <div class="PaginaDeInicio Component">
-    <h5>Interfaz de usuario</h5>
+    <h5></h5>
   </div>
 } con lógica {
   retorno {

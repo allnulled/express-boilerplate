@@ -6,7 +6,11 @@ module.exports = class {
     
     route = "/Logout";
     
-    getMiddleware() { return []; }
+    priority = 4000;
+    
+    getMiddleware() {
+        return [];
+    }
     
     async dispatch(request, response, next) {
         this.api.Utilities.Trace("api.Controllers.Logout");

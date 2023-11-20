@@ -89,8 +89,14 @@ const setupDatabaseConnection = async function (api) {
       });
     }
   };
+  const esquemaSql = fs.readFileSync(__dirname + "/Database/scripts/creation.sql").toString();
+  const hqlParser = require(__dirname + "/Resources/hyper-query-language.js");
+  const esquemaJson = hqlParser.parse(esquemaSql);
+  console.log(esquemaJson);
+  const esquema = esquemaJson;
   api.Database = {};
   api.Database.Connection = conexionNeta;
+  api.Database.Schema = esquema;
   if(process.env.DATABASE_RESET) {
     await api.Utilities.InitializeDatabase();
   }
@@ -102,6 +108,7 @@ const setupApplication = async function (api) {
 };
 const setupControllers = async function (api) {
   const files = fs.readdirSync(__dirname + "/Controllers");
+  let controllers = [];
   for (let index = 0; index < files.length; index++) {
     const file = files[index];
     const filepath = path.resolve(__dirname + "/Controllers/" + file);
@@ -112,16 +119,39 @@ const setupControllers = async function (api) {
     // Dependency injection pattern:
     controllerInstance.api = api;
     ////////////////////////////////
+    controllers.push({
+      name: controllerName,
+      file,
+      controller: controllerInstance
+    });
+  }
+  controllers = controllers.sort(function(a, b) {
+    if(a.controller.priority > b.controller.priority) {
+      return -1;
+    } else if(a.controller.priority < b.controller.priority) {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
+  for(let index = 0; index < controllers.length; index++) {
+    const {
+      name: controllerName,
+      file: controllerFile,
+      controller: controllerInstance
+    } = controllers[index];
     const controllerCallback = controllerInstance.dispatch.bind(controllerInstance);
+    const controllerPriority = controllerInstance.priority;
     const controllerRoute = controllerInstance.route;
     const controllerMethod = controllerInstance.method;
     const controllerMiddlewares = controllerInstance.middleware || controllerInstance.middlewares || controllerInstance.getMiddleware();
     console.log("[*] Controlador nº" + (index + 1) + ":");
-    console.log("    - Origen:      " + file);
+    console.log("    - Nombre:      " + controllerName);
+    console.log("    - Origen:      " + controllerFile);
+    console.log("    - Prioridad:   " + controllerPriority);
     console.log("    - Ruta:        " + controllerRoute);
     console.log("    - Método:      " + controllerMethod.toUpperCase());
     console.log("    - Middlewares: " + controllerMiddlewares.length);
-    console.log("    - Controlador: " + controllerCallback.toString().length + "B");
     api.app[controllerMethod](controllerRoute, controllerMiddlewares, controllerCallback);
   }
 };
@@ -130,6 +160,7 @@ const deployApplication = function (api) {
     api.app.listen(process.env.APP_PORT, function () {
       console.log("[*] App escuchando en:");
       console.log("    - http://127.0.0.1:" + process.env.APP_PORT);
+      console.log("    - http://127.0.0.1:" + process.env.APP_PORT + "/ui");
       ok();
     });
   })

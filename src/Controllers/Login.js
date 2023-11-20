@@ -5,6 +5,8 @@ module.exports = class {
     method = "use";
     
     route = "/Login";
+
+    priority = 4000;
     
     getMiddleware() {
         return [];

@@ -1,0 +1,19 @@
+<%
+
+const title = "Error 500: mala petición";
+
+%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><%- title %></title>
+        <%- await include("inc/meta.html") %>
+        <%- await include("inc/styles.css") %>
+    </head>
+    <body>
+        <h5><%- title %></h5>
+        <div><%- error.name %></div>
+        <div><%- error.message %></div>
+        <div><%- error.stack %></div>
+    </body>
+</html>
