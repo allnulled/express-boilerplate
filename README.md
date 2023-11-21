@@ -60,15 +60,23 @@ Simplemente añadiendo un fichero `*.css` bajo la carpeta `src/Interface/ejs`.
 
 ### Crear un controlador
 
-En `src/Controllers` puedes crear un fichero como éste, que es el de `IndexController`:
+En `src/Controllers` puedes crear un fichero como éste:
 
 ```js
 module.exports = class {
+    
     method = "use";
+    
     route = "/";
-    getMiddleware() { return []; }
+
+    priority = 5000;
+    
+    getMiddleware() {
+      return [];
+    }
+    
     async dispatch(request, response, next) {
-        this.api.Utilities.Trace("api.Controllers.IndexController");
+        this.api.Utilities.Trace("api.Controllers.ControllerForIndex");
         try {
             const errorParameter = this.api.Utilities.GetRequestParameter(request, "error", false);
             if(typeof errorParameter === "string") {
@@ -85,10 +93,13 @@ module.exports = class {
             return this.api.Utilities.DispatchError(response, error);
         }
     }
+
 };
 ```
 
 La `api` (con `Utilities`) se inyecta en todas las clases de controlador, una vez instanciado. También se recibe como parámetro en el `constructor`.
+
+Por cierto, el auténtico [`ControllerForIndex`](./src/Controllers/ControllerForIndex), en cambio, redirecciona automáticamente la petición a `/index.html`. En este ejemplo se quería mostrar el acceso a las utilidades desde la API inyectada en todos los controladores al igual que utilidades.
 
 ### Crear una utilidad
 
