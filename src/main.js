@@ -92,11 +92,38 @@ const setupDatabaseConnection = async function (api) {
   const esquemaSql = fs.readFileSync(__dirname + "/Database/scripts/creation.sql").toString();
   const hqlParser = require(__dirname + "/Resources/hyper-query-language.js");
   const esquemaJson = hqlParser.parse(esquemaSql);
-  console.log(esquemaJson);
   const esquema = esquemaJson;
   api.Database = {};
   api.Database.Connection = conexionNeta;
   api.Database.Schema = esquema;
+  api.Database.CompactedSchema = (function() {
+    try {
+      const esquema_compacto = {};
+      for(let index=0; index<esquema.length; index++) {
+        const tabla = esquema[index];
+        const columnas = {};
+        for(let index_columna=0; index_columna<tabla.composicion.length; index_columna++) {
+          const columna = tabla.composicion[index_columna];
+          const es_columna = columna.sentencia === "columna";
+          const es_clave_foranea = columna.sentencia === "clave foránea";
+          columna.orden = index_columna;
+          if(es_columna) {
+            columnas[columna.columna] = columna;
+          } else if(es_clave_foranea) {
+            columnas["$" + columna.columna + "$" + columna.tabla_foranea + "$" + columna.columna_foranea] = columna;
+          }
+        }
+        tabla.composicion = columnas;
+        esquema_compacto[tabla.tabla] = tabla;
+
+      }
+      return esquema_compacto;
+    } catch (error) {
+      console.log(error);
+    }
+  })();
+  console.log("[*] Esquema de datos compacto: (api.Database.CompactedSchema)");
+  console.log(api.Database.CompactedSchema);
   if(process.env.DATABASE_RESET) {
     await api.Utilities.InitializeDatabase();
   }

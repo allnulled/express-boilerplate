@@ -4,10 +4,17 @@ module.exports = class {
         await this.applyCreationScript();
         await this.applyMigrationScript();
     }
-    async applyCreationScript() {
+    async applyCreationScript_modoRudimentario() {
       const fs = require("fs");
       const creationScript = fs.readFileSync(__dirname + "/../Database/scripts/creation.sql").toString();
       const creationSentences = creationScript.split(/;[ \t]*(\n)/g).filter(text => text.trim().length !== 0);
+      for(let index=0; index<creationSentences.length; index++) {
+        const creationSentence = creationSentences[index].trim();
+        await this.api.Database.Connection.Execute(creationSentence);
+      }
+    }
+    async applyCreationScript() {
+      const creationSentences = this.api.Database.Schema.map(sentence => sentence.script);
       for(let index=0; index<creationSentences.length; index++) {
         const creationSentence = creationSentences[index].trim();
         await this.api.Database.Connection.Execute(creationSentence);

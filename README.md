@@ -16,6 +16,7 @@ Código fuente base para servidores basados en Node.js + Express + SQLite y fina
     - [Crear un controlador](#crear-un-controlador)
     - [Crear una utilidad](#crear-una-utilidad)
     - [Crear un modelo de dato](#crear-un-modelo-de-dato)
+    - [Crear datos de migración inicial](#crear-datos-de-migración-inicial)
     - [Crear un comando](#crear-un-comando)
     - [Crear una configuración](#crear-una-configuración)
   - [¿Qué más ofrece el boilerplate?](#qué-más-ofrece-el-boilerplate)
@@ -33,11 +34,11 @@ Para ejecutarlo simplemente `npm start`.
 Este proyecto es completamente **minimalista**.
 
 La ejecución se basa prácticamente en 1 fichero:
-  - `src/main.js`: define el proceso principal.
+  - [`src/main.js`](./src/main.js): define el proceso principal.
 
 Los datos se basan en 2 ficheros más:
-  - `src/Database/scripts/creation.sql`
-  - `src/Database/scripts/migration.sql`
+  - [`src/Database/scripts/creation.sql`](./src/Database/scripts/creation.sql)
+  - [`src/Database/scripts/migration.sql`](./src/Database/scripts/migration.sql)
 
 Además, en el código original, la base de datos es SQLite, por lo cual es un proyecto compacto, que no depende de URLs/servidores externos.
 
@@ -108,21 +109,34 @@ La `api` (con `Utilities`) se inyecta en todas las clases de utilidad, una vez i
 
 ### Crear un modelo de dato
 
-En `src/Database/scripts/creation.sql` añades la tabla de datos que deseas.
+En [`src/Database/scripts/creation.sql`](./src/Database/scripts/creation.sql) añades la tabla de datos que deseas.
+
+### Crear datos de migración inicial
+
+En [`src/Database/scripts/migration.sql`](./src/Database/scripts/migration.sql) añades la tabla de datos que deseas.
 
 ### Crear un comando
 
-En `package.json` el apartado `scripts` te será de ayuda en esto. Los comandos se ejecutarían mediante `npm`.
+En [`package.json`](./package.json) el apartado `scripts` te será de ayuda en esto. Los comandos se ejecutarían mediante `npm`.
 
 ### Crear una configuración
 
-En `src/main.js` tienes la función `setupConfigurations`, donde se establecen los valores para las variables de entorno de `process.env`. Puedes añadrila ahí.
+En [`src/main.js`](./scr/main.js) tienes la función `setupConfigurations`, donde se establecen los valores para las variables de entorno de `process.env`. Puedes añadrila ahí.
 
 ## ¿Qué más ofrece el boilerplate?
 
 Unas pocas clases utilitarias:
 
- - Para homogeneizar las salidas y entradas JSON de los controladores: `DispatchSuccess` y `DispatchError`.
- - Para tratamiento de fechas y texto general: `GetDateFromString`, `GetDateToString`, `GetStringLeftPadded`.
- - Para bases de datos: `GetDatabaseConnection`, `InitializeDatabase`, `QueryDatabase`.
- - Para gestionar peticiones: `GetRequestParameter`.
+ - Para homogeneizar las salidas y entradas JSON de los controladores:
+    - [`DispatchSuccess`](./src/Utilities/DispatchSuccess.js)
+    - [`DispatchError`.](./src/Utilities/DispatchError.js)
+ - Para tratamiento de fechas y texto general:
+    - [`GetDateFromString`](./src/Utilities/GetDateFromString.js)
+    - [`GetDateToString`](./src/Utilities/GetDateToString.js)
+    - [`GetStringLeftPadded`](./src/Utilities/GetStringLeftPadded.js)
+ - Para bases de datos:
+    - [`GetDatabaseConnection`](./src/Utilities/GetDatabaseConnection.js)
+    - [`InitializeDatabase`](./src/Utilities/InitializeDatabase.js)
+    - [`QueryDatabase`](./src/Utilities/QueryDatabase.js)
+ - Para gestionar peticiones:
+    - [`GetRequestParameter`](./src/Utilities/GetRequestParameter.js)

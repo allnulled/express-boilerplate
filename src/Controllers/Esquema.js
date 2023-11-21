@@ -13,7 +13,10 @@ module.exports = class {
     async dispatch(request, response, next) {
         this.api.Utilities.Trace("api.Controllers.Esquema");
         return response.status(200).json({
-            datos: this.api.Database.Schema
+            datos: {
+                original: this.api.Database.Schema,
+                compacto: this.api.Database.CompactedSchema
+            }
         });
     }
 
