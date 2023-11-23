@@ -9,6 +9,7 @@
       "version": "0.0.2",
       "license": "WTFPL",
       "dependencies": {
+        "@allnulled/check-that": "^0.0.2",
         "body-parser": "^1.20.2",
         "cors": "^2.8.5",
         "ejs": "^3.1.9",
@@ -16,6 +17,11 @@
         "sqlite3": "^5.1.6",
         "sqlstring": "^2.3.3"
       }
+    },
+    "node_modules/@allnulled/check-that": {
+      "version": "0.0.2",
+      "resolved": "https://registry.npmjs.org/@allnulled/check-that/-/check-that-0.0.2.tgz",
+      "integrity": "sha512-dRoYdjTRWjRpB3QQLZ3tFDcSd2SXPEOe7itPqUklMgITQHboujugaOgf4XH5MIhD4BxgaE9fcZW0ykwTz29LIg=="
     },
     "node_modules/@gar/promisify": {
       "version": "1.1.3",

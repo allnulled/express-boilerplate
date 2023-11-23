@@ -3,7 +3,7 @@
 
 window.PaginaDeInicio = Castelog.metodos.un_componente_vue2("PaginaDeInicio",
   "<div class=\"PaginaDeInicio Component\">"
- + "    <h5></h5>"
+ + "    <h5>Inicio</h5>"
  + "  </div>",
   function(component) {return { props:{ root:{ type:Object,
 required:true

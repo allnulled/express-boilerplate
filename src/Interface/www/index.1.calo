@@ -22,7 +22,7 @@ Ejecutable como documento HTML5
 
 asigno window.PaginaDeInicio como un componente vue2 con nombre "PaginaDeInicio" con plantilla {
   <div class="PaginaDeInicio Component">
-    <h5></h5>
+    <h5>Inicio</h5>
   </div>
 } con lógica {
   retorno {
