@@ -139,7 +139,7 @@ En [`src/main.js`](./scr/main.js) tienes la función `setupConfigurations`, dond
 
 Para habilitar controladores solo tienes que mover los controladores, que deben seguir la especificación de clase, en la carpeta [`src/Controllers`](./src/Controllers).
 
-Para deshabilitar controladores solo tienes que mover los controladores de la carpeta [`src/Controllers`](./src/Controllers) a la carpeta `src/ControllersOff`.
+Para deshabilitar controladores solo tienes que mover los controladores de la carpeta [`src/Controllers`](./src/Controllers) a la carpeta [`src/ControllersOff`](./src/ControllersOff).
 
 ## ¿Qué más ofrece el boilerplate?
 
