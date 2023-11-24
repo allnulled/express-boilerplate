@@ -49,19 +49,19 @@ En esta sección se desarrollan una serie de procesos que el usuario probablemen
 
 ### Crear un fichero estático
 
-Simplemente añadiendo un fichero cualquiera bajo la carpeta `src/Interface/www`.
+Simplemente añadiendo un fichero cualquiera bajo la carpeta [`src/Interface/www`](./src/Interface/www).
 
 ### Crear una plantilla HTML con EJS
 
-Simplemente añadiendo un fichero `*.html` bajo la carpeta `src/Interface/ejs`.
+Simplemente añadiendo un fichero `*.html` bajo la carpeta [`src/Interface/ejs`](./src/Interface/ejs).
 
 ### Crear una plantilla CSS con EJS
 
-Simplemente añadiendo un fichero `*.css` bajo la carpeta `src/Interface/ejs`.
+Simplemente añadiendo un fichero `*.css` bajo la carpeta [`src/Interface/ejs`](./src/Interface/ejs).
 
 ### Crear un controlador
 
-En `src/Controllers` puedes crear un fichero como éste:
+En [`src/Controllers`](./src/Controllers) puedes crear un fichero como éste:
 
 ```js
 module.exports = class {
@@ -104,7 +104,7 @@ Por cierto, el auténtico [`ControllerForIndex`](./src/Controllers/ControllerFor
 
 ### Crear una utilidad
 
-En `src/Utilities` puedes crear un fichero como éste:
+En [`src/Utilities`](./src/Utilities) puedes crear un fichero como éste:
 
 ```js
 module.exports = class {
