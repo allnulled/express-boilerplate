@@ -26,6 +26,7 @@ module.exports = class {
             const items_str = this.api.Utilities.GetRequestParameter(request, "items", "20");
             const search = this.api.Utilities.GetRequestParameter(request, "search", "");
             const { CheckThat } = this.api.Utilities;
+            CheckThat(table, "table", "00001A").differs("Usuario");
             CheckThat(table, "table", "00001").isString();
             CheckThat(table, "table", "00002").can(table => { if(this.allowedTables.length) { return this.allowedTables.indexOf(table) !== -1; } return true; }, "be listed in allowedTables, if any");
             CheckThat(table, "table", "00003").can(table => { if(this.forbiddenTables.length) { return this.forbiddenTables.indexOf(table) === -1; } return true; }, "not be listed in forbiddenTables, if any");
