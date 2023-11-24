@@ -19,6 +19,7 @@ Código fuente base para servidores basados en Node.js + Express + SQLite y fina
     - [Crear datos de migración inicial](#crear-datos-de-migración-inicial)
     - [Crear un comando](#crear-un-comando)
     - [Crear una configuración](#crear-una-configuración)
+    - [Habilitar o deshabilitar controladores](#habilitar-o-deshabilitar-controladores)
   - [¿Qué más ofrece el boilerplate?](#qué-más-ofrece-el-boilerplate)
 
 ## Instalación
@@ -134,20 +135,28 @@ En [`package.json`](./package.json) el apartado `scripts` te será de ayuda en e
 
 En [`src/main.js`](./scr/main.js) tienes la función `setupConfigurations`, donde se establecen los valores para las variables de entorno de `process.env`. Puedes añadrila ahí.
 
+### Habilitar o deshabilitar controladores
+
+Para habilitar controladores solo tienes que mover los controladores, que deben seguir la especificación de clase, en la carpeta [`src/Controllers`](./src/Controllers).
+
+Para deshabilitar controladores solo tienes que mover los controladores de la carpeta [`src/Controllers`](./src/Controllers) a la carpeta `src/ControllersOff`.
+
 ## ¿Qué más ofrece el boilerplate?
 
 Unas pocas clases utilitarias:
 
- - Para homogeneizar las salidas y entradas JSON de los controladores:
-    - [`DispatchSuccess`](./src/Utilities/DispatchSuccess.js)
-    - [`DispatchError`.](./src/Utilities/DispatchError.js)
- - Para tratamiento de fechas y texto general:
-    - [`GetDateFromString`](./src/Utilities/GetDateFromString.js)
-    - [`GetDateToString`](./src/Utilities/GetDateToString.js)
-    - [`GetStringLeftPadded`](./src/Utilities/GetStringLeftPadded.js)
- - Para bases de datos:
-    - [`GetDatabaseConnection`](./src/Utilities/GetDatabaseConnection.js)
-    - [`InitializeDatabase`](./src/Utilities/InitializeDatabase.js)
-    - [`QueryDatabase`](./src/Utilities/QueryDatabase.js)
- - Para gestionar peticiones:
-    - [`GetRequestParameter`](./src/Utilities/GetRequestParameter.js)
+ - [`CheckThat`](./src/Utilities/CheckThat.js) para hacer comprobaciones con reporte de errores uniforme
+ - [`DispatchError`](./src/Utilities/DispatchError.js) para despachar errores en JSON
+ - [`DispatchErrorAsHtml`](./src/Utilities/DispatchErrorAsHtml.js) para despachar errores en HTML
+ - [`DispatchSuccess`](./src/Utilities/DispatchSuccess.js) para despachar éxitos en JSON
+ - [`DispatchSuccessAsHtml`](./src/Utilities/DispatchSuccessAsHtml.js) para despachar ficheros HTML
+ - [`GetDatabaseConnection`](./src/Utilities/GetDatabaseConnection.js) para obtener conexión de base de datos
+ - [`GetDateFromString`](./src/Utilities/GetDateFromString.js) para obtener Date de String
+ - [`GetDateToString`](./src/Utilities/GetDateToString.js) para obtener String de Date
+ - [`GetRandomString`](./src/Utilities/GetRandomString.js) para obtener String aleatorio
+ - [`GetRequestParameter`](./src/Utilities/GetRequestParameter.js) para obtener parametro de petición
+ - [`GetStringLeftPadded`](./src/Utilities/GetStringLeftPadded.js) para obtener String con espaciado por la izquierda
+ - [`InitializeDatabase`](./src/Utilities/InitializeDatabase.js) para inicializar la base de datos
+ - [`QueryBuilder`](./src/Utilities/QueryBuilder.js) para obtener el constructor de consultas SQL
+ - [`QueryDatabase`](./src/Utilities/QueryDatabase.js) para ejecutar una consulta SQL
+ - [`Trace`](./src/Utilities/Trace.js) para tracear un método o función

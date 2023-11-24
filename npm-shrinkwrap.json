@@ -1,15 +1,16 @@
 {
   "name": "express-boilerplate",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "lockfileVersion": 3,
   "requires": true,
   "packages": {
     "": {
       "name": "express-boilerplate",
-      "version": "0.0.2",
+      "version": "0.0.3",
       "license": "WTFPL",
       "dependencies": {
         "@allnulled/check-that": "^0.0.2",
+        "basic-sql-query-builder-orm-framework": "^1.0.3",
         "body-parser": "^1.20.2",
         "cors": "^2.8.5",
         "ejs": "^3.1.9",
@@ -233,6 +234,23 @@
       "version": "1.0.2",
       "resolved": "https://registry.npmjs.org/balanced-match/-/balanced-match-1.0.2.tgz",
       "integrity": "sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw=="
+    },
+    "node_modules/basic-sql-query-builder-orm-framework": {
+      "version": "1.0.3",
+      "resolved": "https://registry.npmjs.org/basic-sql-query-builder-orm-framework/-/basic-sql-query-builder-orm-framework-1.0.3.tgz",
+      "integrity": "sha512-/ienEdNsP++XYjG22xsr/uHhWwOM+iVPsq5XrijOkXyCsLfsW51HjaaWHYUplC2T8DAUtjUXWhdZd08Sv3UO5A==",
+      "hasShrinkwrap": true,
+      "dependencies": {
+        "sqlstring": "^2.3.3"
+      }
+    },
+    "node_modules/basic-sql-query-builder-orm-framework/node_modules/sqlstring": {
+      "version": "2.3.3",
+      "resolved": "https://registry.npmjs.org/sqlstring/-/sqlstring-2.3.3.tgz",
+      "integrity": "sha512-qC9iz2FlN7DQl3+wjwn3802RTyjCx7sDvfQEXchwa6CWOx07/WVfh91gBmQ9fahw8snwGEWU3xGzOt4tFyHLxg==",
+      "engines": {
+        "node": ">= 0.6"
+      }
     },
     "node_modules/body-parser": {
       "version": "1.20.2",

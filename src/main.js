@@ -31,7 +31,7 @@ const setupUtilities = async function (api) {
       utilityType = "function";
     } else if(typeof utilityInstance.factory === "function") {
       utilityType = "factory";
-      api.Utilities[utilityName] = utilityInstance.factory(api);
+      api.Utilities[utilityName] = utilityInstance.factory.call(utilityInstance, api);
       if(typeof api.Utilities[utilityName] === "function") {
         api.Utilities[utilityName] = api.Utilities[utilityName].bind(api.Utilities[utilityName]);
       }

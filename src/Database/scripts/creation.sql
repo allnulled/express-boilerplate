@@ -1,6 +1,6 @@
 CREATE TABLE Usuario (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    nombre VARCHAR(255),
+    nombre VARCHAR(255) UNIQUE,
     contrasenya VARCHAR(255),
     correo VARCHAR(255)
 );

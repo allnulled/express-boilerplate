@@ -4,6 +4,7 @@
   "description": "",
   "main": "src/main.js",
   "scripts": {
+    "dev": "npx nodemon -w '**/*.js' -x 'npm start'",
     "build-ui": "cp src/Interface/www/index.1.html src/Interface/www/index.html",
     "start": "node src/main.js"
   },
@@ -12,6 +13,7 @@
   "license": "WTFPL",
   "dependencies": {
     "@allnulled/check-that": "^0.0.2",
+    "basic-sql-query-builder-orm-framework": "^1.0.3",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
     "ejs": "^3.1.9",
