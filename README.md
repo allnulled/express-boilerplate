@@ -140,7 +140,7 @@ En [`src/Database/scripts/creation.sql`](./src/Database/scripts/creation.sql) a�
 
 ### Crear un modelo de dato programático
 
-En [`src/Models`](./src/Models) añades la clase de modelo que deseas. Debe tener el método `model`.
+En [`src/Models`](./src/Models) añades la clase de modelo que deseas. No tienen una interfaz obligatoria, el consenso se delega a la lógica del proyecto particular. Eso sí, se inyectará `api` y se pasará al constructor.
 
 ### Crear datos de migración inicial
 
@@ -219,12 +219,6 @@ Así puedes generar documentación en [`src/Documentation/REFERENCE.md`](./src/D
 ### Generador de proyectos
 
 Con `express-boilerplate` también puedes clonar el proyecto. Así tener un *setup* rápido desde línea de comandos.
-
-Si instalas con la `-g` o el `--global` podrás hacer:
-
-```sh
-npx eboil-generate-project output
-```
 
 También lo puedes hacer desde npm:
 
