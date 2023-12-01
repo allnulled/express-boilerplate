@@ -154,9 +154,13 @@ En [`src/Queries/`](./src/Queries) añades una nueva clase con el método `query
 
 En [`package.json`](./package.json) el apartado `scripts` te será de ayuda en esto. Los comandos se ejecutarían mediante `npm`.
 
+La carpeta de `src/Commands` está pretendidamente puesta para almacenar el código de casos como estos.
+
 ### Crear una configuración
 
 En [`src/main.js`](./scr/main.js) tienes la función `setupConfigurations`, donde se establecen los valores para las variables de entorno de `process.env`. Puedes añadrila ahí.
+
+Alternativamente puedes usar el fichero `src/Configurations/.env` para establecer las variables globales directamente, sin intervenir código.
 
 ### Crear librería de interfaz
 
