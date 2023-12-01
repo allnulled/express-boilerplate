@@ -1,0 +1,15 @@
+Defino controlador src/Controllers/SpecialController.js
+-----------------------------------------
+
+module.exports = {
+
+}
+
+Defino controlador src/Controllers/SpecialController.js
+-----------------------------------------
+
+module.exports = class {
+  action() {
+    
+  }
+}

@@ -12,6 +12,17 @@ const setupConfigurations = async function (api) {
   process.env.APP_PORT = 5054;
   process.env.DATABASE_FILE = path.resolve(__dirname + "/Database/database.sqlite");
   process.env.DATABASE_RESET = true;
+  const files = fs.readdirSync(__dirname + "/Configurations");
+  for (let index = 0; index < files.length; index++) {
+    const file = files[index];
+    if(file === ".env") {
+      require("fs").readFileSync(__dirname + "/Configurations/" + file).toString().split("\n").forEach(line => {
+        const position_equal = line.indexOf("=");
+        const [key, value] = [line.substring(0, position_equal), line.substring(position_equal+1)];
+        process.env[key] = value;
+      });
+    }
+  }
 };
 const setupUtilities = async function (api) {
   api.Utilities = {};
@@ -42,6 +53,38 @@ const setupUtilities = async function (api) {
     console.log("    - Origen:      " + file);
     if(typeof api.Utilities[utilityName] === "function") {
       console.log("    - Tipo:        " + utilityType);
+    }
+  }
+};
+const setupQueries = async function(api) {
+  api.Queries = {};
+  const files = fs.readdirSync(__dirname + "/Queries");
+  for (let index = 0; index < files.length; index++) {
+    const file = files[index];
+    const filepath = path.resolve(__dirname + "/Queries/" + file);
+    const queryName = file.replace(/\.js/g, "");
+    const queryModule = require(filepath);
+    const queryInstance = new queryModule(api);
+      ////////////////////////////////
+      // Dependency injection pattern:
+      queryInstance.api = api;
+      ////////////////////////////////
+    if(typeof queryInstance.query === "function") {
+      api.Queries[queryName] = queryInstance.query.bind(queryInstance);
+      queryType = "function";
+    } else if(typeof queryInstance.factory === "function") {
+      queryType = "factory";
+      api.Queries[queryName] = queryInstance.factory.call(queryInstance, api);
+      if(typeof api.Queries[queryName] === "function") {
+        api.Queries[queryName] = api.Queries[queryName].bind(api.Queries[queryName]);
+      }
+    } else {
+      throw new Error("Required query «" + file + "» to have either «query» or «factory» methods");
+    }
+    console.log("[*] Query nº" + (index + 1) + ":");
+    console.log("    - Origen:      " + file);
+    if(typeof api.Queries[queryName] === "function") {
+      console.log("    - Tipo:        " + queryType);
     }
   }
 };
@@ -197,6 +240,7 @@ const main = async function (api = {}) {
     await setupInitialization(api);
     await setupConfigurations(api);
     await setupUtilities(api);
+    await setupQueries(api);
     await setupDatabaseConnection(api);
     await setupApplication(api);
     await setupControllers(api);

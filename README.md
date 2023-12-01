@@ -17,8 +17,11 @@ Código fuente base para servidores basados en Node.js + Express + SQLite y fina
     - [Crear una utilidad](#crear-una-utilidad)
     - [Crear un modelo de dato](#crear-un-modelo-de-dato)
     - [Crear datos de migración inicial](#crear-datos-de-migración-inicial)
+    - [Crear consulta](#crear-consulta)
     - [Crear un comando](#crear-un-comando)
     - [Crear una configuración](#crear-una-configuración)
+    - [Crear librería de interfaz](#crear-librería-de-interfaz)
+    - [Crear componente de interfaz](#crear-componente-de-interfaz)
     - [Habilitar o deshabilitar controladores](#habilitar-o-deshabilitar-controladores)
   - [¿Qué más ofrece el boilerplate?](#qué-más-ofrece-el-boilerplate)
 
@@ -127,6 +130,10 @@ En [`src/Database/scripts/creation.sql`](./src/Database/scripts/creation.sql) a�
 
 En [`src/Database/scripts/migration.sql`](./src/Database/scripts/migration.sql) añades la tabla de datos que deseas.
 
+### Crear consulta
+
+En [`src/Queries/`](./src/Queries) añades una nueva clase con el método `query` o `factory`.
+
 ### Crear un comando
 
 En [`package.json`](./package.json) el apartado `scripts` te será de ayuda en esto. Los comandos se ejecutarían mediante `npm`.
@@ -134,6 +141,14 @@ En [`package.json`](./package.json) el apartado `scripts` te será de ayuda en e
 ### Crear una configuración
 
 En [`src/main.js`](./scr/main.js) tienes la función `setupConfigurations`, donde se establecen los valores para las variables de entorno de `process.env`. Puedes añadrila ahí.
+
+### Crear librería de interfaz
+
+En [`src/Interface/www/lib`](./src/Interface/www/lib) añades una nueva carpeta para la nueva librería.
+
+### Crear componente de interfaz
+
+En [`src/Interface/www/lib/components`](./src/Interface/www/lib/components) añades una nueva carpeta para el nuevo componente. Luego típicamente crearías un fichero con el mismo nombre pero terminado en `js` para usar como componente, otro con `.css` y otro con `.md` para guía de uso.
 
 ### Habilitar o deshabilitar controladores
 

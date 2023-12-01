@@ -1,0 +1,21 @@
+importo api nativa.
+
+creo main como una función asíncrona donde {
+  imprimo "[*] Inicio de test de «express-boilerplate»".
+  creo respuesta_login como asíncronamente una petición http
+    con url "http://127.0.0.1:5054/Login"
+    con método "POST"
+    con cuerpo { nombre: "admin", contrasenya: "admin" }
+    con cabeceras {}.
+  compruebo que respuesta_login.data.data.sesion.token es tipo texto.
+  creo token como respuesta_login.data.data.sesion.token.
+  creo respuesta_logout como asíncronamente una petición http
+    con url "http://127.0.0.1:5054/Logout"
+    con método "POST"
+    con cuerpo {}
+    con cabeceras { authorization: token }.
+  compruebo que respuesta_logout.data.data.mensaje es tipo texto.
+  imprimo "[*] Final de test de «express-boilerplate»".
+} en errores imprimo "[!!!] Falló el test" después imprimo error.
+
+hago main().

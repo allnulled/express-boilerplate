@@ -5,8 +5,12 @@
   "main": "src/main.js",
   "scripts": {
     "dev": "npx nodemon -w '**/*.js' -x 'npm start'",
+    "build": "npm run build-parser && npm run build-ui",
+    "build-parser": "npx pegjs src/Resources/semillero.pegjs",
     "build-ui": "cp src/Interface/www/index.1.html src/Interface/www/index.html",
-    "start": "node src/main.js"
+    "start": "node src/main.js",
+    "test": "node test/test.js",
+    "seed": "node src/Commands/Seed/Seed.js"
   },
   "keywords": [],
   "author": "https://github.com/allnulled",
