@@ -215,4 +215,13 @@ Si instalas con la `-g` o el `--global` podrás hacer:
 npx eboil-generate-project output
 ```
 
-Y así crear un nuevo proyecto basado en éste. Pero también puedes hacerlo con el tradicional `git clone` o incluso a mano.
+También lo puedes hacer desde npm:
+
+```sh
+npm run generate-project ../output
+```
+
+Y así crear un nuevo proyecto basado en éste, fuera de éste.
+
+Pero todo esto también puedes hacerlo con el tradicional `git clone` + `npm install`, o descomprimiendo una descarga manual + `npm install`.
+
