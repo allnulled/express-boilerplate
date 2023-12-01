@@ -6,11 +6,13 @@
   "scripts": {
     "dev": "npx nodemon -w '**/*.js' -x 'npm start'",
     "build": "npm run build-parser && npm run build-ui",
+    "build-documentation": "node src/Commands/BuildDocumentation/BuildDocumentation.js",
     "build-parser": "npx pegjs src/Resources/semillero.pegjs",
     "build-ui": "cp src/Interface/www/index.1.html src/Interface/www/index.html",
     "start": "node src/main.js",
     "test": "node test/test.js",
-    "seed": "node src/Commands/Seed/Seed.js"
+    "seed-project": "node src/Commands/SeedProject/SeedProject.js",
+    "generate-project": "node src/Commands/GenerateDocumentation/GenerateProject.js"
   },
   "keywords": [],
   "author": "https://github.com/allnulled",
@@ -22,6 +24,8 @@
     "cors": "^2.8.5",
     "ejs": "^3.1.9",
     "express": "^4.18.2",
+    "fs-extra": "^11.2.0",
+    "javadoc": "^2.0.2",
     "sqlite3": "^5.1.6",
     "sqlstring": "^2.3.3"
   }

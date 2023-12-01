@@ -24,6 +24,10 @@ Código fuente base para servidores basados en Node.js + Express + SQLite y fina
     - [Crear componente de interfaz](#crear-componente-de-interfaz)
     - [Habilitar o deshabilitar controladores](#habilitar-o-deshabilitar-controladores)
   - [¿Qué más ofrece el boilerplate?](#qué-más-ofrece-el-boilerplate)
+    - [Clases utilitarias](#clases-utilitarias)
+    - [Análisis de software](#análisis-de-software)
+    - [Generador de documentación incluído](#generador-de-documentación-incluído)
+    - [Generador de proyectos](#generador-de-proyectos)
 
 ## Instalación
 
@@ -158,6 +162,10 @@ Para deshabilitar controladores solo tienes que mover los controladores de la ca
 
 ## ¿Qué más ofrece el boilerplate?
 
+Hay algunas otras ventajas, como clases utilitarias, o herramientas para análisis de software.
+
+### Clases utilitarias
+
 Unas pocas clases utilitarias:
 
  - [`CheckThat`](./src/Utilities/CheckThat.js) para hacer comprobaciones con reporte de errores uniforme
@@ -175,3 +183,21 @@ Unas pocas clases utilitarias:
  - [`QueryBuilder`](./src/Utilities/QueryBuilder.js) para obtener el constructor de consultas SQL
  - [`QueryDatabase`](./src/Utilities/QueryDatabase.js) para ejecutar una consulta SQL
  - [`Trace`](./src/Utilities/Trace.js) para tracear un método o función
+
+### Análisis de software
+
+Por defecto, `express-boilerplate` viene con 1 comando: `npm run seed` o `node src/Commands/Seed/Seed.js`. Y este fichero está al lado de otro: `src/Commands/Seed/Seed.smr`. Este tipo de ficheros responde a un lenguaje de programación particular de este proyecto: `semillero`. Los ficheros fuente están en `src/Resources/semillero.pegjs` y su homólogo `.js`.
+
+Para saber más sobre qué puedes hacer con semillero, tienes su documentación en otra parte de este proyecto: [semillero](./src/Resources/semillero.md).
+
+### Generador de documentación incluído
+
+Con `express-boilerplate` también tienes un generador de documentación basado en comentarios [`javadoc`](https://github.com/allnulled/javadoc). Solo tienes que hacer:
+
+```sh
+npm run build-documentation
+```
+
+### Generador de proyectos
+
+Con `express-boilerplate` también puedes clonar el proyecto. Así tener un *setup* rápido desde línea de comandos.

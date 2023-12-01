@@ -1,0 +1,22 @@
+{
+  "success": [
+    [
+      {
+        "_": [
+          ""
+        ],
+        "@type": [
+          " Function"
+        ],
+        "@parameter": [
+          " `api` "
+        ],
+        "@description": [
+          " Initializes an express app on `api.app`.\n"
+        ],
+        "file": "/home/carlos/Software/Nodejs/express-boilerplate/src/main.js"
+      }
+    ]
+  ],
+  "error": []
+}

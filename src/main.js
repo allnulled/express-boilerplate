@@ -4,6 +4,13 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const sqlite = require("sqlite3");
+/**
+ * 
+ * @type Function
+ * @parameter `api` 
+ * @description Initializes an express app on `api.app`.
+ * 
+ */
 const setupInitialization = async function (api) {
   api.app = express();
 };
