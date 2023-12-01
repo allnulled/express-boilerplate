@@ -1,11 +1,8 @@
 {
-    "name": "express-boilerplate",
+    "name": "@allnulled/express-boilerplate",
     "version": "0.0.5",
-    "description": "",
+    "description": "Proyecto minimalista en blanco basado en Node.jx + Express + SQLite",
     "main": "src/main.js",
-    "bin": {
-        "eboil-generate-project": "./src/Commands/GenerateProject/bin.js"
-    },
     "scripts": {
         "dev": "npx nodemon -w '**/*.js' -x 'npm start'",
         "build": "npm run build-parser && npm run build-ui",
