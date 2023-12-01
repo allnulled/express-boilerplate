@@ -32,7 +32,14 @@ Código fuente base para servidores basados en Node.js + Express + SQLite y fina
 
 ## Instalación
 
-Descarga el proyecto y ejecuta `npm install` para instalar las dependencias.
+Se recomienda descargar el proyecto y ejecutar `npm install` para instalar las dependencias.
+
+También puedes decargártelo por [npm](https://npmjs.com/@allnulled/express-boilerplate) y usar la línea de comandos para generar un nuevo proyecto:
+
+```
+npm install --global @allnulled/express-boilerplate
+cp ./node_modules/@allnulled/express-boilerplate ./new-project
+```
 
 ## Ejecución
 
