@@ -1,12 +1,12 @@
 {
   "name": "express-boilerplate",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "lockfileVersion": 3,
   "requires": true,
   "packages": {
     "": {
       "name": "express-boilerplate",
-      "version": "0.0.6",
+      "version": "0.0.7",
       "license": "WTFPL",
       "dependencies": {
         "@allnulled/check-that": "^0.0.2",
