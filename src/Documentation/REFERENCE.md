@@ -3,7 +3,6 @@
 ----
 
 
- - **_**: 
  - **@name**:  setupInitialization
  - **@type**:  Function
  - **@parameter**:  `api` 
@@ -14,7 +13,6 @@
 ----
 
 
- - **_**: 
  - **@name**:  setupConfigurations
  - **@type**:  Function
  - **@parameter**:  `api` 
@@ -25,7 +23,6 @@
 ----
 
 
- - **_**: 
  - **@name**:  setupUtilities
  - **@type**:  Function
  - **@parameter**:  `api` 
@@ -36,7 +33,6 @@
 ----
 
 
- - **_**: 
  - **@name**:  setupQueries
  - **@type**:  Function
  - **@parameter**:  `api` 
@@ -47,20 +43,28 @@
 ----
 
 
- - **_**: 
- - **@name**:  setupDatabaseConnection
+ - **@name**:  setupModels
  - **@type**:  Function
  - **@parameter**:  `api` 
- - **@description**:  Creates `api.Database` with:
- - api.Database.Connection
- - api.Database.Schema
- - api.Database.CompactedSchema
+ - **@description**:  Sets up all the models from `src/Models`.
+
  - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/main.js
 
 ----
 
 
- - **_**: 
+ - **@name**:  setupDatabaseConnection
+ - **@type**:  Function
+ - **@parameter**:  `api` 
+ - **@description**:  Creates `api.Database` with:
+  - api.Database.Connection
+  - api.Database.Schema
+  - api.Database.CompactedSchema
+ - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/main.js
+
+----
+
+
  - **@name**:  setupApplication
  - **@type**:  Function
  - **@parameter**:  `api` 
@@ -71,7 +75,6 @@
 ----
 
 
- - **_**: 
  - **@name**:  setupControllers
  - **@type**:  Function
  - **@parameter**:  `api` 
@@ -82,7 +85,6 @@
 ----
 
 
- - **_**: 
  - **@name**:  deployApplication
  - **@type**:  Function
  - **@parameter**:  `api` 
@@ -93,7 +95,6 @@
 ----
 
 
- - **_**: 
  - **@name**:  main
  - **@type**:  Function
  - **@parameter**:  `api` 
@@ -104,7 +105,6 @@
 ----
 
 
- - **_**: 
  - **@name**:  module.exports
  - **@type**:  Promise
  - **@description**:  Exports a call to `main()`.

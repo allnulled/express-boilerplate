@@ -122,13 +122,39 @@ const setupQueries = async function(api) {
 };
 /**
  * 
+ * @name setupModels
+ * @type Function
+ * @parameter `api` 
+ * @description Sets up all the models from `src/Models`.
+ * 
+ */
+const setupModels = async function(api) {
+  api.Models = {};
+  const files = fs.readdirSync(__dirname + "/Models");
+  for (let index = 0; index < files.length; index++) {
+    const file = files[index];
+    const filepath = path.resolve(__dirname + "/Models/" + file);
+    const modelName = file.replace(/\.js/g, "");
+    const modelModule = require(filepath);
+    const modelInstance = new modelModule(api);
+    ////////////////////////////////
+    // Dependency injection pattern:
+    modelInstance.api = api;
+    ////////////////////////////////
+    api.Models[modelName] = modelInstance;
+    console.log("[*] Modelo nº" + (index + 1) + ":");
+    console.log("    - Origen:      " + file);
+  }
+};
+/**
+ * 
  * @name setupDatabaseConnection
  * @type Function
  * @parameter `api` 
  * @description Creates `api.Database` with:
- *  - api.Database.Connection
- *  - api.Database.Schema
- *  - api.Database.CompactedSchema
+ *   - api.Database.Connection
+ *   - api.Database.Schema
+ *   - api.Database.CompactedSchema
  */
 const setupDatabaseConnection = async function (api) {
   let conexionBruta = undefined;
@@ -315,6 +341,7 @@ const main = async function (api = {}) {
     await setupConfigurations(api);
     await setupUtilities(api);
     await setupQueries(api);
+    await setupModels(api);
     await setupDatabaseConnection(api);
     await setupApplication(api);
     await setupControllers(api);

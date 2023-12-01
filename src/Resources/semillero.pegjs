@@ -6,6 +6,7 @@
       return emf;
     };
     const reductores = {
+      carpeta: function(sentencia) { return emf_definir_fichero( "mkdir " + sentencia.fichero, sentencia.contenido) },
       fichero: function(sentencia) { return emf_definir_fichero(sentencia.fichero, sentencia.contenido) },
       plantilla: function(sentencia) { return emf_definir_fichero(sentencia.fichero, sentencia.contenido) },
       controlador: function(sentencia) { return emf_definir_fichero(sentencia.fichero, sentencia.contenido) },
@@ -33,6 +34,7 @@
   Lenguaje = _* sentencias:Sentencia* _* { return reducir_ast(sentencias); }
   
   Sentencia =
+    Sentencia_de_Defino_carpeta /
     Sentencia_de_Defino_fichero /
     Sentencia_de_Defino_plantilla /
     Sentencia_de_Defino_controlador /
@@ -45,6 +47,13 @@
     Sentencia_de_Defino_libreria_de_interfaz /
     Sentencia_de_Defino_componente_de_interfaz
   
+  Sentencia_de_Defino_carpeta =
+    token1:(_* "Defino carpeta" _+ )
+    fichero:Negar_salto_de_linea
+    token2:EOS
+    token3:Subrayado?
+    contenido:Negar_sentencia
+      { return { tipo: "carpeta", fichero, contenido } }
   Sentencia_de_Defino_fichero =
     token1:(_* "Defino fichero" _+ )
     fichero:Negar_salto_de_linea

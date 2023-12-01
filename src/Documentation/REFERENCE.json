@@ -78,6 +78,24 @@
           ""
         ],
         "@name": [
+          " setupModels"
+        ],
+        "@type": [
+          " Function"
+        ],
+        "@parameter": [
+          " `api` "
+        ],
+        "@description": [
+          " Sets up all the models from `src/Models`.\n"
+        ],
+        "file": "/home/carlos/Software/Nodejs/express-boilerplate/src/main.js"
+      },
+      {
+        "_": [
+          ""
+        ],
+        "@name": [
           " setupDatabaseConnection"
         ],
         "@type": [
@@ -87,7 +105,7 @@
           " `api` "
         ],
         "@description": [
-          " Creates `api.Database` with:\n - api.Database.Connection\n - api.Database.Schema\n - api.Database.CompactedSchema"
+          " Creates `api.Database` with:\n  - api.Database.Connection\n  - api.Database.Schema\n  - api.Database.CompactedSchema"
         ],
         "file": "/home/carlos/Software/Nodejs/express-boilerplate/src/main.js"
       },

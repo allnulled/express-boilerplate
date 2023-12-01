@@ -20,8 +20,12 @@ require("javadoc").generate({
             out += "**: ";
             out += subitems;
           } else {
+            Iterating_subitems:
             for(let index_subitems=0; index_subitems<subitems.length; index_subitems++) {
               const subitem = subitems[index_subitems];
+              if(subitem.trim() === "") {
+                continue Iterating_subitems;
+              }
               out += "\n - **";
               out += key;
               out += "**: ";

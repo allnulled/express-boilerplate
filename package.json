@@ -3,6 +3,9 @@
   "version": "0.0.4",
   "description": "",
   "main": "src/main.js",
+  "bin": {
+    "eboil-generate-project": "./src/Commands/GenerateProject/bin.js"
+  },
   "scripts": {
     "dev": "npx nodemon -w '**/*.js' -x 'npm start'",
     "build": "npm run build-parser && npm run build-ui",
@@ -12,7 +15,7 @@
     "start": "node src/main.js",
     "test": "node test/test.js",
     "seed-project": "node src/Commands/SeedProject/SeedProject.js",
-    "generate-project": "node src/Commands/GenerateDocumentation/GenerateProject.js"
+    "generate-project": "node src/Commands/GenerateProject/GenerateProject.js"
   },
   "keywords": [],
   "author": "https://github.com/allnulled",

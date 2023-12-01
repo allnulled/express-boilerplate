@@ -16,6 +16,7 @@ Código fuente base para servidores basados en Node.js + Express + SQLite y fina
     - [Crear un controlador](#crear-un-controlador)
     - [Crear una utilidad](#crear-una-utilidad)
     - [Crear un modelo de dato](#crear-un-modelo-de-dato)
+    - [Crear un modelo de dato programático](#crear-un-modelo-de-dato-programático)
     - [Crear datos de migración inicial](#crear-datos-de-migración-inicial)
     - [Crear consulta](#crear-consulta)
     - [Crear un comando](#crear-un-comando)
@@ -130,6 +131,10 @@ La `api` (con `Utilities`) se inyecta en todas las clases de utilidad, una vez i
 
 En [`src/Database/scripts/creation.sql`](./src/Database/scripts/creation.sql) añades la tabla de datos que deseas.
 
+### Crear un modelo de dato programático
+
+En [`src/Models`](./src/Models) añades la clase de modelo que deseas. Debe tener el método `model`.
+
 ### Crear datos de migración inicial
 
 En [`src/Database/scripts/migration.sql`](./src/Database/scripts/migration.sql) añades la tabla de datos que deseas.
@@ -186,7 +191,7 @@ Unas pocas clases utilitarias:
 
 ### Análisis de software
 
-Por defecto, `express-boilerplate` viene con 1 comando: `npm run seed` o `node src/Commands/Seed/Seed.js`. Y este fichero está al lado de otro: `src/Commands/Seed/Seed.smr`. Este tipo de ficheros responde a un lenguaje de programación particular de este proyecto: `semillero`. Los ficheros fuente están en `src/Resources/semillero.pegjs` y su homólogo `.js`.
+Por defecto, `express-boilerplate` viene con 1 comando: `npm run seed-project` o `node src/Commands/SeedProject/SeedProject.js`. Y este fichero está al lado de otro: `src/Commands/SeedProject/SeedProject.smr`. Este tipo de ficheros responde a un lenguaje de programación particular de este proyecto: `semillero`. Los ficheros fuente están en `src/Resources/semillero.pegjs` y su homólogo `.js`.
 
 Para saber más sobre qué puedes hacer con semillero, tienes su documentación en otra parte de este proyecto: [semillero](./src/Documentation/SEMILLERO.md).
 
@@ -198,6 +203,16 @@ Con `express-boilerplate` también tienes un generador de documentación basado 
 npm run build-documentation
 ```
 
+Así puedes generar documentación en [`src/Documentation/REFERENCE.md`](./src/Documentation/REFERENCE.md).
+
 ### Generador de proyectos
 
 Con `express-boilerplate` también puedes clonar el proyecto. Así tener un *setup* rápido desde línea de comandos.
+
+Si instalas con la `-g` o el `--global` podrás hacer:
+
+```sh
+npx eboil-generate-project output
+```
+
+Y así crear un nuevo proyecto basado en éste. Pero también puedes hacerlo con el tradicional `git clone` o incluso a mano.
