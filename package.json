@@ -1,35 +1,36 @@
 {
-  "name": "express-boilerplate",
-  "version": "0.0.5",
-  "description": "",
-  "main": "src/main.js",
-  "bin": {
-    "eboil-generate-project": "./src/Commands/GenerateProject/bin.js"
-  },
-  "scripts": {
-    "dev": "npx nodemon -w '**/*.js' -x 'npm start'",
-    "build": "npm run build-parser && npm run build-ui",
-    "build-documentation": "node src/Commands/BuildDocumentation/BuildDocumentation.js",
-    "build-parser": "npx pegjs src/Resources/semillero.pegjs",
-    "build-ui": "cp src/Interface/www/index.1.html src/Interface/www/index.html",
-    "start": "node src/main.js",
-    "test": "node test/test.js",
-    "seed-project": "node src/Commands/SeedProject/SeedProject.js",
-    "generate-project": "node src/Commands/GenerateProject/GenerateProject.js"
-  },
-  "keywords": [],
-  "author": "https://github.com/allnulled",
-  "license": "WTFPL",
-  "dependencies": {
-    "@allnulled/check-that": "^0.0.2",
-    "basic-sql-query-builder-orm-framework": "^1.0.3",
-    "body-parser": "^1.20.2",
-    "cors": "^2.8.5",
-    "ejs": "^3.1.9",
-    "express": "^4.18.2",
-    "fs-extra": "^11.2.0",
-    "javadoc": "^2.0.2",
-    "sqlite3": "^5.1.6",
-    "sqlstring": "^2.3.3"
-  }
+    "name": "express-boilerplate",
+    "version": "0.0.5",
+    "description": "",
+    "main": "src/main.js",
+    "bin": {
+        "eboil-generate-project": "./src/Commands/GenerateProject/bin.js"
+    },
+    "scripts": {
+        "dev": "npx nodemon -w '**/*.js' -x 'npm start'",
+        "build": "npm run build-parser && npm run build-ui",
+        "build-documentation": "node src/Commands/BuildDocumentation/BuildDocumentation.js",
+        "build-parser": "npx pegjs src/Resources/semillero.pegjs",
+        "build-ui": "cp src/Interface/www/index.1.html src/Interface/www/index.html",
+        "start": "node src/main.js",
+        "test": "node test/test.js",
+        "seed-project": "node src/Commands/SeedProject/SeedProject.js",
+        "generate-project": "node src/Commands/GenerateProject/GenerateProject.js"
+    },
+    "keywords": [],
+    "author": "https://github.com/allnulled",
+    "license": "WTFPL",
+    "dependencies": {
+        "@allnulled/check-that": "^0.0.2",
+        "basic-sql-query-builder-orm-framework": "^1.0.3",
+        "body-parser": "^1.20.2",
+        "cors": "^2.8.5",
+        "ejs": "^3.1.9",
+        "express": "^4.18.2",
+        "fs-extra": "^11.2.0",
+        "javadoc": "^2.0.2",
+        "sqlite3": "^5.1.6",
+        "sqlstring": "^2.3.3"
+    },
+    "uuid_commit": 1
 }
