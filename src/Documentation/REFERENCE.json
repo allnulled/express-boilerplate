@@ -105,7 +105,7 @@
           " `api` "
         ],
         "@description": [
-          " Creates `api.Database` with:\n  - api.Database.Connection\n  - api.Database.Schema\n  - api.Database.CompactedSchema"
+          " Creates `api.Database` with:\n    - api.Database.Connection\n    - api.Database.Schema\n    - api.Database.CompactedSchema"
         ],
         "file": "/home/carlos/Software/Nodejs/express-boilerplate/src/main.js"
       },

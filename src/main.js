@@ -152,9 +152,9 @@ const setupModels = async function(api) {
  * @type Function
  * @parameter `api` 
  * @description Creates `api.Database` with:
- *   - api.Database.Connection
- *   - api.Database.Schema
- *   - api.Database.CompactedSchema
+ *     - api.Database.Connection
+ *     - api.Database.Schema
+ *     - api.Database.CompactedSchema
  */
 const setupDatabaseConnection = async function (api) {
   let conexionBruta = undefined;
