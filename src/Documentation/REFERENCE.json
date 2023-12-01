@@ -5,6 +5,9 @@
         "_": [
           ""
         ],
+        "@name": [
+          " setupInitialization"
+        ],
         "@type": [
           " Function"
         ],
@@ -13,6 +16,165 @@
         ],
         "@description": [
           " Initializes an express app on `api.app`.\n"
+        ],
+        "file": "/home/carlos/Software/Nodejs/express-boilerplate/src/main.js"
+      },
+      {
+        "_": [
+          ""
+        ],
+        "@name": [
+          " setupConfigurations"
+        ],
+        "@type": [
+          " Function"
+        ],
+        "@parameter": [
+          " `api` "
+        ],
+        "@description": [
+          " Initializes `process.env` variables from source and from `src/Configurations/.env`.\n"
+        ],
+        "file": "/home/carlos/Software/Nodejs/express-boilerplate/src/main.js"
+      },
+      {
+        "_": [
+          ""
+        ],
+        "@name": [
+          " setupUtilities"
+        ],
+        "@type": [
+          " Function"
+        ],
+        "@parameter": [
+          " `api` "
+        ],
+        "@description": [
+          " Sets up all the utilities from `src/Utilities`.\n"
+        ],
+        "file": "/home/carlos/Software/Nodejs/express-boilerplate/src/main.js"
+      },
+      {
+        "_": [
+          ""
+        ],
+        "@name": [
+          " setupQueries"
+        ],
+        "@type": [
+          " Function"
+        ],
+        "@parameter": [
+          " `api` "
+        ],
+        "@description": [
+          " Sets up all the queries from `src/Queries`.\n"
+        ],
+        "file": "/home/carlos/Software/Nodejs/express-boilerplate/src/main.js"
+      },
+      {
+        "_": [
+          ""
+        ],
+        "@name": [
+          " setupDatabaseConnection"
+        ],
+        "@type": [
+          " Function"
+        ],
+        "@parameter": [
+          " `api` "
+        ],
+        "@description": [
+          " Creates `api.Database` with:\n - api.Database.Connection\n - api.Database.Schema\n - api.Database.CompactedSchema"
+        ],
+        "file": "/home/carlos/Software/Nodejs/express-boilerplate/src/main.js"
+      },
+      {
+        "_": [
+          ""
+        ],
+        "@name": [
+          " setupApplication"
+        ],
+        "@type": [
+          " Function"
+        ],
+        "@parameter": [
+          " `api` "
+        ],
+        "@description": [
+          " Sets up the application, applying cors, body-parser and a static files middleware on \"/ui\" url path.\n"
+        ],
+        "file": "/home/carlos/Software/Nodejs/express-boilerplate/src/main.js"
+      },
+      {
+        "_": [
+          ""
+        ],
+        "@name": [
+          " setupControllers"
+        ],
+        "@type": [
+          " Function"
+        ],
+        "@parameter": [
+          " `api` "
+        ],
+        "@description": [
+          " Creates, injects, sorts and sets the controllers to the application.\n"
+        ],
+        "file": "/home/carlos/Software/Nodejs/express-boilerplate/src/main.js"
+      },
+      {
+        "_": [
+          ""
+        ],
+        "@name": [
+          " deployApplication"
+        ],
+        "@type": [
+          " Function"
+        ],
+        "@parameter": [
+          " `api` "
+        ],
+        "@description": [
+          " Deploys the express application.\n"
+        ],
+        "file": "/home/carlos/Software/Nodejs/express-boilerplate/src/main.js"
+      },
+      {
+        "_": [
+          ""
+        ],
+        "@name": [
+          " main"
+        ],
+        "@type": [
+          " Function"
+        ],
+        "@parameter": [
+          " `api` "
+        ],
+        "@description": [
+          " Defines the whole setup.\n"
+        ],
+        "file": "/home/carlos/Software/Nodejs/express-boilerplate/src/main.js"
+      },
+      {
+        "_": [
+          ""
+        ],
+        "@name": [
+          " module.exports"
+        ],
+        "@type": [
+          " Promise"
+        ],
+        "@description": [
+          " Exports a call to `main()`.\n"
         ],
         "file": "/home/carlos/Software/Nodejs/express-boilerplate/src/main.js"
       }

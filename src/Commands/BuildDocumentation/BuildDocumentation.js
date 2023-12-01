@@ -11,9 +11,13 @@ require("javadoc").generate({
       const file_match = reference.success[index];
       for(let index_match=0; index_match<file_match.length; index_match++) {
         const comment_match = file_match[index_match];
+        out += "\n\n----\n\n";
         for(let key in comment_match) {
           const subitems = comment_match[key];
           if(typeof subitems === "string") {
+            out += "\n - **";
+            out += key;
+            out += "**: ";
             out += subitems;
           } else {
             for(let index_subitems=0; index_subitems<subitems.length; index_subitems++) {

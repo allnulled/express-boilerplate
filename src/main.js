@@ -6,6 +6,7 @@ const cors = require("cors");
 const sqlite = require("sqlite3");
 /**
  * 
+ * @name setupInitialization
  * @type Function
  * @parameter `api` 
  * @description Initializes an express app on `api.app`.
@@ -14,6 +15,14 @@ const sqlite = require("sqlite3");
 const setupInitialization = async function (api) {
   api.app = express();
 };
+/**
+ * 
+ * @name setupConfigurations
+ * @type Function
+ * @parameter `api` 
+ * @description Initializes `process.env` variables from source and from `src/Configurations/.env`.
+ * 
+ */
 const setupConfigurations = async function (api) {
   process.env.APP_IDENTIFIER = "Express Boilerplate - Example";
   process.env.APP_PORT = 5054;
@@ -31,6 +40,14 @@ const setupConfigurations = async function (api) {
     }
   }
 };
+/**
+ * 
+ * @name setupUtilities
+ * @type Function
+ * @parameter `api` 
+ * @description Sets up all the utilities from `src/Utilities`.
+ * 
+ */
 const setupUtilities = async function (api) {
   api.Utilities = {};
   const files = fs.readdirSync(__dirname + "/Utilities");
@@ -63,6 +80,14 @@ const setupUtilities = async function (api) {
     }
   }
 };
+/**
+ * 
+ * @name setupQueries
+ * @type Function
+ * @parameter `api` 
+ * @description Sets up all the queries from `src/Queries`.
+ * 
+ */
 const setupQueries = async function(api) {
   api.Queries = {};
   const files = fs.readdirSync(__dirname + "/Queries");
@@ -95,6 +120,16 @@ const setupQueries = async function(api) {
     }
   }
 };
+/**
+ * 
+ * @name setupDatabaseConnection
+ * @type Function
+ * @parameter `api` 
+ * @description Creates `api.Database` with:
+ *  - api.Database.Connection
+ *  - api.Database.Schema
+ *  - api.Database.CompactedSchema
+ */
 const setupDatabaseConnection = async function (api) {
   let conexionBruta = undefined;
   if(process.env.DATABASE_RESET) {
@@ -178,11 +213,27 @@ const setupDatabaseConnection = async function (api) {
     await api.Utilities.InitializeDatabase();
   }
 };
+/**
+ * 
+ * @name setupApplication
+ * @type Function
+ * @parameter `api` 
+ * @description Sets up the application, applying cors, body-parser and a static files middleware on "/ui" url path.
+ * 
+ */
 const setupApplication = async function (api) {
   api.app.use(cors());
   api.app.use(bodyParser.json({ extended: true }));
   api.app.use("/ui", express.static(__dirname + "/Interface/www"));
 };
+/**
+ * 
+ * @name setupControllers
+ * @type Function
+ * @parameter `api` 
+ * @description Creates, injects, sorts and sets the controllers to the application.
+ * 
+ */
 const setupControllers = async function (api) {
   const files = fs.readdirSync(__dirname + "/Controllers");
   let controllers = [];
@@ -232,6 +283,14 @@ const setupControllers = async function (api) {
     api.app[controllerMethod](controllerRoute, controllerMiddlewares, controllerCallback);
   }
 };
+/**
+ * 
+ * @name deployApplication
+ * @type Function
+ * @parameter `api` 
+ * @description Deploys the express application.
+ * 
+ */
 const deployApplication = function (api) {
   return new Promise(function (ok, fail) {
     api.app.listen(process.env.APP_PORT, function () {
@@ -242,6 +301,14 @@ const deployApplication = function (api) {
     });
   })
 };
+/**
+ * 
+ * @name main
+ * @type Function
+ * @parameter `api` 
+ * @description Defines the whole setup.
+ * 
+ */
 const main = async function (api = {}) {
   try {
     await setupInitialization(api);
@@ -259,4 +326,11 @@ const main = async function (api = {}) {
   }
 };
 
+/**
+ * 
+ * @name module.exports
+ * @type Promise
+ * @description Exports a call to `main()`.
+ * 
+ */
 module.exports = main();

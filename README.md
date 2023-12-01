@@ -188,7 +188,7 @@ Unas pocas clases utilitarias:
 
 Por defecto, `express-boilerplate` viene con 1 comando: `npm run seed` o `node src/Commands/Seed/Seed.js`. Y este fichero está al lado de otro: `src/Commands/Seed/Seed.smr`. Este tipo de ficheros responde a un lenguaje de programación particular de este proyecto: `semillero`. Los ficheros fuente están en `src/Resources/semillero.pegjs` y su homólogo `.js`.
 
-Para saber más sobre qué puedes hacer con semillero, tienes su documentación en otra parte de este proyecto: [semillero](./src/Resources/semillero.md).
+Para saber más sobre qué puedes hacer con semillero, tienes su documentación en otra parte de este proyecto: [semillero](./src/Documentation/SEMILLERO.md).
 
 ### Generador de documentación incluído
 
