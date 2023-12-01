@@ -1,6 +1,6 @@
 {
   "name": "@allnulled/express-boilerplate",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Proyecto minimalista en blanco basado en Node.jx + Express + SQLite",
   "main": "src/main.js",
   "scripts": {
