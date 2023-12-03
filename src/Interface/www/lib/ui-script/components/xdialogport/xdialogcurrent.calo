@@ -1,10 +1,15 @@
-asigno uiscript_components.xparagraph como un componente vue2 con nombre "xparagraph" con plantilla {
-  <p class="Component xparagraph">
-    <slot></slot>
-  </p>
+asigno uiscript_components.xdialogcurrent como un componente vue2 con nombre "xdialogcurrent" con plantilla {
+  <div class="Component xdialogcurrent">
+
+  </div>
 } con lógica {
   retorno {
-    propiedad props como {}.
+    propiedad props como {
+      port: {
+        type: Object,
+        required: true
+      }
+    }.
     método data donde {
       retorno {}.
     }.

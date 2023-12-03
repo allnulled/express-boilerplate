@@ -1,11 +1,11 @@
 {
     "name": "@allnulled/express-boilerplate",
     "version": "0.0.7",
-    "description": "Proyecto minimalista en blanco basado en Node.jx + Express + SQLite",
+    "description": "Proyecto minimalista en blanco basado en Node.js + Express + SQLite",
     "main": "src/main.js",
     "scripts": {
         "dev": "npx nodemon -w '**/*.js' -x 'npm start'",
-        "build": "npm run build-parser && npm run build-ui",
+        "build": "npm run build-parser && npm run build-ui && npm run build-documentation",
         "build-documentation": "node src/Commands/BuildDocumentation/BuildDocumentation.js",
         "build-parser": "npx pegjs src/Resources/semillero.pegjs",
         "build-ui": "cp src/Interface/www/index.1.html src/Interface/www/index.html",

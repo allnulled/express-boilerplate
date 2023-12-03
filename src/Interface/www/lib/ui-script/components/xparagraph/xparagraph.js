@@ -1,15 +1,12 @@
 
-uiscript_components.xtester = Castelog.metodos.un_componente_vue2("xtester",
-  "<div class=\"Component xtester\">"
+uiscript_components.xparagraph = Castelog.metodos.un_componente_vue2("xparagraph",
+  "<p class=\"Component xparagraph\">"
  + "    <slot></slot>"
- + "  </div>",
-  function(component) {return { props:{ root:{ type:Object,
-required:true
-}
+ + "  </p>",
+  function(component) {return { props:{ 
 },
 data() {try {
-return { data:{ 
-}
+return { 
 };
 } catch(error) {
 console.log(error);
@@ -29,13 +26,7 @@ created() {
 },
 beforeMount() {
 },
-mounted() {try {
-window.xtesterr = this;
-} catch(error) {
-console.log(error);
-throw error;
-}
-
+mounted() {
 },
 beforeUpdate() {
 },

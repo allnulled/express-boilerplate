@@ -1,15 +1,14 @@
 
-uiscript_components.xtester = Castelog.metodos.un_componente_vue2("xtester",
-  "<div class=\"Component xtester\">"
- + "    <slot></slot>"
+uiscript_components.xdialogcurrent = Castelog.metodos.un_componente_vue2("xdialogcurrent",
+  "<div class=\"Component xdialogcurrent\">"
+ + ""
  + "  </div>",
-  function(component) {return { props:{ root:{ type:Object,
+  function(component) {return { props:{ port:{ type:Object,
 required:true
 }
 },
 data() {try {
-return { data:{ 
-}
+return { 
 };
 } catch(error) {
 console.log(error);
@@ -29,13 +28,7 @@ created() {
 },
 beforeMount() {
 },
-mounted() {try {
-window.xtesterr = this;
-} catch(error) {
-console.log(error);
-throw error;
-}
-
+mounted() {
 },
 beforeUpdate() {
 },

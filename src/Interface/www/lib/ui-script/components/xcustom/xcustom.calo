@@ -1,0 +1,54 @@
+asigno window.uiscript_api.xcustom como {}.
+asigno window.uiscript_api.xcustom.create_by_code como una función con (code) donde {
+  creo valores como window.eval('(function(){' + code + '})()').
+  retorno window.uiscript_api.xcustom.create(valores).
+}.
+asigno window.uiscript_api.xcustom.update_by_code como una función con (id, code) donde {
+  creo valores como window.eval('(function(){' + code + '})()').
+  retorno window.uiscript_api.xcustom.update(id, valores).
+}.
+asigno window.uiscript_api.xcustom.create como una función con (valores) donde {
+  creo id como "xcustom" + un texto aleatorio de 5 caracteres.
+  hago Vue.component(id, valores).
+  retorno id.
+}.
+asigno window.uiscript_api.xcustom.update como una función con (id, valores) donde {
+  hago Vue.component(id, valores).
+  retorno id.
+}.
+asigno window.uiscript_api.xcustom.delete como una función con (id) donde {
+  elimino propiedad Vue.options.components[id].
+  retorno true.
+}.
+asigno window.uiscript_api.xcustom.reset_component como una función con (component) donde {
+  asigno component.is_showing como false.
+  hago component.$forceUpdate(true).
+  hago setTimeout(una función donde {
+    asigno component.is_showing como true.
+    hago component.$forceUpdate(true).
+  }, 0).
+  retorno true.
+}.
+asigno uiscript_components.xcustom como un componente vue2 con nombre "xcustom" con plantilla {
+  <div class="Component xcustom">
+    <slot></slot>
+  </div>
+} con lógica {
+  retorno {
+    propiedad props como {}.
+    método data donde { retorno {}. }.
+    propiedad methods como {}.
+    propiedad watch como {}.
+    propiedad computed como {}.
+    método beforeCreate donde {}.
+    método created donde {}.
+    método beforeMount donde {}.
+    método mounted donde { asigno Vue.prototype.$xcustom como this. }.
+    método beforeUpdate donde {}.
+    método updated donde {}.
+    método beforeUnmount donde {}.
+    método unmounted donde {}.
+    método activated donde {}.
+    método deactivated donde {}.
+  }.
+}.

@@ -2,28 +2,244 @@
     <title>🌐 Interfaz de usuario</title>
     <meta charset="utf8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="lib/win7/win7.scoped.2.css" />
     <link rel="stylesheet" type="text/css" href="lib/ui-script/ui-script.css" />
+    <link rel="stylesheet" type="text/css" href="lib/win7/win7.scoped.2.css" />
     <script src="lib/calo/calo.js"></script>
     <script src="lib/ui-script/ui-script.js"></script>
-    <script src="lib/components/pagina_de_login/pagina_de_login.js"></script>
-    <script src="lib/components/pagina_de_inicio/pagina_de_inicio.js"></script>
     <style>
-      * {
-        font-family: Sans-serif;
-      }
-      html {
-        background-color: #444;
-      }
-      hr {
-        margin: 0;
-        border: none;
-        border-top: 1px solid #333;
+      h5 {
+        background-color: #333;
+        color: white;
+        padding: 12px;
+        margin: 0px;
+        font-size: 12px;
+        font-family: Arial;
       }
     </style>
 </head><body><div id="app"></div><script>
-// [castelog:html5izable] ACTIVADO con: {"autor":"allnulled","nombre":"index","version":"1","contenido":{"head":"<head>\n    <title>🌐 Interfaz de usuario</title>\n    <meta charset=\"utf8\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"lib/win7/win7.scoped.2.css\" />\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"lib/ui-script/ui-script.css\" />\n    &gt;script src=\"lib/calo/calo.js\">&gt;/script>\n    &gt;script src=\"lib/ui-script/ui-script.js\">&gt;/script>\n    &gt;script src=\"lib/components/pagina_de_login/pagina_de_login.js\">&gt;/script>\n    &gt;script src=\"lib/components/pagina_de_inicio/pagina_de_inicio.js\">&gt;/script>\n    <style>\n      * {\n        font-family: Sans-serif;\n      }\n      html {\n        background-color: #444;\n      }\n      hr {\n        margin: 0;\n        border: none;\n        border-top: 1px solid #333;\n      }\n    </style>\n</head>","body":"<body><div id=\"app\"></div></body>"}}
+// [castelog:html5izable] ACTIVADO con: {"autor":"allnulled","nombre":"index","version":"1","contenido":{"head":"<head>\n    <title>🌐 Interfaz de usuario</title>\n    <meta charset=\"utf8\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"lib/ui-script/ui-script.css\" />\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"lib/win7/win7.scoped.2.css\" />\n    &gt;script src=\"lib/calo/calo.js\">&gt;/script>\n    &gt;script src=\"lib/ui-script/ui-script.js\">&gt;/script>\n    <style>\n      h5 {\n        background-color: #333;\n        color: white;\n        padding: 12px;\n        margin: 0px;\n        font-size: 12px;\n        font-family: Arial;\n      }\n    </style>\n</head>","body":"<body><div id=\"app\"></div></body>"}}
 
+window.PaginaDeInicio = Castelog.metodos.un_componente_vue2("PaginaDeInicio",
+  "<div class=\"PaginaDeInicio Component\">"
+ + "    <xtitle>Inicio</xtitle>"
+ + "    <xlayout>"
+ + "      <ul>"
+ + "        <li>"
+ + "          <router-link to=\"/ver-salas\">Ver salas</router-link>"
+ + "        </li>"
+ + "        <li>"
+ + "          <router-link to=\"/ver-cocinas\">Ver cocinas</router-link>"
+ + "        </li>"
+ + "      </ul>"
+ + "    </xlayout>"
+ + "  </div>",
+  function(component) {return { props:{ root:{ type:Object,
+required:true
+}
+},
+data() {try {
+return { 
+};
+} catch(error) {
+console.log(error);
+throw error;
+}
+
+},
+methods:{ 
+},
+watch:{ 
+},
+computed:{ 
+},
+beforeCreate() {
+},
+created() {
+},
+beforeMount() {
+},
+mounted() {
+},
+beforeUpdate() {
+},
+updated() {
+},
+beforeUnmount() {
+},
+unmounted() {
+},
+activated() {
+},
+deactivated() {
+}
+};},
+  null);
+window.PaginaDeVerSalas = Castelog.metodos.un_componente_vue2("PaginaDeVerSalas",
+  "<div class=\"PaginaDeVerSalas Component\">"
+ + "    <xtitle>Ver salas</xtitle>"
+ + "    <xlayout>"
+ + "      <xparagraph>Ok...</xparagraph>"
+ + "    </xlayout>"
+ + "  </div>",
+  function(component) {return { props:{ root:{ type:Object,
+required:true
+}
+},
+data() {try {
+return { 
+};
+} catch(error) {
+console.log(error);
+throw error;
+}
+
+},
+methods:{ 
+},
+watch:{ 
+},
+computed:{ 
+},
+beforeCreate() {
+},
+created() {
+},
+beforeMount() {
+},
+mounted() {
+},
+beforeUpdate() {
+},
+updated() {
+},
+beforeUnmount() {
+},
+unmounted() {
+},
+activated() {
+},
+deactivated() {
+}
+};},
+  null);
+window.PaginaDeLogin = Castelog.metodos.un_componente_vue2("PaginaDeLogin",
+  "<div class=\"PaginaDeLogin Component\">"
+ + "    <xtitle>Login</xtitle>"
+ + "    <xstatic>"
+ + "      <xwindow>"
+ + "        <xwindowtitle>"
+ + "          Credenciales requeridas"
+ + "        </xwindowtitle>"
+ + "        <xwindowbody>"
+ + "          <xlayout>"
+ + "            <xpanel>"
+ + "              <xlabel>Nombre:</xlabel>"
+ + "              <input style=\"width:100%;\" type=\"text\" name=\"nombre\" v-model=\"nombre\" />"
+ + "            </xpanel>"
+ + "            <xpanel style=\"padding-top:8px;\">"
+ + "              <xlabel>Contraseña:</xlabel>"
+ + "              <input style=\"width:100%;\" type=\"password\" name=\"contrasenya\" v-model=\"contrasenya\" />"
+ + "            </xpanel>"
+ + "          </xlayout>"
+ + "          <hr style=\"border:none;border-top:1px solid #CCC;margin:4px;\" />"
+ + "          <xlayout style=\"text-align:right;\">"
+ + "            <button v-on:click=\"root.login(nombre, contrasenya)\">Entrar</button>"
+ + "          </xlayout>"
+ + "        </xwindowbody>"
+ + "        <xwindowfooter>✔ Cargado correctamente.</xwindowfooter>"
+ + "      </xwindow>"
+ + "    </xstatic>"
+ + "  </div>",
+  function(component) {return { props:{ root:{ type:Object,
+required:true
+}
+},
+data() {try {
+return { nombre:"admin",
+contrasenya:"admin"
+};
+} catch(error) {
+console.log(error);
+throw error;
+}
+
+},
+methods:{ 
+},
+watch:{ 
+},
+computed:{ 
+},
+beforeCreate() {
+},
+created() {
+},
+beforeMount() {
+},
+mounted() {
+},
+beforeUpdate() {
+},
+updated() {
+},
+beforeUnmount() {
+},
+unmounted() {
+},
+activated() {
+},
+deactivated() {
+}
+};},
+  null);
+window.PaginaDeVerCocinas = Castelog.metodos.un_componente_vue2("PaginaDeVerCocinas",
+  "<div class=\"PaginaDeVerCocinas Component\">"
+ + "    <xtitle>Ver cocinas</xtitle>"
+ + "    <xlayout>"
+ + "      <xparagraph>Ok...</xparagraph>"
+ + "    </xlayout>"
+ + "  </div>",
+  function(component) {return { props:{ root:{ type:Object,
+required:true
+}
+},
+data() {try {
+return { 
+};
+} catch(error) {
+console.log(error);
+throw error;
+}
+
+},
+methods:{ 
+},
+watch:{ 
+},
+computed:{ 
+},
+beforeCreate() {
+},
+created() {
+},
+beforeMount() {
+},
+mounted() {
+},
+beforeUpdate() {
+},
+updated() {
+},
+beforeUnmount() {
+},
+unmounted() {
+},
+activated() {
+},
+deactivated() {
+}
+};},
+  null);
 window.App = Castelog.metodos.una_aplicacion_vue2(
   "App",
   "<div class=\"App Component Castelog-app win7\">"
@@ -31,8 +247,9 @@ window.App = Castelog.metodos.una_aplicacion_vue2(
  + "      <router-view :root=\"this\"></router-view>"
  + "    </template>"
  + "    <template v-else=\"\">"
- + "      <PaginaDeLogin :root=\"this\" />"
+ + "      <PaginaDeLogin :root=\"this\"></PaginaDeLogin>"
  + "    </template>"
+ + "    <xdialogport></xdialogport>"
  + "  </div>",
   function(component) {return { data() {try {
 return { sesion_token:undefined
@@ -43,7 +260,12 @@ throw error;
 }
 
 },
-methods:{ 
+methods:{ async login( nombre,
+contrasenya ) {try {
+throw new Error( "Aquí hay errores" );
+} catch(error) {
+Vue.prototype.$dialogs.inform( error.name + " " + error.message );}
+}
 },
 watch:{ 
 },
@@ -60,7 +282,19 @@ mounted() {
 };},
   "html {}\n    body {}\n    .Component {}\n    .App {}\n",
   {},
-  [ { path:"/",
+  [ { path:"/ver-salas",
+name:"PaginaDeVerSalas",
+component:PaginaDeVerSalas,
+props:{ 
+}
+},
+{ path:"/ver-cocinas",
+name:"PaginaDeVerCocinas",
+component:PaginaDeVerCocinas,
+props:{ 
+}
+},
+{ path:"/",
 name:"PaginaDeInicio",
 component:PaginaDeInicio,
 props:{ 

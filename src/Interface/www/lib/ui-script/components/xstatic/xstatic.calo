@@ -1,7 +1,19 @@
-asigno uiscript_components.xparagraph como un componente vue2 con nombre "xparagraph" con plantilla {
-  <p class="Component xparagraph">
-    <slot></slot>
-  </p>
+asigno uiscript_components.xstatic como un componente vue2 con nombre "xstatic" con plantilla {
+  <div class="Component xstatic">
+    <div>
+      <table>
+        <tbody>
+          <tr>
+            <td>
+              <div>
+                <slot></slot>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 } con lógica {
   retorno {
     propiedad props como {}.
