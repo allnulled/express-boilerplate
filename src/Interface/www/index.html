@@ -23,62 +23,7 @@ window.PaginaDeInicio = Castelog.metodos.un_componente_vue2("PaginaDeInicio",
   "<div class=\"PaginaDeInicio Component\">"
  + "    <xtitle>Inicio</xtitle>"
  + "    <xlayout>"
- + "      <ul>"
- + "        <li>"
- + "          <router-link to=\"/ver-salas\">Ver salas</router-link>"
- + "        </li>"
- + "        <li>"
- + "          <router-link to=\"/ver-cocinas\">Ver cocinas</router-link>"
- + "        </li>"
- + "      </ul>"
- + "    </xlayout>"
- + "  </div>",
-  function(component) {return { props:{ root:{ type:Object,
-required:true
-}
-},
-data() {try {
-return { 
-};
-} catch(error) {
-console.log(error);
-throw error;
-}
-
-},
-methods:{ 
-},
-watch:{ 
-},
-computed:{ 
-},
-beforeCreate() {
-},
-created() {
-},
-beforeMount() {
-},
-mounted() {
-},
-beforeUpdate() {
-},
-updated() {
-},
-beforeUnmount() {
-},
-unmounted() {
-},
-activated() {
-},
-deactivated() {
-}
-};},
-  null);
-window.PaginaDeVerSalas = Castelog.metodos.un_componente_vue2("PaginaDeVerSalas",
-  "<div class=\"PaginaDeVerSalas Component\">"
- + "    <xtitle>Ver salas</xtitle>"
- + "    <xlayout>"
- + "      <xparagraph>Ok...</xparagraph>"
+ + "      "
  + "    </xlayout>"
  + "  </div>",
   function(component) {return { props:{ root:{ type:Object,
@@ -155,8 +100,10 @@ required:true
 }
 },
 data() {try {
-return { nombre:"admin",
-contrasenya:"admin"
+const { nombre, contrasenya
+} = this.obtener_credenciales_pasadas(  );
+return { nombre,
+contrasenya
 };
 } catch(error) {
 console.log(error);
@@ -164,55 +111,31 @@ throw error;
 }
 
 },
-methods:{ 
-},
-watch:{ 
-},
-computed:{ 
-},
-beforeCreate() {
-},
-created() {
-},
-beforeMount() {
-},
-mounted() {
-},
-beforeUpdate() {
-},
-updated() {
-},
-beforeUnmount() {
-},
-unmounted() {
-},
-activated() {
-},
-deactivated() {
+methods:{ obtener_credenciales_pasadas() {try {
+let datos_json = localStorage.__express_boilerplate_login_credentials__;
+if((!(typeof datos_json === 'string'))) {
+datos_json = '{"nombre":"","contrasenya":""}';
 }
-};},
-  null);
-window.PaginaDeVerCocinas = Castelog.metodos.un_componente_vue2("PaginaDeVerCocinas",
-  "<div class=\"PaginaDeVerCocinas Component\">"
- + "    <xtitle>Ver cocinas</xtitle>"
- + "    <xlayout>"
- + "      <xparagraph>Ok...</xparagraph>"
- + "    </xlayout>"
- + "  </div>",
-  function(component) {return { props:{ root:{ type:Object,
-required:true
-}
-},
-data() {try {
-return { 
-};
+const datos = JSON.parse(datos_json);
+return datos;
 } catch(error) {
 console.log(error);
 throw error;
 }
 
 },
-methods:{ 
+persistir_credenciales( nombre,
+contrasenya ) {try {
+localStorage.__express_boilerplate_login_credentials__ = JSON.stringify({ nombre,
+contrasenya
+}, null, 2);
+return true;
+} catch(error) {
+console.log(error);
+throw error;
+}
+
+}
 },
 watch:{ 
 },
@@ -247,7 +170,7 @@ window.App = Castelog.metodos.una_aplicacion_vue2(
  + "      <router-view :root=\"this\"></router-view>"
  + "    </template>"
  + "    <template v-else=\"\">"
- + "      <PaginaDeLogin :root=\"this\"></PaginaDeLogin>"
+ + "      <PaginaDeLogin :root=\"this\" ref=\"pagina_de_login\"></PaginaDeLogin>"
  + "    </template>"
  + "    <xdialogport></xdialogport>"
  + "  </div>",
@@ -262,9 +185,15 @@ throw error;
 },
 methods:{ async login( nombre,
 contrasenya ) {try {
-throw new Error( "Aquí hay errores" );
+const respuesta_login = (await Castelog.metodos.una_peticion_http("/Login", "POST", { nombre,
+contrasenya
+}, { 
+}, null, null));
+this.$refs.pagina_de_login.persistir_credenciales( nombre,
+contrasenya );
+this.sesion_token = respuesta_login.data.data.sesion.token;
 } catch(error) {
-Vue.prototype.$dialogs.inform( error.name + " " + error.message );}
+Vue.prototype.$dialogs.inform( "<xlayout>" + Vue.prototype.$dialogs.escapeHtml( error.name ) + " " + Vue.prototype.$dialogs.escapeHtml( error.message ) + "</xlayout>" );}
 }
 },
 watch:{ 
@@ -282,19 +211,7 @@ mounted() {
 };},
   "html {}\n    body {}\n    .Component {}\n    .App {}\n",
   {},
-  [ { path:"/ver-salas",
-name:"PaginaDeVerSalas",
-component:PaginaDeVerSalas,
-props:{ 
-}
-},
-{ path:"/ver-cocinas",
-name:"PaginaDeVerCocinas",
-component:PaginaDeVerCocinas,
-props:{ 
-}
-},
-{ path:"/",
+  [ { path:"/",
 name:"PaginaDeInicio",
 component:PaginaDeInicio,
 props:{ 
