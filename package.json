@@ -4,11 +4,13 @@
     "description": "Proyecto minimalista en blanco basado en Node.js + Express + SQLite",
     "main": "src/main.js",
     "scripts": {
-        "dev": "npx nodemon -w '**/*.js' -x 'npm start'",
-        "build": "npm run build-parser && npm run build-ui && npm run build-documentation",
+        "dev": "npx nodemon -e 'js,css' -w '**/*.js' -x 'npm start'",
+        "build": "npm run build-database-creation && npm run build-parser && npm run build-ui && npm run build-documentation && npm run build-styles",
+        "build-database-creation": "node src/Commands/BuildDatabaseCreation/BuildDatabaseCreation.js",
+        "build-styles": "node src/Commands/BuildStyles/BuildStyles.js",
         "build-documentation": "node src/Commands/BuildDocumentation/BuildDocumentation.js",
         "build-parser": "npx pegjs src/Resources/semillero.pegjs",
-        "build-ui": "cp src/Interface/www/index.1.html src/Interface/www/index.html",
+        "build-ui": "npx browserify src/Interface/www/lib/ui-script/components/api.js --outfile src/Interface/www/lib/ui-script/ui-script.js && cp src/Interface/www/index.1.html src/Interface/www/index.html",
         "start": "node src/main.js",
         "test": "node test/test.js",
         "seed-project": "node src/Commands/SeedProject/SeedProject.js",
@@ -19,13 +21,15 @@
     "license": "WTFPL",
     "dependencies": {
         "@allnulled/check-that": "^0.0.2",
-        "basic-sql-query-builder-orm-framework": "^1.0.3",
         "body-parser": "^1.20.2",
         "cors": "^2.8.5",
         "ejs": "^3.1.9",
         "express": "^4.18.2",
         "fs-extra": "^11.2.0",
         "javadoc": "^2.0.2",
+        "multer": "^1.4.5-lts.1",
+        "sequelize": "^6.35.1",
+        "socket.io": "^4.7.2",
         "sqlite3": "^5.1.6",
         "sqlstring": "^2.3.3"
     },
@@ -33,7 +37,6 @@
     "directories": {
         "test": "test"
     },
-    "devDependencies": {},
     "repository": {
         "type": "git",
         "url": "git+https://github.com/allnulled/express-boilerplate.git"

@@ -20,9 +20,16 @@
 }
 .xdialogport > div > table > tbody > tr > td > div {
     text-align: left;
+    max-width: 200px;
+    display: inline-block;
 }
-.xdialogport > div > table > tbody > tr > td > div > .xwindow {}
+.xdialogport > div > table > tbody > tr > td > div > .xwindow {
+
+}
 .xdialogport > div > table > tbody > tr > td > div > .xwindow > .xwindowbody {
-    min-height: 80px;
     overflow: scroll;
+}
+
+.xdialogport > div > table > tbody > tr > td > div > .xwindow {
+    color: black;
 }

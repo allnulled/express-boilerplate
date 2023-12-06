@@ -1,0 +1,37 @@
+asigno window.PaginaDeAyuda como un componente vue2 con nombre "PaginaDeAyuda" con plantilla {
+  <div class="Component PaginaDeAyuda">
+    <xtitle>Guía de ayuda</xtitle>
+    <xlayout>
+      <xlist>
+        <xlistitem>
+          <router-link to="/">
+            <button class="boton_ancho_izquierda boton_azul">Ir a inicio</button>
+          </router-link>
+        </xlistitem>
+      </xlist>
+    </xlayout>
+    <xlayoutnopaddingtop>
+      <xpanel>Tienes todo lo que necesitas saber en <a href="https://github.com/allnulled/express-boilerplate">https://github.com/allnulled/express-boilerplate</a>.</xpanel>
+    </xlayoutnopaddingtop>
+  </div>
+} con lógica {
+  retorno {
+    propiedad props como {}.
+    método data donde {
+      retorno {}.
+    }.
+    propiedad methods como {}.
+    propiedad watch como {}.
+    propiedad computed como {}.
+    método beforeCreate donde {}.
+    método created donde {}.
+    método beforeMount donde {}.
+    método mounted donde {}.
+    método beforeUpdate donde {}.
+    método updated donde {}.
+    método beforeUnmount donde {}.
+    método unmounted donde {}.
+    método activated donde {}.
+    método deactivated donde {}.
+  }.
+}.

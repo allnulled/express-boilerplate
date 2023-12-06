@@ -31,7 +31,7 @@ methods:{ generate_html_1( html,
 title,
 footer ) {try {
 let html_vue = "";
-html_vue += "<xwindow>";
+html_vue += "<xwindow style='min-width:200px;'>";
 html_vue += " <xwindowtitle>";
 html_vue += "  " + title;
 html_vue += " </xwindowtitle>";
@@ -61,7 +61,7 @@ footer,
 button_accept = "Aceptar",
 button_reject = "Cancelar" ) {try {
 let html_vue = "";
-html_vue += "<xwindow>";
+html_vue += "<xwindow style='min-width:200px;'>";
 html_vue += " <xwindowtitle>";
 html_vue += "  " + title;
 html_vue += " </xwindowtitle>";
@@ -98,7 +98,7 @@ title,
 footer,
 button_accept = "Aceptar" ) {try {
 let html_vue = "";
-html_vue += "<xwindow>";
+html_vue += "<xwindow style='min-width:200px;'>";
 html_vue += " <xwindowtitle>";
 html_vue += "  " + title;
 html_vue += " </xwindowtitle>";
@@ -494,6 +494,67 @@ this.reset(  );
 }
 this.$forceUpdate( true );
 return promise_handler.promise;
+} catch(error) {
+console.log(error);
+throw error;
+}
+
+},
+async error( error ) {try {
+const promise_handler = { 
+};
+promise_handler.ok = undefined;
+promise_handler.fail = undefined;
+promise_handler.promise = new Promise( ( ok2,
+fail2 ) => {try {
+promise_handler.ok = ok2;
+promise_handler.fail = fail2;
+} catch(error) {
+console.log(error);
+throw error;
+}
+
+} );
+let html = "";
+html += error.message;
+html += ". ";
+if(error && error.response && error.response.data && error.response.data.error) {
+html += ( error.response ? ( error.response.data.error.name + ": " + error.response.data.error.message ) : "" );
+}
+else {
+html += "";
+}
+html = this.escapeHtml( html );
+html = "<xlayout style='color: red;text-shadow: 0 0 2px red;'>" + html + "</xlayout>";
+const title = "Error de aplicación";
+const footer = "Hubo un error.";
+const button_accept = "De acuerdo";
+this.dialogs.push( { type:"inform",
+html,
+title,
+footer,
+button_accept,
+promise_handler
+} );
+if(this.dialogs.length === 1) {
+const dialogo_2 = this.dialogs[ 0 ];
+const html_vue = this.get_template_from_dialog( dialogo_2 );
+Vue.component( "xdialogcurrent",
+{ template:html_vue,
+
+...(this.obtener_subcomponente(  ) )
+} );
+this.reset(  );
+}
+this.$forceUpdate( true );
+return promise_handler.promise.then( () => {try {
+return error;
+} catch(error) {
+console.log(error);
+throw error;
+}
+
+} );
 } catch(error) {
 console.log(error);
 throw error;

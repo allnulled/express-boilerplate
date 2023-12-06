@@ -1,6 +1,7 @@
 module.exports = class {
     action(response, error) {
         this.api.Utilities.Trace("api.Utilities.DispatchError");
+        console.log(error);
         return response.status(500).json({
             app: process.env.APP_IDENTIFIER,
             time: this.api.Utilities.GetDateToString(new Date()),

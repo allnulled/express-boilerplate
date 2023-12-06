@@ -28,22 +28,26 @@ Código fuente base para servidores basados en Node.js + Express + SQLite y fina
     - [Clases utilitarias](#clases-utilitarias)
     - [Análisis de software](#análisis-de-software)
     - [Generador de documentación incluído](#generador-de-documentación-incluído)
-    - [Generador de proyectos](#generador-de-proyectos)
+
 
 ## Instalación
 
-Se recomienda descargar el proyecto y ejecutar `npm install` para instalar las dependencias.
+Por consola sería así:
 
-También puedes decargártelo por [npm](https://npmjs.com/@allnulled/express-boilerplate) y usar la línea de comandos para generar un nuevo proyecto:
+```sh
+git clone https://github.com/allnulled/express-boilerplate .
+npm install
+```
 
-```
-npm install --global @allnulled/express-boilerplate
-cp ./node_modules/@allnulled/express-boilerplate ./new-project
-```
+Pero puedes descargarte el proyecto a mano, perscindiendo de `git` en la línea de comandos. El `npm install` es necesario, así que debes tener instalado `npm` y `node`.
 
 ## Ejecución
 
-Para ejecutarlo simplemente `npm start`.
+Para ejecutarlo simplemente 
+
+```sh
+npm start
+```
 
 ## Filosofía
 
@@ -215,18 +219,4 @@ npm run build-documentation
 ```
 
 Así puedes generar documentación en [`src/Documentation/REFERENCE.md`](./src/Documentation/REFERENCE.md).
-
-### Generador de proyectos
-
-Con `express-boilerplate` también puedes clonar el proyecto. Así tener un *setup* rápido desde línea de comandos.
-
-También lo puedes hacer desde npm:
-
-```sh
-npm run generate-project ../output
-```
-
-Y así crear un nuevo proyecto basado en éste, fuera de éste.
-
-Pero todo esto también puedes hacerlo con el tradicional `git clone` + `npm install`, o descomprimiendo una descarga manual + `npm install`.
 

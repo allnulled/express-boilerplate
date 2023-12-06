@@ -75,6 +75,16 @@
 ----
 
 
+ - **@name**:  setupMiddlewares
+ - **@type**:  Function
+ - **@parameter**:  `api` 
+ - **@description**:  Creates, injects, sorts and sets the controllers to the application.
+
+ - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/main.js
+
+----
+
+
  - **@name**:  setupControllers
  - **@type**:  Function
  - **@parameter**:  `api` 

@@ -1,0 +1,121 @@
+asigno window.PaginaDeCrearItem como un componente vue2 con nombre "PaginaDeCrearItem" con plantilla {
+  <div class="Component PaginaDeCrearItem">
+    <xtitle>Crear ítem «{{ $route.params.tabla }}»</xtitle>
+    <xlayout>
+      <xlist>
+        <xlistitem>
+          <router-link to="/">
+            <button class="boton_ancho_izquierda boton_azul">Ir a inicio</button>
+          </router-link>
+        </xlistitem>
+        <xlistitem>
+          <router-link to="/administracion">
+            <button class="boton_ancho_izquierda boton_azul">Ir al panel de administración</button>
+          </router-link>
+        </xlistitem>
+        <xlistitem>
+          <router-link :to="'/abrir-tabla/' + $route.params.tabla">
+            <button class="boton_ancho_izquierda boton_azul">Ir a abrir tabla «{{ $route.params.tabla }}»</button>
+          </router-link>
+        </xlistitem>
+      </xlist>
+    </xlayout>
+    <xlayoutnopaddingtop>
+      <template v-for="field, field_index in fields">
+        <xpanel style="padding-top:12px;" v-bind:key="'field-' + field_index" v-if="field.columna !== 'id'">
+          <xpanel style="font-weight:bold;text-decoration:underline;">{{ field.columna }}:</xpanel>
+          <xpanel v-if="false">
+            --- Input rendering ---
+          </xpanel>
+          <xpanel v-else-if="root.compacted_schema[ $route.params.tabla ].composicion[field.columna].atributos.es_tipo === 'color'">
+            <input :ref="'color_' + $route.params.tabla" style="display:none;width:100%;" type="color" v-model="item[field.columna]" />
+            <button class="width_100" v-on:click="() => {$refs['color_' + $route.params.tabla][0].click() }">
+              <span style="min-height:15px;min-width:30px;width:50%;display:inline-block;border-radius:4pt;" :style="'background-color:' + (item[field.columna] || '#333')">
+                {{ item[field.columna] }}
+              </span>
+            </button>
+          </xpanel>
+          <xpanel v-else-if="root.compacted_schema[ $route.params.tabla ].composicion[field.columna].atributos.es_tipo === 'color'">
+            <input style="width:100%;" type="color" v-model="item[field.columna]" />
+          </xpanel>
+          <xpanel v-else-if="root.compacted_schema[ $route.params.tabla ].composicion[field.columna].tipo === 'VARCHAR'">
+            <input style="width:100%;" type="text" v-model="item[field.columna]" />
+          </xpanel>
+          <xpanel v-else-if="root.compacted_schema[ $route.params.tabla ].composicion[field.columna].tipo === 'INTEGER'">
+            <input style="width:100%;" type="number" v-model="item[field.columna]" />
+          </xpanel>
+          <xpanel v-else-if="root.compacted_schema[ $route.params.tabla ].composicion[field.columna].tipo === 'FLOAT'">
+            <input style="width:100%;" type="number" v-model="item[field.columna]" />
+          </xpanel>
+          <xpanel v-else-if="root.compacted_schema[ $route.params.tabla ].composicion[field.columna].tipo === 'TEXT'">
+            <textarea style="width:100%;min-height:80px;resize:vertical;" v-model="item[field.columna]"></textarea>
+          </xpanel>
+          <xpanel v-else-if="root.compacted_schema[ $route.params.tabla ].composicion[field.columna].tipo === 'DATETIME'">
+            <input style="width:100%;" type="datetime-local" v-model="item[field.columna]" />
+          </xpanel>
+          <xpanel v-else-if="false">
+            --- END OF Input rendering ---
+          </xpanel>
+        </xpanel>
+      </template>
+    </xlayoutnopaddingtop>
+    <xseparator/>
+    <xlayout>
+      <button class="boton_verde" style="width:100%;" v-on:click="crear_item">Crear ítem «{{ $route.params.tabla }}»</button>
+    </xlayout>
+  </div>
+} con lógica {
+  retorno {
+    propiedad props como {
+      propiedad root como {
+        propiedad type como Object.
+        propiedad required como true.
+      }.
+    }.
+    método data donde {
+      debugo "PaginaDeCrearItem.data".
+      retorno {
+        fields: [],
+        item: {}
+      }.
+    }.
+    propiedad methods como {
+      método asíncrono crear_item donde {
+        debugo "PaginaDeCrearItem.crear_item".
+        creo item como this.item.
+        creo respuesta_crear_item como asíncronamente una petición http
+          con url "/Insert"
+          con método "POST"
+          con cuerpo {
+            table: this.$route.params.tabla,
+            item
+          }
+          con cabeceras { authorization: this.root.sesion_token }
+          en errores retorno Vue.prototype.$dialogs.error(error).
+        si respuesta_crear_item es instancia de Error retorno.
+        hago this.$router.history.push("/abrir-fila/" + this.$route.params.tabla + "/" + respuesta_crear_item.data.data.id).
+      }.
+    }.
+    propiedad watch como {}.
+    propiedad computed como {}.
+    método beforeCreate donde {}.
+    método created donde {}.
+    método beforeMount donde {}.
+    método asíncrono mounted donde {
+      debugo "PaginaDeCrearItem.mounted".
+      asigno this.fields como (un conjunto de valores del objeto this.root.compacted_schema[this.$route.params.tabla].composicion).filter(una lambda con (columna) donde retorno no columna.columna.startsWith("$")).
+      asigno this.item como this.fields.reduce(una lambda con (salida, field) donde {
+        si field.columna.startsWith("$") retorno salida.
+        si field.columna es igual que "id" retorno salida.
+        asigno salida[field.columna] como "".
+        retorno salida.
+      }, {}).
+    }.
+    método beforeUpdate donde {}.
+    método updated donde {}.
+    método beforeUnmount donde {}.
+    método unmounted donde {}.
+    método activated donde {}.
+    método deactivated donde {}.
+  }.
+}.

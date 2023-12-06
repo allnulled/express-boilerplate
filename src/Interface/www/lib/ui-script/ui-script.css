@@ -7,6 +7,7 @@
     font-family: 9pt Segoe UI,sans-serif;
 }
 
+
 .xdialogport {}
 .xdialogport > div {
     position: fixed;
@@ -29,13 +30,19 @@
 }
 .xdialogport > div > table > tbody > tr > td > div {
     text-align: left;
+    max-width: 200px;
+    display: inline-block;
 }
-.xdialogport > div > table > tbody > tr > td > div > .xwindow {}
+.xdialogport > div > table > tbody > tr > td > div > .xwindow {
+
+}
 .xdialogport > div > table > tbody > tr > td > div > .xwindow > .xwindowbody {
-    min-height: 80px;
     overflow: scroll;
 }
 
+.xdialogport > div > table > tbody > tr > td > div > .xwindow {
+    color: black;
+}
 
 .xformfield .form_group {
     padding: 8px;
@@ -84,6 +91,16 @@
     color: rgb(151, 151, 255);
 }
 
+.xlist {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.xlist {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
 .Component.xpage {
     display: block;
     text-align: center;
@@ -112,6 +129,10 @@
 }
 
 
+.xseparator {
+    border: none;
+    border-top: 1px solid #8F8F8F;
+}
 .xstatic {}
 .xstatic > div {
     position: fixed;
@@ -141,6 +162,17 @@
     background-color: #444;
     color: white;
 }
+.xtable {
+    border-collapse: collapse;
+}
+
+.xtable > thead > tr > th {
+    padding: 12px;
+}
+.xtable > tbody > tr > td {
+    padding: 4px;
+}
+
 
 
 

@@ -1,7 +1,4 @@
-[x] Versión 0.0.2
-  [x] IndexController para redireccionar a index.html
-  [x] Controlllers/ControllerForIndex para devolver index.html
-  [x] Controlllers/ControllerForTemplates para devolver plantillas ejs
-  [x] Controlllers/Esquema para devolver esquema de bd
-  [x] Utilities/DispatchErrorAsHtml
-  [x] Utilities/DispatchSuccessAsHtml
+# TODO:
+
+ [ ] Sistema de filtros de pagina_de_abrir_tabla
+ [ ] Sistema de ordenación de pagina_de_abrir_tabla

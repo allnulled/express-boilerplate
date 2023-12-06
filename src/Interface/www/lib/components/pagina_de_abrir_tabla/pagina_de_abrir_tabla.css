@@ -1,0 +1,23 @@
+.xtable.tabla_de_datos > thead > tr > th {
+    padding: 12px;
+    border: 1px solid #333;
+    background-color: #222;
+    color: white;
+}
+.xtable.tabla_de_datos > tbody > tr > td {
+    padding: 4px;
+    background-color: #C2C2C2;
+    color: #222;
+    border: 1px solid #333;
+}
+.chivato_de_cuenta {
+    background-color: red;
+    color: white;
+    font-size: 10px;
+    float: right;
+    border-radius: 50%;
+    width: 14px;
+    height: 14px;
+    text-align: center;
+    font-weight: bold;
+}

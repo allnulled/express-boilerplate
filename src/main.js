@@ -210,11 +210,30 @@ const setupDatabaseConnection = async function (api) {
   api.Database.CompactedSchema = (function() {
     try {
       const esquema_compacto = {};
+      const compactar_atributos = function(item) {
+        const attrs = item.atributos || [];
+        item.propiedades = {};
+        for(let index_attr=0; index_attr<attrs.length; index_attr++) {
+          const attr = attrs[index_attr];
+          const posicion = attr.indexOf(":");
+          if(posicion === -1) {
+            item.propiedades[attr] = true;
+          } else {
+            const key = attr.substr(0, posicion).trim();
+            const value = attr.substr(posicion+1).trim();
+            item.propiedades[key] = value;
+          }
+        }
+        delete item.atributos;
+        item.atributos = item.propiedades;
+        delete item.propiedades;
+      };
       for(let index=0; index<esquema.length; index++) {
-        const tabla = esquema[index];
+        const tabla = Object.assign({}, esquema[index]);
+        compactar_atributos(tabla);
         const columnas = {};
         for(let index_columna=0; index_columna<tabla.composicion.length; index_columna++) {
-          const columna = tabla.composicion[index_columna];
+          const columna = Object.assign({}, tabla.composicion[index_columna]);
           const es_columna = columna.sentencia === "columna";
           const es_clave_foranea = columna.sentencia === "clave foránea";
           columna.orden = index_columna;
@@ -223,6 +242,7 @@ const setupDatabaseConnection = async function (api) {
           } else if(es_clave_foranea) {
             columnas["$" + columna.columna + "$" + columna.tabla_foranea + "$" + columna.columna_foranea] = columna;
           }
+          compactar_atributos(columna);
         }
         tabla.composicion = columnas;
         esquema_compacto[tabla.tabla] = tabla;
@@ -233,6 +253,8 @@ const setupDatabaseConnection = async function (api) {
       console.log(error);
     }
   })();
+  fs.writeFileSync(__dirname + "/Database/structures/schema.compacted.json", JSON.stringify(api.Database.CompactedSchema, null, 2), "utf8");
+  fs.writeFileSync(__dirname + "/Database/structures/schema.json", JSON.stringify(api.Database.Schema, null, 2), "utf8");
   console.log("[*] Esquema de datos compacto: (api.Database.CompactedSchema)");
   console.log(api.Database.CompactedSchema);
   if(process.env.DATABASE_RESET) {
@@ -251,6 +273,30 @@ const setupApplication = async function (api) {
   api.app.use(cors());
   api.app.use(bodyParser.json({ extended: true }));
   api.app.use("/ui", express.static(__dirname + "/Interface/www"));
+};
+/**
+ * 
+ * @name setupMiddlewares
+ * @type Function
+ * @parameter `api` 
+ * @description Creates, injects, sorts and sets the controllers to the application.
+ * 
+ */
+const setupMiddlewares = async function (api) {
+  const files = fs.readdirSync(__dirname + "/Middlewares");
+  api.Middlewares = {};
+  for (let index = 0; index < files.length; index++) {
+    const file = files[index];
+    const filepath = path.resolve(__dirname + "/Middlewares/" + file);
+    const middlewareName = file.replace(/\.js/g, "");
+    const middlewareModule = require(filepath);
+    const middlewareInstance = new middlewareModule(api);
+    ////////////////////////////////
+    // Dependency injection pattern:
+    middlewareInstance.api = api;
+    ////////////////////////////////
+    api.Middlewares[middlewareName] = middlewareInstance.factory(api);
+  }
 };
 /**
  * 
@@ -322,7 +368,7 @@ const deployApplication = function (api) {
     api.app.listen(process.env.APP_PORT, function () {
       console.log("[*] App escuchando en:");
       console.log("    - http://127.0.0.1:" + process.env.APP_PORT);
-      console.log("    - http://127.0.0.1:" + process.env.APP_PORT + "/ui");
+      console.log("    - http://127.0.0.1:" + process.env.APP_PORT + "/ui/index.1.html");
       ok();
     });
   })
@@ -344,6 +390,7 @@ const main = async function (api = {}) {
     await setupModels(api);
     await setupDatabaseConnection(api);
     await setupApplication(api);
+    await setupMiddlewares(api);
     await setupControllers(api);
     await deployApplication(api);
   } catch (error) {

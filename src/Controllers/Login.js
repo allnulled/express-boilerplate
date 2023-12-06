@@ -13,25 +13,27 @@ module.exports = class {
     }
     
     async dispatch(request, response, next) {
-        this.api.Utilities.Trace("api.Controllers.Login");
+        this.api.Utilities.Trace("api.Controllers.Login.dispatch");
         try {
             const { nombre, contrasenya } = this.getLoginParameters(request);
             const sesionActiva = await this.getActiveSession(nombre, contrasenya);
             if(sesionActiva !== false) {
-                return this.api.Utilities.DispatchSuccess(response, {
-                    sesion: { token: sesionActiva.token }
-                });
+                request.headers.authorization = sesionActiva.token;
+                console.log(sesionActiva.token);
+                await this.api.Utilities.AuthenticateRequest(request);
+                return this.api.Utilities.DispatchSuccess(response, request.$$authentication);
             }
             const token = await this.createActiveSession(nombre, contrasenya);
-            return this.api.Utilities.DispatchSuccess(response, {
-                sesion: { token }
-            });
+            request.headers.authorization = token;
+            await this.api.Utilities.AuthenticateRequest(request);
+            return this.api.Utilities.DispatchSuccess(response, request.$$authentication);
         } catch (error) {
             return this.api.Utilities.DispatchError(response, error);
         }
     }
 
     getLoginParameters(request) {
+        this.api.Utilities.Trace("api.Controllers.Login.getLoginParameters");
         const nombre = this.api.Utilities.GetRequestParameter(request, "nombre", false);
         const contrasenya = this.api.Utilities.GetRequestParameter(request, "contrasenya", false);
         if(typeof nombre !== "string") {
@@ -44,6 +46,7 @@ module.exports = class {
     }
 
     async getActiveSession(nombre, contrasenya) {
+        this.api.Utilities.Trace("api.Controllers.Login.getActiveSession");
         const usuario = await this.getUserByNameAndPassword(nombre, contrasenya);
         let sql = "";
         sql += "SELECT * FROM Sesion WHERE id_usuario = ";
@@ -57,6 +60,7 @@ module.exports = class {
     }
 
     async createActiveSession(nombre, contrasenya) {
+        this.api.Utilities.Trace("api.Controllers.Login.createActiveSession");
         const usuario = await this.getUserByNameAndPassword(nombre, contrasenya);
         const nuevoToken = this.api.Utilities.GetRandomString(99);
         let sql = "";
@@ -70,6 +74,7 @@ module.exports = class {
     }
 
     async getUserByNameAndPassword(nombre, contrasenya) {
+        this.api.Utilities.Trace("api.Controllers.Login.getUserByNameAndPassword");
         let sql = "";
         sql += "SELECT * FROM Usuario WHERE nombre = ";
         sql += sqlstring.escape(nombre);

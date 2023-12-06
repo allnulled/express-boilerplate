@@ -1,0 +1,238 @@
+[
+  {
+    "tabla": "Usuario",
+    "atributos": [],
+    "composicion": [
+      {
+        "sentencia": "columna",
+        "columna": "id",
+        "tipo": "INTEGER",
+        "detalles": "PRIMARY KEY AUTOINCREMENT",
+        "atributos": []
+      },
+      {
+        "sentencia": "columna",
+        "columna": "nombre",
+        "tipo": "VARCHAR",
+        "detalles": "(255) UNIQUE",
+        "atributos": []
+      },
+      {
+        "sentencia": "columna",
+        "columna": "contrasenya",
+        "tipo": "VARCHAR",
+        "detalles": "(255)",
+        "atributos": []
+      },
+      {
+        "sentencia": "columna",
+        "columna": "correo",
+        "tipo": "VARCHAR",
+        "detalles": "(255)",
+        "atributos": []
+      }
+    ],
+    "script": "CREATE TABLE Usuario (\n    id INTEGER PRIMARY KEY AUTOINCREMENT,\n    nombre VARCHAR(255) UNIQUE,\n    contrasenya VARCHAR(255),\n    correo VARCHAR(255)\n);"
+  },
+  {
+    "tabla": "Permiso",
+    "atributos": [],
+    "composicion": [
+      {
+        "sentencia": "columna",
+        "columna": "id",
+        "tipo": "INTEGER",
+        "detalles": "PRIMARY KEY AUTOINCREMENT",
+        "atributos": []
+      },
+      {
+        "sentencia": "columna",
+        "columna": "nombre",
+        "tipo": "VARCHAR",
+        "detalles": "(255)",
+        "atributos": []
+      },
+      {
+        "sentencia": "columna",
+        "columna": "descripcion",
+        "tipo": "VARCHAR",
+        "detalles": "(511)",
+        "atributos": []
+      }
+    ],
+    "script": "\n\nCREATE TABLE Permiso (\n    id INTEGER PRIMARY KEY AUTOINCREMENT,\n    nombre VARCHAR(255),\n    descripcion VARCHAR(511)\n);"
+  },
+  {
+    "tabla": "Permiso_de_usuario",
+    "atributos": [],
+    "composicion": [
+      {
+        "sentencia": "columna",
+        "columna": "id",
+        "tipo": "INTEGER",
+        "detalles": "PRIMARY KEY AUTOINCREMENT",
+        "atributos": []
+      },
+      {
+        "sentencia": "columna",
+        "columna": "id_usuario",
+        "tipo": "INTEGER",
+        "detalles": "",
+        "atributos": []
+      },
+      {
+        "sentencia": "columna",
+        "columna": "id_permiso",
+        "tipo": "INTEGER",
+        "detalles": "",
+        "atributos": []
+      },
+      {
+        "sentencia": "clave foránea",
+        "columna": "id_usuario",
+        "tabla_foranea": "Usuario",
+        "columna_foranea": "id"
+      },
+      {
+        "sentencia": "clave foránea",
+        "columna": "id_permiso",
+        "tabla_foranea": "Permiso",
+        "columna_foranea": "id"
+      }
+    ],
+    "script": "\n\nCREATE TABLE Permiso_de_usuario (\n    id INTEGER PRIMARY KEY AUTOINCREMENT,\n    id_usuario INTEGER,\n    id_permiso INTEGER,\n    FOREIGN KEY (id_usuario) REFERENCES Usuario (id),\n    FOREIGN KEY (id_permiso) REFERENCES Permiso (id)\n);"
+  },
+  {
+    "tabla": "Sesion",
+    "atributos": [],
+    "composicion": [
+      {
+        "sentencia": "columna",
+        "columna": "id",
+        "tipo": "INTEGER",
+        "detalles": "PRIMARY KEY AUTOINCREMENT",
+        "atributos": []
+      },
+      {
+        "sentencia": "columna",
+        "columna": "token",
+        "tipo": "VARCHAR",
+        "detalles": "(100)",
+        "atributos": []
+      },
+      {
+        "sentencia": "columna",
+        "columna": "id_usuario",
+        "tipo": "INTEGER",
+        "detalles": "",
+        "atributos": []
+      },
+      {
+        "sentencia": "clave foránea",
+        "columna": "id_usuario",
+        "tabla_foranea": "Usuario",
+        "columna_foranea": "id"
+      }
+    ],
+    "script": "\n\nCREATE TABLE Sesion (\n    id INTEGER PRIMARY KEY AUTOINCREMENT,\n    token VARCHAR(100),\n    id_usuario INTEGER,\n    FOREIGN KEY (id_usuario) REFERENCES Usuario (id)\n);"
+  },
+  {
+    "tabla": "Blog_post",
+    "atributos": [],
+    "composicion": [
+      {
+        "sentencia": "columna",
+        "columna": "id",
+        "tipo": "INTEGER",
+        "detalles": "PRIMARY KEY AUTOINCREMENT",
+        "atributos": []
+      },
+      {
+        "sentencia": "columna",
+        "columna": "titulo",
+        "tipo": "VARCHAR",
+        "detalles": "(255)",
+        "atributos": [
+          "tipo: Texto normal",
+          "tipo-en-formulario: text",
+          "descripcion: El título del post del blog.",
+          "maximo-de-texto: 100",
+          "minimo-de-texto: 1"
+        ]
+      },
+      {
+        "sentencia": "columna",
+        "columna": "subtitulo",
+        "tipo": "VARCHAR",
+        "detalles": "(512)",
+        "atributos": []
+      },
+      {
+        "sentencia": "columna",
+        "columna": "contenido",
+        "tipo": "TEXT",
+        "detalles": "",
+        "atributos": []
+      },
+      {
+        "sentencia": "columna",
+        "columna": "fecha_de_creacion",
+        "tipo": "DATETIME",
+        "detalles": "",
+        "atributos": []
+      }
+    ],
+    "script": "\nCREATE TABLE Blog_post (\n  id INTEGER PRIMARY KEY AUTOINCREMENT,\n  titulo VARCHAR(255) /*\n    @tipo: Texto normal\n    @tipo-en-formulario: text\n    @descripcion: El título del post del blog.\n    @maximo-de-texto: 100\n    @minimo-de-texto: 1\n  */,\n  subtitulo VARCHAR(512),\n  contenido TEXT,\n  fecha_de_creacion DATETIME\n);"
+  },
+  {
+    "tabla": "Blog_comentario_de_post",
+    "atributos": [],
+    "composicion": [
+      {
+        "sentencia": "columna",
+        "columna": "id",
+        "tipo": "INTEGER",
+        "detalles": "PRIMARY KEY AUTOINCREMENT",
+        "atributos": []
+      },
+      {
+        "sentencia": "columna",
+        "columna": "contenido",
+        "tipo": "TEXT",
+        "detalles": "",
+        "atributos": []
+      },
+      {
+        "sentencia": "columna",
+        "columna": "fecha_de_creacion",
+        "tipo": "DATETIME",
+        "detalles": "",
+        "atributos": []
+      }
+    ],
+    "script": "\n\nCREATE TABLE Blog_comentario_de_post (\n  id INTEGER PRIMARY KEY AUTOINCREMENT,\n  contenido TEXT,\n  fecha_de_creacion DATETIME\n);"
+  },
+  {
+    "tabla": "Ejemplo_de_columna",
+    "atributos": [],
+    "composicion": [
+      {
+        "sentencia": "columna",
+        "columna": "id",
+        "tipo": "INTEGER",
+        "detalles": "PRIMARY KEY AUTOINCREMENT",
+        "atributos": []
+      },
+      {
+        "sentencia": "columna",
+        "columna": "color",
+        "tipo": "VARCHAR",
+        "detalles": "(32)",
+        "atributos": [
+          "es_tipo: color"
+        ]
+      }
+    ],
+    "script": "\nCREATE TABLE Ejemplo_de_columna (\n  id INTEGER PRIMARY KEY AUTOINCREMENT,\n  color VARCHAR(32) /*\n    @es_tipo: color\n  */\n);"
+  }
+]

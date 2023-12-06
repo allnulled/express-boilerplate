@@ -2,7 +2,7 @@ module.exports = class {
 
     method = "use";
     
-    route = "^/Demo";
+    route = "^/Environment";
 
     priority = 5000;
     
@@ -11,7 +11,7 @@ module.exports = class {
     }
     
     async dispatch(request, response, next) {
-        this.api.Utilities.Trace("api.Controllers.Demo");
+        this.api.Utilities.Trace("api.Controllers.Environment");
         return this.api.Utilities.DispatchSuccess(response, {
             envvars: process.env
         });

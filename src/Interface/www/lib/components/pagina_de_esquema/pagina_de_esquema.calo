@@ -1,0 +1,76 @@
+asigno window.PaginaDeEsquema como un componente vue2 con nombre "PaginaDeEsquema" con plantilla {
+  <div class="Component PaginaDeEsquema">
+    <xtitle>Crear ítem «{{ $route.params.tabla }}»</xtitle>
+    <xlayout>
+      <xlist>
+        <xlistitem>
+          <router-link to="/">
+            <button class="boton_ancho_izquierda boton_azul">Ir a inicio</button>
+          </router-link>
+        </xlistitem>
+      </xlist>
+    </xlayout>
+    <xlayoutnopaddingtop>
+      <template v-for="table, table_name in root.compacted_schema">
+        <xpanel style="" v-bind:key="'table-' + table_name">
+          <button class="boton_ancho_izquierda boton_verde" v-on:click="() => alternar_mostrar(table.tabla)">{{ table.tabla }}</button>
+          <xpanel v-if="esta_mostrando.indexOf(table.tabla) !== -1">
+            <template v-for="column, column_name in table.composicion">
+              <xpanel style="" v-bind:key="'column-' + table_name + '-' + column_name" style="padding-left:8px;" v-if="column.sentencia === 'columna'">
+                <button class="boton_ancho_izquierda" v-on:click="() => alternar_mostrar(table.tabla + '.' + column.columna)">{{ column.columna }}</button>
+                <xlayout v-if="esta_mostrando.indexOf(table.tabla + '.' + column.columna) !== -1">
+                  <xpanel><span style="font-weight:bold;">Tipo:</span> {{ column.tipo }}</xpanel>
+                  <xpanel><span style="font-weight:bold;">Detalles:</span> {{ column.detalles }}</xpanel>
+                  <xpanel><span style="font-weight:bold;">Atributos:</span> </xpanel>
+                  <template v-for="attribute, attribute_name in column.atributos">
+                    <xpanel v-bind:key="'atributo-' + table_name + '-' + column_name + '-' + attribute_name">
+                      <span style="font-weight:bold;">- {{ attribute_name }}:</span> <span>{{ attribute }}</span>
+                    </xpanel>
+                  </template>
+                </xlayout>
+              </xpanel>
+            </template>
+          </xpanel>
+        </xpanel>
+      </template>
+    </xlayoutnopaddingtop>
+  </div>
+} con lógica {
+  retorno {
+    propiedad props como {
+      propiedad root como {
+        propiedad type como Object.
+        propiedad required como true.
+      }.
+    }.
+    método data donde {
+      debugo "PaginaDeEsquema.data".
+      retorno {
+        esta_mostrando: []
+      }.
+    }.
+    propiedad methods como {
+      método asíncrono alternar_mostrar con (item) donde {
+        debugo "PaginaDeEsquema.alternar_mostrar".
+        creo posicion como this.esta_mostrando.indexOf(item).
+        si posicion es igual que 0-1 {
+          hago this.esta_mostrando.push(item).
+        } y si no {
+          hago this.esta_mostrando.splice(posicion, 1).
+        }.
+      }.
+    }.
+    propiedad watch como {}.
+    propiedad computed como {}.
+    método beforeCreate donde {}.
+    método created donde {}.
+    método beforeMount donde {}.
+    método asíncrono mounted donde {}.
+    método beforeUpdate donde {}.
+    método updated donde {}.
+    método beforeUnmount donde {}.
+    método unmounted donde {}.
+    método activated donde {}.
+    método deactivated donde {}.
+  }.
+}.

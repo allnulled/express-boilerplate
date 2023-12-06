@@ -132,6 +132,24 @@
           ""
         ],
         "@name": [
+          " setupMiddlewares"
+        ],
+        "@type": [
+          " Function"
+        ],
+        "@parameter": [
+          " `api` "
+        ],
+        "@description": [
+          " Creates, injects, sorts and sets the controllers to the application.\n"
+        ],
+        "file": "/home/carlos/Software/Nodejs/express-boilerplate/src/main.js"
+      },
+      {
+        "_": [
+          ""
+        ],
+        "@name": [
           " setupControllers"
         ],
         "@type": [

@@ -1,154 +1,10 @@
 
-// [castelog:html5izable] ACTIVADO con: {"autor":"allnulled","nombre":"index","version":"1","contenido":{"head":"<head>\n    <title>🌐 Interfaz de usuario</title>\n    <meta charset=\"utf8\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"lib/ui-script/ui-script.css\" />\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"lib/win7/win7.scoped.2.css\" />\n    <script src=\"lib/calo/calo.js\"></script>\n    <script src=\"lib/ui-script/ui-script.js\"></script>\n    <style>\n      h5 {\n        background-color: #333;\n        color: white;\n        padding: 12px;\n        margin: 0px;\n        font-size: 12px;\n        font-family: Arial;\n      }\n    </style>\n</head>","body":"<body><div id=\"app\"></div></body>"}}
+// [castelog:html5izable] ACTIVADO con: {"autor":"allnulled","nombre":"index","version":"1","contenido":{"head":"<head>\n    <title>🌐 Interfaz de usuario</title>\n    <meta charset=\"utf8\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"lib/ui-script/ui-script.css\" />\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"lib/win7/win7.scoped.2.css\" />\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"lib/components/pagina_de_administracion/pagina_de_administracion.css\" />\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"lib/components/pagina_de_ayuda/pagina_de_ayuda.css\" />\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"lib/components/pagina_de_inicio/pagina_de_inicio.css\" />\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"lib/components/pagina_de_login/pagina_de_login.css\" />\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"lib/components/pagina_de_abrir_tabla/pagina_de_abrir_tabla.css\" />\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"lib/components/pagina_de_abrir_fila/pagina_de_abrir_fila.css\" />\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"lib/components/pagina_de_crear_item/pagina_de_crear_item.css\" />\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"lib/components/pagina_de_esquema/pagina_de_esquema.css\" />\n    \n    <script src=\"lib/calo/calo.js\"></script>\n    <script src=\"lib/ui-script/ui-script.js\"></script>\n    <script src=\"lib/components/pagina_de_administracion/pagina_de_administracion.js\"></script>\n    <script src=\"lib/components/pagina_de_ayuda/pagina_de_ayuda.js\"></script>\n    <script src=\"lib/components/pagina_de_inicio/pagina_de_inicio.js\"></script>\n    <script src=\"lib/components/pagina_de_login/pagina_de_login.js\"></script>\n    <script src=\"lib/components/pagina_de_abrir_tabla/pagina_de_abrir_tabla.js\"></script>\n    <script src=\"lib/components/pagina_de_abrir_fila/pagina_de_abrir_fila.js\"></script>\n    <script src=\"lib/components/pagina_de_crear_item/pagina_de_crear_item.js\"></script>\n    <script src=\"lib/components/pagina_de_esquema/pagina_de_esquema.js\"></script>\n    <style>\n      html {\n        background-color: #555;\n        color: white;\n      }\n      * {\n        font: 9pt Segoe UI,Sans-serif;\n      }\n      h5 {\n        background-color: #333;\n        color: white;\n        padding: 12px;\n        margin: 0px;\n        font-size: 12px;\n        font-family: Arial;\n      }\n      .width_100 {\n        width: 100%;\n      }\n      .boton_ancho_centro {\n        width: 100%;\n        margin-top: 4px;\n        text-align: center;\n      }\n      .boton_ancho_izquierda {\n        width: 100%;\n        margin-top: 4px;\n        text-align: left !important;\n      }\n      .win7 button.boton_verde {\n        background: linear-gradient(180deg,#b0d2a1 45%,#91db86 0,#71935e);\n        border: 1px solid #8eff8f;\n        outline: none;\n      }\n      .win7 button.boton_verde:hover,\n      .win7 button.boton_verde.active {\n        background: linear-gradient(180deg,#83ff56 45%,#77e373 0);\n        border-color: #40b13c;\n      }\n      .win7 button.boton_azul {\n        background: linear-gradient(180deg,#a5e2ff 45%,#bdb8ff 0,#00c3d7);\n        border: 1px solid #7aecff;\n        outline: none;\n      }\n      .win7 button.boton_azul:hover,\n      .win7 button.boton_azul.active {\n        background: linear-gradient(180deg,#6ccfff 45%,#46c8f0 0);\n        border-color: #6363ff;\n      }\n      .win7 button.boton_rojo {\n        background: linear-gradient(180deg,#f2adad 45%,#faa 0,#e62626);\n        border: 1px solid #7aecff;\n        outline: none;\n      }\n      .win7 button.boton_rojo:hover,\n      .win7 button.boton_rojo.active {\n        background: linear-gradient(180deg,#f97777 45%,#ff4e4e 0);\n        border-color: #ff6363;\n      }\n      .padding_top_1 {\n        padding-top: 4px;\n      }\n      .padding_bottom_1 {\n        padding-bottom: 4px;\n      }\n      .margin_left_1 {\n        margin-left: 4px;\n      }\n      .margin_right_1 {\n        margin-right: 4px;\n      }\n      .margin_top_1 {\n        margin-top: 4px;\n      }\n      .margin_bottom_1 {\n        margin-bottom: 4px;\n      }\n    </style>\n</head>","body":"<body><div id=\"app\"></div></body>"}}
 
-window.PaginaDeInicio = Castelog.metodos.un_componente_vue2("PaginaDeInicio",
-  "<div class=\"PaginaDeInicio Component\">"
- + "    <xtitle>Inicio</xtitle>"
- + "    <xlayout>"
- + "      "
- + "    </xlayout>"
- + "  </div>",
-  function(component) {return { props:{ root:{ type:Object,
-required:true
-}
-},
-data() {try {
-return { 
-};
-} catch(error) {
-console.log(error);
-throw error;
-}
-
-},
-methods:{ 
-},
-watch:{ 
-},
-computed:{ 
-},
-beforeCreate() {
-},
-created() {
-},
-beforeMount() {
-},
-mounted() {
-},
-beforeUpdate() {
-},
-updated() {
-},
-beforeUnmount() {
-},
-unmounted() {
-},
-activated() {
-},
-deactivated() {
-}
-};},
-  null);
-window.PaginaDeLogin = Castelog.metodos.un_componente_vue2("PaginaDeLogin",
-  "<div class=\"PaginaDeLogin Component\">"
- + "    <xtitle>Login</xtitle>"
- + "    <xstatic>"
- + "      <xwindow>"
- + "        <xwindowtitle>"
- + "          Credenciales requeridas"
- + "        </xwindowtitle>"
- + "        <xwindowbody>"
- + "          <xlayout>"
- + "            <xpanel>"
- + "              <xlabel>Nombre:</xlabel>"
- + "              <input style=\"width:100%;\" type=\"text\" name=\"nombre\" v-model=\"nombre\" />"
- + "            </xpanel>"
- + "            <xpanel style=\"padding-top:8px;\">"
- + "              <xlabel>Contraseña:</xlabel>"
- + "              <input style=\"width:100%;\" type=\"password\" name=\"contrasenya\" v-model=\"contrasenya\" />"
- + "            </xpanel>"
- + "          </xlayout>"
- + "          <hr style=\"border:none;border-top:1px solid #CCC;margin:4px;\" />"
- + "          <xlayout style=\"text-align:right;\">"
- + "            <button v-on:click=\"root.login(nombre, contrasenya)\">Entrar</button>"
- + "          </xlayout>"
- + "        </xwindowbody>"
- + "        <xwindowfooter>✔ Cargado correctamente.</xwindowfooter>"
- + "      </xwindow>"
- + "    </xstatic>"
- + "  </div>",
-  function(component) {return { props:{ root:{ type:Object,
-required:true
-}
-},
-data() {try {
-const { nombre, contrasenya
-} = this.obtener_credenciales_pasadas(  );
-return { nombre,
-contrasenya
-};
-} catch(error) {
-console.log(error);
-throw error;
-}
-
-},
-methods:{ obtener_credenciales_pasadas() {try {
-let datos_json = localStorage.__express_boilerplate_login_credentials__;
-if((!(typeof datos_json === 'string'))) {
-datos_json = '{"nombre":"","contrasenya":""}';
-}
-const datos = JSON.parse(datos_json);
-return datos;
-} catch(error) {
-console.log(error);
-throw error;
-}
-
-},
-persistir_credenciales( nombre,
-contrasenya ) {try {
-localStorage.__express_boilerplate_login_credentials__ = JSON.stringify({ nombre,
-contrasenya
-}, null, 2);
-return true;
-} catch(error) {
-console.log(error);
-throw error;
-}
-
-}
-},
-watch:{ 
-},
-computed:{ 
-},
-beforeCreate() {
-},
-created() {
-},
-beforeMount() {
-},
-mounted() {
-},
-beforeUpdate() {
-},
-updated() {
-},
-beforeUnmount() {
-},
-unmounted() {
-},
-activated() {
-},
-deactivated() {
-}
-};},
-  null);
 window.App = Castelog.metodos.una_aplicacion_vue2(
   "App",
   "<div class=\"App Component Castelog-app win7\">"
- + "    <template v-if=\"sesion_token\">"
+ + "    <template v-if=\"sesion_token && compacted_schema\">"
  + "      <router-view :root=\"this\"></router-view>"
  + "    </template>"
  + "    <template v-else=\"\">"
@@ -157,7 +13,9 @@ window.App = Castelog.metodos.una_aplicacion_vue2(
  + "    <xdialogport></xdialogport>"
  + "  </div>",
   function(component) {return { data() {try {
-return { sesion_token:undefined
+return { original_schema:undefined,
+compacted_schema:undefined,
+sesion_token:undefined
 };
 } catch(error) {
 console.log(error);
@@ -165,22 +23,43 @@ throw error;
 }
 
 },
-methods:{ async login( nombre,
+methods:{ async obtener_schema() {try {
+console.log('[DEBUG]', "App.obtener_schema");
+const respuesta_schema = (await Castelog.metodos.una_peticion_http("/Schema", "POST", { 
+}, { authorization:this.sesion_token
+}, null, error => {
+Vue.prototype.$dialogs.error( error );}));
+if(respuesta_schema instanceof Error) {
+return;
+}
+this.original_schema = respuesta_schema.data.data.esquema.original;
+this.compacted_schema = respuesta_schema.data.data.esquema.compacto;
+} catch(error) {
+Vue.prototype.$dialogs.error( error );}
+},
+async login( nombre,
 contrasenya ) {try {
+console.log('[DEBUG]', "App.login");
 const respuesta_login = (await Castelog.metodos.una_peticion_http("/Login", "POST", { nombre,
 contrasenya
 }, { 
-}, null, null));
+}, null, error => {
+return Vue.prototype.$dialogs.error( error );}));
+if(respuesta_login instanceof Error) {
+return;
+}
 this.$refs.pagina_de_login.persistir_credenciales( nombre,
 contrasenya );
 this.sesion_token = respuesta_login.data.data.sesion.token;
+(await this.obtener_schema(  ));
 } catch(error) {
-Vue.prototype.$dialogs.inform( "<xlayout>" + Vue.prototype.$dialogs.escapeHtml( error.name ) + " " + Vue.prototype.$dialogs.escapeHtml( error.message ) + "</xlayout>" );}
+Vue.prototype.$dialogs.error( error );}
 }
 },
 watch:{ 
 },
 beforeMount() {try {
+console.log('[DEBUG]', "App.beforeMount");
 this.$window = window;
 } catch(error) {
 console.log(error);
@@ -196,6 +75,42 @@ mounted() {
   [ { path:"/",
 name:"PaginaDeInicio",
 component:PaginaDeInicio,
+props:{ 
+}
+},
+{ path:"/administracion",
+name:"PaginaDeAdministracion",
+component:PaginaDeAdministracion,
+props:{ 
+}
+},
+{ path:"/abrir-tabla/:tabla",
+name:"PaginaDeAbrirTabla",
+component:PaginaDeAbrirTabla,
+props:{ 
+}
+},
+{ path:"/abrir-fila/:tabla/:fila",
+name:"PaginaDeAbrirFila",
+component:PaginaDeAbrirFila,
+props:{ 
+}
+},
+{ path:"/crear-item/:tabla",
+name:"PaginaDeCrearItem",
+component:PaginaDeCrearItem,
+props:{ 
+}
+},
+{ path:"/ayuda",
+name:"PaginaDeAyuda",
+component:PaginaDeAyuda,
+props:{ 
+}
+},
+{ path:"/esquema",
+name:"PaginaDeEsquema",
+component:PaginaDeEsquema,
 props:{ 
 }
 } ],

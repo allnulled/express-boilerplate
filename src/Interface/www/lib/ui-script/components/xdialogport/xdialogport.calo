@@ -29,7 +29,7 @@ asigno uiscript_components.xdialogport como un componente vue2 con nombre "xdial
     propiedad methods como {
       método generate_html_1 con (html, title, footer) donde {
         creo variable html_vue como "".
-        incremento html_vue en "<xwindow>".
+        incremento html_vue en "<xwindow style='min-width:200px;'>".
         incremento html_vue en " <xwindowtitle>".
         incremento html_vue en "  " + title.
         incremento html_vue en " </xwindowtitle>".
@@ -51,7 +51,7 @@ asigno uiscript_components.xdialogport como un componente vue2 con nombre "xdial
 
       método generate_html_2 con (html, title, footer, button_accept o en su defecto "Aceptar", button_reject o en su defecto "Cancelar") donde {
         creo variable html_vue como "".
-        incremento html_vue en "<xwindow>".
+        incremento html_vue en "<xwindow style='min-width:200px;'>".
         incremento html_vue en " <xwindowtitle>".
         incremento html_vue en "  " + title.
         incremento html_vue en " </xwindowtitle>".
@@ -81,7 +81,7 @@ asigno uiscript_components.xdialogport como un componente vue2 con nombre "xdial
 
       método generate_html_3 con (html, title, footer, button_accept o en su defecto "Aceptar") donde {
         creo variable html_vue como "".
-        incremento html_vue en "<xwindow>".
+        incremento html_vue en "<xwindow style='min-width:200px;'>".
         incremento html_vue en " <xwindowtitle>".
         incremento html_vue en "  " + title.
         incremento html_vue en " </xwindowtitle>".
@@ -311,6 +311,46 @@ asigno uiscript_components.xdialogport como un componente vue2 con nombre "xdial
         }.
         hago this.$forceUpdate(true).
         retorno promise_handler.promise.
+      }.
+
+      método asíncrono error con (error) donde {
+        creo promise_handler como {}.
+        asigno promise_handler.ok como undefined.
+        asigno promise_handler.fail como undefined.
+        asigno promise_handler.promise como una nueva Promise(una lambda con (ok2, fail2) donde {
+          asigno promise_handler.ok como ok2.
+          asigno promise_handler.fail como fail2.
+        }).
+        creo variable html como "".
+        incremento html en error.message.
+        incremento html en ". ".
+        si error y error.response y error.response.data y error.response.data.error {
+          incremento html en cuando error.response entonces (error.response.data.error.name + ": " + error.response.data.error.message) si no "".
+        } y si no {
+          incremento html en "".
+        }.
+      
+        asigno html como this.escapeHtml(html).
+        asigno html como "<xlayout style='color: red;text-shadow: 0 0 2px red;'>" + html + "</xlayout>".
+        creo title como "Error de aplicación".
+        creo footer como "Hubo un error.".
+        creo button_accept como "De acuerdo".
+        hago this.dialogs.push({
+          type: "inform",
+          html,
+          title,
+          footer,
+          button_accept,
+          promise_handler
+        }).
+        si this.dialogs.length es igual que 1 {
+          creo dialogo_2 como this.dialogs[0].
+          creo html_vue como this.get_template_from_dialog(dialogo_2).
+          hago Vue.component("xdialogcurrent", { template: html_vue, ...incluyo this.obtener_subcomponente() }).
+          hago this.reset().
+        }.
+        hago this.$forceUpdate(true).
+        retorno promise_handler.promise.then(una lambda donde retorno error).
       }.
 
       método escapeHtml con (texto) donde {

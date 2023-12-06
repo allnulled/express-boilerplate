@@ -7,7 +7,7 @@ module.exports = class {
     priority = 5000;
     
     getMiddleware() {
-        return [];
+        return [this.api.Middlewares.AuthenticateRequest];
     }
     
     async dispatch(request, response, next) {

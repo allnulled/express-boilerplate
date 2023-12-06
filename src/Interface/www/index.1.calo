@@ -8,9 +8,33 @@ Ejecutable como documento HTML5
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="lib/ui-script/ui-script.css" />
     <link rel="stylesheet" type="text/css" href="lib/win7/win7.scoped.2.css" />
+    <link rel="stylesheet" type="text/css" href="lib/components/pagina_de_administracion/pagina_de_administracion.css" />
+    <link rel="stylesheet" type="text/css" href="lib/components/pagina_de_ayuda/pagina_de_ayuda.css" />
+    <link rel="stylesheet" type="text/css" href="lib/components/pagina_de_inicio/pagina_de_inicio.css" />
+    <link rel="stylesheet" type="text/css" href="lib/components/pagina_de_login/pagina_de_login.css" />
+    <link rel="stylesheet" type="text/css" href="lib/components/pagina_de_abrir_tabla/pagina_de_abrir_tabla.css" />
+    <link rel="stylesheet" type="text/css" href="lib/components/pagina_de_abrir_fila/pagina_de_abrir_fila.css" />
+    <link rel="stylesheet" type="text/css" href="lib/components/pagina_de_crear_item/pagina_de_crear_item.css" />
+    <link rel="stylesheet" type="text/css" href="lib/components/pagina_de_esquema/pagina_de_esquema.css" />
+    
     <script src="lib/calo/calo.js"></script>
     <script src="lib/ui-script/ui-script.js"></script>
+    <script src="lib/components/pagina_de_administracion/pagina_de_administracion.js"></script>
+    <script src="lib/components/pagina_de_ayuda/pagina_de_ayuda.js"></script>
+    <script src="lib/components/pagina_de_inicio/pagina_de_inicio.js"></script>
+    <script src="lib/components/pagina_de_login/pagina_de_login.js"></script>
+    <script src="lib/components/pagina_de_abrir_tabla/pagina_de_abrir_tabla.js"></script>
+    <script src="lib/components/pagina_de_abrir_fila/pagina_de_abrir_fila.js"></script>
+    <script src="lib/components/pagina_de_crear_item/pagina_de_crear_item.js"></script>
+    <script src="lib/components/pagina_de_esquema/pagina_de_esquema.js"></script>
     <style>
+      html {
+        background-color: #555;
+        color: white;
+      }
+      * {
+        font: 9pt Segoe UI,Sans-serif;
+      }
       h5 {
         background-color: #333;
         color: white;
@@ -19,118 +43,105 @@ Ejecutable como documento HTML5
         font-size: 12px;
         font-family: Arial;
       }
+      .width_100 {
+        width: 100%;
+      }
+      .boton_ancho_centro {
+        width: 100%;
+        margin-top: 4px;
+        text-align: center;
+      }
+      .boton_ancho_izquierda {
+        width: 100%;
+        margin-top: 4px;
+        text-align: left !important;
+      }
+      .win7 button.boton_verde {
+        background: linear-gradient(180deg,#b0d2a1 45%,#91db86 0,#71935e);
+        border: 1px solid #8eff8f;
+        outline: none;
+      }
+      .win7 button.boton_verde:hover,
+      .win7 button.boton_verde.active {
+        background: linear-gradient(180deg,#83ff56 45%,#77e373 0);
+        border-color: #40b13c;
+      }
+      .win7 button.boton_azul {
+        background: linear-gradient(180deg,#a5e2ff 45%,#bdb8ff 0,#00c3d7);
+        border: 1px solid #7aecff;
+        outline: none;
+      }
+      .win7 button.boton_azul:hover,
+      .win7 button.boton_azul.active {
+        background: linear-gradient(180deg,#6ccfff 45%,#46c8f0 0);
+        border-color: #6363ff;
+      }
+      .win7 button.boton_rojo {
+        background: linear-gradient(180deg,#f2adad 45%,#faa 0,#e62626);
+        border: 1px solid #7aecff;
+        outline: none;
+      }
+      .win7 button.boton_rojo:hover,
+      .win7 button.boton_rojo.active {
+        background: linear-gradient(180deg,#f97777 45%,#ff4e4e 0);
+        border-color: #ff6363;
+      }
+      .padding_top_1 {
+        padding-top: 4px;
+      }
+      .padding_bottom_1 {
+        padding-bottom: 4px;
+      }
+      .margin_left_1 {
+        margin-left: 4px;
+      }
+      .margin_right_1 {
+        margin-right: 4px;
+      }
+      .margin_top_1 {
+        margin-top: 4px;
+      }
+      .margin_bottom_1 {
+        margin-bottom: 4px;
+      }
     </style>
 </head>
 <body><div id="app"></div></body>.
-
-asigno window.PaginaDeInicio como un componente vue2 con nombre "PaginaDeInicio" con plantilla {
-  <div class="PaginaDeInicio Component">
-    <xtitle>Inicio</xtitle>
-    <xlayout>
-      
-    </xlayout>
-  </div>
-} con lógica {
-  retorno {
-    propiedad props como {
-      propiedad root como {
-        propiedad type como Object.
-        propiedad required como true.
-      }.
-    }.
-    método data donde {
-      retorno {}.
-    }.
-    propiedad methods como {}.
-    propiedad watch como {}.
-    propiedad computed como {}.
-    método beforeCreate donde {}.
-    método created donde {}.
-    método beforeMount donde {}.
-    método mounted donde {}.
-    método beforeUpdate donde {}.
-    método updated donde {}.
-    método beforeUnmount donde {}.
-    método unmounted donde {}.
-    método activated donde {}.
-    método deactivated donde {}.
-  }.
-}.
-
-asigno window.PaginaDeLogin como un componente vue2 con nombre "PaginaDeLogin" con plantilla {
-  <div class="PaginaDeLogin Component">
-    <xtitle>Login</xtitle>
-    <xstatic>
-      <xwindow>
-        <xwindowtitle>
-          Credenciales requeridas
-        </xwindowtitle>
-        <xwindowbody>
-          <xlayout>
-            <xpanel>
-              <xlabel>Nombre:</xlabel>
-              <input style="width:100%;" type="text" name="nombre" v-model="nombre" />
-            </xpanel>
-            <xpanel style="padding-top:8px;">
-              <xlabel>Contraseña:</xlabel>
-              <input style="width:100%;" type="password" name="contrasenya" v-model="contrasenya" />
-            </xpanel>
-          </xlayout>
-          <hr style="border:none;border-top:1px solid #CCC;margin:4px;" />
-          <xlayout style="text-align:right;">
-            <button v-on:click="root.login(nombre, contrasenya)">Entrar</button>
-          </xlayout>
-        </xwindowbody>
-        <xwindowfooter>✔ Cargado correctamente.</xwindowfooter>
-      </xwindow>
-    </xstatic>
-  </div>
-} con lógica {
-  retorno {
-    propiedad props como {
-      propiedad root como {
-        propiedad type como Object.
-        propiedad required como true.
-      }.
-    }.
-    método data donde {
-      desacoplo constantes { nombre, contrasenya } a partir de this.obtener_credenciales_pasadas().
-      retorno {
-        nombre,
-        contrasenya
-      }.
-    }.
-    propiedad methods como {
-      método obtener_credenciales_pasadas donde {
-        creo variable datos_json como localStorage.__express_boilerplate_login_credentials__.
-        si datos_json no es tipo texto asigno datos_json como '{"nombre":"","contrasenya":""}'.
-        creo datos como datos_json parseado como json.
-        retorno datos.
-      }.
-      método persistir_credenciales con (nombre, contrasenya) donde {
-        asigno localStorage.__express_boilerplate_login_credentials__ como { nombre, contrasenya } textualizado.
-        retorno true.
-      }.
-    }.
-    propiedad watch como {}.
-    propiedad computed como {}.
-    método beforeCreate donde {}.
-    método created donde {}.
-    método beforeMount donde {}.
-    método mounted donde {}.
-    método beforeUpdate donde {}.
-    método updated donde {}.
-    método beforeUnmount donde {}.
-    método unmounted donde {}.
-    método activated donde {}.
-    método deactivated donde {}.
-  }.
-}.
 
 asigno window.App como una aplicación vue2 con nombre "App" con rutas [{
   propiedad path como "/".
   propiedad name como "PaginaDeInicio".
   propiedad component como PaginaDeInicio.
+  propiedad props como {}.
+}, {
+  propiedad path como "/administracion".
+  propiedad name como "PaginaDeAdministracion".
+  propiedad component como PaginaDeAdministracion.
+  propiedad props como {}.
+}, {
+  propiedad path como "/abrir-tabla/:tabla".
+  propiedad name como "PaginaDeAbrirTabla".
+  propiedad component como PaginaDeAbrirTabla.
+  propiedad props como {}.
+}, {
+  propiedad path como "/abrir-fila/:tabla/:fila".
+  propiedad name como "PaginaDeAbrirFila".
+  propiedad component como PaginaDeAbrirFila.
+  propiedad props como {}.
+}, {
+  propiedad path como "/crear-item/:tabla".
+  propiedad name como "PaginaDeCrearItem".
+  propiedad component como PaginaDeCrearItem.
+  propiedad props como {}.
+}, {
+  propiedad path como "/ayuda".
+  propiedad name como "PaginaDeAyuda".
+  propiedad component como PaginaDeAyuda.
+  propiedad props como {}.
+}, {
+  propiedad path como "/esquema".
+  propiedad name como "PaginaDeEsquema".
+  propiedad component como PaginaDeEsquema.
   propiedad props como {}.
 }] con traducciones {
     propiedad es como {}.
@@ -138,7 +149,7 @@ asigno window.App como una aplicación vue2 con nombre "App" con rutas [{
     propiedad ca como {}.
 } con plantilla {
   <div class="App Component Castelog-app win7">
-    <template v-if="sesion_token">
+    <template v-if="sesion_token && compacted_schema">
       <router-view :root="this"></router-view>
     </template>
     <template v-else="">
@@ -155,22 +166,41 @@ asigno window.App como una aplicación vue2 con nombre "App" con rutas [{
   retorno {
     método data donde {
       retorno {
+        original_schema: undefined,
+        compacted_schema: undefined,
         sesion_token: undefined
       }.
     }.
     propiedad methods como {
+      método asíncrono obtener_schema donde {
+        debugo "App.obtener_schema".
+        creo respuesta_schema como asíncronamente una petición http
+          con url "/Schema"
+          con método "POST"
+          con cuerpo {}
+          con cabeceras { authorization: this.sesion_token }
+          en errores hago Vue.prototype.$dialogs.error(error).
+        si respuesta_schema es instancia de Error retorno.
+        asigno this.original_schema como respuesta_schema.data.data.esquema.original.
+        asigno this.compacted_schema como respuesta_schema.data.data.esquema.compacto.
+      } en errores hago Vue.prototype.$dialogs.error(error).
       método asíncrono login con (nombre, contrasenya) donde {
+        debugo "App.login".
         creo respuesta_login como asíncronamente una petición http
           con url "/Login"
           con método "POST"
           con cuerpo { nombre, contrasenya }
-          con cabeceras {}.
+          con cabeceras {}
+          en errores retorno Vue.prototype.$dialogs.error(error).
+        si respuesta_login es instancia de Error retorno.
         hago this.$refs.pagina_de_login.persistir_credenciales(nombre, contrasenya).
         asigno this.sesion_token como respuesta_login.data.data.sesion.token.
-      } en errores hago Vue.prototype.$dialogs.inform("<xlayout>" + Vue.prototype.$dialogs.escapeHtml(error.name) + " " + Vue.prototype.$dialogs.escapeHtml(error.message) + "</xlayout>").
+        hago asíncronamente this.obtener_schema().
+      } en errores hago Vue.prototype.$dialogs.error(error).
     }.
     propiedad watch como {}.
     método beforeMount donde {
+      debugo "App.beforeMount".
       asigno this.$window como window.
     }.
     método mounted donde {}.
