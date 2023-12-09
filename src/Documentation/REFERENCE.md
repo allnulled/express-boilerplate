@@ -65,6 +65,16 @@
 ----
 
 
+ - **@name**:  setupDatabaseDecorators
+ - **@type**:  Function
+ - **@parameter**:  `api`
+ - **@description**:  Sets up the decorators of the database: conditionals and consequencials.
+
+ - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/main.js
+
+----
+
+
  - **@name**:  setupApplication
  - **@type**:  Function
  - **@parameter**:  `api` 

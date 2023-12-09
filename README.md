@@ -57,8 +57,8 @@ La ejecución se basa prácticamente en 1 fichero:
   - [`src/main.js`](./src/main.js): define el proceso principal.
 
 Los datos se basan en 2 ficheros más:
-  - [`src/Database/scripts/creation.sql`](./src/Database/scripts/creation.sql)
-  - [`src/Database/scripts/migration.sql`](./src/Database/scripts/migration.sql)
+  - [`src/Database/Scripts/creation.sql`](./src/Database/Scripts/creation.sql)
+  - [`src/Database/Scripts/migration.sql`](./src/Database/Scripts/migration.sql)
 
 Además, en el código original, la base de datos es SQLite, por lo cual es un proyecto compacto, que no depende de URLs/servidores externos.
 
@@ -140,7 +140,7 @@ La `api` (con `Utilities`) se inyecta en todas las clases de utilidad, una vez i
 
 ### Crear un modelo de dato
 
-En [`src/Database/scripts/creation.sql`](./src/Database/scripts/creation.sql) añades la tabla de datos que deseas.
+En [`src/Database/Scripts/creation.sql`](./src/Database/Scripts/creation.sql) añades la tabla de datos que deseas.
 
 ### Crear un modelo de dato programático
 
@@ -148,7 +148,7 @@ En [`src/Models`](./src/Models) añades la clase de modelo que deseas. No tienen
 
 ### Crear datos de migración inicial
 
-En [`src/Database/scripts/migration.sql`](./src/Database/scripts/migration.sql) añades la tabla de datos que deseas.
+En [`src/Database/Scripts/migration.sql`](./src/Database/Scripts/migration.sql) añades la tabla de datos que deseas.
 
 ### Crear consulta
 
@@ -200,7 +200,6 @@ Unas pocas clases utilitarias:
  - [`GetRequestParameter`](./src/Utilities/GetRequestParameter.js) para obtener parametro de petición
  - [`GetStringLeftPadded`](./src/Utilities/GetStringLeftPadded.js) para obtener String con espaciado por la izquierda
  - [`InitializeDatabase`](./src/Utilities/InitializeDatabase.js) para inicializar la base de datos
- - [`QueryBuilder`](./src/Utilities/QueryBuilder.js) para obtener el constructor de consultas SQL
  - [`QueryDatabase`](./src/Utilities/QueryDatabase.js) para ejecutar una consulta SQL
  - [`Trace`](./src/Utilities/Trace.js) para tracear un método o función
 

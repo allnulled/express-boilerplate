@@ -10,7 +10,7 @@ asigno window.PaginaDeAbrirFila como un componente vue2 con nombre "PaginaDeAbri
         </xlistitem>
         <xlistitem>
           <router-link to="/administracion">
-            <button class="boton_ancho_izquierda boton_azul">Ir al panel de administración</button>
+            <button class="boton_ancho_izquierda boton_azul">Ir a panel de administración</button>
           </router-link>
         </xlistitem>
         <xlistitem>
@@ -22,7 +22,7 @@ asigno window.PaginaDeAbrirFila como un componente vue2 con nombre "PaginaDeAbri
     </xlayout>
     <xlayoutnopaddingtop>
       <template v-for="value, key in row">
-        <xpanel style="padding-top:12px;" v-bind:key="'row-' + key" v-if="key !== 'id'">
+        <xpanel style="padding-top:12px;" v-bind:key="'row-' + key" v-if="key !== 'id' && !key.startsWith('$')">
           <xpanel style="font-weight:bold;text-decoration:underline;">{{ key }}:</xpanel>
           <xpanel v-if="false">
             --- Input rendering ---

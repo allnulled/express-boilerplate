@@ -1,6 +1,6 @@
 asigno window.PaginaDeAbrirTabla como un componente vue2 con nombre "PaginaDeAbrirTabla" con plantilla {
   <div class="Component PaginaDeAbrirTabla">
-    <xtitle>Abrir tabla «{{ $route.params.tabla }}»</xtitle>
+    <xtitle>Tabla «{{ $route.params.tabla }}»</xtitle>
     <xlayout>
       <xlist>
         <xlistitem>
@@ -10,7 +10,7 @@ asigno window.PaginaDeAbrirTabla como un componente vue2 con nombre "PaginaDeAbr
         </xlistitem>
         <xlistitem>
           <router-link to="/administracion">
-            <button class="boton_ancho_izquierda boton_azul">Ir al panel de administración</button>
+            <button class="boton_ancho_izquierda boton_azul">Ir a panel de administración</button>
           </router-link>
         </xlistitem>
         <xlistitem>
@@ -163,7 +163,7 @@ asigno window.PaginaDeAbrirTabla como un componente vue2 con nombre "PaginaDeAbr
           </xtablebody>
         </xtable>
       </div>
-      <xpanel style="overflow: scroll;" v-if="rows && rows.length">
+      <xtableviewer v-if="rows && rows.length">
         <xtable class="tabla_de_datos" style="width:100%;">
           <thead>
             <tr>
@@ -185,7 +185,7 @@ asigno window.PaginaDeAbrirTabla como un componente vue2 con nombre "PaginaDeAbr
             </xtablerow>
           </xtablebody>
         </xtable>
-      </xpanel>
+      </xtableviewer>
       <div v-else="">
         <div style="min-height: 100px;padding-top: 40px;text-align: center;">
           No se encontraron resultados para la búsqueda.

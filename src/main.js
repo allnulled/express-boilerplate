@@ -200,8 +200,8 @@ const setupDatabaseConnection = async function (api) {
       });
     }
   };
-  const esquemaSql = fs.readFileSync(__dirname + "/Database/scripts/creation.sql").toString();
-  const hqlParser = require(__dirname + "/Resources/hyper-query-language.js");
+  const esquemaSql = fs.readFileSync(__dirname + "/Database/Scripts/creation.sql").toString();
+  const hqlParser = require(__dirname + "/Resources/hql.js");
   const esquemaJson = hqlParser.parse(esquemaSql);
   const esquema = esquemaJson;
   api.Database = {};
@@ -215,13 +215,20 @@ const setupDatabaseConnection = async function (api) {
         item.propiedades = {};
         for(let index_attr=0; index_attr<attrs.length; index_attr++) {
           const attr = attrs[index_attr];
-          const posicion = attr.indexOf(":");
-          if(posicion === -1) {
-            item.propiedades[attr] = true;
-          } else {
-            const key = attr.substr(0, posicion).trim();
-            const value = attr.substr(posicion+1).trim();
-            item.propiedades[key] = value;
+          if(typeof attr === "string") {
+            const posicion = attr.indexOf(":");
+            if(posicion === -1) {
+              item.propiedades[attr] = true;
+            } else {
+              const key = attr.substr(0, posicion).trim();
+              const value = attr.substr(posicion+1).trim();
+              item.propiedades[key] = value;
+            }
+          } else if(typeof attr === "object") {
+            if(!item.propiedades[attr.tipo]) {
+              item.propiedades[attr.tipo] = [];
+            }
+            item.propiedades[attr.tipo].push(attr);
           }
         }
         delete item.atributos;
@@ -253,13 +260,24 @@ const setupDatabaseConnection = async function (api) {
       console.log(error);
     }
   })();
-  fs.writeFileSync(__dirname + "/Database/structures/schema.compacted.json", JSON.stringify(api.Database.CompactedSchema, null, 2), "utf8");
-  fs.writeFileSync(__dirname + "/Database/structures/schema.json", JSON.stringify(api.Database.Schema, null, 2), "utf8");
+  fs.writeFileSync(__dirname + "/Database/Structures/schema.compacted.json", JSON.stringify(api.Database.CompactedSchema, null, 2), "utf8");
+  fs.writeFileSync(__dirname + "/Database/Structures/schema.json", JSON.stringify(api.Database.Schema, null, 2), "utf8");
   console.log("[*] Esquema de datos compacto: (api.Database.CompactedSchema)");
-  console.log(api.Database.CompactedSchema);
+  // console.log(api.Database.CompactedSchema);
   if(process.env.DATABASE_RESET) {
     await api.Utilities.InitializeDatabase();
   }
+};
+/**
+ * 
+ * @name setupDatabaseDecorators
+ * @type Function
+ * @parameter `api`
+ * @description Sets up the decorators of the database: conditionals and consequencials.
+ * 
+ */
+const setupDatabaseDecorators = async function(api) {
+  api.Database.Decorators = require(__dirname + "/Database/Decorators/Decorators.js")(api);
 };
 /**
  * 
@@ -389,6 +407,7 @@ const main = async function (api = {}) {
     await setupQueries(api);
     await setupModels(api);
     await setupDatabaseConnection(api);
+    await setupDatabaseDecorators(api);
     await setupApplication(api);
     await setupMiddlewares(api);
     await setupControllers(api);

@@ -176,6 +176,9 @@
 
 
 
+.xtableviewer {
+    overflow: scroll;
+}
 
 .Component.xtitle .content {
     padding: 8px;

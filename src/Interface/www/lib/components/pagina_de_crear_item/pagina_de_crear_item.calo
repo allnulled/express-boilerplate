@@ -10,7 +10,7 @@ asigno window.PaginaDeCrearItem como un componente vue2 con nombre "PaginaDeCrea
         </xlistitem>
         <xlistitem>
           <router-link to="/administracion">
-            <button class="boton_ancho_izquierda boton_azul">Ir al panel de administración</button>
+            <button class="boton_ancho_izquierda boton_azul">Ir a panel de administración</button>
           </router-link>
         </xlistitem>
         <xlistitem>
@@ -22,7 +22,7 @@ asigno window.PaginaDeCrearItem como un componente vue2 con nombre "PaginaDeCrea
     </xlayout>
     <xlayoutnopaddingtop>
       <template v-for="field, field_index in fields">
-        <xpanel style="padding-top:12px;" v-bind:key="'field-' + field_index" v-if="field.columna !== 'id'">
+        <xpanel style="padding-top:12px;" v-bind:key="'field-' + field_index" v-if="field.columna !== 'id' && field.sentencia === 'columna'">
           <xpanel style="font-weight:bold;text-decoration:underline;">{{ field.columna }}:</xpanel>
           <xpanel v-if="false">
             --- Input rendering ---

@@ -3,18 +3,22 @@
     "version": "0.0.10",
     "description": "Proyecto minimalista en blanco basado en Node.js + Express + SQLite",
     "main": "src/main.js",
+    "bin": {
+        "ebo": "src/Commands/Ebo/bin.js"
+    },
     "scripts": {
-        "dev": "npx nodemon -e 'js,css' -w '**/*.js' -x 'npm start'",
         "build": "npm run build-database-creation && npm run build-parser && npm run build-ui && npm run build-documentation && npm run build-styles",
         "build-database-creation": "node src/Commands/BuildDatabaseCreation/BuildDatabaseCreation.js",
-        "build-styles": "node src/Commands/BuildStyles/BuildStyles.js",
         "build-documentation": "node src/Commands/BuildDocumentation/BuildDocumentation.js",
-        "build-parser": "npx pegjs src/Resources/semillero.pegjs",
+        "build-parser": "npx pegjs src/Resources/hql.pegjs && npx pegjs -o docs/lib/hql/hql.js --format globals --export-var Hql_parser src/Resources/hql.pegjs",
+        "build-styles": "node src/Commands/BuildStyles/BuildStyles.js",
         "build-ui": "npx browserify src/Interface/www/lib/ui-script/components/api.js --outfile src/Interface/www/lib/ui-script/ui-script.js && cp src/Interface/www/index.1.html src/Interface/www/index.html",
+        "dev": "npx nodemon -e 'js,css' -w '**/*.js' -x 'npm start'",
+        "generate-project": "node src/Commands/GenerateProject/GenerateProject.js",
         "start": "node src/main.js",
         "test": "node test/test.js",
-        "seed-project": "node src/Commands/SeedProject/SeedProject.js",
-        "generate-project": "node src/Commands/GenerateProject/GenerateProject.js"
+        "serve-docs": "npx http-server -c-1 docs -o index.html",
+        "test-database-creation": "node src/Commands/TestDatabaseCreation/TestDatabaseCreation.js"
     },
     "keywords": [],
     "author": "https://github.com/allnulled",

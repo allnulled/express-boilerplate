@@ -6,14 +6,7 @@ asigno window.PaginaDeInicio como un componente vue2 con nombre "PaginaDeInicio"
         <xlistitem>
           <router-link to="/administracion">
             <button class="boton_ancho_izquierda boton_azul">
-              Ir al panel de administración
-            </button>
-          </router-link>
-        </xlistitem>
-        <xlistitem>
-          <router-link to="/ayuda">
-            <button class="boton_ancho_izquierda boton_azul">
-              Ir a la guía de ayuda
+              Ir a administración
             </button>
           </router-link>
         </xlistitem>
@@ -21,6 +14,13 @@ asigno window.PaginaDeInicio como un componente vue2 con nombre "PaginaDeInicio"
           <router-link to="/esquema">
             <button class="boton_ancho_izquierda boton_azul">
               Ir a esquema
+            </button>
+          </router-link>
+        </xlistitem>
+        <xlistitem>
+          <router-link to="/autentificacion">
+            <button class="boton_ancho_izquierda boton_azul">
+              Ir a autentificación
             </button>
           </router-link>
         </xlistitem>

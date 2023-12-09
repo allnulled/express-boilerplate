@@ -23,6 +23,7 @@ const xtable = require("./xtable/xtable.js");
 const xtablecell = require("./xtablecell/xtablecell.js");
 const xtablerow = require("./xtablerow/xtablerow.js");
 const xtablebody = require("./xtablebody/xtablebody.js");
+const xtableviewer = require("./xtableviewer/xtableviewer.js");
 const xtester = require("./xtester/xtester.js");
 const xtitle = require("./xtitle/xtitle.js");
 const xwindow = require("./xwindow/xwindow.js");

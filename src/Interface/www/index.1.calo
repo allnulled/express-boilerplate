@@ -16,6 +16,7 @@ Ejecutable como documento HTML5
     <link rel="stylesheet" type="text/css" href="lib/components/pagina_de_abrir_fila/pagina_de_abrir_fila.css" />
     <link rel="stylesheet" type="text/css" href="lib/components/pagina_de_crear_item/pagina_de_crear_item.css" />
     <link rel="stylesheet" type="text/css" href="lib/components/pagina_de_esquema/pagina_de_esquema.css" />
+    <link rel="stylesheet" type="text/css" href="lib/components/pagina_de_autentificacion/pagina_de_autentificacion.css" />
     
     <script src="lib/calo/calo.js"></script>
     <script src="lib/ui-script/ui-script.js"></script>
@@ -27,6 +28,7 @@ Ejecutable como documento HTML5
     <script src="lib/components/pagina_de_abrir_fila/pagina_de_abrir_fila.js"></script>
     <script src="lib/components/pagina_de_crear_item/pagina_de_crear_item.js"></script>
     <script src="lib/components/pagina_de_esquema/pagina_de_esquema.js"></script>
+    <script src="lib/components/pagina_de_autentificacion/pagina_de_autentificacion.js"></script>
     <style>
       html {
         background-color: #555;
@@ -55,6 +57,9 @@ Ejecutable como documento HTML5
         width: 100%;
         margin-top: 4px;
         text-align: left !important;
+      }
+      .win7 button {
+        word-break: break-all;
       }
       .win7 button.boton_verde {
         background: linear-gradient(180deg,#b0d2a1 45%,#91db86 0,#71935e);
@@ -85,6 +90,9 @@ Ejecutable como documento HTML5
       .win7 button.boton_rojo.active {
         background: linear-gradient(180deg,#f97777 45%,#ff4e4e 0);
         border-color: #ff6363;
+      }
+      .win7 a {
+        color: #97c9fb;
       }
       .padding_top_1 {
         padding-top: 4px;
@@ -143,6 +151,11 @@ asigno window.App como una aplicación vue2 con nombre "App" con rutas [{
   propiedad name como "PaginaDeEsquema".
   propiedad component como PaginaDeEsquema.
   propiedad props como {}.
+}, {
+  propiedad path como "/autentificacion".
+  propiedad name como "PaginaDeAutentificacion".
+  propiedad component como PaginaDeAutentificacion.
+  propiedad props como {}.
 }] con traducciones {
     propiedad es como {}.
     propiedad en como {}.
@@ -166,6 +179,7 @@ asigno window.App como una aplicación vue2 con nombre "App" con rutas [{
   retorno {
     método data donde {
       retorno {
+        autentication: undefined,
         original_schema: undefined,
         compacted_schema: undefined,
         sesion_token: undefined
@@ -194,6 +208,7 @@ asigno window.App como una aplicación vue2 con nombre "App" con rutas [{
           en errores retorno Vue.prototype.$dialogs.error(error).
         si respuesta_login es instancia de Error retorno.
         hago this.$refs.pagina_de_login.persistir_credenciales(nombre, contrasenya).
+        asigno this.authentication como respuesta_login.data.data.
         asigno this.sesion_token como respuesta_login.data.data.sesion.token.
         hago asíncronamente this.obtener_schema().
       } en errores hago Vue.prototype.$dialogs.error(error).
