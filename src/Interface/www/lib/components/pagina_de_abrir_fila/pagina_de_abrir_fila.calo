@@ -21,34 +21,89 @@ asigno window.PaginaDeAbrirFila como un componente vue2 con nombre "PaginaDeAbri
       </xlist>
     </xlayout>
     <xlayoutnopaddingtop>
-      <template v-for="value, key in row">
-        <xpanel style="padding-top:12px;" v-bind:key="'row-' + key" v-if="key !== 'id' && !key.startsWith('$')">
-          <xpanel style="font-weight:bold;text-decoration:underline;">{{ key }}:</xpanel>
+      <template v-for="value, key in item">
+        <xpanel style="padding-top:12px;" v-bind:key="'item-' + key" v-if="key !== 'id' && !key.startsWith('$')">
+          <xpanel style="">{{ root.humanizar_texto_de_columna($route.params.tabla, key) }}:</xpanel>
           <xpanel v-if="false">
             --- Input rendering ---
           </xpanel>
           <xpanel v-else-if="root.compacted_schema[ $route.params.tabla ].composicion[key].atributos.es_tipo === 'color'">
-            <input :ref="'color_' + $route.params.tabla" style="display:none;width:100%;" type="color" v-model="row[key]" />
+            <input :ref="'color_' + $route.params.tabla" style="display:none;width:100%;" type="color" v-model="item[key]" />
             <button class="width_100" v-on:click="() => {$refs['color_' + $route.params.tabla][0].click() }">
-              <span style="min-height:15px;min-width:30px;width:50%;display:inline-block;border-radius:4pt;" :style="'background-color:' + (row[key] || '#333')">
-                {{ row[key] }}
+              <span style="min-height:15px;min-width:30px;width:50%;display:inline-block;border-radius:4pt;" :style="'background-color:' + (item[key] || '#333')">
+                {{ item[key] }}
               </span>
             </button>
           </xpanel>
+          <xpanel v-else-if="root.compacted_schema[ $route.params.tabla ].composicion[key].atributos.es_tipo === 'fichero'">
+            <input :ref="'file_' + key" style="display:none;width:100%;" type="file" v-on:change="event => { root.$window.console.log(event.target.files); item[key] = event.target.files }" />
+            <xtable>
+              <xtablebody>
+                <xtablerow>
+                  <xtablecell class="width_100">
+                    <button class="width_100" style="white-space: nowrap;" v-on:click="() => {$refs['file_' + key][0].click() }">
+                      Seleccionar
+                    </button>
+                  </xtablecell>
+                  <xtablecell>
+                    <button class="width_100" style="white-space: nowrap;" v-on:click="() => { guardar_fichero(key) }">
+                      Guardar
+                    </button>
+                  </xtablecell>
+                  <xtablecell>
+                    <button class="width_100" style="white-space: nowrap;" v-on:click="() => { refrescar_fichero(key) }">
+                      Refrescar
+                    </button>
+                  </xtablecell>
+                </xtablerow>
+                <xtablerow>
+                  <xtablecell colspan="100" class="width_100" v-if="item[key] && typeof(item[key]) !== 'string' && item[key].length">
+                    <span style="white-space: nowrap;">Hay {{ item[key] ? item[key].length : '0' }} ficheros seleccionados</span>
+                  </xtablecell>
+                </xtablerow>
+                <xtablerow v-if="typeof item[key] === 'string'">
+                  <xtablecell colspan="100">
+                    <div style="text-align: center;">
+                      <img class="imagen_de_fichero" :src="'/uploads/' + item[key]" />
+                    </div>
+                  </xtablecell>
+                </xtablerow>
+                <xtablerow v-if="item[key]">
+                  <xtablecell colspan="100">
+                    <template v-if="Array.isArray(item[key])" v-for="fichero, fichero_index in item[key]">
+                      <xpanel v-bind:key="'column_' + key + '_file_' + fichero_index">
+                        <div>Fichero: {{ fichero_index+1 }} de {{ item[key].length }}</div>
+                        <div>Nombre: {{ fichero.name }}</div>
+                        <div>Tamaño: {{ fichero.size }}B</div>
+                      </xpanel>
+                    </template>
+                    <template v-if="typeof(item[key]) === 'string'">
+                      <xpanel>
+                        <div>{{item[key]}}</div>
+                      </xpanel>
+                    </template>
+                  </xtablecell>
+                </xtablerow>
+              </xtablebody>
+            </xtable>
+          </xpanel>
+          <xpanel v-else-if="typeof root.compacted_schema[ $route.params.tabla ].composicion[key].es_clave_foranea !== 'undefined'">
+            <SelectorDeTabla :root="root" modo="uno" :tabla="root.compacted_schema[ $route.params.tabla ].composicion[key].es_clave_foranea.tabla_foranea" :al-cambiar="v => item[key] = v" :valor-inicial="item[key]" />
+          </xpanel>
           <xpanel v-else-if="root.compacted_schema[ $route.params.tabla ].composicion[key].tipo === 'VARCHAR'">
-            <input style="width:100%;" type="text" v-model="row[key]" />
+            <input style="width:100%;" type="text" v-model="item[key]" />
           </xpanel>
           <xpanel v-else-if="root.compacted_schema[ $route.params.tabla ].composicion[key].tipo === 'INTEGER'">
-            <input style="width:100%;" type="number" v-model="row[key]" />
+            <input style="width:100%;" type="number" v-model="item[key]" />
           </xpanel>
           <xpanel v-else-if="root.compacted_schema[ $route.params.tabla ].composicion[key].tipo === 'FLOAT'">
-            <input style="width:100%;" type="number" v-model="row[key]" />
+            <input style="width:100%;" type="number" v-model="item[key]" />
           </xpanel>
           <xpanel v-else-if="root.compacted_schema[ $route.params.tabla ].composicion[key].tipo === 'TEXT'">
-            <textarea style="width:100%;min-height:80px;resize:vertical;" v-model="row[key]"></textarea>
+            <textarea style="width:100%;min-height:80px;resize:vertical;" v-model="item[key]"></textarea>
           </xpanel>
           <xpanel v-else-if="root.compacted_schema[ $route.params.tabla ].composicion[key].tipo === 'DATETIME'">
-            <input style="width:100%;" type="datetime-local" v-model="row[key]" />
+            <input style="width:100%;" type="datetime-local" v-model="item[key]" />
           </xpanel>
           <xpanel v-else-if="false">
             --- END OF Input rendering ---
@@ -78,7 +133,7 @@ asigno window.PaginaDeAbrirFila como un componente vue2 con nombre "PaginaDeAbri
     }.
     método data donde {
       retorno {
-        row: false
+        item: false
       }.
     }.
     propiedad methods como {
@@ -95,22 +150,31 @@ asigno window.PaginaDeAbrirFila como un componente vue2 con nombre "PaginaDeAbri
           en errores retorno Vue.prototype.$dialogs.error(error).
         si respuesta_datos_de_fila es instancia de Error retorno.
         si respuesta_datos_de_fila.data.data.output.length es igual que 0 retorno this.$router.history.push("/abrir-tabla/" + this.$route.params.tabla).
-        asigno this.row como respuesta_datos_de_fila.data.data.output[0].
+        asigno this.item como respuesta_datos_de_fila.data.data.output[0].
         hago this.$forceUpdate(true).
       }.
       método asíncrono guardar_item donde {
         debugo "PaginaDeAbrirFila.guardar_item".
+        creo clon_de_item como {} extendido por this.item.
+        creo claves_de_item como un conjunto de claves del objeto clon_de_item.
+        desde 0 hasta claves_de_item.length {
+          creo clave como claves_de_item[index].
+          si clon_de_item[clave] es tipo objeto {
+            elimino propiedad clon_de_item[clave].
+          }.
+        }.
         creo respuesta_guardar_datos_de_fila como asíncronamente una petición http
           con url "/Update"
           con método "POST"
           con cuerpo {
             table: this.$route.params.tabla,
             id: this.$route.params.fila,
-            item: this.row
+            item: clon_de_item
           }
           con cabeceras { authorization: this.root.sesion_token }
           en errores retorno Vue.prototype.$dialogs.error(error).
         si respuesta_guardar_datos_de_fila es instancia de Error retorno.
+        hago asíncronamente this.obtener_datos_de_fila().
         hago this.$forceUpdate(true).
       }.
       método asíncrono eliminar_item donde {
@@ -133,6 +197,26 @@ asigno window.PaginaDeAbrirFila como un componente vue2 con nombre "PaginaDeAbri
         si respuesta_eliminar_dato_de_fila es instancia de Error retorno.
         hago this.$router.history.push("/abrir-tabla/" + this.$route.params.tabla).
         hago this.$forceUpdate(true).
+      }.
+      método asíncrono guardar_fichero con (columna) donde {
+        debugo "PaginaDeAbrirFila.guardar_fichero".
+        desacoplo constantes [ fichero ] a partir de this.item[columna].
+        creo formulario como un nuevo FormData().
+        hago formulario.append("table", this.$route.params.tabla).
+        hago formulario.append("id", this.item.id).
+        hago formulario.append("column", columna).
+        hago formulario.append("file", fichero).
+        creo respuesta_fichero como asíncronamente una petición http
+          con url "/SetFile"
+          con método "POST"
+          con cuerpo formulario
+          con cabeceras { authorization: this.root.sesion_token, "Content-type": "multipart/form-data" }
+          en errores retorno Vue.prototype.$dialogs.error(error).
+        si respuesta_fichero es instancia de Error retorno.
+        hago asíncronamente this.obtener_datos_de_fila().
+      }.
+      método asíncrono refrescar_fichero con (columna) donde {
+        hago asíncronamente this.obtener_datos_de_fila().
       }.
     }.
     propiedad watch como {}.

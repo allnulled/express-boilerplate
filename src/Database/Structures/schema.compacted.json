@@ -8,7 +8,9 @@
         "tipo": "INTEGER",
         "detalles": "PRIMARY KEY AUTOINCREMENT",
         "orden": 0,
-        "atributos": {}
+        "atributos": {
+          "tiene_nombre": "Identificador"
+        }
       },
       "nombre": {
         "sentencia": "columna",
@@ -16,7 +18,9 @@
         "tipo": "VARCHAR",
         "detalles": "(255) UNIQUE",
         "orden": 1,
-        "atributos": {}
+        "atributos": {
+          "tiene_nombre": "Nombre"
+        }
       },
       "contrasenya": {
         "sentencia": "columna",
@@ -24,7 +28,9 @@
         "tipo": "VARCHAR",
         "detalles": "(255)",
         "orden": 2,
-        "atributos": {}
+        "atributos": {
+          "tiene_nombre": "Contraseña"
+        }
       },
       "correo": {
         "sentencia": "columna",
@@ -32,10 +38,12 @@
         "tipo": "VARCHAR",
         "detalles": "(255)",
         "orden": 3,
-        "atributos": {}
+        "atributos": {
+          "tiene_nombre": "Correo"
+        }
       }
     },
-    "script": "CREATE TABLE Usuario (\n    id INTEGER PRIMARY KEY AUTOINCREMENT,\n    nombre VARCHAR(255) UNIQUE,\n    contrasenya VARCHAR(255),\n    correo VARCHAR(255)\n);",
+    "script": "CREATE TABLE Usuario (\n  id INTEGER PRIMARY KEY AUTOINCREMENT /*\n    @tiene_nombre: Identificador\n  */,\n  nombre VARCHAR(255) UNIQUE /*\n    @tiene_nombre: Nombre\n  */,\n  contrasenya VARCHAR(255) /*\n    @tiene_nombre: Contraseña\n  */,\n  correo VARCHAR(255) /*\n    @tiene_nombre: Correo\n  */\n);",
     "atributos": {}
   },
   "Permiso": {
@@ -47,7 +55,9 @@
         "tipo": "INTEGER",
         "detalles": "PRIMARY KEY AUTOINCREMENT",
         "orden": 0,
-        "atributos": {}
+        "atributos": {
+          "tiene_nombre": "Identificador"
+        }
       },
       "nombre": {
         "sentencia": "columna",
@@ -55,7 +65,9 @@
         "tipo": "VARCHAR",
         "detalles": "(255)",
         "orden": 1,
-        "atributos": {}
+        "atributos": {
+          "tiene_nombre": "Nombre"
+        }
       },
       "descripcion": {
         "sentencia": "columna",
@@ -63,10 +75,12 @@
         "tipo": "VARCHAR",
         "detalles": "(511)",
         "orden": 2,
-        "atributos": {}
+        "atributos": {
+          "tiene_nombre": "Descripción"
+        }
       }
     },
-    "script": "\n\nCREATE TABLE Permiso (\n    id INTEGER PRIMARY KEY AUTOINCREMENT,\n    nombre VARCHAR(255),\n    descripcion VARCHAR(511)\n);",
+    "script": "\n\nCREATE TABLE Permiso (\n  id INTEGER PRIMARY KEY AUTOINCREMENT /*\n    @tiene_nombre: Identificador\n  */,\n  nombre VARCHAR(255) /*\n    @tiene_nombre: Nombre\n  */,\n  descripcion VARCHAR(511) /*\n    @tiene_nombre: Descripción\n  */\n);",
     "atributos": {}
   },
   "Permiso_de_usuario": {
@@ -78,7 +92,9 @@
         "tipo": "INTEGER",
         "detalles": "PRIMARY KEY AUTOINCREMENT",
         "orden": 0,
-        "atributos": {}
+        "atributos": {
+          "tiene_nombre": "Identificador"
+        }
       },
       "id_usuario": {
         "sentencia": "columna",
@@ -86,7 +102,17 @@
         "tipo": "INTEGER",
         "detalles": "",
         "orden": 1,
-        "atributos": {}
+        "atributos": {
+          "tiene_nombre": "Identificador de usuario"
+        },
+        "es_clave_foranea": {
+          "sentencia": "clave foránea",
+          "columna": "id_usuario",
+          "tabla_foranea": "Usuario",
+          "columna_foranea": "id",
+          "orden": 3,
+          "atributos": {}
+        }
       },
       "id_permiso": {
         "sentencia": "columna",
@@ -94,7 +120,17 @@
         "tipo": "INTEGER",
         "detalles": "",
         "orden": 2,
-        "atributos": {}
+        "atributos": {
+          "tiene_nombre": "Identificador de permiso"
+        },
+        "es_clave_foranea": {
+          "sentencia": "clave foránea",
+          "columna": "id_permiso",
+          "tabla_foranea": "Permiso",
+          "columna_foranea": "id",
+          "orden": 4,
+          "atributos": {}
+        }
       },
       "$id_usuario$Usuario$id": {
         "sentencia": "clave foránea",
@@ -113,7 +149,7 @@
         "atributos": {}
       }
     },
-    "script": "\n\nCREATE TABLE Permiso_de_usuario (\n    id INTEGER PRIMARY KEY AUTOINCREMENT,\n    id_usuario INTEGER,\n    id_permiso INTEGER,\n    FOREIGN KEY (id_usuario) REFERENCES Usuario (id),\n    FOREIGN KEY (id_permiso) REFERENCES Permiso (id)\n);",
+    "script": "\n\nCREATE TABLE Permiso_de_usuario (\n  id INTEGER PRIMARY KEY AUTOINCREMENT /*\n    @tiene_nombre: Identificador\n  */,\n  id_usuario INTEGER /*\n    @tiene_nombre: Identificador de usuario\n  */,\n  id_permiso INTEGER /*\n    @tiene_nombre: Identificador de permiso\n  */,\n  FOREIGN KEY (id_usuario) REFERENCES Usuario (id),\n  FOREIGN KEY (id_permiso) REFERENCES Permiso (id)\n);",
     "atributos": {}
   },
   "Sesion": {
@@ -125,7 +161,9 @@
         "tipo": "INTEGER",
         "detalles": "PRIMARY KEY AUTOINCREMENT",
         "orden": 0,
-        "atributos": {}
+        "atributos": {
+          "tiene_nombre": "Identificador"
+        }
       },
       "token": {
         "sentencia": "columna",
@@ -133,7 +171,9 @@
         "tipo": "VARCHAR",
         "detalles": "(100)",
         "orden": 1,
-        "atributos": {}
+        "atributos": {
+          "tiene_nombre": "Token de sesión"
+        }
       },
       "id_usuario": {
         "sentencia": "columna",
@@ -141,7 +181,17 @@
         "tipo": "INTEGER",
         "detalles": "",
         "orden": 2,
-        "atributos": {}
+        "atributos": {
+          "tiene_nombre": "Identificador de usuario"
+        },
+        "es_clave_foranea": {
+          "sentencia": "clave foránea",
+          "columna": "id_usuario",
+          "tabla_foranea": "Usuario",
+          "columna_foranea": "id",
+          "orden": 3,
+          "atributos": {}
+        }
       },
       "$id_usuario$Usuario$id": {
         "sentencia": "clave foránea",
@@ -152,7 +202,103 @@
         "atributos": {}
       }
     },
-    "script": "\n\nCREATE TABLE Sesion (\n    id INTEGER PRIMARY KEY AUTOINCREMENT,\n    token VARCHAR(100),\n    id_usuario INTEGER,\n    FOREIGN KEY (id_usuario) REFERENCES Usuario (id)\n);",
+    "script": "\n\nCREATE TABLE Sesion (\n  id INTEGER PRIMARY KEY AUTOINCREMENT /*\n    @tiene_nombre: Identificador\n  */,\n  token VARCHAR(100) /*\n    @tiene_nombre: Token de sesión\n  */,\n  id_usuario INTEGER /*\n    @tiene_nombre: Identificador de usuario\n  */,\n  FOREIGN KEY (id_usuario) REFERENCES Usuario (id)\n);",
+    "atributos": {}
+  },
+  "Carpeta": {
+    "tabla": "Carpeta",
+    "composicion": {
+      "id": {
+        "sentencia": "columna",
+        "columna": "id",
+        "tipo": "INTEGER",
+        "detalles": "PRIMARY KEY AUTOINCREMENT",
+        "orden": 0,
+        "atributos": {}
+      },
+      "nombre": {
+        "sentencia": "columna",
+        "columna": "nombre",
+        "tipo": "VARCHAR",
+        "detalles": "(1024) UNIQUE",
+        "orden": 1,
+        "atributos": {}
+      },
+      "id_carpeta_padre": {
+        "sentencia": "columna",
+        "columna": "id_carpeta_padre",
+        "tipo": "INTEGER",
+        "detalles": "",
+        "orden": 2,
+        "atributos": {},
+        "es_clave_foranea": {
+          "sentencia": "clave foránea",
+          "columna": "id_carpeta_padre",
+          "tabla_foranea": "Carpeta",
+          "columna_foranea": "id",
+          "orden": 3,
+          "atributos": {}
+        }
+      },
+      "$id_carpeta_padre$Carpeta$id": {
+        "sentencia": "clave foránea",
+        "columna": "id_carpeta_padre",
+        "tabla_foranea": "Carpeta",
+        "columna_foranea": "id",
+        "orden": 3,
+        "atributos": {}
+      }
+    },
+    "script": "\nCREATE TABLE Carpeta (\n  id INTEGER PRIMARY KEY AUTOINCREMENT,\n  nombre VARCHAR(1024) UNIQUE,\n  id_carpeta_padre INTEGER,\n  FOREIGN KEY (id_carpeta_padre) REFERENCES Carpeta (id)\n);",
+    "atributos": {}
+  },
+  "Fichero": {
+    "tabla": "Fichero",
+    "composicion": {
+      "id": {
+        "sentencia": "columna",
+        "columna": "id",
+        "tipo": "INTEGER",
+        "detalles": "PRIMARY KEY AUTOINCREMENT",
+        "orden": 0,
+        "atributos": {}
+      },
+      "fichero": {
+        "sentencia": "columna",
+        "columna": "fichero",
+        "tipo": "VARCHAR",
+        "detalles": "(1024) UNIQUE",
+        "orden": 1,
+        "atributos": {
+          "es_tipo": "fichero"
+        }
+      },
+      "id_carpeta_padre": {
+        "sentencia": "columna",
+        "columna": "id_carpeta_padre",
+        "tipo": "INTEGER",
+        "detalles": "",
+        "orden": 2,
+        "atributos": {},
+        "es_clave_foranea": {
+          "sentencia": "clave foránea",
+          "columna": "id_carpeta_padre",
+          "tabla_foranea": "Carpeta",
+          "columna_foranea": "id",
+          "orden": 3,
+          "atributos": {}
+        }
+      },
+      "$id_carpeta_padre$Carpeta$id": {
+        "sentencia": "clave foránea",
+        "columna": "id_carpeta_padre",
+        "tabla_foranea": "Carpeta",
+        "columna_foranea": "id",
+        "orden": 3,
+        "atributos": {}
+      }
+    },
+    "script": "\n\nCREATE TABLE Fichero (\n  id INTEGER PRIMARY KEY AUTOINCREMENT,\n  fichero VARCHAR(1024) UNIQUE /*\n    @es_tipo: fichero\n  */,\n  id_carpeta_padre INTEGER,\n  FOREIGN KEY (id_carpeta_padre) REFERENCES Carpeta (id)\n);",
     "atributos": {}
   },
   "Blog_post": {
@@ -284,7 +430,7 @@
         "atributos": {}
       }
     },
-    "script": "\n\nCREATE TABLE Tabla_1 /*\n  @es_seleccionable\n  @es_insertable\n  @es_actualizable\n  @es_eliminable\n  @comprobar_permiso:\n    al        select | insert | update | delete\n    si        @tiene_permiso(data, \"permiso de administración\")\n    entonces  @@prohibir(data, \"Se necesita permiso de administración para esta operación.\")\n  @comprobar_permiso:\n    al        select | insert | update | delete\n    si        @tiene_permiso(data, \"permiso de administración\")\n    entonces  @@prohibir(data, \"Se requieren permisos específicos para esta operación\")\n  */ (\n  id INTEGER PRIMARY KEY AUTOINCREMENT,\n  nombre VARCHAR(100)\n);",
+    "script": "\n\nCREATE TABLE Tabla_1 /*\n  @es_seleccionable\n  @es_insertable\n  @es_actualizable\n  @es_eliminable\n  @comprobar_permiso:\n    al        select | insert | update | delete\n    si        await $conditionals.tiene_permiso(data, \"permiso de administración\")\n    entonces  await $consequencials.prohibir(data, \"Se necesita permiso de administración para esta operación.\")\n  @comprobar_permiso:\n    al        select | insert | update | delete\n    si        await $conditionals.tiene_permiso(data, \"permiso de administración\")\n    entonces  await $consequencials.prohibir(data, \"Se requieren permisos específicos para esta operación\")\n  */ (\n  id INTEGER PRIMARY KEY AUTOINCREMENT,\n  nombre VARCHAR(100)\n);",
     "atributos": {
       "es_seleccionable": true,
       "es_insertable": true,
@@ -299,8 +445,8 @@
             "update",
             "delete"
           ],
-          "si": "@tiene_permiso(data, \"permiso de administración\")",
-          "entonces": "@@prohibir(data, \"Se necesita permiso de administración para esta operación.\")"
+          "si": "await $conditionals.tiene_permiso(data, \"permiso de administración\")",
+          "entonces": "await $consequencials.prohibir(data, \"Se necesita permiso de administración para esta operación.\")"
         },
         {
           "tipo": "comprobar_permiso",
@@ -310,8 +456,8 @@
             "update",
             "delete"
           ],
-          "si": "@tiene_permiso(data, \"permiso de administración\")",
-          "entonces": "@@prohibir(data, \"Se requieren permisos específicos para esta operación\")"
+          "si": "await $conditionals.tiene_permiso(data, \"permiso de administración\")",
+          "entonces": "await $consequencials.prohibir(data, \"Se requieren permisos específicos para esta operación\")"
         }
       ]
     }
@@ -346,7 +492,7 @@
             {
               "tipo": "comprobar_restriccion",
               "entidad": "no es seleccionable",
-              "si": "@no_tiene_permiso(data, \"permiso de administración\")"
+              "si": "$conditionals.no_tiene_permiso(data, \"permiso de administración\")"
             }
           ]
         }
@@ -362,7 +508,7 @@
             {
               "tipo": "comprobar_restriccion",
               "entidad": "no es filtrable",
-              "si": "@no_tiene_permiso(data, \"permiso de administración\")"
+              "si": "$conditionals.no_tiene_permiso(data, \"permiso de administración\")"
             }
           ]
         }
@@ -378,7 +524,7 @@
             {
               "tipo": "comprobar_restriccion",
               "entidad": "no es ordenable",
-              "si": "@no_tiene_permiso(data, \"permiso de administración\")"
+              "si": "$conditionals.no_tiene_permiso(data, \"permiso de administración\")"
             }
           ]
         }
@@ -394,7 +540,7 @@
             {
               "tipo": "comprobar_restriccion",
               "entidad": "no es insertable",
-              "si": "@no_tiene_permiso(data, \"permiso de administración\")"
+              "si": "$conditionals.no_tiene_permiso(data, \"permiso de administración\")"
             }
           ]
         }
@@ -410,13 +556,13 @@
             {
               "tipo": "comprobar_restriccion",
               "entidad": "no es actualizable",
-              "si": "@no_tiene_permiso(data, \"permiso de administración\")"
+              "si": "$conditionals.no_tiene_permiso(data, \"permiso de administración\")"
             }
           ]
         }
       }
     },
-    "script": "\n\nCREATE TABLE Tabla_2 /*\n  @es_seleccionable\n  @es_insertable\n  @es_actualizable\n  @es_eliminable\n  */ (\n  id INTEGER PRIMARY KEY AUTOINCREMENT,\n  nombre_privado VARCHAR(100),\n  nombre_publico VARCHAR(100) /*\n    @comprobar_restriccion: no es seleccionable si @no_tiene_permiso(data, \"permiso de administración\")\n  */,\n  nombre_no_filtrable VARCHAR(100) /*\n    @comprobar_restriccion: no es filtrable si @no_tiene_permiso(data, \"permiso de administración\")\n  */,\n  nombre_no_ordenable VARCHAR(100) /*\n    @comprobar_restriccion: no es ordenable si @no_tiene_permiso(data, \"permiso de administración\")\n  */,\n  nombre_no_insertable VARCHAR(100) /*\n    @comprobar_restriccion: no es insertable si @no_tiene_permiso(data, \"permiso de administración\")\n  */,\n  nombre_no_actualizable VARCHAR(100) /*\n    @comprobar_restriccion: no es actualizable si @no_tiene_permiso(data, \"permiso de administración\")\n  */\n);",
+    "script": "\n\nCREATE TABLE Tabla_2 /*\n  @es_seleccionable\n  @es_insertable\n  @es_actualizable\n  @es_eliminable\n  */ (\n  id INTEGER PRIMARY KEY AUTOINCREMENT,\n  nombre_privado VARCHAR(100),\n  nombre_publico VARCHAR(100) /*\n    @comprobar_restriccion: no es seleccionable si $conditionals.no_tiene_permiso(data, \"permiso de administración\")\n  */,\n  nombre_no_filtrable VARCHAR(100) /*\n    @comprobar_restriccion: no es filtrable si $conditionals.no_tiene_permiso(data, \"permiso de administración\")\n  */,\n  nombre_no_ordenable VARCHAR(100) /*\n    @comprobar_restriccion: no es ordenable si $conditionals.no_tiene_permiso(data, \"permiso de administración\")\n  */,\n  nombre_no_insertable VARCHAR(100) /*\n    @comprobar_restriccion: no es insertable si $conditionals.no_tiene_permiso(data, \"permiso de administración\")\n  */,\n  nombre_no_actualizable VARCHAR(100) /*\n    @comprobar_restriccion: no es actualizable si $conditionals.no_tiene_permiso(data, \"permiso de administración\")\n  */\n);",
     "atributos": {
       "es_seleccionable": true,
       "es_insertable": true,
@@ -456,6 +602,14 @@
               "eval": " $interceptors.Columns.es_actualizable_si_id_usuario_coincide_con(data, id_column, this);"
             }
           ]
+        },
+        "es_clave_foranea": {
+          "sentencia": "clave foránea",
+          "columna": "id_usuario",
+          "tabla_foranea": "Usuario",
+          "columna_foranea": "id",
+          "orden": 9,
+          "atributos": {}
         }
       },
       "creado_en": {
@@ -486,6 +640,14 @@
               "eval": " $interceptors.Columns.fijar_id_de_usuario_al_insertar(data, id_column, this);"
             }
           ]
+        },
+        "es_clave_foranea": {
+          "sentencia": "clave foránea",
+          "columna": "creado_por",
+          "tabla_foranea": "Usuario",
+          "columna_foranea": "id",
+          "orden": 11,
+          "atributos": {}
         }
       },
       "actualizado_en": {
@@ -516,6 +678,45 @@
               "eval": " $interceptors.Columns.fijar_id_de_usuario_al_actualizar(data, id_column, this);"
             }
           ]
+        },
+        "es_clave_foranea": {
+          "sentencia": "clave foránea",
+          "columna": "actualizado_por",
+          "tabla_foranea": "Usuario",
+          "columna_foranea": "id",
+          "orden": 10,
+          "atributos": {}
+        }
+      },
+      "campo_preferido": {
+        "sentencia": "columna",
+        "columna": "campo_preferido",
+        "tipo": "VARCHAR",
+        "detalles": "(255)",
+        "orden": 6,
+        "atributos": {}
+      },
+      "campo_libre": {
+        "sentencia": "columna",
+        "columna": "campo_libre",
+        "tipo": "VARCHAR",
+        "detalles": "(255)",
+        "orden": 7,
+        "atributos": {}
+      },
+      "campo_de_estado": {
+        "sentencia": "columna",
+        "columna": "campo_de_estado",
+        "tipo": "VARCHAR",
+        "detalles": "(255)",
+        "orden": 8,
+        "atributos": {
+          "interceptar": [
+            {
+              "tipo": "interceptar",
+              "eval": " $interceptors.Columns.fijar_valor_inicial(data, id_column, this, \"FASE-0\");"
+            }
+          ]
         }
       },
       "$id_usuario$Usuario$id": {
@@ -523,7 +724,7 @@
         "columna": "id_usuario",
         "tabla_foranea": "Usuario",
         "columna_foranea": "id",
-        "orden": 6,
+        "orden": 9,
         "atributos": {}
       },
       "$actualizado_por$Usuario$id": {
@@ -531,7 +732,7 @@
         "columna": "actualizado_por",
         "tabla_foranea": "Usuario",
         "columna_foranea": "id",
-        "orden": 7,
+        "orden": 10,
         "atributos": {}
       },
       "$creado_por$Usuario$id": {
@@ -539,11 +740,179 @@
         "columna": "creado_por",
         "tabla_foranea": "Usuario",
         "columna_foranea": "id",
-        "orden": 8,
+        "orden": 11,
         "atributos": {}
       }
     },
-    "script": "\n\nCREATE TABLE Tabla_3 (\n  id INTEGER PRIMARY KEY AUTOINCREMENT,\n  id_usuario INTEGER /*\n    @interceptar: $interceptors.Columns.fijar_id_de_usuario_al_insertar(data, id_column, this);\n    @interceptar: $interceptors.Columns.fijar_id_de_usuario_al_actualizar(data, id_column, this);\n    @interceptar: $interceptors.Columns.es_actualizable_si_id_usuario_coincide_con(data, id_column, this);\n  */,\n  creado_en DATETIME /*\n    @interceptar: $interceptors.Columns.fijar_fecha_actual_al_insertar(data, id_column, this);\n  */,\n  creado_por INTEGER /*\n    @interceptar: $interceptors.Columns.fijar_id_de_usuario_al_insertar(data, id_column, this);\n  */,\n  actualizado_en DATETIME /*\n    @interceptar: $interceptors.Columns.fijar_fecha_actual_al_actualizar(data, id_column, this);\n  */,\n  actualizado_por INTEGER /*\n    @interceptar: $interceptors.Columns.fijar_id_de_usuario_al_actualizar(data, id_column, this);\n  */,\n  FOREIGN KEY (id_usuario) REFERENCES Usuario (id),\n  FOREIGN KEY (actualizado_por) REFERENCES Usuario (id),\n  FOREIGN KEY (creado_por) REFERENCES Usuario (id)\n);",
+    "script": "\n\nCREATE TABLE Tabla_3 /*\n  @comprobar_permiso: \n    al update\n    si $conditionals.columna_tiene_valor(data, \"campo_de_estado\", this, \"FASE-0\", \";\")\n    entonces $consequencials.columna_solo_actualizable_a(data, \"campo_de_estado\", this, \"FASE-0;FASE-1\", \";\")\n  @comprobar_permiso: \n    al update\n    si $conditionals.columna_tiene_valor(data, \"campo_de_estado\", this, \"FASE-1\", \";\")\n    entonces $consequencials.columna_solo_actualizable_a(data, \"campo_de_estado\", this, \"FASE-0;FASE-1;FASE-2\", \";\")\n  @comprobar_permiso: \n    al update\n    si $conditionals.columna_tiene_valor(data, \"campo_de_estado\", this, \"FASE-2\", \";\")\n    entonces $consequencials.columna_solo_actualizable_a(data, \"campo_de_estado\", this, \"FASE-1;FASE-2;FASE-3\", \";\")\n  @comprobar_permiso: \n    al update\n    si $conditionals.columna_tiene_valor(data, \"campo_de_estado\", this, \"FASE-3\", \";\")\n    entonces $consequencials.columna_solo_actualizable_a(data, \"campo_de_estado\", this, \"FASE-2;FASE-3;FASE-4\", \";\")\n  @comprobar_permiso: \n    al update\n    si $conditionals.columna_tiene_valor(data, \"campo_de_estado\", this, \"FASE-4\", \";\")\n    entonces $consequencials.columna_solo_actualizable_a(data, \"campo_de_estado\", this, \"FASE-3;FASE-4;FASE-5\", \";\")\n  @comprobar_permiso: \n    al update\n    si $conditionals.columna_tiene_valor(data, \"campo_de_estado\", this, \"FASE-5\", \";\")\n    entonces $consequencials.columna_solo_actualizable_a(data, \"campo_de_estado\", this, \"FASE-4;FASE-5;FASE-6\", \";\")\n  @interceptar: $interceptors.Tables.registrar_cambios_en(data, this, \"Historial_de_Tabla_3\");\n  @tiene_columna_preferida: campo_preferido\n*/ (\n  id INTEGER PRIMARY KEY AUTOINCREMENT,\n  id_usuario INTEGER /*\n    @interceptar: $interceptors.Columns.fijar_id_de_usuario_al_insertar(data, id_column, this);\n    @interceptar: $interceptors.Columns.fijar_id_de_usuario_al_actualizar(data, id_column, this);\n    @interceptar: $interceptors.Columns.es_actualizable_si_id_usuario_coincide_con(data, id_column, this);\n  */,\n  creado_en DATETIME /*\n    @interceptar: $interceptors.Columns.fijar_fecha_actual_al_insertar(data, id_column, this);\n  */,\n  creado_por INTEGER /*\n    @interceptar: $interceptors.Columns.fijar_id_de_usuario_al_insertar(data, id_column, this);\n  */,\n  actualizado_en DATETIME /*\n    @interceptar: $interceptors.Columns.fijar_fecha_actual_al_actualizar(data, id_column, this);\n  */,\n  actualizado_por INTEGER /*\n    @interceptar: $interceptors.Columns.fijar_id_de_usuario_al_actualizar(data, id_column, this);\n  */,\n  campo_preferido VARCHAR(255),\n  campo_libre VARCHAR(255),\n  campo_de_estado VARCHAR(255) /*\n    @interceptar: $interceptors.Columns.fijar_valor_inicial(data, id_column, this, \"FASE-0\");\n  */,\n  FOREIGN KEY (id_usuario) REFERENCES Usuario (id),\n  FOREIGN KEY (actualizado_por) REFERENCES Usuario (id),\n  FOREIGN KEY (creado_por) REFERENCES Usuario (id)\n);",
+    "atributos": {
+      "comprobar_permiso": [
+        {
+          "tipo": "comprobar_permiso",
+          "al": [
+            "update"
+          ],
+          "si": "$conditionals.columna_tiene_valor(data, \"campo_de_estado\", this, \"FASE-0\", \";\")",
+          "entonces": "$consequencials.columna_solo_actualizable_a(data, \"campo_de_estado\", this, \"FASE-0;FASE-1\", \";\")"
+        },
+        {
+          "tipo": "comprobar_permiso",
+          "al": [
+            "update"
+          ],
+          "si": "$conditionals.columna_tiene_valor(data, \"campo_de_estado\", this, \"FASE-1\", \";\")",
+          "entonces": "$consequencials.columna_solo_actualizable_a(data, \"campo_de_estado\", this, \"FASE-0;FASE-1;FASE-2\", \";\")"
+        },
+        {
+          "tipo": "comprobar_permiso",
+          "al": [
+            "update"
+          ],
+          "si": "$conditionals.columna_tiene_valor(data, \"campo_de_estado\", this, \"FASE-2\", \";\")",
+          "entonces": "$consequencials.columna_solo_actualizable_a(data, \"campo_de_estado\", this, \"FASE-1;FASE-2;FASE-3\", \";\")"
+        },
+        {
+          "tipo": "comprobar_permiso",
+          "al": [
+            "update"
+          ],
+          "si": "$conditionals.columna_tiene_valor(data, \"campo_de_estado\", this, \"FASE-3\", \";\")",
+          "entonces": "$consequencials.columna_solo_actualizable_a(data, \"campo_de_estado\", this, \"FASE-2;FASE-3;FASE-4\", \";\")"
+        },
+        {
+          "tipo": "comprobar_permiso",
+          "al": [
+            "update"
+          ],
+          "si": "$conditionals.columna_tiene_valor(data, \"campo_de_estado\", this, \"FASE-4\", \";\")",
+          "entonces": "$consequencials.columna_solo_actualizable_a(data, \"campo_de_estado\", this, \"FASE-3;FASE-4;FASE-5\", \";\")"
+        },
+        {
+          "tipo": "comprobar_permiso",
+          "al": [
+            "update"
+          ],
+          "si": "$conditionals.columna_tiene_valor(data, \"campo_de_estado\", this, \"FASE-5\", \";\")",
+          "entonces": "$consequencials.columna_solo_actualizable_a(data, \"campo_de_estado\", this, \"FASE-4;FASE-5;FASE-6\", \";\")"
+        }
+      ],
+      "interceptar": [
+        {
+          "tipo": "interceptar",
+          "eval": " $interceptors.Tables.registrar_cambios_en(data, this, \"Historial_de_Tabla_3\");"
+        }
+      ],
+      "tiene_columna_preferida": "campo_preferido"
+    }
+  },
+  "Historial_de_Tabla_3": {
+    "tabla": "Historial_de_Tabla_3",
+    "composicion": {
+      "id": {
+        "sentencia": "columna",
+        "columna": "id",
+        "tipo": "INTEGER",
+        "detalles": "PRIMARY KEY AUTOINCREMENT",
+        "orden": 0,
+        "atributos": {}
+      },
+      "tabla": {
+        "sentencia": "columna",
+        "columna": "tabla",
+        "tipo": "VARCHAR",
+        "detalles": "(255)",
+        "orden": 1,
+        "atributos": {}
+      },
+      "operacion": {
+        "sentencia": "columna",
+        "columna": "operacion",
+        "tipo": "VARCHAR",
+        "detalles": "(255)",
+        "orden": 2,
+        "atributos": {}
+      },
+      "identificador": {
+        "sentencia": "columna",
+        "columna": "identificador",
+        "tipo": "INTEGER",
+        "detalles": "",
+        "orden": 3,
+        "atributos": {}
+      },
+      "parametros": {
+        "sentencia": "columna",
+        "columna": "parametros",
+        "tipo": "TEXT",
+        "detalles": "",
+        "orden": 4,
+        "atributos": {}
+      },
+      "autentificacion": {
+        "sentencia": "columna",
+        "columna": "autentificacion",
+        "tipo": "TEXT",
+        "detalles": "",
+        "orden": 5,
+        "atributos": {}
+      },
+      "creado_en": {
+        "sentencia": "columna",
+        "columna": "creado_en",
+        "tipo": "DATETIME",
+        "detalles": "",
+        "orden": 6,
+        "atributos": {}
+      }
+    },
+    "script": "\n\nCREATE TABLE Historial_de_Tabla_3 (\n  id INTEGER PRIMARY KEY AUTOINCREMENT,\n  tabla VARCHAR(255),\n  operacion VARCHAR(255),\n  identificador INTEGER,\n  parametros TEXT,\n  autentificacion TEXT,\n  creado_en DATETIME\n);",
+    "atributos": {}
+  },
+  "Tabla_4": {
+    "tabla": "Tabla_4",
+    "composicion": {
+      "id": {
+        "sentencia": "columna",
+        "columna": "id",
+        "tipo": "INTEGER",
+        "detalles": "PRIMARY KEY AUTOINCREMENT",
+        "orden": 0,
+        "atributos": {}
+      },
+      "id_tabla_3": {
+        "sentencia": "columna",
+        "columna": "id_tabla_3",
+        "tipo": "INTEGER",
+        "detalles": "",
+        "orden": 1,
+        "atributos": {},
+        "es_clave_foranea": {
+          "sentencia": "clave foránea",
+          "columna": "id_tabla_3",
+          "tabla_foranea": "Tabla_3",
+          "columna_foranea": "id",
+          "orden": 3,
+          "atributos": {}
+        }
+      },
+      "campo_unico": {
+        "sentencia": "columna",
+        "columna": "campo_unico",
+        "tipo": "VARCHAR",
+        "detalles": "(255) UNIQUE",
+        "orden": 2,
+        "atributos": {}
+      },
+      "$id_tabla_3$Tabla_3$id": {
+        "sentencia": "clave foránea",
+        "columna": "id_tabla_3",
+        "tabla_foranea": "Tabla_3",
+        "columna_foranea": "id",
+        "orden": 3,
+        "atributos": {}
+      }
+    },
+    "script": "\n\nCREATE TABLE Tabla_4 (\n  id INTEGER PRIMARY KEY AUTOINCREMENT,\n  id_tabla_3 INTEGER,\n  campo_unico VARCHAR(255) UNIQUE,\n  FOREIGN KEY (id_tabla_3) REFERENCES Tabla_3 (id)\n);",
     "atributos": {}
   }
 }

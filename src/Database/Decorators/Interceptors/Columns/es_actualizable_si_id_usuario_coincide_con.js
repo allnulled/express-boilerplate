@@ -13,7 +13,7 @@ module.exports = class {
                 sql += "\n WHERE id = "
                 sql += sqlstring.escape(id);
                 sql += ";"
-                const results = await controlador.api.Utilities.QueryDatabase(sql);
+                const results = await this.api.Utilities.QueryDatabase(sql);
                 if(results.length === 0) {
                     throw new Error("No se encontraron resultados para el «id» proporcionado en el decorador de base de datos de tipo interceptor de columna «es_actualizable_si_id_usuario_coincide_con»");
                 }

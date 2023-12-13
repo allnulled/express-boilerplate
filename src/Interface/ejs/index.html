@@ -1,20 +1,26 @@
 <%
 const title = "Inicio";
+const parameters = { title };
+const configurations = require(__dirname + "/config/index.json");
 
 %>
 <!DOCTYPE html>
 <html>
 <head>
-    <title><%-title%></title>
-    <%- await include("inc/meta.html") %>
-    <%- await include("inc/styles.css") %>
+    <%- await include("inc/meta.html", parameters) %>
+    <%- await include("inc/styles.css", parameters) %>
 </head>
 <body>
-    <h5><%-title%></h5>
-    <ul>
-        <li><a href="/index.html">Inicio</a></li>
-        <li><a href="/Schema">Esquema de datos</a></li>
-        <li><a href="/ui">Panel de control</a></li>
-    </ul>
+    <pre><%-JSON.stringify(configurations, null, 2)%></pre>
+    <%
+    const { composicion } = configurations;
+    for(let index_composition=0; index_composition < composicion.length; index_composition++) {
+        const component = composicion[index_composition];
+        const { plantilla, argumentos } = component;
+        %>
+        <%-await include(plantilla, argumentos);%>
+        <%
+    }
+    %>
 </body>
 </html>

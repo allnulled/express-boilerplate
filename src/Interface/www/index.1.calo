@@ -17,6 +17,7 @@ Ejecutable como documento HTML5
     <link rel="stylesheet" type="text/css" href="lib/components/pagina_de_crear_item/pagina_de_crear_item.css" />
     <link rel="stylesheet" type="text/css" href="lib/components/pagina_de_esquema/pagina_de_esquema.css" />
     <link rel="stylesheet" type="text/css" href="lib/components/pagina_de_autentificacion/pagina_de_autentificacion.css" />
+    <link rel="stylesheet" type="text/css" href="lib/components/selector_de_tabla/selector_de_tabla.css" />
     
     <script src="lib/calo/calo.js"></script>
     <script src="lib/ui-script/ui-script.js"></script>
@@ -29,6 +30,7 @@ Ejecutable como documento HTML5
     <script src="lib/components/pagina_de_crear_item/pagina_de_crear_item.js"></script>
     <script src="lib/components/pagina_de_esquema/pagina_de_esquema.js"></script>
     <script src="lib/components/pagina_de_autentificacion/pagina_de_autentificacion.js"></script>
+    <script src="lib/components/selector_de_tabla/selector_de_tabla.js"></script>
     <style>
       html {
         background-color: #555;
@@ -111,6 +113,9 @@ Ejecutable como documento HTML5
       }
       .margin_bottom_1 {
         margin-bottom: 4px;
+      }
+      .imagen_de_fichero {
+        max-width: 200px;
       }
     </style>
 </head>
@@ -212,6 +217,25 @@ asigno window.App como una aplicación vue2 con nombre "App" con rutas [{
         asigno this.sesion_token como respuesta_login.data.data.sesion.token.
         hago asíncronamente this.obtener_schema().
       } en errores hago Vue.prototype.$dialogs.error(error).
+      método humanizar_texto_de_columna con (tabla_arg, columna_arg) donde {
+        creo esquema_compacto como this.compacted_schema.
+        creo tabla como esquema_compacto[tabla_arg].
+        creo variable columna como tabla.composicion[columna_arg].
+        si columna.atributos.tiene_nombre {
+          retorno columna.atributos.tiene_nombre.
+        }.
+        asigno columna como columna_arg.
+        asigno columna como columna.replace(una nueva RegExp("_", "g"), " ").
+        asigno columna como columna.replace(una nueva RegExp("[A-Z]", "g"), una función con (arg1) donde retorno " " + arg1.toLowerCase()).
+        asigno columna como columna.substr(0,1).toUpperCase() + columna.substr(1).
+        retorno columna.
+      } en errores {
+        asigno columna como columna_arg.
+        asigno columna como columna.replace(una nueva RegExp("_", "g"), " ").
+        asigno columna como columna.replace(una nueva RegExp("[A-Z]", "g"), una función con (arg1) donde retorno " " + arg1.toLowerCase()).
+        asigno columna como columna.substr(0,1).toUpperCase() + columna.substr(1).
+        retorno columna.
+      }.
     }.
     propiedad watch como {}.
     método beforeMount donde {

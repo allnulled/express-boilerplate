@@ -1551,6 +1551,9 @@ function peg$parse(input, options) {
       s2 = peg$parseAccion();
       if (s2 !== peg$FAILED) {
         s3 = peg$parseCondicion();
+        if (s3 === peg$FAILED) {
+          s3 = null;
+        }
         if (s3 !== peg$FAILED) {
           s4 = peg$parseConsecuencia();
           if (s4 !== peg$FAILED) {

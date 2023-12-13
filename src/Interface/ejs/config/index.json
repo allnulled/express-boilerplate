@@ -1,0 +1,13 @@
+{
+    "composicion": [{
+        "plantilla": "inc/components/title/title.html",
+        "argumentos": {
+            "title": "'Inicio'"
+        }
+    }, {
+        "plantilla": "inc/components/subtitle/subtitle.html",
+        "argumentos": {
+            "subtitle": "'Índice de links.'"
+        }
+    }]
+}

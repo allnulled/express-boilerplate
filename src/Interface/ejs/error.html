@@ -7,8 +7,8 @@ const title = "Error 500: mala petición";
 <html>
     <head>
         <title><%- title %></title>
-        <%- await include("inc/meta.html") %>
-        <%- await include("inc/styles.css") %>
+        <%- include("inc/meta.html", { title }) %>
+        <%- include("inc/styles.css") %>
     </head>
     <body>
         <h5><%- title %></h5>

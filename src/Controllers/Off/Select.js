@@ -1,6 +1,7 @@
 const sqlstring = require("sqlstring");
+const BasicController = require(__dirname + "/BasicController.js");
 
-module.exports = class {
+module.exports = class extends BasicController {
 
   name = "Select";
 
@@ -28,14 +29,14 @@ module.exports = class {
       const data = { _request:request, _response:response, _operacion: "select" };
       await this.onCompactParameters(data);
       await this.onCompactedParameters(data);
-      await this.onCheckTablePermissions(data);
-      await this.onCheckedTablePermissions(data);
-      await this.onCheckColumnRestrictions(data);
-      await this.onCheckedColumnRestrictions(data);
-      await this.onCheckTableInterceptors(data);
-      await this.onCheckedTableInterceptors(data);
-      await this.onCheckColumnInterceptors(data);
-      await this.onCheckedColumnInterceptors(data);
+      await this.onCheckTablePermissionsForSelect(data);
+      await this.onCheckedTablePermissionsForSelect(data);
+      await this.onCheckColumnRestrictionsForSelect(data);
+      await this.onCheckedColumnRestrictionsForSelect(data);
+      await this.onCheckTableInterceptorsForSelect(data);
+      await this.onCheckedTableInterceptorsForSelect(data);
+      await this.onCheckColumnInterceptorsForSelect(data);
+      await this.onCheckedColumnInterceptorsForSelect(data);
       await this.onBuildSelectFrom(data);
       await this.onBuiltSelectFrom(data);
       await this.onBuildSelectWhere(data);
@@ -100,51 +101,51 @@ module.exports = class {
     // @OKAY
   }
 
-  async onCheckTablePermissions(data) {
-    this.api.Utilities.Trace("api.Controllers.Select.onCheckTablePermissions");
+  async onCheckTablePermissionsForSelect(data) {
+    this.api.Utilities.Trace("api.Controllers.Select.onCheckTablePermissionsForSelect");
     const { table } = data;
     const permisos_aplicables = this.api.Database.CompactedSchema[table].atributos.comprobar_permiso;
-    if(!permisos_aplicables) {
+    if (!permisos_aplicables) {
       return;
     }
     const permisos_aplicados = permisos_aplicables.filter(permiso => {
       return (permiso.al.indexOf("select") !== -1) || (permiso.al.indexOf("any") !== -1);
     });
-    for(let index_permiso=0; index_permiso<permisos_aplicados.length; index_permiso++) {
+    for (let index_permiso = 0; index_permiso < permisos_aplicados.length; index_permiso++) {
       const permiso_aplicado = permisos_aplicados[index_permiso];
-      let { si: condicional, entonces: consecuencial } = permiso_aplicado;
-      if(condicional.startsWith("@@")) {
-        condicional = "this.api.Database.Decorators.Consequencials." + condicional.substr(2);
-      } else if(condicional.startsWith("@")) {
-        condicional = "this.api.Database.Decorators.Conditionals." + condicional.substr(1);
-      }
-      if(consecuencial.startsWith("@@")) {
-        consecuencial = "this.api.Database.Decorators.Consequencials." + consecuencial.substr(2);
-      } else if(consecuencial.startsWith("@")) {
-        consecuencial = "this.api.Database.Decorators.Conditionals." + consecuencial.substr(1);
-      }
-      condicional = "return " + condicional;
-      consecuencial = "return " + consecuencial;
+      let { si: bloque_si, entonces: bloque_entonces } = permiso_aplicado;
+      let js_1 = "";
+      js_1 += "const $conditionals = this.api.Database.Decorators.Conditionals;\n";
+      js_1 += "const $consequencials = this.api.Database.Decorators.Consequencials;\n";
+      js_1 += "const $interceptors = this.api.Database.Decorators.Interceptors;\n";
+      js_1 += "return " + bloque_si;
       console.log("[*] Evaluando js » condicional:");
-      console.log(condicional);
-      const funcion_condicional = new Function("data", "parameter", condicional);
+      console.log(js_1);
+      const noop_async = async function () {};
+      const AsyncFunction = noop_async.constructor;
+      const funcion_condicional = new AsyncFunction("data", js_1);
       const solucion_al_condicional = await funcion_condicional.call(this, data);
-      if(solucion_al_condicional === true) {
+      if (solucion_al_condicional === true) {
+        let js_2 = "";
+        js_2 += "const $conditionals = this.api.Database.Decorators.Conditionals;\n";
+        js_2 += "const $consequencials = this.api.Database.Decorators.Consequencials;\n";
+        js_2 += "const $interceptors = this.api.Database.Decorators.Interceptors;\n";
+        js_2 += "return " + bloque_entonces;
         console.log("[*] Evaluando js » consecuencial:");
-        console.log(consecuencial);
-        const funcion_consecuencial = new Function("data", "parameter", consecuencial);
+        console.log(js_2);
+        const funcion_consecuencial = new AsyncFunction("data", js_2);
         await funcion_consecuencial.call(this, data);
       }
     }
   }
 
-  onCheckedTablePermissions(data) {
-    this.api.Utilities.Trace("api.Controllers.Select.onCheckedTablePermissions");
+  onCheckedTablePermissionsForSelect(data) {
+    this.api.Utilities.Trace("api.Controllers.Select.onCheckedTablePermissionsForSelect");
     // @OKAY
   }
 
-  async onCheckColumnRestrictions(data) {
-    this.api.Utilities.Trace("api.Controllers.Select.onCheckColumnRestrictions");
+  async onCheckColumnRestrictionsForSelect(data) {
+    this.api.Utilities.Trace("api.Controllers.Select.onCheckColumnRestrictionsForSelect");
     const { CheckThat } = this.api.Utilities;
     const { table, _request: request, where, order } = data;
     const columnas = this.api.Database.CompactedSchema[table].composicion;
@@ -171,19 +172,20 @@ module.exports = class {
       for(let index_aplicaciones=0; index_aplicaciones<restricciones_a_aplicar_por_select.length; index_aplicaciones++) {
         const restriccion = restricciones_a_aplicar_por_select[index_aplicaciones];
         let { entidad, si: condicion } = restriccion;
-        if(condicion.startsWith("@@")) {
-          condicion = "this.api.Database.Decorators.Consequencials." + condicion.substr(2);
-        } else if(condicion.startsWith("@")) {
-          condicion = "this.api.Database.Decorators.Conditionals." + condicion.substr(1);
-        }
-        condicion = "return " + condicion;
+        let js = "";
+        js += "const $conditionals = this.api.Database.Decorators.Conditionals;\n";
+        js += "const $consequencials = this.api.Database.Decorators.Consequencials;\n";
+        js += "const $interceptors = this.api.Database.Decorators.Interceptors;\n";
+        js += "return ";
+        js += condicion.trim();
         console.log("[*] Evaluando js » condicional de restricción:");
-        console.log(condicion);
-        const funcion_condicional = new Function("data", "parameter", condicion);
+        console.log(js);
+        const noop_async = async function() {};
+        const AsyncFunction = noop_async.constructor;
+        const funcion_condicional = new AsyncFunction("data", js);
         const solucion_al_condicional = await funcion_condicional.call(this, data);
         if(solucion_al_condicional === true) {
           if(entidad === "no es seleccionable") {
-            console.log("no es seleccionable");
             const posicion = data.fields.indexOf(columna_id);
             if(posicion !== -1) {
               data.fields.splice(posicion, 1);
@@ -201,7 +203,7 @@ module.exports = class {
               }
             }
             if(hay_mencion) {
-              throw new Error("La columna «" + columna_id + "» no es filtrable conforme a los permisos establecidos");
+              throw new Error("La columna «" + columna_id + "» no es filtrable actualmente");
             }
           } else if(entidad === "no es ordenable") {
             let hay_mencion = false;
@@ -216,7 +218,7 @@ module.exports = class {
               }
             }
             if(hay_mencion) {
-              throw new Error("La columna «" + columna_id + "» no es ordenable conforme a los permisos establecidos");
+              throw new Error("La columna «" + columna_id + "» no es ordenable actualmente");
             }
           }
         }
@@ -224,13 +226,13 @@ module.exports = class {
     }
   }
 
-  onCheckedColumnRestrictions(data) {
-    this.api.Utilities.Trace("api.Controllers.Select.onCheckedColumnRestrictions");
+  onCheckedColumnRestrictionsForSelect(data) {
+    this.api.Utilities.Trace("api.Controllers.Select.onCheckedColumnRestrictionsForSelect");
     // @OKAY
   }
 
-  async onCheckTableInterceptors(data) {
-    this.api.Utilities.Trace("api.Controllers.Select.onCheckTableInterceptors");
+  async onCheckTableInterceptorsForSelect(data) {
+    this.api.Utilities.Trace("api.Controllers.Select.onCheckTableInterceptorsForSelect");
     const { table } = data;
     const intercepciones = this.api.Database.CompactedSchema[table].atributos.interceptar;
     if(typeof intercepciones === "undefined") {
@@ -243,27 +245,27 @@ module.exports = class {
       const AsyncFunction = noop_async.constructor;
       let js = "";
       js += "const $conditionals = this.api.Database.Decorators.Conditionals;\n";
-      js += "const $consequentials = this.api.Database.Decorators.Consequentials;\n";
+      js += "const $consequencials = this.api.Database.Decorators.Consequencials;\n";
       js += "const $interceptors = this.api.Database.Decorators.Interceptors;\n";
       js += "return ";
       js += evaluable.trim();
       console.log("[*] Evaluando js » interceptor de tabla:");
       console.log(js);
-      const async_function = new AsyncFunction("data", "interception", "index_intercepcion", js);
-      const resultado = await async_function.call(this, data, columna_id, intercepcion, index_intercepcion);
+      const async_function = new AsyncFunction("data", "interception", "index_interception", js);
+      const resultado = await async_function.call(this, data, intercepcion, index_intercepcion);
       if((typeof resultado === "object") && (resultado instanceof AbortSignal)) {
         return resultado;
       }
     }
   }
 
-  async onCheckedTableInterceptors(data) {
-    this.api.Utilities.Trace("api.Controllers.Select.onCheckedTableInterceptors");
+  async onCheckedTableInterceptorsForSelect(data) {
+    this.api.Utilities.Trace("api.Controllers.Select.onCheckedTableInterceptorsForSelect");
     // @OKAY
   }
 
-  async onCheckColumnInterceptors(data) {
-    this.api.Utilities.Trace("api.Controllers.Select.onCheckColumnInterceptors");
+  async onCheckColumnInterceptorsForSelect(data) {
+    this.api.Utilities.Trace("api.Controllers.Select.onCheckColumnInterceptorsForSelect");
     const { table } = data;
     const columnas = this.api.Database.CompactedSchema[table].composicion;
     const columnas_ids = Object.keys(columnas);
@@ -282,7 +284,7 @@ module.exports = class {
         const AsyncFunction = noop_async.constructor;
         let js = "";
         js += "const $conditionals = this.api.Database.Decorators.Conditionals;\n";
-        js += "const $consequentials = this.api.Database.Decorators.Consequentials;\n";
+        js += "const $consequencials = this.api.Database.Decorators.Consequencials;\n";
         js += "const $interceptors = this.api.Database.Decorators.Interceptors;\n";
         js += "return ";
         js += evaluable.trim();
@@ -297,8 +299,8 @@ module.exports = class {
     }
   }
 
-  async onCheckedColumnInterceptors(data) {
-    this.api.Utilities.Trace("api.Controllers.Select.onCheckedColumnInterceptors");
+  async onCheckedColumnInterceptorsForSelect(data) {
+    this.api.Utilities.Trace("api.Controllers.Select.onCheckedColumnInterceptorsForSelect");
     // @OKAY
   }
 

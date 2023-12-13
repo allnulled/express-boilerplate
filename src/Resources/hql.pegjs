@@ -70,7 +70,7 @@ Hiperatributo_tipo_4 = _* "@interceptar:" valor:Lenguaje_interno_3 { return valo
 Lenguaje_interno_3 = (!(___).)+ { return { tipo: "interceptar", eval: text() } }
 
 Lenguaje_interno_1 = Sentencia_1
-Sentencia_1 = _* al:Accion si:Condicion entonces:Consecuencia { return {tipo:"comprobar_permiso",al,si,entonces}}
+Sentencia_1 = _* al:Accion si:Condicion? entonces:Consecuencia { return {tipo:"comprobar_permiso",al,si,entonces}}
 Accion = _* "al" _+ ops:Operaciones { return ops }
 Operaciones = op:Operacion op_n:Otras_operaciones* { return [op].concat(op_n) }
 Otras_operaciones = (_* "|" _*) op:Operacion { return op }

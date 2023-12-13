@@ -28,6 +28,7 @@ const setupConfigurations = async function (api) {
   process.env.APP_PORT = 5054;
   process.env.DATABASE_FILE = path.resolve(__dirname + "/Database/database.sqlite");
   process.env.DATABASE_RESET = true;
+  process.env.DATABASE_DRIVER = "sqlite";
   const files = fs.readdirSync(__dirname + "/Configurations");
   for (let index = 0; index < files.length; index++) {
     const file = files[index];
@@ -129,10 +130,14 @@ const setupQueries = async function(api) {
  * 
  */
 const setupModels = async function(api) {
-  api.Models = {};
+  api.Models = { $orm: {} };
   const files = fs.readdirSync(__dirname + "/Models");
+  Iterating_files:
   for (let index = 0; index < files.length; index++) {
     const file = files[index];
+    if(file === "Base") {
+      continue Iterating_files;
+    }
     const filepath = path.resolve(__dirname + "/Models/" + file);
     const modelName = file.replace(/\.js/g, "");
     const modelModule = require(filepath);
@@ -142,6 +147,11 @@ const setupModels = async function(api) {
     modelInstance.api = api;
     ////////////////////////////////
     api.Models[modelName] = modelInstance;
+    if(typeof modelInstance.initialize === "function") {
+      api.Models.$orm[modelName] = await api.Models[modelName].initialize(api);
+    } else {
+      api.Models.$orm[modelName] = await api.Models[modelName];
+    }
     console.log("[*] Modelo nº" + (index + 1) + ":");
     console.log("    - Origen:      " + file);
   }
@@ -157,54 +167,16 @@ const setupModels = async function(api) {
  *     - api.Database.CompactedSchema
  */
 const setupDatabaseConnection = async function (api) {
-  let conexionBruta = undefined;
-  if(process.env.DATABASE_RESET) {
-    fs.writeFileSync(process.env.DATABASE_FILE, "", "utf8");
-  }
-  await new Promise(function (ok, fail) {
-    conexionBruta = new sqlite.Database(process.env.DATABASE_FILE, function (error) {
-      if (error) {
-        return fail(error);
-      }
-      return ok();
-    });
-  });
-  const conexionNeta = {
-    NativeConnection: conexionBruta,
-    Execute: function (consultaUnica) {
-      api.Utilities.Trace("api.Database.Connection.Execute");
-      return new Promise(function (ok, fail) {
-        try {
-          conexionBruta.serialize(function () {
-            try {
-              console.log("[SQL] " + consultaUnica);
-              conexionBruta.all(consultaUnica, [], function (error, data) {
-                if (error) {
-                  console.log("Error executing SQL sentence: (1)");
-                  console.log(error);
-                  return fail(error);
-                }
-                return ok(data);
-              });
-            } catch (error) {
-              console.log("Error executing SQL sentence: (2)");
-              console.log(error);
-              return fail(error);
-            }
-          });
-        } catch (error) {
-          console.log("Error executing SQL sentence: (3)");
-          console.log(error);
-          return fail(error);
-        }
-      });
-    }
-  };
+  const driver_funcion = require(__dirname + "/Database/Drivers/" + process.env.DATABASE_DRIVER + ".js");
+  const sequelize_driver_funcion = require(__dirname + "/Database/Drivers/sequelize.js");
+  const conexionNeta = await driver_funcion(api);
+  const conexionSequelize = await sequelize_driver_funcion(api);
   const esquemaSql = fs.readFileSync(__dirname + "/Database/Scripts/creation.sql").toString();
   const hqlParser = require(__dirname + "/Resources/hql.js");
   const esquemaJson = hqlParser.parse(esquemaSql);
   const esquema = esquemaJson;
   api.Database = {};
+  api.Database.SequelizeConnection = conexionSequelize;
   api.Database.Connection = conexionNeta;
   api.Database.Schema = esquema;
   api.Database.CompactedSchema = (function() {
@@ -248,6 +220,7 @@ const setupDatabaseConnection = async function (api) {
             columnas[columna.columna] = columna;
           } else if(es_clave_foranea) {
             columnas["$" + columna.columna + "$" + columna.tabla_foranea + "$" + columna.columna_foranea] = columna;
+            columnas[columna.columna].es_clave_foranea = columna;
           }
           compactar_atributos(columna);
         }
@@ -325,7 +298,7 @@ const setupMiddlewares = async function (api) {
  * 
  */
 const setupControllers = async function (api) {
-  const files = fs.readdirSync(__dirname + "/Controllers");
+  const files = fs.readdirSync(__dirname + "/Controllers").filter(f => f !== "Off");
   let controllers = [];
   for (let index = 0; index < files.length; index++) {
     const file = files[index];
@@ -405,9 +378,9 @@ const main = async function (api = {}) {
     await setupConfigurations(api);
     await setupUtilities(api);
     await setupQueries(api);
-    await setupModels(api);
     await setupDatabaseConnection(api);
     await setupDatabaseDecorators(api);
+    await setupModels(api);
     await setupApplication(api);
     await setupMiddlewares(api);
     await setupControllers(api);

@@ -33270,7 +33270,7 @@ var widgetsMenu = $.widget( "ui.menu", {
 			this.element.attr( "aria-activedescendant", focused.attr( "id" ) );
 		}
 
-		// Highlight active parent menu item
+		// Highlight active parent menu item, if any
 		activeParent = this.active
 			.parent()
 				.closest( ".ui-menu-item" )
@@ -61304,16 +61304,35 @@ Castelog.variables.operador.exclamacion.ejs.ui.dom.elemento = function(elemento 
 
 const main = async function() {try {
 console.log("[*] Inicio de test de «express-boilerplate»");
+let token = undefined;
+const test_de_login = async function() {try {
 const respuesta_login = (await Castelog.metodos.una_peticion_http("http://127.0.0.1:5054/Login", "POST", { nombre:"admin",
 contrasenya:"admin"
 }, { 
 }, null, null));
-if(!(typeof respuesta_login.data.data.sesion.token === 'string')) throw new Error("Error en fichero [-] en posición [326-395=9:22-10:69] cuando: " + "compruebo que respuesta_login.data.data.sesion.token es tipo texto");
-const token = respuesta_login.data.data.sesion.token;
+if(!(typeof respuesta_login.data.data.sesion.token === 'string')) throw new Error("Error en fichero [-] en posición [434-505=13:24-14:71] cuando: " + "compruebo que respuesta_login.data.data.sesion.token es tipo texto");
+token = respuesta_login.data.data.sesion.token;
+console.log("[*] Test de «/Login» exitoso");
+} catch(error) {
+console.log(error);
+throw error;
+}
+
+};
+const test_de_logout = async function() {try {
 const respuesta_logout = (await Castelog.metodos.una_peticion_http("http://127.0.0.1:5054/Logout", "POST", { 
 }, { authorization:token
 }, null, null));
-if(!(typeof respuesta_logout.data.data.mensaje === 'string')) throw new Error("Error en fichero [-] en posición [643-708=16:44-17:65] cuando: " + "compruebo que respuesta_logout.data.data.mensaje es tipo texto");
+if(!(typeof respuesta_logout.data.data.mensaje === 'string')) throw new Error("Error en fichero [-] en posición [874-941=24:46-25:67] cuando: " + "compruebo que respuesta_logout.data.data.mensaje es tipo texto");
+console.log("[*] Test de «/Logout» exitoso");
+} catch(error) {
+console.log(error);
+throw error;
+}
+
+};
+(await test_de_login(  ));
+(await test_de_logout(  ));
 console.log("[*] Final de test de «express-boilerplate»");
 } catch(error) {
 console.log("[!!!] Falló el test");

@@ -27,7 +27,8 @@ module.exports = class {
                 return next();
             }
             const contenidoFinal = await new Promise((ok, fail) => {
-                ejs.renderFile(rutaDePlantilla, { request, response, next }, { async: true }, function(error, text) {
+                const directorio = path.dirname(rutaDePlantilla)
+                ejs.renderFile(rutaDePlantilla, { api: this.api, __dirname: directorio, require, request, response, next }, { async: true }, function(error, text) {
                     if(error) {
                         return fail(error);
                     }

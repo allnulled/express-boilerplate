@@ -1,0 +1,387 @@
+asigno window.SelectorDeTabla como un componente vue2 con nombre "SelectorDeTabla" con plantilla {
+  <div>
+    <xpanel>
+      <xtable v-if="['uno','varios'].indexOf(modo) !== -1">
+        <xtablebody>
+          <xtablerow>
+            <xtablecell style="width:100%;">
+              <input style="width:100%;" type="text" v-model="selected_ids" disabled="true" placeholder="Aquí aparece el identificador de los seleccionados" />
+            </xtablecell>
+            <xtablecell style="padding-left: 4px;">
+              <button style="min-width:30px;" :class="{active:is_showing_panels}" v-on:click="() => alternar_paneles()">...</button>
+            </xtablecell>
+          </xtablerow>
+        </xtablebody>
+      </xtable>
+      <xpanel v-if="(modo === 'ver') || ((['uno','varios'].indexOf(modo) !== -1) && is_showing_panels)">
+        <xpanel style="padding-left: 4px; padding-right: 4px;margin-top: 4px;background-color: #333; border: 1px solid white;">
+          <xpanel v-if="['uno','varios'].indexOf(modo) !== -1" style="padding-top: 4px;">
+            <input style="width:100%;" type="text" v-model="selected_preferred_columns" disabled="true" placeholder="Aquí aparece la columna preferida de los seleccionados" />
+          </xpanel>
+          <xlist>
+            <xlistitem>
+              <button class="boton_ancho_izquierda boton_verde" :class="{active: is_showing_filtros_panel}" v-on:click="() => {is_showing_filtros_panel = !is_showing_filtros_panel; $forceUpdate(true); }">
+                <span v-if="is_showing_filtros_panel">Cerrar panel de filtros</span>
+                <span v-else="">Abrir panel de filtros</span>
+                <span class="chivato_de_cuenta">{{ where.length }}</span>
+              </button>
+            </xlistitem>
+            <xlistitem v-if="is_showing_filtros_panel">
+              <xpanel class="">
+                <xpanel class="" style="border: 1px solid #CCC; border-radius:2pt; margin-top:1px;">
+                  <xtable>
+                    <xtablebody>
+                      <xtablerow>
+                        <xtablecell style="width:100%;">
+                          <button class="width_100" v-on:click="agregar_regla_de_filtro">Añadir filtro</button>
+                        </xtablecell>
+                        <xtablecell style="width:1%;">
+                          <button class="width_100 boton_verde" v-on:click="obtener_datos_de_tabla">Buscar</button>
+                        </xtablecell>
+                      </xtablerow>
+                    </xtablebody>
+                  </xtable>
+                  <xtable style="width:100%;">
+                    <xtablebody v-for="where_rule, where_index in where" v-bind:key="'where-' + where_index">
+                      <xtablerow>
+                        <xtablecell style="width:50%;">
+                          <select v-model="where[where_index][0]" style="width:100%;">
+                            <option v-for="column, column_index in root.compacted_schema[tabla].composicion" v-bind:key="'where-' + where_index + '-column-' + column_index" :value="column.columna">
+                              {{ column.columna }}
+                            </option>
+                          </select>
+                        </xtablecell>
+                        <xtablecell style="width:50%;">
+                          <select v-model="where[where_index][1]" style="width:100%;">
+                            <option v-for="operation, operation_index in available_operations" v-bind:key="'where-' + where_index + '-operation-' + operation_index" :value="operation">
+                              {{ operation }}
+                            </option>
+                          </select>
+                        </xtablecell>
+                        <xtablecell style="width:1%;position:relative;" class="celda_de_boton_de_eliminar" rowspan="2">
+                          <button class="boton_rojo" style="min-width:1%;position:absolute;top:0;left:0;right:0;bottom:0;" v-on:click="() => eliminar_regla_de_filtro(where_index)"> x </button>
+                        </xtablecell>
+                      </xtablerow>
+                      <xtablerow>
+                        <xtablecell colspan="2">
+                          <input style="width:100%;" type="text" :disabled="['IS NULL','IS NOT NULL'].indexOf(where[where_index][1]) !== -1" v-model="where[where_index][2]" />
+                        </xtablecell>
+                      </xtablerow>
+                    </xtablebody>
+                  </xtable>
+                </xpanel>
+              </xpanel>
+            </xlistitem>
+            <xlistitem>
+              <button class="boton_ancho_izquierda boton_verde" :class="{active: is_showing_ordenacion_panel}" v-on:click="() => {is_showing_ordenacion_panel = !is_showing_ordenacion_panel; $forceUpdate(true); }">
+                <span v-if="is_showing_ordenacion_panel">Cerrar panel de orden</span>
+                <span v-else="">Abrir panel de orden</span>
+                <span class="chivato_de_cuenta">{{ order.length }}</span>
+              </button>
+            </xlistitem>
+            <xlistitem v-if="is_showing_ordenacion_panel">
+              <xpanel class="">
+                <xpanel class="" style="border: 1px solid #CCC; border-radius:2pt; margin-top:1px;">
+                  <xtable style="width:100%;">
+                    <xtablebody>
+                      <xtablerow>
+                        <xtablecell colspan="100">
+                          <button class="width_100" v-on:click="agregar_regla_de_ordenacion">Añadir regla</button>
+                        </xtablecell>
+                        <xtablecell style="width:1%;">
+                          <button class="width_100 boton_verde" v-on:click="obtener_datos_de_tabla">Buscar</button>
+                        </xtablecell>
+                      </xtablerow>
+                    </xtablebody>
+                  </xtable>
+                  <xtable style="width:100%;">
+                    <xtablebody v-for="order_rule, order_index in order" v-bind:key="'order-' + order_index">
+                      <xtablerow>
+                        <xtablecell style="width:50%;">
+                          <select v-model="order[order_index][0]" style="width:100%;">
+                            <option v-for="column, column_index in root.compacted_schema[tabla].composicion" v-bind:key="'order-' + order_index + '-column-' + column_index" :value="column.columna">
+                              {{ column.columna }}
+                            </option>
+                          </select>
+                        </xtablecell>
+                        <xtablecell style="width:50%;">
+                          <select v-model="order[order_index][1]" style="width:100%;">
+                            <option value="ASC">ASC</option>
+                            <option value="DESC">DESC</option>
+                          </select>
+                        </xtablecell>
+                        <xtablecell style="width: 1%;position:relative;" class="celda_de_boton_de_eliminar">
+                          <button class="boton_rojo" style="min-width:1%;position:absolute;top:0;left:0;right:0;bottom:0;" v-on:click="() => eliminar_regla_de_ordenacion(order_index)"> x </button>
+                        </xtablecell>
+                      </xtablerow>
+                    </xtablebody>
+                  </xtable>
+                </xpanel>
+              </xpanel>
+            </xlistitem>
+            <xlistitem>
+              <button class="boton_ancho_izquierda boton_verde" :class="{active: is_showing_busqueda_panel}" v-on:click="() => {is_showing_busqueda_panel = !is_showing_busqueda_panel; $forceUpdate(true); }">
+                <span v-if="is_showing_busqueda_panel">Cerrar panel de búsqueda</span>
+                <span v-else="">Abrir panel de búsqueda</span>
+                <span class="chivato_de_cuenta">{{ search.length }}</span>
+              </button>
+            </xlistitem>
+            <xlistitem v-if="is_showing_busqueda_panel">
+              <xpanel class="">
+                <xpanel class="" style="border: 1px solid #CCC; border-radius:2pt; margin-top:1px;">
+                  <xtable>
+                    <xtablebody>
+                      <xtablerow>
+                        <xtablecell style="width:100%;">
+                          <input class="" style="width:100%;" type="text" v-model="search" placeholder="Busca un texto aquí..." />
+                        </xtablecell>
+                        <xtablecell>
+                          <button class="boton_verde" v-on:click="obtener_datos_de_tabla()">Buscar</button>
+                        </xtablecell>
+                      </xtablerow>
+                    </xtablebody>
+                  </xtable>
+                </xpanel>
+              </xpanel>
+            </xlistitem>
+          </xlist>
+          <div style="text-align:left;">
+            <xtable>
+              <xtablebody>
+                <xtablerow>
+                  <xtablecell>
+                    <button v-on:click="() => {if(page < 2) return; page--;obtener_datos_de_tabla()}"> « </button>
+                  </xtablecell>
+                  <xtablecell style="padding:8px;">
+                    <xlabel>Página {{ page }}</xlabel>
+                  </xtablecell>
+                  <xtablecell>
+                    <button v-on:click="() => {page++;obtener_datos_de_tabla()}"> » </button>
+                  </xtablecell>
+                </xtablerow>
+              </xtablebody>
+            </xtable>
+          </div>
+          <xtableviewer v-if="rows && rows.length">
+            <xtable class="tabla_de_datos" style="width:100%;">
+              <thead>
+                <tr>
+                  <th v-if="modo === 'uno' ||modo === 'varios'"></th>
+                  <th v-for="row_header, row_header_index in row_headers" :style="row_header === 'id' ? 'width:1%;' : ''" v-bind:key="'row-header-' + row_header_index">
+                    {{ root.humanizar_texto_de_columna($route.params.tabla, row_header) }}
+                  </th>
+                </tr>
+              </thead>
+              <xtablebody>
+                <xtablerow v-for="row, row_index in rows" v-bind:key="'row-' + row_index">
+                  <xtablecell v-if="modo === 'uno' || modo === 'varios'">
+                    <button v-if="modo === 'uno'" v-on:click="() => seleccionar_item(row)">{{ selected_ids.indexOf(row.id) === -1 ? "+" : "-" }}</button>
+                    <button v-if="modo === 'varios'" v-on:click="() => seleccionar_item(row)">{{ selected_ids.indexOf(row.id) === -1 ? "+" : "-" }}</button>
+                  </xtablecell>
+                  <xtablecell v-for="prop, prop_index in row" v-bind:key="'row-' + row_index + '-cell-' + prop_index">
+                    <template v-if="prop_index === 'id'">
+                      <button v-if="modo === 'ver'" v-on:click="() => {$router.history.push('/abrir-fila/' + tabla + '/' + prop);}">{{ prop }}</button>
+                      <span v-else="">{{ prop }}</span>
+                    </template>
+                    <template v-else="">
+                      {{ prop }}
+                    </template>
+                  </xtablecell>
+                </xtablerow>
+              </xtablebody>
+            </xtable>
+          </xtableviewer>
+          <div v-else="">
+            <div style="min-height: 100px;padding-top: 40px;text-align: center;">
+              No se encontraron resultados para la búsqueda.
+            </div>
+          </div>
+          <div style="text-align:right;">
+            <xtable style="display: inline-block;">
+              <xtablebody>
+                <xtablerow>
+                  <xtablecell>
+                    <button v-on:click="() => {if(page < 2) return; page--;obtener_datos_de_tabla()}"> « </button>
+                  </xtablecell>
+                  <xtablecell style="padding:8px;">
+                    <xlabel>Página {{ page }}</xlabel>
+                  </xtablecell>
+                  <xtablecell>
+                    <button v-on:click="() => {page++;obtener_datos_de_tabla()}"> » </button>
+                  </xtablecell>
+                </xtablerow>
+              </xtablebody>
+            </xtable>
+          </div>
+        </xpanel>
+      </xpanel>
+    </xpanel>
+  </div>
+} con lógica {
+  retorno {
+    propiedad props como {
+      propiedad root como {
+        propiedad type como Object.
+        propiedad required como true.
+      }.
+      propiedad modo como {
+        propiedad type como String.
+        propiedad default como "ver".
+      }.
+      propiedad tabla como {
+        propiedad type como String.
+        propiedad required como true.
+      }.
+      propiedad alCambiar como {
+        propiedad type como Function.
+        propiedad default como una función.
+      }.
+      propiedad valorInicial como {
+        propiedad type como [Number,String].
+        propiedad default como una función donde retorno undefined.
+      }.
+    }.
+    método data donde {
+      debugo "SelectorDeTabla.data".
+      retorno {
+        is_showing_panels: false,
+        is_showing_filtros_panel: false,
+        is_showing_ordenacion_panel: false,
+        is_showing_busqueda_panel: false,
+        available_operations: [
+          "=",
+          "!=",
+          "<",
+          "<=",
+          ">",
+          ">=",
+          "IS NULL",
+          "IS NOT NULL",
+          "IN",
+          "NOT IN",
+          "LIKE",
+          "NOT LIKE"
+        ],
+        selected_items: [],
+        selected_ids: cuando this.valorInicial entonces [this.valorInicial] si no [],
+        selected_preferred_columns: cuando this.valorInicial entonces [this.valorInicial] si no [],
+        rows: [],
+        row_headers: [],
+        where: [],
+        order: [],
+        search: "",
+        page: 1,
+        items: 20
+      }.
+    }.
+    propiedad methods como {
+      método getValue donde {
+        debugo "SelectorDeTabla.getValue".
+        si this.modo es igual que "uno" {
+          retorno this.selected_ids[0].
+        } pero si this.modo es igual que "varios" {
+          retorno this.selected_ids.
+        }.
+      }.
+      método alternar_paneles donde {
+        debugo "SelectorDeTabla.alternar_paneles".
+        asigno this.is_showing_panels como no this.is_showing_panels.
+      }.
+      método seleccionar_item con (item) donde {
+        debugo "SelectorDeTabla.seleccionar_item".
+        creo posicion como this.selected_items.indexOf(item).
+        creo esta_seleccionado como posicion no es igual que 0-1.
+        si esta_seleccionado y this.modo es igual que "uno" {
+          hago this.selected_items.splice(item, 1).
+        } pero si esta_seleccionado y this.modo es igual que "varios" {
+          hago this.selected_items.splice(item, 1).
+        } pero si no esta_seleccionado y this.modo es igual que "uno" {
+          asigno this.selected_items como [item].
+        } pero si no esta_seleccionado y this.modo es igual que "varios" {
+          hago this.selected_items.push(item).
+        }.
+        hago this.actualizar_items_seleccionados().
+        hago this.$forceUpdate(true).
+      }.
+      método actualizar_items_seleccionados donde {
+        debugo "SelectorDeTabla.actualizar_items_seleccionados".
+        asigno this.selected_ids como this.selected_items.map(una lambda con (item_seleccionado) donde retorno item_seleccionado.id).
+        creo columna_preferida como this.root.compacted_schema[this.tabla].atributos.tiene_columna_preferida o "id".
+        asigno this.selected_preferred_columns como this.selected_items.map(una lambda con (item_seleccionado) donde {
+          retorno item_seleccionado[columna_preferida].
+        }).
+      }.
+      método agregar_regla_de_filtro donde {
+        debugo "SelectorDeTabla.agregar_regla_de_filtro".
+        hago this.where.push([]).
+        hago this.$forceUpdate(true).
+      }.
+      método agregar_regla_de_ordenacion donde {
+        debugo "SelectorDeTabla.agregar_regla_de_ordenacion".
+        hago this.order.push([]).
+        hago this.$forceUpdate(true).
+      }.
+      método eliminar_regla_de_filtro con (indice) donde {
+        debugo "SelectorDeTabla.eliminar_regla_de_filtro".
+        hago this.where.splice(indice, 1).
+        hago this.$forceUpdate(true).
+      }.
+      método eliminar_regla_de_ordenacion con (indice) donde {
+        debugo "SelectorDeTabla.eliminar_regla_de_ordenacion".
+        hago this.order.splice(indice, 1).
+        hago this.$forceUpdate(true).
+      }.
+      método asíncrono obtener_datos_de_tabla donde {
+        debugo "SelectorDeTabla.obtener_datos_de_tabla".
+        creo respuesta_datos_de_tabla como asíncronamente una petición http
+          con url "/Select"
+          con método "POST"
+          con cuerpo {
+            table: this.tabla,
+            where: this.where,
+            order: this.order,
+            page: this.page,
+            items: this.items,
+            search: this.search
+          }
+          con cabeceras {
+            authorization: this.root.sesion_token
+          }
+          en errores retorno Vue.prototype.$dialogs.error(error).
+        si respuesta_datos_de_tabla es instancia de Error retorno.
+        asigno this.rows como respuesta_datos_de_tabla.data.data.output.
+        hago this.$forceUpdate(true).
+      }.
+    }.
+    propiedad watch como {
+      método rows con (nuevo_valor) donde {
+        debugo "SelectorDeTabla.watch.rows".
+        si nuevo_valor y nuevo_valor.length {
+          asigno this.row_headers como un conjunto de claves del objeto nuevo_valor[0].
+        }.
+      }.
+      método selected_ids con (nuevo_valor) donde {
+        debugo "SelectorDeTabla.watch.selected_ids".
+        si this.modo es igual que "uno" {
+          hago this.alCambiar(nuevo_valor[0], this).
+        } pero si this.modo es igual que "varios" {
+          hago this.alCambiar(nuevo_valor, this).
+        }.
+      }.
+    }.
+    propiedad computed como {}.
+    método beforeCreate donde {}.
+    método created donde {}.
+    método beforeMount donde {}.
+    método asíncrono mounted donde {
+      debugo "SelectorDeTabla.mounted".
+      hago asíncronamente this.obtener_datos_de_tabla().
+    }.
+    método beforeUpdate donde {}.
+    método updated donde {}.
+    método beforeUnmount donde {}.
+    método unmounted donde {}.
+    método activated donde {}.
+    método deactivated donde {}.
+  }.
+}.

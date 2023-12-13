@@ -22,34 +22,89 @@ window.PaginaDeAbrirFila = Castelog.metodos.un_componente_vue2("PaginaDeAbrirFil
  + "      </xlist>"
  + "    </xlayout>"
  + "    <xlayoutnopaddingtop>"
- + "      <template v-for=\"value, key in row\">"
- + "        <xpanel style=\"padding-top:12px;\" v-bind:key=\"'row-' + key\" v-if=\"key !== 'id' && !key.startsWith('$')\">"
- + "          <xpanel style=\"font-weight:bold;text-decoration:underline;\">{{ key }}:</xpanel>"
+ + "      <template v-for=\"value, key in item\">"
+ + "        <xpanel style=\"padding-top:12px;\" v-bind:key=\"'item-' + key\" v-if=\"key !== 'id' && !key.startsWith('$')\">"
+ + "          <xpanel style=\"\">{{ root.humanizar_texto_de_columna($route.params.tabla, key) }}:</xpanel>"
  + "          <xpanel v-if=\"false\">"
  + "            --- Input rendering ---"
  + "          </xpanel>"
  + "          <xpanel v-else-if=\"root.compacted_schema[ $route.params.tabla ].composicion[key].atributos.es_tipo === 'color'\">"
- + "            <input :ref=\"'color_' + $route.params.tabla\" style=\"display:none;width:100%;\" type=\"color\" v-model=\"row[key]\" />"
+ + "            <input :ref=\"'color_' + $route.params.tabla\" style=\"display:none;width:100%;\" type=\"color\" v-model=\"item[key]\" />"
  + "            <button class=\"width_100\" v-on:click=\"() => {$refs['color_' + $route.params.tabla][0].click() }\">"
- + "              <span style=\"min-height:15px;min-width:30px;width:50%;display:inline-block;border-radius:4pt;\" :style=\"'background-color:' + (row[key] || '#333')\">"
- + "                {{ row[key] }}"
+ + "              <span style=\"min-height:15px;min-width:30px;width:50%;display:inline-block;border-radius:4pt;\" :style=\"'background-color:' + (item[key] || '#333')\">"
+ + "                {{ item[key] }}"
  + "              </span>"
  + "            </button>"
  + "          </xpanel>"
+ + "          <xpanel v-else-if=\"root.compacted_schema[ $route.params.tabla ].composicion[key].atributos.es_tipo === 'fichero'\">"
+ + "            <input :ref=\"'file_' + key\" style=\"display:none;width:100%;\" type=\"file\" v-on:change=\"event => { root.$window.console.log(event.target.files); item[key] = event.target.files }\" />"
+ + "            <xtable>"
+ + "              <xtablebody>"
+ + "                <xtablerow>"
+ + "                  <xtablecell class=\"width_100\">"
+ + "                    <button class=\"width_100\" style=\"white-space: nowrap;\" v-on:click=\"() => {$refs['file_' + key][0].click() }\">"
+ + "                      Seleccionar"
+ + "                    </button>"
+ + "                  </xtablecell>"
+ + "                  <xtablecell>"
+ + "                    <button class=\"width_100\" style=\"white-space: nowrap;\" v-on:click=\"() => { guardar_fichero(key) }\">"
+ + "                      Guardar"
+ + "                    </button>"
+ + "                  </xtablecell>"
+ + "                  <xtablecell>"
+ + "                    <button class=\"width_100\" style=\"white-space: nowrap;\" v-on:click=\"() => { refrescar_fichero(key) }\">"
+ + "                      Refrescar"
+ + "                    </button>"
+ + "                  </xtablecell>"
+ + "                </xtablerow>"
+ + "                <xtablerow>"
+ + "                  <xtablecell colspan=\"100\" class=\"width_100\" v-if=\"item[key] && typeof(item[key]) !== 'string' && item[key].length\">"
+ + "                    <span style=\"white-space: nowrap;\">Hay {{ item[key] ? item[key].length : '0' }} ficheros seleccionados</span>"
+ + "                  </xtablecell>"
+ + "                </xtablerow>"
+ + "                <xtablerow v-if=\"typeof item[key] === 'string'\">"
+ + "                  <xtablecell colspan=\"100\">"
+ + "                    <div style=\"text-align: center;\">"
+ + "                      <img class=\"imagen_de_fichero\" :src=\"'/uploads/' + item[key]\" />"
+ + "                    </div>"
+ + "                  </xtablecell>"
+ + "                </xtablerow>"
+ + "                <xtablerow v-if=\"item[key]\">"
+ + "                  <xtablecell colspan=\"100\">"
+ + "                    <template v-if=\"Array.isArray(item[key])\" v-for=\"fichero, fichero_index in item[key]\">"
+ + "                      <xpanel v-bind:key=\"'column_' + key + '_file_' + fichero_index\">"
+ + "                        <div>Fichero: {{ fichero_index+1 }} de {{ item[key].length }}</div>"
+ + "                        <div>Nombre: {{ fichero.name }}</div>"
+ + "                        <div>Tamaño: {{ fichero.size }}B</div>"
+ + "                      </xpanel>"
+ + "                    </template>"
+ + "                    <template v-if=\"typeof(item[key]) === 'string'\">"
+ + "                      <xpanel>"
+ + "                        <div>{{item[key]}}</div>"
+ + "                      </xpanel>"
+ + "                    </template>"
+ + "                  </xtablecell>"
+ + "                </xtablerow>"
+ + "              </xtablebody>"
+ + "            </xtable>"
+ + "          </xpanel>"
+ + "          <xpanel v-else-if=\"typeof root.compacted_schema[ $route.params.tabla ].composicion[key].es_clave_foranea !== 'undefined'\">"
+ + "            <SelectorDeTabla :root=\"root\" modo=\"uno\" :tabla=\"root.compacted_schema[ $route.params.tabla ].composicion[key].es_clave_foranea.tabla_foranea\" :al-cambiar=\"v => item[key] = v\" :valor-inicial=\"item[key]\" />"
+ + "          </xpanel>"
  + "          <xpanel v-else-if=\"root.compacted_schema[ $route.params.tabla ].composicion[key].tipo === 'VARCHAR'\">"
- + "            <input style=\"width:100%;\" type=\"text\" v-model=\"row[key]\" />"
+ + "            <input style=\"width:100%;\" type=\"text\" v-model=\"item[key]\" />"
  + "          </xpanel>"
  + "          <xpanel v-else-if=\"root.compacted_schema[ $route.params.tabla ].composicion[key].tipo === 'INTEGER'\">"
- + "            <input style=\"width:100%;\" type=\"number\" v-model=\"row[key]\" />"
+ + "            <input style=\"width:100%;\" type=\"number\" v-model=\"item[key]\" />"
  + "          </xpanel>"
  + "          <xpanel v-else-if=\"root.compacted_schema[ $route.params.tabla ].composicion[key].tipo === 'FLOAT'\">"
- + "            <input style=\"width:100%;\" type=\"number\" v-model=\"row[key]\" />"
+ + "            <input style=\"width:100%;\" type=\"number\" v-model=\"item[key]\" />"
  + "          </xpanel>"
  + "          <xpanel v-else-if=\"root.compacted_schema[ $route.params.tabla ].composicion[key].tipo === 'TEXT'\">"
- + "            <textarea style=\"width:100%;min-height:80px;resize:vertical;\" v-model=\"row[key]\"></textarea>"
+ + "            <textarea style=\"width:100%;min-height:80px;resize:vertical;\" v-model=\"item[key]\"></textarea>"
  + "          </xpanel>"
  + "          <xpanel v-else-if=\"root.compacted_schema[ $route.params.tabla ].composicion[key].tipo === 'DATETIME'\">"
- + "            <input style=\"width:100%;\" type=\"datetime-local\" v-model=\"row[key]\" />"
+ + "            <input style=\"width:100%;\" type=\"datetime-local\" v-model=\"item[key]\" />"
  + "          </xpanel>"
  + "          <xpanel v-else-if=\"false\">"
  + "            --- END OF Input rendering ---"
@@ -74,7 +129,7 @@ required:true
 }
 },
 data() {try {
-return { row:false
+return { item:false
 };
 } catch(error) {
 console.log(error);
@@ -97,7 +152,7 @@ return;
 if(respuesta_datos_de_fila.data.data.output.length === 0) {
 return this.$router.history.push( "/abrir-tabla/" + this.$route.params.tabla );
 }
-this.row = respuesta_datos_de_fila.data.data.output[ 0 ];
+this.item = respuesta_datos_de_fila.data.data.output[ 0 ];
 this.$forceUpdate( true );
 } catch(error) {
 console.log(error);
@@ -107,15 +162,23 @@ throw error;
 },
 async guardar_item() {try {
 console.log('[DEBUG]', "PaginaDeAbrirFila.guardar_item");
+const clon_de_item = Object.assign({ 
+}, this.item );
+const claves_de_item = Object.keys(clon_de_item);
+for(let index = 0; index < claves_de_item.length; index++) {const clave = claves_de_item[ index ];
+if(typeof clon_de_item[ clave ] === 'object') {
+delete clon_de_item[ clave ];
+}}
 const respuesta_guardar_datos_de_fila = (await Castelog.metodos.una_peticion_http("/Update", "POST", { table:this.$route.params.tabla,
 id:this.$route.params.fila,
-item:this.row
+item:clon_de_item
 }, { authorization:this.root.sesion_token
 }, null, error => {
 return Vue.prototype.$dialogs.error( error );}));
 if(respuesta_guardar_datos_de_fila instanceof Error) {
 return;
 }
+(await this.obtener_datos_de_fila(  ));
 this.$forceUpdate( true );
 } catch(error) {
 console.log(error);
@@ -142,6 +205,40 @@ return;
 }
 this.$router.history.push( "/abrir-tabla/" + this.$route.params.tabla );
 this.$forceUpdate( true );
+} catch(error) {
+console.log(error);
+throw error;
+}
+
+},
+async guardar_fichero( columna ) {try {
+console.log('[DEBUG]', "PaginaDeAbrirFila.guardar_fichero");
+const [ fichero ] = this.item[ columna ];
+const formulario = new FormData(  );
+formulario.append( "table",
+this.$route.params.tabla );
+formulario.append( "id",
+this.item.id );
+formulario.append( "column",
+columna );
+formulario.append( "file",
+fichero );
+const respuesta_fichero = (await Castelog.metodos.una_peticion_http("/SetFile", "POST", formulario, { authorization:this.root.sesion_token,
+"Content-type":"multipart/form-data"
+}, null, error => {
+return Vue.prototype.$dialogs.error( error );}));
+if(respuesta_fichero instanceof Error) {
+return;
+}
+(await this.obtener_datos_de_fila(  ));
+} catch(error) {
+console.log(error);
+throw error;
+}
+
+},
+async refrescar_fichero( columna ) {try {
+(await this.obtener_datos_de_fila(  ));
 } catch(error) {
 console.log(error);
 throw error;
