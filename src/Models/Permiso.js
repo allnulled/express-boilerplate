@@ -1,5 +1,5 @@
-const Base_Permiso = require(__dirname + "/Base/Base_Permiso.js");
+const Permiso_Base = require(__dirname + "/Base/Permiso_Base.js");
 
-module.exports = class extends Base_Permiso {
+module.exports = class extends Permiso_Base {
 
 };

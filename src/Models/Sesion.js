@@ -1,5 +1,5 @@
-const Base_Sesion = require(__dirname + "/Base/Base_Sesion.js");
+const Sesion_Base = require(__dirname + "/Base/Sesion_Base.js");
 
-module.exports = class extends Base_Sesion {
+module.exports = class extends Sesion_Base {
 
 };

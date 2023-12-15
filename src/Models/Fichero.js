@@ -1,5 +1,5 @@
-const Base_Fichero = require(__dirname + "/Base/Base_Fichero.js");
+const Fichero_Base = require(__dirname + "/Base/Fichero_Base.js");
 
-module.exports = class extends Base_Fichero {
+module.exports = class extends Fichero_Base {
 
 };

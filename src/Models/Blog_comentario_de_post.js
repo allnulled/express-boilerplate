@@ -1,5 +1,5 @@
-const Base_Blog_comentario_de_post = require(__dirname + "/Base/Base_Blog_comentario_de_post.js");
+const Blog_comentario_de_post_Base = require(__dirname + "/Base/Blog_comentario_de_post_Base.js");
 
-module.exports = class extends Base_Blog_comentario_de_post {
+module.exports = class extends Blog_comentario_de_post_Base {
 
 };

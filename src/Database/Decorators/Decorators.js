@@ -1,3 +1,12 @@
+/**
+ * 
+ * @name Decorators.js
+ * @type Función
+ * @parameter `api` Objeto principal de la API del proyecto.
+ * @description Devuelve cargados los condicionales, consecuenciales, interceptores de tabla e interceptores de columna, juntos, cargados por este mismo orden. Este fichero se llama, teóricamente, desde el main para cargar los decoradores de la base de datos.
+ * @returns `{ Conditionals, Consequencials, Interceptors: { Tables, Columns } }`
+ * 
+ */
 module.exports = function (api) {
     const fs = require("fs");
     const path = require("path");

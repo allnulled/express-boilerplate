@@ -1,5 +1,5 @@
-const Base_Carpeta = require(__dirname + "/Base/Base_Carpeta.js");
+const Carpeta_Base = require(__dirname + "/Base/Carpeta_Base.js");
 
-module.exports = class extends Base_Carpeta {
+module.exports = class extends Carpeta_Base {
 
 };

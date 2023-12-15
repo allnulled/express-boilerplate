@@ -177,7 +177,7 @@
         "sentencia": "columna",
         "columna": "nombre",
         "tipo": "VARCHAR",
-        "detalles": "(1024) UNIQUE",
+        "detalles": "(512) UNIQUE",
         "atributos": []
       },
       {
@@ -194,7 +194,7 @@
         "columna_foranea": "id"
       }
     ],
-    "script": "\nCREATE TABLE Carpeta (\n  id INTEGER PRIMARY KEY AUTOINCREMENT,\n  nombre VARCHAR(1024) UNIQUE,\n  id_carpeta_padre INTEGER,\n  FOREIGN KEY (id_carpeta_padre) REFERENCES Carpeta (id)\n);"
+    "script": "\n\nCREATE TABLE Carpeta (\n  id INTEGER PRIMARY KEY AUTOINCREMENT,\n  nombre VARCHAR(512) UNIQUE,\n  id_carpeta_padre INTEGER,\n  FOREIGN KEY (id_carpeta_padre) REFERENCES Carpeta (id)\n);"
   },
   {
     "tabla": "Fichero",
@@ -211,7 +211,7 @@
         "sentencia": "columna",
         "columna": "fichero",
         "tipo": "VARCHAR",
-        "detalles": "(1024) UNIQUE",
+        "detalles": "(512) UNIQUE",
         "atributos": [
           "es_tipo: fichero"
         ]
@@ -230,7 +230,7 @@
         "columna_foranea": "id"
       }
     ],
-    "script": "\n\nCREATE TABLE Fichero (\n  id INTEGER PRIMARY KEY AUTOINCREMENT,\n  fichero VARCHAR(1024) UNIQUE /*\n    @es_tipo: fichero\n  */,\n  id_carpeta_padre INTEGER,\n  FOREIGN KEY (id_carpeta_padre) REFERENCES Carpeta (id)\n);"
+    "script": "\n\nCREATE TABLE Fichero (\n  id INTEGER PRIMARY KEY AUTOINCREMENT,\n  fichero VARCHAR(512) UNIQUE /*\n    @es_tipo: fichero\n  */,\n  id_carpeta_padre INTEGER,\n  FOREIGN KEY (id_carpeta_padre) REFERENCES Carpeta (id)\n);"
   },
   {
     "tabla": "Blog_post",
@@ -278,7 +278,7 @@
         "atributos": []
       }
     ],
-    "script": "\nCREATE TABLE Blog_post (\n  id INTEGER PRIMARY KEY AUTOINCREMENT,\n  titulo VARCHAR(255) /*\n    @tipo: Texto normal\n    @tipo-en-formulario: text\n    @descripcion: El título del post del blog.\n    @maximo-de-texto: 100\n    @minimo-de-texto: 1\n  */,\n  subtitulo VARCHAR(512),\n  contenido TEXT,\n  fecha_de_creacion DATETIME\n);"
+    "script": "\n\nCREATE TABLE Blog_post (\n  id INTEGER PRIMARY KEY AUTOINCREMENT,\n  titulo VARCHAR(255) /*\n    @tipo: Texto normal\n    @tipo-en-formulario: text\n    @descripcion: El título del post del blog.\n    @maximo-de-texto: 100\n    @minimo-de-texto: 1\n  */,\n  subtitulo VARCHAR(512),\n  contenido TEXT,\n  fecha_de_creacion DATETIME\n);"
   },
   {
     "tabla": "Blog_comentario_de_post",
@@ -329,7 +329,7 @@
         ]
       }
     ],
-    "script": "\nCREATE TABLE Ejemplo_de_columna (\n  id INTEGER PRIMARY KEY AUTOINCREMENT,\n  color VARCHAR(32) /*\n    @es_tipo: color\n  */\n);"
+    "script": "\n\nCREATE TABLE Ejemplo_de_columna (\n  id INTEGER PRIMARY KEY AUTOINCREMENT,\n  color VARCHAR(32) /*\n    @es_tipo: color\n  */\n);"
   },
   {
     "tabla": "Tabla_1",

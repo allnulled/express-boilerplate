@@ -1,5 +1,8 @@
+<%
+const autoincrement_word = process.env.DATABASE_DRIVER === "sqlite" ? "AUTOINCREMENT" : "AUTO_INCREMENT";
+%>
 CREATE TABLE Blog_post (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  id INTEGER PRIMARY KEY <%-autoincrement_word%>,
   titulo VARCHAR(255) /*
     @tipo: Texto normal
     @tipo-en-formulario: text
@@ -13,7 +16,7 @@ CREATE TABLE Blog_post (
 );
 
 CREATE TABLE Blog_comentario_de_post (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  id INTEGER PRIMARY KEY <%-autoincrement_word%>,
   contenido TEXT,
   fecha_de_creacion DATETIME
 );

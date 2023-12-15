@@ -1,8 +1,6 @@
-
-
 const Sequelize = require("sequelize");
 
-module.exports = class BaseHistorial_de_Tabla_3{
+module.exports = class Historial_de_Tabla_3_Base {
     initialize() {
         return this.api.Database.SequelizeConnection.define("Historial_de_Tabla_3", {
             id: {
@@ -41,6 +39,9 @@ module.exports = class BaseHistorial_de_Tabla_3{
                 allowNull: true,
                 field: "creado_en"
             }
+        }, {
+          timestamps: false,
+          freezeTableName: true
         });
     }
 };

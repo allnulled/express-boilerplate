@@ -1,26 +1,27 @@
-
-
 const Sequelize = require("sequelize");
 
-module.exports = class BasePermiso{
+module.exports = class Sesion_Base {
     initialize() {
-        return this.api.Database.SequelizeConnection.define("Permiso", {
+        return this.api.Database.SequelizeConnection.define("Sesion", {
             id: {
                 type: Sequelize.INTEGER,
                 primaryKey: true,
                 autoIncrement: true,
                 allowNull: false
             },
-            nombre: {
+            token: {
                 type: Sequelize.STRING,
                 allowNull: true,
-                field: "nombre"
+                field: "token"
             },
-            descripcion: {
-                type: Sequelize.STRING,
+            id_usuario: {
+                type: Sequelize.INTEGER,
                 allowNull: true,
-                field: "descripcion"
+                field: "id_usuario"
             }
+        }, {
+          timestamps: false,
+          freezeTableName: true
         });
     }
 };

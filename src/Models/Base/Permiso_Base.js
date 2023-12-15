@@ -1,27 +1,27 @@
-
-
 const Sequelize = require("sequelize");
 
-module.exports = class BaseFichero{
+module.exports = class Permiso_Base {
     initialize() {
-        return this.api.Database.SequelizeConnection.define("Fichero", {
+        return this.api.Database.SequelizeConnection.define("Permiso", {
             id: {
                 type: Sequelize.INTEGER,
                 primaryKey: true,
                 autoIncrement: true,
                 allowNull: false
             },
-            fichero: {
+            nombre: {
                 type: Sequelize.STRING,
                 allowNull: true,
-                unique: true,
-                field: "fichero"
+                field: "nombre"
             },
-            id_carpeta_padre: {
-                type: Sequelize.INTEGER,
+            descripcion: {
+                type: Sequelize.STRING,
                 allowNull: true,
-                field: "id_carpeta_padre"
+                field: "descripcion"
             }
+        }, {
+          timestamps: false,
+          freezeTableName: true
         });
     }
 };

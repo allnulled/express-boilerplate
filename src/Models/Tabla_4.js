@@ -1,5 +1,5 @@
-const Base_Tabla_4 = require(__dirname + "/Base/Base_Tabla_4.js");
+const Tabla_4_Base = require(__dirname + "/Base/Tabla_4_Base.js");
 
-module.exports = class extends Base_Tabla_4 {
+module.exports = class extends Tabla_4_Base {
 
 };

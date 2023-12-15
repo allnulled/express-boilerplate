@@ -1,8 +1,6 @@
-
-
 const Sequelize = require("sequelize");
 
-module.exports = class BaseTabla_3{
+module.exports = class Tabla_3_Base {
     initialize() {
         return this.api.Database.SequelizeConnection.define("Tabla_3", {
             id: {
@@ -51,6 +49,9 @@ module.exports = class BaseTabla_3{
                 allowNull: true,
                 field: "campo_de_estado"
             }
+        }, {
+          timestamps: false,
+          freezeTableName: true
         });
     }
 };

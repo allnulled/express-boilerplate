@@ -1,5 +1,5 @@
-const Base_Ejemplo_de_columna = require(__dirname + "/Base/Base_Ejemplo_de_columna.js");
+const Ejemplo_de_columna_Base = require(__dirname + "/Base/Ejemplo_de_columna_Base.js");
 
-module.exports = class extends Base_Ejemplo_de_columna {
+module.exports = class extends Ejemplo_de_columna_Base {
 
 };

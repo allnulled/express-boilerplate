@@ -1,4 +1,12 @@
 module.exports = class {
+    /**
+     * 
+     * @name api.Utilities.QueryDatabase
+     * @type Función
+     * @parameter `query:String` Consulta SQL a ejecutar.
+     * @returns `any` Resultado de la consulta ejecutada.
+     * 
+     */
     action(query, ...args) {
         this.api.Utilities.Trace("api.Utilities.QueryDatabase");
         if(typeof query === "string") {

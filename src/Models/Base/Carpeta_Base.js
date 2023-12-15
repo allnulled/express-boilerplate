@@ -1,10 +1,8 @@
-
-
 const Sequelize = require("sequelize");
 
-module.exports = class BaseUsuario{
+module.exports = class Carpeta_Base {
     initialize() {
-        return this.api.Database.SequelizeConnection.define("Usuario", {
+        return this.api.Database.SequelizeConnection.define("Carpeta", {
             id: {
                 type: Sequelize.INTEGER,
                 primaryKey: true,
@@ -17,16 +15,14 @@ module.exports = class BaseUsuario{
                 unique: true,
                 field: "nombre"
             },
-            contrasenya: {
-                type: Sequelize.STRING,
+            id_carpeta_padre: {
+                type: Sequelize.INTEGER,
                 allowNull: true,
-                field: "contrasenya"
-            },
-            correo: {
-                type: Sequelize.STRING,
-                allowNull: true,
-                field: "correo"
+                field: "id_carpeta_padre"
             }
+        }, {
+          timestamps: false,
+          freezeTableName: true
         });
     }
 };

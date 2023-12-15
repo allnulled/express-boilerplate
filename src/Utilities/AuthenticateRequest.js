@@ -1,4 +1,12 @@
 module.exports = class {
+    /**
+     * 
+     * @name AuthenticateRequest
+     * @type Función
+     * @parameter `request:Object`
+     * @description Autentifica una petición. Esto significa que establece el valor `request.$$authentication` con los datos de sesion, usuario y permisos, si el token proporcionado vía `authorization` pertenece a una sesión válida. De lo contrario, lanzará un error estandarizado.
+     * 
+     */
     async action(request) {
         this.api.Utilities.Trace("api.Utilities.AuthenticateRequest");
         const sqlstring = require("sqlstring");

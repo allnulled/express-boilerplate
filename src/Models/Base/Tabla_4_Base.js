@@ -1,26 +1,28 @@
-
-
 const Sequelize = require("sequelize");
 
-module.exports = class BasePermiso_de_usuario{
+module.exports = class Tabla_4_Base {
     initialize() {
-        return this.api.Database.SequelizeConnection.define("Permiso_de_usuario", {
+        return this.api.Database.SequelizeConnection.define("Tabla_4", {
             id: {
                 type: Sequelize.INTEGER,
                 primaryKey: true,
                 autoIncrement: true,
                 allowNull: false
             },
-            id_usuario: {
+            id_tabla_3: {
                 type: Sequelize.INTEGER,
                 allowNull: true,
-                field: "id_usuario"
+                field: "id_tabla_3"
             },
-            id_permiso: {
-                type: Sequelize.INTEGER,
+            campo_unico: {
+                type: Sequelize.STRING,
                 allowNull: true,
-                field: "id_permiso"
+                unique: true,
+                field: "campo_unico"
             }
+        }, {
+          timestamps: false,
+          freezeTableName: true
         });
     }
 };

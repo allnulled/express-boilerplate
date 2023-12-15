@@ -1,5 +1,5 @@
-const Base_Blog_post = require(__dirname + "/Base/Base_Blog_post.js");
+const Blog_post_Base = require(__dirname + "/Base/Blog_post_Base.js");
 
-module.exports = class extends Base_Blog_post {
+module.exports = class extends Blog_post_Base {
 
 };

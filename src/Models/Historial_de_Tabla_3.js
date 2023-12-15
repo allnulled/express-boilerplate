@@ -1,5 +1,5 @@
-const Base_Historial_de_Tabla_3 = require(__dirname + "/Base/Base_Historial_de_Tabla_3.js");
+const Historial_de_Tabla_3_Base = require(__dirname + "/Base/Historial_de_Tabla_3_Base.js");
 
-module.exports = class extends Base_Historial_de_Tabla_3 {
+module.exports = class extends Historial_de_Tabla_3_Base {
 
 };

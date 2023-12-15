@@ -16,7 +16,7 @@ const aplicar_field = function(columna) {
 
 %>const Sequelize = require("sequelize");
 
-module.exports = class Base<%-table_id%>{
+module.exports = class <%-table_id%>_Base {
     initialize() {
         return this.api.Database.SequelizeConnection.define(<%-JSON.stringify(table_id)%>, {
             <%

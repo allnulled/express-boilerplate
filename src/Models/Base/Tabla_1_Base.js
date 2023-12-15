@@ -1,21 +1,22 @@
-
-
 const Sequelize = require("sequelize");
 
-module.exports = class BaseEjemplo_de_columna{
+module.exports = class Tabla_1_Base {
     initialize() {
-        return this.api.Database.SequelizeConnection.define("Ejemplo_de_columna", {
+        return this.api.Database.SequelizeConnection.define("Tabla_1", {
             id: {
                 type: Sequelize.INTEGER,
                 primaryKey: true,
                 autoIncrement: true,
                 allowNull: false
             },
-            color: {
+            nombre: {
                 type: Sequelize.STRING,
                 allowNull: true,
-                field: "color"
+                field: "nombre"
             }
+        }, {
+          timestamps: false,
+          freezeTableName: true
         });
     }
 };

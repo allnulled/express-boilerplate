@@ -191,6 +191,13 @@ asigno window.App como una aplicación vue2 con nombre "App" con rutas [{
       }.
     }.
     propiedad methods como {
+      ##**
+       * 
+       * @name: obtener_schema
+       * @type: Función
+       * @description Hace una petición AJAX con método POST a "/Schema" con cabecera de autentificación. Extrae en el componente el esquema original y el compacto.
+       *
+       *##
       método asíncrono obtener_schema donde {
         debugo "App.obtener_schema".
         creo respuesta_schema como asíncronamente una petición http

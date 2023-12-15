@@ -1,4 +1,13 @@
 module.exports = class {
+    /**
+     * 
+     * @name api.Utilities.InitializeDatabase
+     * @type Función
+     * @description Inicializa la base de datos, esto es: crea las tablas y aplica las migraciones. Consiste en 2 llamadas:
+     *    - `this.applyCreationScript`: aplica el script de creación.
+     *    - `this.applyMigrationScript`: aplica el script de migración.
+     * 
+     */
     async action() {
         this.api.Utilities.Trace("api.Utilities.InitializeDatabase");
         await this.applyCreationScript();
@@ -14,6 +23,9 @@ module.exports = class {
       }
     }
     async applyCreationScript() {
+      if(process.env.DATABASE_DRIVER === "mysql") {
+        await this.api.Database.Connection.Execute("USE " + process.env.DATABASE_NAME);
+      }
       const creationSentences = this.api.Database.Schema.map(sentence => sentence.script);
       for(let index=0; index<creationSentences.length; index++) {
         const creationSentence = creationSentences[index].trim();

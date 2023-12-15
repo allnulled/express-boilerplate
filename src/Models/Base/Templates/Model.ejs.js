@@ -1,5 +1,5 @@
-const Base_<%-table_id%> = require(__dirname + "/Base/Base_<%-table_id%>.js");
+const <%-table_id%>_Base = require(__dirname + "/Base/<%-table_id%>_Base.js");
 
-module.exports = class extends Base_<%-table_id%> {
+module.exports = class extends <%-table_id%>_Base {
 
 };

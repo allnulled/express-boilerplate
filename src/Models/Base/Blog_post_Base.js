@@ -1,8 +1,6 @@
-
-
 const Sequelize = require("sequelize");
 
-module.exports = class BaseBlog_post{
+module.exports = class Blog_post_Base {
     initialize() {
         return this.api.Database.SequelizeConnection.define("Blog_post", {
             id: {
@@ -31,6 +29,9 @@ module.exports = class BaseBlog_post{
                 allowNull: true,
                 field: "fecha_de_creacion"
             }
+        }, {
+          timestamps: false,
+          freezeTableName: true
         });
     }
 };

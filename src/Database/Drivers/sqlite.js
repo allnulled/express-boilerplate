@@ -1,8 +1,26 @@
-module.exports = async function(api) {
+/**
+ * 
+ * @name src/Database/Decorators/sqlite.js
+ * @type Función asíncrona
+ * @parameter `api`
+ * @returns Devuelve una interfaz homogénea para ejecutar código en la base de datos SQL. En este caso, rellena con la lógica para funcionar con una base de datos SQLite. El proceso es el que sigue.
+ * Si `process.env.DATABASE_RESET` tiene valor true sobreescribe en blanco el fichero `process.env.DATABASE_FILE`.
+ * Crea una conexión bruta con tal fichero.
+ * Crea una conexión neta con 2 propiedades:
+ * 
+ *    - NativeConnection: conexión nativa de sqlite (la conexión "bruta").
+ *    - Execute: función para ejecutar código SQL contra la base de datos.
+ * 
+ * Devuelve la conexión neta.
+ * 
+ */
+module.exports = async function(api, configurations) {
+  api.Utilities.Trace("src/Database/Drivers/sqlite.js");
     const fs = require("fs");
     const sqlite = require("sqlite3");
     let conexion_bruta = undefined;
-    if(process.env.DATABASE_RESET) {
+    const no_skip_creation = configurations.skip_database_creation !== true;
+    if (process.env.DATABASE_RESET && no_skip_creation) {
       fs.writeFileSync(process.env.DATABASE_FILE, "", "utf8");
     }
     await new Promise(function (ok, fail) {

@@ -5,6 +5,13 @@ const ejs = require("ejs");
 module.exports = (async function () {
     try {
         let ast = undefined;
+        Load_api: {
+            const load = require(__dirname + "/../../load.js");
+            const { api } = await load({}, { skip_database_creation: true });
+            // Puedes usar esto para simular las plantillas más básicas en lugar de tener que cargar todo el entorno:
+            break Load_api;
+            process.env.DATABASE_DRIVER= "mysql";
+        }
         Creation_file: {
             const input_file = __dirname + "/../../Database/Scripts/creation.ejs.sql";
             const output_file = __dirname + "/../../Database/Scripts/creation.sql";
@@ -29,12 +36,12 @@ module.exports = (async function () {
             for (let index_table = 0; index_table < ast.length; index_table++) {
                 const table = ast[index_table];
                 const table_id = table.tabla;
-                const template_for_base_model = fs.readFileSync(__dirname + "/../../Models/Base/Templates/BaseModel.ejs.js").toString();
+                const template_for_base_model = fs.readFileSync(__dirname + "/../../Models/Base/Templates/Model_Base.ejs.js").toString();
                 const output_for_base_model = ejs.render(template_for_base_model, {
                     table_id,
                     schema: ast,
                 });
-                const output_file_for_base_model = path.resolve(__dirname + "/../../Models/Base/Base_" + table_id + ".js");
+                const output_file_for_base_model = path.resolve(__dirname + "/../../Models/Base/" + table_id + "_Base.js");
                 fs.writeFileSync(output_file_for_base_model, output_for_base_model, "utf8");
                 const template_for_model = fs.readFileSync(__dirname + "/../../Models/Base/Templates/Model.ejs.js").toString();
                 const output_for_model = ejs.render(template_for_model, {

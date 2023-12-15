@@ -1,6 +1,19 @@
 const sqlstring = require("sqlstring");
 
 module.exports = class {
+    /**
+     * 
+     * @name src/Database/Decorators/Interceptors/Columns/es_actualizable_si_id_usuario_coincide_con.js#resolve
+     * @type Función
+     * @parameter `data:Object` Los parámetros de la petición, petición inclusive.
+     * @parameter `id_columna:String` Nombre de la columna.
+     * @parameter `controlador:Object` Instancia de controlador que enchufa este decorador.
+     * @description Lanza un error si se está intentando actualizar pero la columna no coincide con el identificador de usuario.
+     * Busca en `data.item_recuperated` y si no encuentra, hace una query buscando el `data.id` como id, usando `data.table` como tabla.
+     * Compara el `request.$$authentication.usuario.id` con el valor de esta columna indicada (id_columna).
+     * Si no coinciden, lanza un error de que el valor no se puede alterar.
+     * 
+     */
     async resolve(data, id_columna, controlador) {
         this.api.Utilities.Trace("Database.Decorators.Interceptors.Columns.es_actualizable_si_id_usuario_coincide_con");
         if(controlador.name === "Update") {

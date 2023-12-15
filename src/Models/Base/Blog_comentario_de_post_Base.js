@@ -1,8 +1,6 @@
-
-
 const Sequelize = require("sequelize");
 
-module.exports = class BaseBlog_comentario_de_post{
+module.exports = class Blog_comentario_de_post_Base {
     initialize() {
         return this.api.Database.SequelizeConnection.define("Blog_comentario_de_post", {
             id: {
@@ -21,6 +19,9 @@ module.exports = class BaseBlog_comentario_de_post{
                 allowNull: true,
                 field: "fecha_de_creacion"
             }
+        }, {
+          timestamps: false,
+          freezeTableName: true
         });
     }
 };

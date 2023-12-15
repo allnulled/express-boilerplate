@@ -1,4 +1,14 @@
 module.exports = class {
+    /**
+     * 
+     * @name api.Utilities.GetDateToString
+     * @type Función
+     * @parameter `date:Date` Fecha a formatear.
+     * @parameter `format:String` Formato a usar. Por defecto: `"YYYY-MM-DD HH:mm:ss.xxx"`.
+     * @description Transforma una fecha (o Date) indicado (date) en texto (o String) con el formato indicado (format).
+     * @returns `output:String` La fecha formateada a texto.
+     * 
+     */
     action(date, format = "YYYY-MM-DD HH:mm:ss.xxx") {
         this.api.Utilities.Trace("api.Utilities.GetDateToString");
         const year = date.getFullYear();

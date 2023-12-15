@@ -1,3 +1,4 @@
+
 CREATE TABLE Usuario (
   id INTEGER PRIMARY KEY AUTOINCREMENT /*
     @tiene_nombre: Identificador
@@ -51,21 +52,23 @@ CREATE TABLE Sesion (
   */,
   FOREIGN KEY (id_usuario) REFERENCES Usuario (id)
 );
+
 CREATE TABLE Carpeta (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  nombre VARCHAR(1024) UNIQUE,
+  nombre VARCHAR(512) UNIQUE,
   id_carpeta_padre INTEGER,
   FOREIGN KEY (id_carpeta_padre) REFERENCES Carpeta (id)
 );
 
 CREATE TABLE Fichero (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  fichero VARCHAR(1024) UNIQUE /*
+  fichero VARCHAR(512) UNIQUE /*
     @es_tipo: fichero
   */,
   id_carpeta_padre INTEGER,
   FOREIGN KEY (id_carpeta_padre) REFERENCES Carpeta (id)
 );
+
 CREATE TABLE Blog_post (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   titulo VARCHAR(255) /*
@@ -85,6 +88,7 @@ CREATE TABLE Blog_comentario_de_post (
   contenido TEXT,
   fecha_de_creacion DATETIME
 );
+
 CREATE TABLE Ejemplo_de_columna (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   color VARCHAR(32) /*

@@ -1,4 +1,21 @@
 module.exports = class {
+  /**
+   * 
+   * @name api.Utilities.FormatRowsByGroups
+   * @type Función
+   * @parameter `rows:Array` Lista devuelta por un select con joins del SQL.
+   * @parameter `groups:Array<String>` Lista de nombres  
+   * @parameter `inListMode:Boolean` Si se prefiere una lista con objetos, en lugar de un objeto con identificadores. Por defecto: `true`.
+   * @description A partir de los nombres de las columnas, que son compuestos de `{Tabla}.{Columna}`, se averiguan los diferentes ids de cada tabla, y se separan sus columnas y se devuuelve el resultado, que puede estar en formato objeto con ids, o en formato array directo.
+   * @returns `lists:Object<Array<Object>> | lists:Object<Object<Object>>` Objeto con los grupos indicados (groups) como clave y las rows con las columnas agrupadas como valor.
+   * Si `inListMode` es `true` se devuelve:
+   *    - Un objeto donde las claves son los grupos y los valores son:
+   *    - Arrays con los objetos como valores.
+   * Si `inListMode` es `false` se devuelve:
+   *    - Un objeto donde las claves son los grupos y los valores son:
+   *    - Objetos donde las claves son los id de los objetos y los valores son los objetos.
+   * 
+   */
     action(rows, groups = [], inListMode = true) {
         this.api.Utilities.Trace("api.Utilities.FormatRowsByGroups");
         const data = {};

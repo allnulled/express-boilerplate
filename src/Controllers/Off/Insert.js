@@ -291,7 +291,12 @@ module.exports = class extends BasicController {
     this.api.Utilities.Trace("api.Controllers.Insert.onExecuteQuery");
     const sql = data.sql;
     const output = await this.api.Utilities.QueryDatabase(sql);
-    const [{ last_insert }] = await this.api.Utilities.QueryDatabase("SELECT LAST_INSERT_ROWID() AS last_insert");
+    let last_insert = undefined;
+    if(process.env.DATABASE_DRIVER === "sqlite") {
+      [{ last_insert }] = await this.api.Utilities.QueryDatabase("SELECT LAST_INSERT_ROWID() AS last_insert");
+    } else {
+      [{ last_insert }] = await this.api.Utilities.QueryDatabase("SELECT LAST_INSERT_ID() AS last_insert");
+    }
     data.output = {
       output,
       id: last_insert
