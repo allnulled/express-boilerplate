@@ -8,7 +8,7 @@ module.exports = class {
     
     route = "^/";
     
-    priority = 3000;
+    priority = 5000;
 
     getMiddleware() {
         return [];
