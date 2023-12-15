@@ -10,6 +10,7 @@ Código fuente base para servidores basados en Node.js + Express + SQL.
 
 - [express-boilerplate](#express-boilerplate)
   - [Índice](#índice)
+  - [Prestaciones](#prestaciones)
   - [Instalación](#instalación)
   - [Ejecución](#ejecución)
   - [Filosofía](#filosofía)
@@ -32,6 +33,55 @@ Código fuente base para servidores basados en Node.js + Express + SQL.
     - [Clases utilitarias](#clases-utilitarias)
     - [Generador de documentación](#generador-de-documentación)
 
+## Prestaciones
+
+0. ✔ Documentación en profundidad con [REFERENCE.md](./src/Documentation/REFERENCE.md).
+1. ✔ Herramienta de línea de comandos de serie.
+2. ✔ Comandos de serie fácilmente ampliables.
+3. ✔ Variables de entorno.
+4. ✔ Drivers de base de datos ampliables
+5. ✔ Scripts de creación y migración de bases de datos mediante sistema de plantillas EJS.
+6. ✔ Estructuras JSON del modelo de la base de datos automáticamente extraído del SQL.
+7. ✔ Drivers ampliables de bases de datos para:
+    - ✔ SQLite
+    - ✔ MySQL
+8. ✔ Decoradores de serie y fácilmente ampliables para:
+    - ✔ Condicionales
+    - ✔ Consecuenciales
+    - ✔ Interceptores
+    - ✔ Formateadores
+9. ✔ Documentación autogenerada mediante javadoc.
+10. ✔ Subida de ficheros incluída como funcionalidad nativa.
+11. ✔ Interfaces desde servidor a 3 bandas:
+    - ✔ Caché: sistema de cacheo incorporado para páginas optimizadas.
+    - ✔ Plantillas EJS: sistema de plantillas para páginas que requieren lógica fresca en cada llamada.
+    - ✔ Ficheros estáticos: sistema de ficheros estáticos para ficheros inmutables.
+12. ✔ Middlewares de serie y fácilmente ampliables, basados en clases.
+13. ✔ Controladores de serie y fácilmente ampliables, basados en clases. Incluyen:
+    - ✔ *ControllerForCache.js*: controlador para el sistema de caché de interfaces de servidor.
+    - ✔ *ControllerForFiles.js*: controlador para ficheros estáticos.
+    - ✔ *ControllerForIndex.js*: controlador específico para el fichero index.js
+    - ✔ *ControllerForTemplates.js*: controlador para el sistema de plantillas de interfaces de servidor.
+    - ✔ *ControllerForUploads.js*: controlador para ficheros estáticos de las subidas.
+    - ✔ *Debug.js*: controlador para propósitos de debugging.
+    - ✔ *Delete.js*: controlador para eliminar instancia del sistema automático CRUD.
+    - ✔ *Environment.js*: controlador para propósitos de debugging.
+    - ✔ *Insert.js*: controlador para insertar instancia del sistema automático CRUD.
+    - ✔ *Login.js*: controlador para entrar al sistema.
+    - ✔ *Logout.js*: controlador para salir del sistema.
+    - ✔ *Schema.js*: controlador para averiguar el esquema de datos.
+    - ✔ *Select.js*: controlador para seleccionar instancias del sistema automático CRUD.
+    - ✔ *SetFile.js*: controlador para subir fichero del sistema automático CRUD.
+    - ✔ *Update.js*: controlador para actualizar instancia del sistema automático CRUD.
+14. ✔ Modelos de serie basados en clase y en Sequelize, autogenerados a partir del SQL.
+15. ✔ Sistema de queries para separar las consultas puramente del resto de lógica.
+16. ✔ Carpeta de recursos, con librerías que puede interesar ampliar fácilmente. Incluye:
+    - ✔ Librería de comprobaciones `check-that`.
+    - ✔ Librería de parsing del SQL `hql.pegjs` y su `hql.js`.
+17. ✔ Utilidades globales disponibles en toda la aplicación, basadas en clases, fácilmente ampliables.
+18. ✔ Destacablemente, ofrece un sistema REST automático propio que resuelve las 4 operaciones CRUD mediante HTTP.
+19. ✔ También autogenera modelos para el ORM de Sequelize.
+20. ✔ Los decoradores son la prestación más avanzada, con la cual puedes reusar mucha lógica, además de ahorrar mucho código.
 
 ## Instalación
 
