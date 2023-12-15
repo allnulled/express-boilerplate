@@ -26,8 +26,7 @@ Código fuente base para servidores basados en Node.js + Express + SQLite y fina
     - [Habilitar o deshabilitar controladores](#habilitar-o-deshabilitar-controladores)
   - [¿Qué más ofrece el boilerplate?](#qué-más-ofrece-el-boilerplate)
     - [Clases utilitarias](#clases-utilitarias)
-    - [Análisis de software](#análisis-de-software)
-    - [Generador de documentación incluído](#generador-de-documentación-incluído)
+    - [Generador de documentación](#generador-de-documentación)
 
 
 ## Instalación
@@ -203,13 +202,7 @@ Unas pocas clases utilitarias:
  - [`QueryDatabase`](./src/Utilities/QueryDatabase.js) para ejecutar una consulta SQL
  - [`Trace`](./src/Utilities/Trace.js) para tracear un método o función
 
-### Análisis de software
-
-Por defecto, `express-boilerplate` viene con 1 comando: `npm run seed-project` o `node src/Commands/SeedProject/SeedProject.js`. Y este fichero está al lado de otro: `src/Commands/SeedProject/SeedProject.smr`. Este tipo de ficheros responde a un lenguaje de programación particular de este proyecto: `semillero`. Los ficheros fuente están en `src/Resources/semillero.pegjs` y su homólogo `.js`.
-
-Para saber más sobre qué puedes hacer con semillero, tienes su documentación en otra parte de este proyecto: [semillero](./src/Documentation/SEMILLERO.md).
-
-### Generador de documentación incluído
+### Generador de documentación
 
 Con `express-boilerplate` también tienes un generador de documentación basado en comentarios [`javadoc`](https://github.com/allnulled/javadoc). Solo tienes que hacer:
 
