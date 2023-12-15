@@ -1,6 +1,10 @@
 # express-boilerplate
 
-Código fuente base para servidores basados en Node.js + Express + SQLite y finalmente EJS para simular algo similar al PHP clásico de plantillas.
+Código fuente base para servidores basados en Node.js + Express + SQL.
+
+![Ebo](./docs/icons/ebo-encuadrado-100.png)
+
+![NPM](https://img.shields.io/badge/npm-ok-green) ![Github](https://img.shields.io/badge/github-ok-green)
 
 ## Índice
 
