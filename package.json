@@ -7,8 +7,9 @@
         "ebo": "src/Commands/Ebo/bin.js"
     },
     "scripts": {
-        "build": "npm run build-database-creation && npm run build-parser && npm run build-ui && npm run build-documentation && npm run build-styles",
+        "build": "npm run build-database-creation && npm run build-parser && npm run build-ui && npm run build-documentation && npm run build-styles && npm run build-interface-cache",
         "build-database-creation": "node src/Commands/BuildDatabaseCreation/BuildDatabaseCreation.js",
+        "build-interface-cache": "node src/Commands/BuildInterfaceCache/BuildInterfaceCache.js",
         "build-documentation": "node src/Commands/BuildDocumentation/BuildDocumentation.js",
         "build-parser": "npx pegjs src/Resources/hql.pegjs && npx pegjs -o docs/lib/hql/hql.js --format globals --export-var Hql_parser src/Resources/hql.pegjs",
         "build-styles": "node src/Commands/BuildStyles/BuildStyles.js",
