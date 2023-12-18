@@ -1,6 +1,6 @@
 
 CREATE TABLE Usuario (
-  id INTEGER PRIMARY KEY AUTOINCREMENT /*
+  id INTEGER PRIMARY KEY AUTO_INCREMENT /*
     @tiene_nombre: Identificador
   */,
   nombre VARCHAR(255) UNIQUE /*
@@ -15,7 +15,7 @@ CREATE TABLE Usuario (
 );
 
 CREATE TABLE Permiso (
-  id INTEGER PRIMARY KEY AUTOINCREMENT /*
+  id INTEGER PRIMARY KEY AUTO_INCREMENT /*
     @tiene_nombre: Identificador
   */,
   nombre VARCHAR(255) /*
@@ -27,7 +27,7 @@ CREATE TABLE Permiso (
 );
 
 CREATE TABLE Permiso_de_usuario (
-  id INTEGER PRIMARY KEY AUTOINCREMENT /*
+  id INTEGER PRIMARY KEY AUTO_INCREMENT /*
     @tiene_nombre: Identificador
   */,
   id_usuario INTEGER /*
@@ -41,7 +41,7 @@ CREATE TABLE Permiso_de_usuario (
 );
 
 CREATE TABLE Sesion (
-  id INTEGER PRIMARY KEY AUTOINCREMENT /*
+  id INTEGER PRIMARY KEY AUTO_INCREMENT /*
     @tiene_nombre: Identificador
   */,
   token VARCHAR(100) /*
@@ -54,14 +54,14 @@ CREATE TABLE Sesion (
 );
 
 CREATE TABLE Carpeta (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  id INTEGER PRIMARY KEY AUTO_INCREMENT,
   nombre VARCHAR(512) UNIQUE,
   id_carpeta_padre INTEGER,
   FOREIGN KEY (id_carpeta_padre) REFERENCES Carpeta (id)
 );
 
 CREATE TABLE Fichero (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  id INTEGER PRIMARY KEY AUTO_INCREMENT,
   fichero VARCHAR(512) UNIQUE /*
     @es_tipo: fichero
   */,
@@ -70,7 +70,7 @@ CREATE TABLE Fichero (
 );
 
 CREATE TABLE Blog_post (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  id INTEGER PRIMARY KEY AUTO_INCREMENT,
   titulo VARCHAR(255) /*
     @tipo: Texto normal
     @tipo-en-formulario: text
@@ -84,13 +84,13 @@ CREATE TABLE Blog_post (
 );
 
 CREATE TABLE Blog_comentario_de_post (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  id INTEGER PRIMARY KEY AUTO_INCREMENT,
   contenido TEXT,
   fecha_de_creacion DATETIME
 );
 
 CREATE TABLE Ejemplo_de_columna (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  id INTEGER PRIMARY KEY AUTO_INCREMENT,
   color VARCHAR(32) /*
     @es_tipo: color
   */
@@ -110,7 +110,7 @@ CREATE TABLE Tabla_1 /*
     si        await $conditionals.tiene_permiso(data, "permiso de administración")
     entonces  await $consequencials.prohibir(data, "Se requieren permisos específicos para esta operación")
   */ (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  id INTEGER PRIMARY KEY AUTO_INCREMENT,
   nombre VARCHAR(100)
 );
 
@@ -120,7 +120,7 @@ CREATE TABLE Tabla_2 /*
   @es_actualizable
   @es_eliminable
   */ (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  id INTEGER PRIMARY KEY AUTO_INCREMENT,
   nombre_privado VARCHAR(100),
   nombre_publico VARCHAR(100) /*
     @comprobar_restriccion: no es seleccionable si $conditionals.no_tiene_permiso(data, "permiso de administración")
@@ -167,7 +167,7 @@ CREATE TABLE Tabla_3 /*
   @interceptar: $interceptors.Tables.registrar_cambios_en(data, this, "Historial_de_Tabla_3");
   @tiene_columna_preferida: campo_preferido
 */ (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  id INTEGER PRIMARY KEY AUTO_INCREMENT,
   id_usuario INTEGER /*
     @interceptar: $interceptors.Columns.fijar_id_de_usuario_al_insertar(data, id_column, this);
     @interceptar: $interceptors.Columns.fijar_id_de_usuario_al_actualizar(data, id_column, this);
@@ -196,7 +196,7 @@ CREATE TABLE Tabla_3 /*
 );
 
 CREATE TABLE Historial_de_Tabla_3 (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  id INTEGER PRIMARY KEY AUTO_INCREMENT,
   tabla VARCHAR(255),
   operacion VARCHAR(255),
   identificador INTEGER,
@@ -206,7 +206,7 @@ CREATE TABLE Historial_de_Tabla_3 (
 );
 
 CREATE TABLE Tabla_4 (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  id INTEGER PRIMARY KEY AUTO_INCREMENT,
   id_tabla_3 INTEGER,
   campo_unico VARCHAR(255) UNIQUE,
   FOREIGN KEY (id_tabla_3) REFERENCES Tabla_3 (id)

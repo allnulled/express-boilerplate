@@ -209,9 +209,7 @@ En [`src/Queries/`](./src/Queries) añades una nueva clase con el método `query
 
 ### Crear un comando
 
-En [`package.json`](./package.json) el apartado `scripts` te será de ayuda en esto. Los comandos se ejecutarían mediante `npm`.
-
-La carpeta de `src/Commands` está pretendidamente puesta para almacenar el código de casos como estos.
+Los comandos se ejecutarían mediante `ebo`. Deberías ampliar los scripts del `npm` también. Pero `ebo {Comando}` es el que hará la función para llamar a los comandos. La carpeta de `src/Commands` está pretendidamente puesta para almacenar el código de casos como estos.
 
 ### Crear una configuración
 

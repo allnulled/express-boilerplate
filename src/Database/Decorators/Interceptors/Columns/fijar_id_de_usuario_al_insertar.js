@@ -14,6 +14,8 @@ module.exports = class {
             this.api.Utilities.Trace("Database.Decorators.Interceptors.Columns.fijar_id_de_usuario_al_insertar");
             const { _request: request, _response: response, item } = data;
             data.item[id_columna] = request.$$authentication.usuario.id;
+        } else if(controlador.name === "Update") {
+            delete data.item[id_columna];
         }
     }
 };

@@ -5,14 +5,18 @@ const ejs = require("ejs");
 module.exports = (async function () {
     try {
         let ast = undefined;
+        let api = undefined;
         Load_api: {
+            console.log("[*] Paso 1 de 4: Cargando la API");
             const load = require(__dirname + "/../../load.js");
-            const { api } = await load({}, { skip_database_creation: true });
+            const { api: api_2 } = await load({}, { skip_database_creation: true });
+            api = api_2;
             // Puedes usar esto para simular las plantillas más básicas en lugar de tener que cargar todo el entorno:
             break Load_api;
             process.env.DATABASE_DRIVER= "mysql";
         }
         Creation_file: {
+            console.log("[*] Paso 2 de 4: Creando la base de datos");
             const input_file = __dirname + "/../../Database/Scripts/creation.ejs.sql";
             const output_file = __dirname + "/../../Database/Scripts/creation.sql";
             const scripts_dir = __dirname + "/../../Database/Scripts";
@@ -24,6 +28,7 @@ module.exports = (async function () {
             fs.writeFileSync(output_file, template_output, "utf8");
         }
         Migration_file: {
+            console.log("[*] Paso 3 de 4: Migrando la base de datos");
             const input_file = __dirname + "/../../Database/Scripts/migration.ejs.sql";
             const output_file = __dirname + "/../../Database/Scripts/migration.sql";
             const scripts_dir = __dirname + "/../../Database/Scripts";
@@ -32,6 +37,7 @@ module.exports = (async function () {
             fs.writeFileSync(output_file, template_output, "utf8");
         }
         Model_files: {
+            console.log("[*] Paso 4 de 4: Generando los modelos Sequelize");
             Iterating_tables:
             for (let index_table = 0; index_table < ast.length; index_table++) {
                 const table = ast[index_table];
@@ -55,6 +61,7 @@ module.exports = (async function () {
                 }
             }
         }
+        await api.Utilities.CloseDeployment();
     } catch (error) {
         console.log(error);
     }

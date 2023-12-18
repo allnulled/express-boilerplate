@@ -18,6 +18,7 @@ Ejecutable como documento HTML5
     <link rel="stylesheet" type="text/css" href="lib/components/pagina_de_esquema/pagina_de_esquema.css" />
     <link rel="stylesheet" type="text/css" href="lib/components/pagina_de_autentificacion/pagina_de_autentificacion.css" />
     <link rel="stylesheet" type="text/css" href="lib/components/selector_de_tabla/selector_de_tabla.css" />
+    <link rel="stylesheet" type="text/css" href="lib/components/vuejs-calendario/vuejs-calendario.css" />
     
     <script src="lib/calo/calo.js"></script>
     <script src="lib/ui-script/ui-script.js"></script>
@@ -31,6 +32,7 @@ Ejecutable como documento HTML5
     <script src="lib/components/pagina_de_esquema/pagina_de_esquema.js"></script>
     <script src="lib/components/pagina_de_autentificacion/pagina_de_autentificacion.js"></script>
     <script src="lib/components/selector_de_tabla/selector_de_tabla.js"></script>
+    <script src="lib/components/vuejs-calendario/vuejs-calendario.js"></script>
     <style>
       html {
         background-color: #555;

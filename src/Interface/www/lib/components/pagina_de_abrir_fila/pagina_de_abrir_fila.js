@@ -104,7 +104,7 @@ window.PaginaDeAbrirFila = Castelog.metodos.un_componente_vue2("PaginaDeAbrirFil
  + "            <textarea style=\"width:100%;min-height:80px;resize:vertical;\" v-model=\"item[key]\"></textarea>"
  + "          </xpanel>"
  + "          <xpanel v-else-if=\"root.compacted_schema[ $route.params.tabla ].composicion[key].tipo === 'DATETIME'\">"
- + "            <input style=\"width:100%;\" type=\"datetime-local\" v-model=\"item[key]\" />"
+ + "            <VuejsCalendario :al-cambiar=\"v => item[key] = v\" :valor-inicial=\"item[key]\" />"
  + "          </xpanel>"
  + "          <xpanel v-else-if=\"false\">"
  + "            --- END OF Input rendering ---"
@@ -139,6 +139,7 @@ throw error;
 },
 methods:{ async obtener_datos_de_fila() {try {
 console.log('[DEBUG]', "PaginaDeAbrirFila.obtener_datos_de_fila");
+this.item = false;
 const respuesta_datos_de_fila = (await Castelog.metodos.una_peticion_http("/Select", "POST", { table:this.$route.params.tabla,
 where:[ [ "id",
 "=",

@@ -103,7 +103,7 @@ asigno window.PaginaDeAbrirFila como un componente vue2 con nombre "PaginaDeAbri
             <textarea style="width:100%;min-height:80px;resize:vertical;" v-model="item[key]"></textarea>
           </xpanel>
           <xpanel v-else-if="root.compacted_schema[ $route.params.tabla ].composicion[key].tipo === 'DATETIME'">
-            <input style="width:100%;" type="datetime-local" v-model="item[key]" />
+            <VuejsCalendario :al-cambiar="v => item[key] = v" :valor-inicial="item[key]" />
           </xpanel>
           <xpanel v-else-if="false">
             --- END OF Input rendering ---
@@ -139,6 +139,7 @@ asigno window.PaginaDeAbrirFila como un componente vue2 con nombre "PaginaDeAbri
     propiedad methods como {
       método asíncrono obtener_datos_de_fila donde {
         debugo "PaginaDeAbrirFila.obtener_datos_de_fila".
+        asigno this.item como false.
         creo respuesta_datos_de_fila como asíncronamente una petición http
           con url "/Select"
           con método "POST"
