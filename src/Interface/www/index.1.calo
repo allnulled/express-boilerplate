@@ -39,6 +39,9 @@ Ejecutable como documento HTML5
         background-color: #555;
         color: white;
       }
+      body {
+        padding: 0px;
+      }
       * {
         font: 9pt Segoe UI,Sans-serif;
       }
