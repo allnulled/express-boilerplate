@@ -1,20 +1,16 @@
 asigno window.SelectorDeTabla como un componente vue2 con nombre "SelectorDeTabla" con plantilla {
-  <div>
+  <div class="Component SelectorDeTabla">
     <xpanel>
-      <xtable v-if="['uno','varios'].indexOf(modo) !== -1">
-        <xtablebody>
-          <xtablerow>
-            <xtablecell style="width:100%;">
-              <input style="width:100%;" type="text" v-model="selected_ids" disabled="true" placeholder="Aquí aparece el identificador de los seleccionados" />
-            </xtablecell>
-            <xtablecell style="padding-left: 4px;">
-              <button style="min-width:30px;" :class="{active:is_showing_panels}" v-on:click="() => alternar_paneles()">...</button>
-            </xtablecell>
-          </xtablerow>
-        </xtablebody>
-      </xtable>
+      <xlayouthorizontal v-if="['uno','varios'].indexOf(modo) !== -1">
+        <xlayouthorizontalitem style="width:100%;">
+          <input style="width:100%;" type="text" v-model="selected_ids" disabled="true" placeholder="Aquí aparece el identificador de los seleccionados" />
+        </xlayouthorizontalitem>
+        <xlayouthorizontalitem style="padding-left: 4px;">
+          <button style="min-width:30px;" :class="{active:is_showing_panels}" v-on:click="() => alternar_paneles()">...</button>
+        </xlayouthorizontalitem>
+      </xlayouthorizontal>
       <xpanel v-if="(modo === 'ver') || ((['uno','varios'].indexOf(modo) !== -1) && is_showing_panels)">
-        <xpanel style="padding-left: 4px; padding-right: 4px;margin-top: 4px;background-color: #333; border: 1px solid white;">
+        <xpanel style="padding-left: 4px; padding-right: 4px;margin-top: 4px;background-color: #333; border: 1px solid black; border-radius: 3pt; box-shadow: 0 0 4px black;">
           <xpanel v-if="['uno','varios'].indexOf(modo) !== -1" style="padding-top: 4px;">
             <input style="width:100%;" type="text" v-model="selected_preferred_columns" disabled="true" placeholder="Aquí aparece la columna preferida de los seleccionados" />
           </xpanel>
@@ -28,20 +24,16 @@ asigno window.SelectorDeTabla como un componente vue2 con nombre "SelectorDeTabl
             </xlistitem>
             <xlistitem v-if="is_showing_filtros_panel">
               <xpanel class="">
-                <xpanel class="" style="border: 1px solid #CCC; border-radius:2pt; margin-top:1px;">
-                  <xtable>
-                    <xtablebody>
-                      <xtablerow>
-                        <xtablecell style="width:100%;">
-                          <button class="width_100" v-on:click="agregar_regla_de_filtro">Añadir filtro</button>
-                        </xtablecell>
-                        <xtablecell style="width:1%;">
-                          <button class="width_100 boton_verde" v-on:click="obtener_datos_de_tabla">Buscar</button>
-                        </xtablecell>
-                      </xtablerow>
-                    </xtablebody>
-                  </xtable>
-                  <xtable style="width:100%;">
+                <xlayout class="" style="border: 1px solid black; border-radius: 3pt; box-shadow: 0 0 4px black; margin-top: 4px;">
+                  <xlayouthorizontal>
+                    <xlayouthorizontalitem style="width:100%;">
+                      <button class="width_100" v-on:click="agregar_regla_de_filtro">Añadir filtro</button>
+                    </xlayouthorizontalitem>
+                    <xlayouthorizontalitem style="width:1%;">
+                      <button class="width_100 boton_verde" v-on:click="obtener_datos_de_tabla">Buscar</button>
+                    </xlayouthorizontalitem>
+                  </xlayouthorizontal>
+                  <xtable style="width:100%; background-color: inherit;">
                     <xtablebody v-for="where_rule, where_index in where" v-bind:key="'where-' + where_index">
                       <xtablerow>
                         <xtablecell style="width:50%;">
@@ -59,7 +51,7 @@ asigno window.SelectorDeTabla como un componente vue2 con nombre "SelectorDeTabl
                           </select>
                         </xtablecell>
                         <xtablecell style="width:1%;position:relative;" class="celda_de_boton_de_eliminar" rowspan="2">
-                          <button class="boton_rojo" style="min-width:1%;position:absolute;top:0;left:0;right:0;bottom:0;" v-on:click="() => eliminar_regla_de_filtro(where_index)"> x </button>
+                          <button class="boton_rojo" style="min-width:1%;position:absolute;top:0;left:0;right:0;bottom:0;width: 32px;" v-on:click="() => eliminar_regla_de_filtro(where_index)"> ✘ </button>
                         </xtablecell>
                       </xtablerow>
                       <xtablerow>
@@ -69,7 +61,7 @@ asigno window.SelectorDeTabla como un componente vue2 con nombre "SelectorDeTabl
                       </xtablerow>
                     </xtablebody>
                   </xtable>
-                </xpanel>
+                </xlayout>
               </xpanel>
             </xlistitem>
             <xlistitem>
@@ -81,7 +73,7 @@ asigno window.SelectorDeTabla como un componente vue2 con nombre "SelectorDeTabl
             </xlistitem>
             <xlistitem v-if="is_showing_ordenacion_panel">
               <xpanel class="">
-                <xpanel class="" style="border: 1px solid #CCC; border-radius:2pt; margin-top:1px;">
+                <xlayout class="" style="border: 1px solid black; border-radius: 3pt; box-shadow: 0 0 4px black; margin-top: 4px;">
                   <xtable style="width:100%;">
                     <xtablebody>
                       <xtablerow>
@@ -111,12 +103,12 @@ asigno window.SelectorDeTabla como un componente vue2 con nombre "SelectorDeTabl
                           </select>
                         </xtablecell>
                         <xtablecell style="width: 1%;position:relative;" class="celda_de_boton_de_eliminar">
-                          <button class="boton_rojo" style="min-width:1%;position:absolute;top:0;left:0;right:0;bottom:0;" v-on:click="() => eliminar_regla_de_ordenacion(order_index)"> x </button>
+                          <button class="boton_rojo" style="min-width:1%;position:absolute;top:0;left:0;right:0;bottom:0;width: 32px;" v-on:click="() => eliminar_regla_de_ordenacion(order_index)"> ✘ </button>
                         </xtablecell>
                       </xtablerow>
                     </xtablebody>
                   </xtable>
-                </xpanel>
+                </xlayout>
               </xpanel>
             </xlistitem>
             <xlistitem>
@@ -128,45 +120,39 @@ asigno window.SelectorDeTabla como un componente vue2 con nombre "SelectorDeTabl
             </xlistitem>
             <xlistitem v-if="is_showing_busqueda_panel">
               <xpanel class="">
-                <xpanel class="" style="border: 1px solid #CCC; border-radius:2pt; margin-top:1px;">
-                  <xtable>
-                    <xtablebody>
-                      <xtablerow>
-                        <xtablecell style="width:100%;">
-                          <input class="" style="width:100%;" type="text" v-model="search" placeholder="Busca un texto aquí..." />
-                        </xtablecell>
-                        <xtablecell>
-                          <button class="boton_verde" v-on:click="obtener_datos_de_tabla()">Buscar</button>
-                        </xtablecell>
-                      </xtablerow>
-                    </xtablebody>
-                  </xtable>
-                </xpanel>
+                <xlayout class="" style="border: 1px solid black; border-radius: 3pt; box-shadow: 0 0 4px black; margin-top: 4px;">
+                  <xlayouthorizontal>
+                    <xlayouthorizontalitem style="width:100%;">
+                      <input class="" style="width:100%;" type="text" v-model="search" placeholder="Busca un texto aquí..." />
+                    </xlayouthorizontalitem>
+                    <xlayouthorizontalitem>
+                      <button class="boton_verde" v-on:click="obtener_datos_de_tabla()">Buscar</button>
+                    </xlayouthorizontalitem>
+                  </xlayouthorizontal>
+                </xlayout>
               </xpanel>
             </xlistitem>
           </xlist>
           <div style="text-align:left;">
-            <xtable>
-              <xtablebody>
-                <xtablerow>
-                  <xtablecell>
-                    <button v-on:click="() => {if(page < 2) return; page--;obtener_datos_de_tabla()}"> « </button>
-                  </xtablecell>
-                  <xtablecell style="padding:8px;">
-                    <xlabel>Página {{ page }}</xlabel>
-                  </xtablecell>
-                  <xtablecell>
-                    <button v-on:click="() => {page++;obtener_datos_de_tabla()}"> » </button>
-                  </xtablecell>
-                </xtablerow>
-              </xtablebody>
-            </xtable>
+            <xlayouthorizontal>
+              <xlayouthorizontalitem>
+                <button v-on:click="() => {if(page < 2) return; page--;obtener_datos_de_tabla()}"> « </button>
+              </xlayouthorizontalitem>
+              <xlayouthorizontalitem style="padding:8px;">
+                <xlabel style="white-space: nowrap;">Página {{ page }}</xlabel>
+              </xlayouthorizontalitem>
+              <xlayouthorizontalitem>
+                <button v-on:click="() => {page++;obtener_datos_de_tabla()}"> » </button>
+              </xlayouthorizontalitem>
+              <xlayouthorizontalitem style="width:100%;">
+              </xlayouthorizontalitem>
+            </xlayouthorizontal>
           </div>
           <xtableviewer v-if="rows && rows.length">
             <xtable class="tabla_de_datos" style="width:100%;">
               <thead>
                 <tr>
-                  <th v-if="modo === 'uno' ||modo === 'varios'"></th>
+                  <th style="width:1%;" v-if="modo === 'uno' ||modo === 'varios'"></th>
                   <th v-for="row_header, row_header_index in row_headers" :style="row_header === 'id' ? 'width:1%;' : ''" v-bind:key="'row-header-' + row_header_index">
                     {{ root.humanizar_texto_de_columna($route.params.tabla, row_header) }}
                   </th>
@@ -175,8 +161,8 @@ asigno window.SelectorDeTabla como un componente vue2 con nombre "SelectorDeTabl
               <xtablebody>
                 <xtablerow v-for="row, row_index in rows" v-bind:key="'row-' + row_index">
                   <xtablecell v-if="modo === 'uno' || modo === 'varios'">
-                    <button v-if="modo === 'uno'" v-on:click="() => seleccionar_item(row)">{{ selected_ids.indexOf(row.id) === -1 ? "+" : "-" }}</button>
-                    <button v-if="modo === 'varios'" v-on:click="() => seleccionar_item(row)">{{ selected_ids.indexOf(row.id) === -1 ? "+" : "-" }}</button>
+                    <button v-if="modo === 'uno'" v-on:click="() => seleccionar_item(row)">{{ selected_ids.indexOf(row.id) === -1 ? " " : "✔" }}</button>
+                    <button v-if="modo === 'varios'" v-on:click="() => seleccionar_item(row)">{{ selected_ids.indexOf(row.id) === -1 ? " " : "✔" }}</button>
                   </xtablecell>
                   <xtablecell v-for="prop, prop_index in row" v-bind:key="'row-' + row_index + '-cell-' + prop_index">
                     <template v-if="prop_index === 'id'">
@@ -197,21 +183,18 @@ asigno window.SelectorDeTabla como un componente vue2 con nombre "SelectorDeTabl
             </div>
           </div>
           <div style="text-align:right;">
-            <xtable style="display: inline-block;">
-              <xtablebody>
-                <xtablerow>
-                  <xtablecell>
-                    <button v-on:click="() => {if(page < 2) return; page--;obtener_datos_de_tabla()}"> « </button>
-                  </xtablecell>
-                  <xtablecell style="padding:8px;">
-                    <xlabel>Página {{ page }}</xlabel>
-                  </xtablecell>
-                  <xtablecell>
-                    <button v-on:click="() => {page++;obtener_datos_de_tabla()}"> » </button>
-                  </xtablecell>
-                </xtablerow>
-              </xtablebody>
-            </xtable>
+            <xlayouthorizontal>
+              <xlayouthorizontalitem style="width:100%;"></xlayouthorizontalitem>
+              <xlayouthorizontalitem>
+                <button v-on:click="() => {if(page < 2) return; page--;obtener_datos_de_tabla()}"> « </button>
+              </xlayouthorizontalitem>
+              <xlayouthorizontalitem style="padding:8px;">
+                <xlabel style="white-space: nowrap;">Página {{ page }}</xlabel>
+              </xlayouthorizontalitem>
+              <xlayouthorizontalitem>
+                <button v-on:click="() => {page++;obtener_datos_de_tabla()}"> » </button>
+              </xlayouthorizontalitem>
+            </xlayouthorizontal>
           </div>
         </xpanel>
       </xpanel>

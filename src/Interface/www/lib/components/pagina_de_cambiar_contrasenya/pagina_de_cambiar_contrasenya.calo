@@ -1,0 +1,77 @@
+asigno window.PaginaDeCambiarContrasenya como un componente vue2 con nombre "PaginaDeCambiarContrasenya" con plantilla {
+  <div class="Component PaginaDeCambiarContrasenya">
+    <xtitle>Cambiar contraseña</xtitle>
+    <xlayout>
+      <xlist>
+        <xlistitem>
+          <router-link to="/">
+            <button class="boton_ancho_izquierda boton_azul">Ir a inicio</button>
+          </router-link>
+        </xlistitem>
+        <xlistitem>
+          <router-link to="/autentificacion">
+            <button class="boton_ancho_izquierda boton_azul">Ir a autentificación</button>
+          </router-link>
+        </xlistitem>
+      </xlist>
+    </xlayout>
+    <xlayoutnopaddingtop>
+      <xform>
+        <xformfield placeholder="Tu contraseña actual aquí" :on-change="v => old_password = v">Vieja contraseña:</xformfield>
+        <xformfield placeholder="Tu futura contraseña aquí" :on-change="v => new_password = v">Nueva contraseña:</xformfield>
+        <xformfield placeholder="Tu futura contraseña aquí" :on-change="v => new_password_2 = v">Nueva contraseña (otra vez):</xformfield>
+        <xseparator></xseparator>
+        <xpanel style="text-align:right;">
+          <button v-on:click="cambiar_contrasenya">Cambiar contraseña</button>
+        </xpanel>
+      </xform>
+    </xlayoutnopaddingtop>
+  </div>
+} con lógica {
+  retorno {
+    propiedad props como {
+      propiedad root como {
+        propiedad type como Object.
+        propiedad required como true.
+      }.
+    }.
+    método data donde {
+      retorno {
+        old_password: "",
+        new_password: "",
+        new_password_2: ""
+      }.
+    }.
+    propiedad methods como {
+      método asíncrono cambiar_contrasenya donde {
+        creo respuesta_cambio_contrasenya como asíncronamente una petición http
+          con url "/ChangePassword"
+          con método "POST"
+          con cuerpo {
+            old_password: this.old_password,
+            new_password: this.new_password,
+            new_password_2: this.new_password_2
+          }
+          con cabeceras {
+            authorization: this.root.sesion_token
+          }
+          en errores retorno Vue.prototype.$dialogs.error(error).
+        si respuesta_cambio_contrasenya es instancia de Error retorno.
+        hago asíncronamente Vue.prototype.$dialogs.inform("La contraseña fue cambiada correctamente.").
+        hago this.$router.history.push("/autentificacion").
+      } en errores hago Vue.prototype.$dialogs.error(error).
+    }.
+    propiedad watch como {}.
+    propiedad computed como {}.
+    método beforeCreate donde {}.
+    método created donde {}.
+    método beforeMount donde {}.
+    método mounted donde {}.
+    método beforeUpdate donde {}.
+    método updated donde {}.
+    método beforeUnmount donde {}.
+    método unmounted donde {}.
+    método activated donde {}.
+    método deactivated donde {}.
+  }.
+}.

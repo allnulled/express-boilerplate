@@ -1,6 +1,6 @@
 # xdialogport
 
-This is one of the components of the ui-script library.
+This is one of the components of the xcomponents library.
 
 ## Important note
 

@@ -53,20 +53,14 @@ CREATE TABLE Sesion (
   FOREIGN KEY (id_usuario) REFERENCES Usuario (id)
 );
 
-CREATE TABLE Carpeta (
-  id INTEGER PRIMARY KEY AUTO_INCREMENT,
-  nombre VARCHAR(512) UNIQUE,
-  id_carpeta_padre INTEGER,
-  FOREIGN KEY (id_carpeta_padre) REFERENCES Carpeta (id)
-);
 
 CREATE TABLE Fichero (
   id INTEGER PRIMARY KEY AUTO_INCREMENT,
   fichero VARCHAR(512) UNIQUE /*
     @es_tipo: fichero
   */,
-  id_carpeta_padre INTEGER,
-  FOREIGN KEY (id_carpeta_padre) REFERENCES Carpeta (id)
+  id_fichero_padre INTEGER,
+  FOREIGN KEY (id_fichero_padre) REFERENCES Fichero (id)
 );
 
 CREATE TABLE Blog_post (

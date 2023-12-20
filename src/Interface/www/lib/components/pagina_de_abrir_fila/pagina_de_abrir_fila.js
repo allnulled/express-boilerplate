@@ -59,7 +59,7 @@ window.PaginaDeAbrirFila = Castelog.metodos.un_componente_vue2("PaginaDeAbrirFil
  + "                </xtablerow>"
  + "                <xtablerow>"
  + "                  <xtablecell colspan=\"100\" class=\"width_100\" v-if=\"item[key] && typeof(item[key]) !== 'string' && item[key].length\">"
- + "                    <span style=\"white-space: nowrap;\">Hay {{ item[key] ? item[key].length : '0' }} ficheros seleccionados</span>"
+ + "                    <xpill style=\"white-space: nowrap;\">Hay {{ item[key] ? item[key].length : '0' }} ficheros seleccionados</xpill>"
  + "                  </xtablecell>"
  + "                </xtablerow>"
  + "                <xtablerow v-if=\"typeof item[key] === 'string'\">"
@@ -190,7 +190,7 @@ throw error;
 async eliminar_item() {try {
 console.log('[DEBUG]', "PaginaDeAbrirFila.eliminar_item");
 const confirmacion = (await Vue.prototype.$dialogs.form( { title:"Eliminar registro",
-html:"<xlayout>¿Seguro que quieres eliminar el registro «" + this.$route.params.fila + "» de «" + this.$route.params.tabla + "»?</xlayout><xseparator /><xpanel class=''><button class='boton_rojo padding_bottom_1 margin_left_1 margin_bottom_1' v-on:click='finalize_dialog_accepting'>Sí, seguro</button><button class='boton_azul padding_bottom_1 margin_left_1 margin_bottom_1' v-on:click='finalize_dialog_rejecting'>Cancelar</button></xpanel>",
+html:"<xlayout style='color:black;'>¿Seguro que quieres eliminar el registro «" + this.$route.params.fila + "» de «" + this.$route.params.tabla + "»?</xlayout>" + "<xseparator />" + "<xpanel style='text-align:right;'>" + "  <button class='boton_rojo padding_bottom_1 margin_left_1 margin_bottom_1' v-on:click='finalize_dialog_accepting'>Sí, seguro</button>" + "  <button class='boton_azul padding_bottom_1 margin_left_1 margin_bottom_1' v-on:click='finalize_dialog_rejecting'>Cancelar</button>" + "</xpanel>",
 footer:false
 } ));
 if(confirmacion === false) {
@@ -239,6 +239,33 @@ throw error;
 
 },
 async refrescar_fichero( columna ) {try {
+console.log('[DEBUG]', "PaginaDeAbrirFila.refrescar_fichero");
+(await this.obtener_datos_de_fila(  ));
+} catch(error) {
+console.log(error);
+throw error;
+}
+
+},
+async desvincular_fichero( columna ) {try {
+console.log('[DEBUG]', "PaginaDeAbrirFila.desvincular_fichero");
+const [ fichero ] = this.item[ columna ];
+const formulario = new FormData(  );
+formulario.append( "table",
+this.$route.params.tabla );
+formulario.append( "id",
+this.item.id );
+formulario.append( "column",
+columna );
+formulario.append( "file",
+null );
+const respuesta_fichero = (await Castelog.metodos.una_peticion_http("/SetFile", "POST", formulario, { authorization:this.root.sesion_token,
+"Content-type":"multipart/form-data"
+}, null, error => {
+return Vue.prototype.$dialogs.error( error );}));
+if(respuesta_fichero instanceof Error) {
+return;
+}
 (await this.obtener_datos_de_fila(  ));
 } catch(error) {
 console.log(error);

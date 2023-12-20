@@ -1,0 +1,12 @@
+.xtable {
+    width: 100%;
+    border-collapse: collapse;
+}
+.xtable > .xtablehead > .xtablerow > .xtableheader {
+    background-color: #111;
+    color: white;
+}
+
+.xtable > .xtablebody > .xtablerow > .xtablecell {
+    color: black;
+}

@@ -895,6 +895,7 @@ body.win7{
 .win7 input[type=email],
 .win7 input[type=number],
 .win7 input[type=password],
+.win7 input[type=range],
 .win7 input[type=text],
 .win7 input[type=date],
 .win7 input[type=datetime-local] {
@@ -903,6 +904,7 @@ body.win7{
 .win7 input[type=email],
 .win7 input[type=number],
 .win7 input[type=password],
+.win7 input[type=range],
 .win7 input[type=text],
 .win7 input[type=date],
 .win7 input[type=datetime-local],
@@ -913,11 +915,13 @@ body.win7{
     border-top-color:#8e8f8f;
     box-sizing:border-box;
     font:9pt Segoe UI,sans-serif;
-    padding:3px 4px 5px
+    padding:3px 4px 5px;
+    width: 100%;
 }
 .win7 input[type=email]:focus,
 .win7 input[type=number]:focus,
 .win7 input[type=password]:focus,
+.win7 input[type=range]:focus,
 .win7 input[type=text]:focus,
 .win7 input[type=date]:focus,
 .win7 input[type=datetime-local]:focus,

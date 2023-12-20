@@ -21,7 +21,7 @@ window.PaginaDeEsquema = Castelog.metodos.un_componente_vue2("PaginaDeEsquema",
  + "                  <xtable class=\"tabla_de_datos\">"
  + "                    <xtablebody>"
  + "                      <xtablerow>"
- + "                        <xtablecell>"
+ + "                        <xtablecell style=\"width:1%;\">"
  + "                          <span style=\"font-weight:bold;\">Tipo:</span>"
  + "                        </xtablecell>"
  + "                        <xtablecell>"

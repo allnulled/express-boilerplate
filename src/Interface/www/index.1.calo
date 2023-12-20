@@ -6,7 +6,7 @@ Ejecutable como documento HTML5
     <title>🌐 Interfaz de usuario</title>
     <meta charset="utf8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="lib/ui-script/ui-script.css" />
+    <link rel="stylesheet" type="text/css" href="lib/xcomponents/xcomponents.css" />
     <link rel="stylesheet" type="text/css" href="lib/win7/win7.scoped.2.css" />
     <link rel="stylesheet" type="text/css" href="lib/components/pagina_de_administracion/pagina_de_administracion.css" />
     <link rel="stylesheet" type="text/css" href="lib/components/pagina_de_ayuda/pagina_de_ayuda.css" />
@@ -21,7 +21,7 @@ Ejecutable como documento HTML5
     <link rel="stylesheet" type="text/css" href="lib/components/vuejs-calendario/vuejs-calendario.css" />
     
     <script src="lib/calo/calo.js"></script>
-    <script src="lib/ui-script/ui-script.js"></script>
+    <script src="lib/xcomponents/xcomponents.js"></script>
     <script src="lib/components/pagina_de_administracion/pagina_de_administracion.js"></script>
     <script src="lib/components/pagina_de_ayuda/pagina_de_ayuda.js"></script>
     <script src="lib/components/pagina_de_inicio/pagina_de_inicio.js"></script>
@@ -31,6 +31,7 @@ Ejecutable como documento HTML5
     <script src="lib/components/pagina_de_crear_item/pagina_de_crear_item.js"></script>
     <script src="lib/components/pagina_de_esquema/pagina_de_esquema.js"></script>
     <script src="lib/components/pagina_de_autentificacion/pagina_de_autentificacion.js"></script>
+    <script src="lib/components/pagina_de_cambiar_contrasenya/pagina_de_cambiar_contrasenya.js"></script>
     <script src="lib/components/selector_de_tabla/selector_de_tabla.js"></script>
     <script src="lib/components/vuejs-calendario/vuejs-calendario.js"></script>
     <style>
@@ -119,6 +120,10 @@ Ejecutable como documento HTML5
       .imagen_de_fichero {
         max-width: 200px;
       }
+      .window-body,
+      .status-bar {
+        color: black;
+      }
     </style>
 </head>
 <body><div id="app"></div></body>.
@@ -152,6 +157,11 @@ asigno window.App como una aplicación vue2 con nombre "App" con rutas [{
   propiedad path como "/ayuda".
   propiedad name como "PaginaDeAyuda".
   propiedad component como PaginaDeAyuda.
+  propiedad props como {}.
+}, {
+  propiedad path como "/cambiar-contrasenya".
+  propiedad name como "PaginaDeCambiarContrasenya".
+  propiedad component como PaginaDeCambiarContrasenya.
   propiedad props como {}.
 }, {
   propiedad path como "/esquema".

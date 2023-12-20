@@ -7,12 +7,12 @@ Ejecutable como documento HTML5
     <meta charset="utf8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="lib/win7/win7.scoped.2.css" />
-    <link rel="stylesheet" type="text/css" href="lib/ui-script/ui-script.css" />
+    <link rel="stylesheet" type="text/css" href="lib/xcomponents/xcomponents.css" />
     <link rel="stylesheet" type="text/css" href="lib/codemirror/codemirror.css" />
     <link rel="stylesheet" type="text/css" href="lib/theme/theme.css" />
     <script src="lib/calo/calo.js"></script>
     <script src="lib/codemirror/codemirror.js"></script>
-    <script src="lib/ui-script/ui-script.js"></script>
+    <script src="lib/xcomponents/xcomponents.js"></script>
     <script src="lib/hql/hql.js"></script>
 </head>
 <body><div id="app"></div></body>.

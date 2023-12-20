@@ -58,7 +58,7 @@ asigno window.PaginaDeAbrirFila como un componente vue2 con nombre "PaginaDeAbri
                 </xtablerow>
                 <xtablerow>
                   <xtablecell colspan="100" class="width_100" v-if="item[key] && typeof(item[key]) !== 'string' && item[key].length">
-                    <span style="white-space: nowrap;">Hay {{ item[key] ? item[key].length : '0' }} ficheros seleccionados</span>
+                    <xpill style="white-space: nowrap;">Hay {{ item[key] ? item[key].length : '0' }} ficheros seleccionados</xpill>
                   </xtablecell>
                 </xtablerow>
                 <xtablerow v-if="typeof item[key] === 'string'">
@@ -182,7 +182,12 @@ asigno window.PaginaDeAbrirFila como un componente vue2 con nombre "PaginaDeAbri
         debugo "PaginaDeAbrirFila.eliminar_item".
         creo confirmacion como asíncronamente Vue.prototype.$dialogs.form({
           title: "Eliminar registro",
-          html: "<xlayout>¿Seguro que quieres eliminar el registro «" + this.$route.params.fila + "» de «" + this.$route.params.tabla + "»?</xlayout><xseparator /><xpanel class=''><button class='boton_rojo padding_bottom_1 margin_left_1 margin_bottom_1' v-on:click='finalize_dialog_accepting'>Sí, seguro</button><button class='boton_azul padding_bottom_1 margin_left_1 margin_bottom_1' v-on:click='finalize_dialog_rejecting'>Cancelar</button></xpanel>",
+          html: "<xlayout style='color:black;'>¿Seguro que quieres eliminar el registro «" + this.$route.params.fila + "» de «" + this.$route.params.tabla + "»?</xlayout>"
+          + "<xseparator />"
+          + "<xpanel style='text-align:right;'>"
+          + "  <button class='boton_rojo padding_bottom_1 margin_left_1 margin_bottom_1' v-on:click='finalize_dialog_accepting'>Sí, seguro</button>"
+          + "  <button class='boton_azul padding_bottom_1 margin_left_1 margin_bottom_1' v-on:click='finalize_dialog_rejecting'>Cancelar</button>"
+          + "</xpanel>",
           footer: false
         }).
         si confirmacion es igual que false retorno.
@@ -217,6 +222,24 @@ asigno window.PaginaDeAbrirFila como un componente vue2 con nombre "PaginaDeAbri
         hago asíncronamente this.obtener_datos_de_fila().
       }.
       método asíncrono refrescar_fichero con (columna) donde {
+        debugo "PaginaDeAbrirFila.refrescar_fichero".
+        hago asíncronamente this.obtener_datos_de_fila().
+      }.
+      método asíncrono desvincular_fichero con (columna) donde {
+        debugo "PaginaDeAbrirFila.desvincular_fichero".
+        desacoplo constantes [ fichero ] a partir de this.item[columna].
+        creo formulario como un nuevo FormData().
+        hago formulario.append("table", this.$route.params.tabla).
+        hago formulario.append("id", this.item.id).
+        hago formulario.append("column", columna).
+        hago formulario.append("file", null).
+        creo respuesta_fichero como asíncronamente una petición http
+          con url "/SetFile"
+          con método "POST"
+          con cuerpo formulario
+          con cabeceras { authorization: this.root.sesion_token, "Content-type": "multipart/form-data" }
+          en errores retorno Vue.prototype.$dialogs.error(error).
+        si respuesta_fichero es instancia de Error retorno.
         hago asíncronamente this.obtener_datos_de_fila().
       }.
     }.

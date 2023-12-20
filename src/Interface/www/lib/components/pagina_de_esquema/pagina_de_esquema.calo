@@ -20,7 +20,7 @@ asigno window.PaginaDeEsquema como un componente vue2 con nombre "PaginaDeEsquem
                   <xtable class="tabla_de_datos">
                     <xtablebody>
                       <xtablerow>
-                        <xtablecell>
+                        <xtablecell style="width:1%;">
                           <span style="font-weight:bold;">Tipo:</span>
                         </xtablecell>
                         <xtablecell>

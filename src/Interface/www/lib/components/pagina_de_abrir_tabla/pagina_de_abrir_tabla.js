@@ -21,7 +21,9 @@ window.PaginaDeAbrirTabla = Castelog.metodos.un_componente_vue2("PaginaDeAbrirTa
  + "        </xlistitem>"
  + "      </xlist>"
  + "    </xlayoutnopaddingbottom>"
- + "    <SelectorDeTabla :root=\"root\" :tabla=\"$route.params.tabla\" modo=\"ver\" />"
+ + "    <xlayoutnopaddingtop>"
+ + "      <SelectorDeTabla :root=\"root\" :tabla=\"$route.params.tabla\" modo=\"ver\" />"
+ + "    </xlayoutnopaddingtop>"
  + "  </div>",
   function(component) {return { props:{ root:{ type:Object,
 required:true

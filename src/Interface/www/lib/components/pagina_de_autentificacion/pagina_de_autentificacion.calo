@@ -9,6 +9,11 @@ asigno window.PaginaDeAutentificacion como un componente vue2 con nombre "Pagina
           </router-link>
         </xlistitem>
         <xlistitem>
+          <router-link to="/cambiar-contrasenya">
+            <button class="boton_ancho_izquierda boton_azul">Ir a cambiar contraseña</button>
+          </router-link>
+        </xlistitem>
+        <xlistitem>
           <xpanel>
             <xpanel>
               <button class="boton_verde boton_ancho_izquierda" v-on:click="alternar_panel('sesion')">Sesión</button>
@@ -17,7 +22,7 @@ asigno window.PaginaDeAutentificacion como un componente vue2 con nombre "Pagina
               <xtable class="tabla_de_datos margin_top_1">
                 <xtablebody>
                   <xtablerow>
-                    <xtablecell>ID:</xtablecell>
+                    <xtablecell style="width:1%;">ID:</xtablecell>
                     <xtablecell>{{ root.authentication.sesion.id }}</xtablecell>
                   </xtablerow>
                   <xtablerow>
@@ -36,7 +41,7 @@ asigno window.PaginaDeAutentificacion como un componente vue2 con nombre "Pagina
               <xtable class="tabla_de_datos margin_top_1">
                 <xtablebody>
                   <xtablerow>
-                    <xtablecell>ID:</xtablecell>
+                    <xtablecell style="width:1%;">ID:</xtablecell>
                     <xtablecell>{{ root.authentication.usuario.id }}</xtablecell>
                   </xtablerow>
                   <xtablerow>
@@ -59,7 +64,7 @@ asigno window.PaginaDeAutentificacion como un componente vue2 con nombre "Pagina
               <xtable class="tabla_de_datos margin_top_1">
                 <xtablebody v-for="permiso, permiso_index in root.authentication.permisos" v-bind:key="'permiso-' + permiso_index">
                   <xtablerow>
-                    <xtablecell>ID:</xtablecell>
+                    <xtablecell style="width:1%;">ID:</xtablecell>
                     <xtablecell>{{ permiso.id }}</xtablecell>
                   </xtablerow>
                   <xtablerow>

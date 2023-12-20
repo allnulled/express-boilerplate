@@ -15,10 +15,10 @@ module.exports = class Fichero_Base {
                 unique: true,
                 field: "fichero"
             },
-            id_carpeta_padre: {
+            id_fichero_padre: {
                 type: Sequelize.INTEGER,
                 allowNull: true,
-                field: "id_carpeta_padre"
+                field: "id_fichero_padre"
             }
         }, {
           timestamps: false,

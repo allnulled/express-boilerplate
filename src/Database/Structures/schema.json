@@ -163,40 +163,6 @@
     "script": "\n\nCREATE TABLE Sesion (\n  id INTEGER PRIMARY KEY AUTO_INCREMENT /*\n    @tiene_nombre: Identificador\n  */,\n  token VARCHAR(100) /*\n    @tiene_nombre: Token de sesión\n  */,\n  id_usuario INTEGER /*\n    @tiene_nombre: Identificador de usuario\n  */,\n  FOREIGN KEY (id_usuario) REFERENCES Usuario (id)\n);"
   },
   {
-    "tabla": "Carpeta",
-    "atributos": [],
-    "composicion": [
-      {
-        "sentencia": "columna",
-        "columna": "id",
-        "tipo": "INTEGER",
-        "detalles": "PRIMARY KEY AUTO_INCREMENT",
-        "atributos": []
-      },
-      {
-        "sentencia": "columna",
-        "columna": "nombre",
-        "tipo": "VARCHAR",
-        "detalles": "(512) UNIQUE",
-        "atributos": []
-      },
-      {
-        "sentencia": "columna",
-        "columna": "id_carpeta_padre",
-        "tipo": "INTEGER",
-        "detalles": "",
-        "atributos": []
-      },
-      {
-        "sentencia": "clave foránea",
-        "columna": "id_carpeta_padre",
-        "tabla_foranea": "Carpeta",
-        "columna_foranea": "id"
-      }
-    ],
-    "script": "\n\nCREATE TABLE Carpeta (\n  id INTEGER PRIMARY KEY AUTO_INCREMENT,\n  nombre VARCHAR(512) UNIQUE,\n  id_carpeta_padre INTEGER,\n  FOREIGN KEY (id_carpeta_padre) REFERENCES Carpeta (id)\n);"
-  },
-  {
     "tabla": "Fichero",
     "atributos": [],
     "composicion": [
@@ -218,19 +184,19 @@
       },
       {
         "sentencia": "columna",
-        "columna": "id_carpeta_padre",
+        "columna": "id_fichero_padre",
         "tipo": "INTEGER",
         "detalles": "",
         "atributos": []
       },
       {
         "sentencia": "clave foránea",
-        "columna": "id_carpeta_padre",
-        "tabla_foranea": "Carpeta",
+        "columna": "id_fichero_padre",
+        "tabla_foranea": "Fichero",
         "columna_foranea": "id"
       }
     ],
-    "script": "\n\nCREATE TABLE Fichero (\n  id INTEGER PRIMARY KEY AUTO_INCREMENT,\n  fichero VARCHAR(512) UNIQUE /*\n    @es_tipo: fichero\n  */,\n  id_carpeta_padre INTEGER,\n  FOREIGN KEY (id_carpeta_padre) REFERENCES Carpeta (id)\n);"
+    "script": "\n\n\nCREATE TABLE Fichero (\n  id INTEGER PRIMARY KEY AUTO_INCREMENT,\n  fichero VARCHAR(512) UNIQUE /*\n    @es_tipo: fichero\n  */,\n  id_fichero_padre INTEGER,\n  FOREIGN KEY (id_fichero_padre) REFERENCES Fichero (id)\n);"
   },
   {
     "tabla": "Blog_post",

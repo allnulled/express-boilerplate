@@ -33270,7 +33270,7 @@ var widgetsMenu = $.widget( "ui.menu", {
 			this.element.attr( "aria-activedescendant", focused.attr( "id" ) );
 		}
 
-		// Highlight active parent menu item
+		// Highlight active parent menu item, if any
 		activeParent = this.active
 			.parent()
 				.closest( ".ui-menu-item" )

@@ -20,7 +20,9 @@ asigno window.PaginaDeAbrirTabla como un componente vue2 con nombre "PaginaDeAbr
         </xlistitem>
       </xlist>
     </xlayoutnopaddingbottom>
-    <SelectorDeTabla :root="root" :tabla="$route.params.tabla" modo="ver" />
+    <xlayoutnopaddingtop>
+      <SelectorDeTabla :root="root" :tabla="$route.params.tabla" modo="ver" />
+    </xlayoutnopaddingtop>
   </div>
 } con lógica {
   retorno {

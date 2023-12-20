@@ -1,8 +1,8 @@
 const fs = require("fs-extra");
 const path = require("path");
 
-const uiscript_css_output_file = path.resolve(__dirname + "/../../Interface/www/lib/ui-script/ui-script.css");
-const uiscript_components_dir = path.resolve(__dirname + "/../../Interface/www/lib/ui-script/components");
+const uiscript_css_output_file = path.resolve(__dirname + "/../../Interface/www/lib/xcomponents/xcomponents.css");
+const uiscript_components_dir = path.resolve(__dirname + "/../../Interface/www/lib/xcomponents/components");
 const component_folders = fs.readdirSync(uiscript_components_dir);
 let css_all = "";
 Iterating_components:
