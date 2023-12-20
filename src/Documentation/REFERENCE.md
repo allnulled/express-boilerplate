@@ -29,6 +29,18 @@
 ----
 
 
+ - **@name**:  src/Database/Decorators/Conditionals/ocurre.js#resolve
+ - **@type**:  Función
+ - **@parameter**:  `data` Los parámetros de la petición, petición inclusive.
+ - **@parameter**:   `...permisos:Array<String>` Permisos.
+ - **@description**:  Devuelve `true` siempre.
+ - **@returns**:  `true`
+
+ - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Database/Decorators/Conditionals/ocurre.js
+
+----
+
+
  - **@name**:  src/Database/Decorators/Conditionals/tiene_permiso.js#resolve
  - **@type**:  Función
  - **@parameter**:  `data:Object` Los parámetros de la petición, petición inclusive.
@@ -55,18 +67,6 @@
 ----
 
 
- - **@name**:  src/Database/Decorators/Conditionals/ocurre.js#resolve
- - **@type**:  Función
- - **@parameter**:  `data` Los parámetros de la petición, petición inclusive.
- - **@parameter**:   `...permisos:Array<String>` Permisos.
- - **@description**:  Devuelve `true` siempre.
- - **@returns**:  `true`
-
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Database/Decorators/Conditionals/ocurre.js
-
-----
-
-
  - **@name**:  src/Database/Decorators/Consequencials/permitir.js#resolve
  - **@type**:  Función
  - **@parameter**:  `data:Object`
@@ -87,40 +87,14 @@
 ----
 
 
- - **@name**:  src/Database/Decorators/Interceptors/Columns/es_actualizable_si_id_usuario_coincide_con.js#resolve
- - **@type**:  Función
- - **@parameter**:  `data:Object` Los parámetros de la petición, petición inclusive.
- - **@parameter**:  `id_columna:String` Nombre de la columna.
- - **@parameter**:  `controlador:Object` Instancia de controlador que enchufa este decorador.
- - **@description**:  Lanza un error si se está intentando actualizar pero la columna no coincide con el identificador de usuario.
-Busca en `data.item_recuperated` y si no encuentra, hace una query buscando el `data.id` como id, usando `data.table` como tabla.
-Compara el `request.$$authentication.usuario.id` con el valor de esta columna indicada (id_columna).
-Si no coinciden, lanza un error de que el valor no se puede alterar.
-
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Database/Decorators/Interceptors/Columns/es_actualizable_si_id_usuario_coincide_con.js
-
-----
-
-
- - **@name**:  Decorators.js
- - **@type**:  Función
- - **@parameter**:  `api` Objeto principal de la API del proyecto.
- - **@description**:  Devuelve cargados los condicionales, consecuenciales, interceptores de tabla e interceptores de columna, juntos, cargados por este mismo orden. Este fichero se llama, teóricamente, desde el main para cargar los decoradores de la base de datos.
- - **@returns**:  `{ Conditionals, Consequencials, Interceptors: { Tables, Columns } }`
-
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Database/Decorators/Decorators.js
-
-----
-
-
  - **@name**:  src/Database/Decorators/Interceptors/Columns/fijar_fecha_actual_de_usuario_al_actualizar.js#resolve
  - **@type**:  Función
  - **@parameter**:  `data:Object` Requerido. Los parámetros de la request, inclusive request.
  - **@parameter**:  `id_columna:String` Requerido. Nombre de la columna.
  - **@parameter**:  `controlador:Object` Requerido. El controlador que lo está llamando.
- - **@description**:  Si es Insertar o Actualizar, toma un nuevo Date, lo formatea a texto y lo asigna a la columna indicada ("id_columna").
+ - **@description**:  Si es Insertar, toma un nuevo Date, lo formatea a texto y lo asigna a la columna indicada ("id_columna").
 
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Database/Decorators/Interceptors/Columns/fijar_fecha_actual_al_actualizar.js
+ - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Database/Decorators/Interceptors/Columns/fijar_fecha_actual_al_insertar.js
 
 ----
 
@@ -133,6 +107,18 @@ Si no coinciden, lanza un error de que el valor no se puede alterar.
  - **@description**:  Si es Insertar o Actualizar, toma el `request.$$authentication.usuario.id` y lo asigna a la columna indicada ("id_columna").
 
  - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Database/Decorators/Interceptors/Columns/fijar_id_de_usuario_al_actualizar.js
+
+----
+
+
+ - **@name**:  src/Database/Decorators/Interceptors/Columns/fijar_id_de_usuario_al_insertar.js#resolve
+ - **@type**:  Función
+ - **@parameter**:  `data:Object` Requerido. Objeto de parámetros de la petición.
+ - **@parameter**:  `id_columna:String` Requerido. El nombre de la columna que contiene el id de usuario.
+ - **@parameter**:  `controlador:Object` Requerido.
+ - **@description**:  Si es Insert, toma el `request.$$authentication.usuario.id` y lo pone en la columna indicada ("id_columna").
+
+ - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Database/Decorators/Interceptors/Columns/fijar_id_de_usuario_al_insertar.js
 
 ----
 
@@ -187,26 +173,40 @@ Devuelve la conexión neta.
 ----
 
 
- - **@name**:  src/Database/Decorators/Interceptors/Columns/fijar_id_de_usuario_al_insertar.js#resolve
- - **@type**:  Función
- - **@parameter**:  `data:Object` Requerido. Objeto de parámetros de la petición.
- - **@parameter**:  `id_columna:String` Requerido. El nombre de la columna que contiene el id de usuario.
- - **@parameter**:  `controlador:Object` Requerido.
- - **@description**:  Si es Insert, toma el `request.$$authentication.usuario.id` y lo pone en la columna indicada ("id_columna").
-
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Database/Decorators/Interceptors/Columns/fijar_id_de_usuario_al_insertar.js
-
-----
-
-
  - **@name**:  src/Database/Decorators/Interceptors/Columns/fijar_fecha_actual_de_usuario_al_actualizar.js#resolve
  - **@type**:  Función
  - **@parameter**:  `data:Object` Requerido. Los parámetros de la request, inclusive request.
  - **@parameter**:  `id_columna:String` Requerido. Nombre de la columna.
  - **@parameter**:  `controlador:Object` Requerido. El controlador que lo está llamando.
- - **@description**:  Si es Insertar, toma un nuevo Date, lo formatea a texto y lo asigna a la columna indicada ("id_columna").
+ - **@description**:  Si es Insertar o Actualizar, toma un nuevo Date, lo formatea a texto y lo asigna a la columna indicada ("id_columna").
 
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Database/Decorators/Interceptors/Columns/fijar_fecha_actual_al_insertar.js
+ - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Database/Decorators/Interceptors/Columns/fijar_fecha_actual_al_actualizar.js
+
+----
+
+
+ - **@name**:  Decorators.js
+ - **@type**:  Función
+ - **@parameter**:  `api` Objeto principal de la API del proyecto.
+ - **@description**:  Devuelve cargados los condicionales, consecuenciales, interceptores de tabla e interceptores de columna, juntos, cargados por este mismo orden. Este fichero se llama, teóricamente, desde el main para cargar los decoradores de la base de datos.
+ - **@returns**:  `{ Conditionals, Consequencials, Interceptors: { Tables, Columns } }`
+
+ - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Database/Decorators/Decorators.js
+
+----
+
+
+ - **@name**:  src/Database/Decorators/Interceptors/Columns/es_actualizable_si_id_usuario_coincide_con.js#resolve
+ - **@type**:  Función
+ - **@parameter**:  `data:Object` Los parámetros de la petición, petición inclusive.
+ - **@parameter**:  `id_columna:String` Nombre de la columna.
+ - **@parameter**:  `controlador:Object` Instancia de controlador que enchufa este decorador.
+ - **@description**:  Lanza un error si se está intentando actualizar pero la columna no coincide con el identificador de usuario.
+Busca en `data.item_recuperated` y si no encuentra, hace una query buscando el `data.id` como id, usando `data.table` como tabla.
+Compara el `request.$$authentication.usuario.id` con el valor de esta columna indicada (id_columna).
+Si no coinciden, lanza un error de que el valor no se puede alterar.
+
+ - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Database/Decorators/Interceptors/Columns/es_actualizable_si_id_usuario_coincide_con.js
 
 ----
 
@@ -407,6 +407,15 @@ await deployApplication(api, configurations);
 
  - **@name**:  api.Middlewares.BodyParserUrlEncoded
  - **@type**:  Función
+ - **@details**:  `return require("body-parser").urlencoded({ extended: true });`
+
+ - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Middlewares/BodyParserUrlEncoded.js
+
+----
+
+
+ - **@name**:  api.Middlewares.BodyParserUrlEncoded
+ - **@type**:  Función
  - **@details**:  `return require("body-parser").json({ extended: true });`
 
  - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Middlewares/BodyParserJson.js
@@ -414,11 +423,22 @@ await deployApplication(api, configurations);
 ----
 
 
- - **@name**:  api.Middlewares.BodyParserUrlEncoded
+ - **@name**:  AuthenticateRequest
  - **@type**:  Función
- - **@details**:  `return require("body-parser").urlencoded({ extended: true });`
+ - **@parameter**:  `request:Object`
+ - **@description**:  Autentifica una petición. Esto significa que establece el valor `request.$$authentication` con los datos de sesion, usuario y permisos, si el token proporcionado vía `authorization` pertenece a una sesión válida. De lo contrario, lanzará un error estandarizado.
 
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Middlewares/BodyParserUrlEncoded.js
+ - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Utilities/AuthenticateRequest.js
+
+----
+
+
+ - **@name**:  api.Utilities.CloneExceptProperties
+ - **@type**:  Función
+ - **@parameter**:  `object:Object`
+ - **@parameter**:  `properties:Array<String>`
+ - **@parameter**:  `output:Object`
+ - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Utilities/CloneExceptProperties.js
 
 ----
 
@@ -434,16 +454,6 @@ await deployApplication(api, configurations);
 ----
 
 
- - **@name**:  api.Utilities.CloneExceptProperties
- - **@type**:  Función
- - **@parameter**:  `object:Object`
- - **@parameter**:  `properties:Array<String>`
- - **@parameter**:  `output:Object`
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Utilities/CloneExceptProperties.js
-
-----
-
-
  - **@name**:  api.Utilities.CloneOnlyProperties
  - **@type**:  Función
  - **@parameter**:  `object:Object`
@@ -451,6 +461,15 @@ await deployApplication(api, configurations);
  - **@parameter**:  `output:Object`
  - **@returns**:  `output:Object` Objeto indicado (output) pero extendido con propiedades indicadas (propierties) del objeto indicado (object).
  - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Utilities/CloneOnlyProperties.js
+
+----
+
+
+ - **@name**:  api.Utilities.CloseDeployment
+ - **@type**:  Función
+ - **@description**:  Cierra conexiones a bases de datos, servidores, etc. para que termine el proceso de forma natural controlada.
+
+ - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Utilities/CloseDeployment.js
 
 ----
 
@@ -484,17 +503,6 @@ await deployApplication(api, configurations);
 Si esto falla, imprime el error y luego envía el `error.message` como único texto plano.
 
  - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Utilities/DispatchErrorAsHtml.js
-
-----
-
-
- - **@name**:  api.Utilities.DispatchSuccess
- - **@type**:  Función
- - **@parameter**:  `response:Object` Respuesta de la petición.
- - **@parameter**:  `data:Object` Datos de respuesta.
- - **@description**:  Establece el estado de la respuesta de petición indicada (response) en 200 (ESTADO:OK) y envía un JSON con una cabecera estándar de petición con éxito enviando los datos indicados (data).
-
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Utilities/DispatchSuccess.js
 
 ----
 
@@ -550,6 +558,17 @@ Si `inListMode` es `false` se devuelve:
 ----
 
 
+ - **@name**:  api.Utilities.DispatchSuccess
+ - **@type**:  Función
+ - **@parameter**:  `response:Object` Respuesta de la petición.
+ - **@parameter**:  `data:Object` Datos de respuesta.
+ - **@description**:  Establece el estado de la respuesta de petición indicada (response) en 200 (ESTADO:OK) y envía un JSON con una cabecera estándar de petición con éxito enviando los datos indicados (data).
+
+ - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Utilities/DispatchSuccess.js
+
+----
+
+
  - **@name**:  api.Utilities.GetDateToString
  - **@type**:  Función
  - **@parameter**:  `date:Date` Fecha a formatear.
@@ -558,6 +577,18 @@ Si `inListMode` es `false` se devuelve:
  - **@returns**:  `output:String` La fecha formateada a texto.
 
  - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Utilities/GetDateToString.js
+
+----
+
+
+ - **@name**:  api.Utilities.GetRandomString
+ - **@type**:  Función
+ - **@parameter**:  `len:Integer` Número de caracteres.
+ - **@parameter**:  `alphabet:Array<String>` Alfabeto de caracteres válidos.
+ - **@description**:  Genera un texto aleatorio de longitud indicada (len) con el alfabeto indicado (alphabet).
+ - **@returns**:  Devuelve el texto aleatorio generado.
+
+ - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Utilities/GetRandomString.js
 
 ----
 
@@ -577,6 +608,17 @@ Si `inListMode` es `false` se devuelve:
 ----
 
 
+ - **@name**:  api.Utilities.InitializeDatabase
+ - **@type**:  Función
+ - **@description**:  Inicializa la base de datos, esto es: crea las tablas y aplica las migraciones. Consiste en 2 llamadas:
+   - `this.applyCreationScript`: aplica el script de creación.
+   - `this.applyMigrationScript`: aplica el script de migración.
+
+ - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Utilities/InitializeDatabase.js
+
+----
+
+
  - **@name**:  api.Utilities.GetStringLeftPadded
  - **@type**:  Función
  - **@parameter**:  `text:String` Texto a espaciar.
@@ -585,17 +627,6 @@ Si `inListMode` es `false` se devuelve:
  - **@descripcion**:  Devuelve la copia de un texto (text) pero con tantos espacios como se indiquen (spaces) de los cuales los que falten serán rellenados con el texto indicado (padding), aplicado por la izquierda.
  - **@returns**:  `output:String` Texto resultante del espaciamiento.
  - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Utilities/GetStringLeftPadded.js
-
-----
-
-
- - **@name**:  api.Utilities.InitializeDatabase
- - **@type**:  Función
- - **@description**:  Inicializa la base de datos, esto es: crea las tablas y aplica las migraciones. Consiste en 2 llamadas:
-   - `this.applyCreationScript`: aplica el script de creación.
-   - `this.applyMigrationScript`: aplica el script de migración.
-
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Utilities/InitializeDatabase.js
 
 ----
 
@@ -610,31 +641,9 @@ Si `inListMode` es `false` se devuelve:
 ----
 
 
- - **@name**:  api.Utilities.GetRandomString
- - **@type**:  Función
- - **@parameter**:  `len:Integer` Número de caracteres.
- - **@parameter**:  `alphabet:Array<String>` Alfabeto de caracteres válidos.
- - **@description**:  Genera un texto aleatorio de longitud indicada (len) con el alfabeto indicado (alphabet).
- - **@returns**:  Devuelve el texto aleatorio generado.
-
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Utilities/GetRandomString.js
-
-----
-
-
  - **@name**:  api.Utilities.Trace
  - **@type**:  Función
  - **@parameter**:  `msg:String`. Mensaje a imprimir por traceo.
  - **@description**:  Imprime un mensaje prependizando '[TRACE]' por la consola.
 
  - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Utilities/Trace.js
-
-----
-
-
- - **@name**:  AuthenticateRequest
- - **@type**:  Función
- - **@parameter**:  `request:Object`
- - **@description**:  Autentifica una petición. Esto significa que establece el valor `request.$$authentication` con los datos de sesion, usuario y permisos, si el token proporcionado vía `authorization` pertenece a una sesión válida. De lo contrario, lanzará un error estandarizado.
-
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Utilities/AuthenticateRequest.js

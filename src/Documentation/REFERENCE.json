@@ -57,6 +57,30 @@
           ""
         ],
         "@name": [
+          " src/Database/Decorators/Conditionals/ocurre.js#resolve"
+        ],
+        "@type": [
+          " Función"
+        ],
+        "@parameter": [
+          " `data` Los parámetros de la petición, petición inclusive.",
+          "  `...permisos:Array<String>` Permisos."
+        ],
+        "@description": [
+          " Devuelve `true` siempre."
+        ],
+        "@returns": [
+          " `true`\n"
+        ],
+        "file": "/home/carlos/Software/Nodejs/express-boilerplate/src/Database/Decorators/Conditionals/ocurre.js"
+      }
+    ],
+    [
+      {
+        "_": [
+          ""
+        ],
+        "@name": [
           " src/Database/Decorators/Conditionals/tiene_permiso.js#resolve"
         ],
         "@type": [
@@ -97,30 +121,6 @@
           " Si es un Update comprueba que el valor en la columna indicada (id_columna) sea uno de los valores indicados (valores)\n"
         ],
         "file": "/home/carlos/Software/Nodejs/express-boilerplate/src/Database/Decorators/Consequencials/columna_solo_actualizable_a.js"
-      }
-    ],
-    [
-      {
-        "_": [
-          ""
-        ],
-        "@name": [
-          " src/Database/Decorators/Conditionals/ocurre.js#resolve"
-        ],
-        "@type": [
-          " Función"
-        ],
-        "@parameter": [
-          " `data` Los parámetros de la petición, petición inclusive.",
-          "  `...permisos:Array<String>` Permisos."
-        ],
-        "@description": [
-          " Devuelve `true` siempre."
-        ],
-        "@returns": [
-          " `true`\n"
-        ],
-        "file": "/home/carlos/Software/Nodejs/express-boilerplate/src/Database/Decorators/Conditionals/ocurre.js"
       }
     ],
     [
@@ -170,51 +170,6 @@
           ""
         ],
         "@name": [
-          " src/Database/Decorators/Interceptors/Columns/es_actualizable_si_id_usuario_coincide_con.js#resolve"
-        ],
-        "@type": [
-          " Función"
-        ],
-        "@parameter": [
-          " `data:Object` Los parámetros de la petición, petición inclusive.",
-          " `id_columna:String` Nombre de la columna.",
-          " `controlador:Object` Instancia de controlador que enchufa este decorador."
-        ],
-        "@description": [
-          " Lanza un error si se está intentando actualizar pero la columna no coincide con el identificador de usuario.\nBusca en `data.item_recuperated` y si no encuentra, hace una query buscando el `data.id` como id, usando `data.table` como tabla.\nCompara el `request.$$authentication.usuario.id` con el valor de esta columna indicada (id_columna).\nSi no coinciden, lanza un error de que el valor no se puede alterar.\n"
-        ],
-        "file": "/home/carlos/Software/Nodejs/express-boilerplate/src/Database/Decorators/Interceptors/Columns/es_actualizable_si_id_usuario_coincide_con.js"
-      }
-    ],
-    [
-      {
-        "_": [
-          ""
-        ],
-        "@name": [
-          " Decorators.js"
-        ],
-        "@type": [
-          " Función"
-        ],
-        "@parameter": [
-          " `api` Objeto principal de la API del proyecto."
-        ],
-        "@description": [
-          " Devuelve cargados los condicionales, consecuenciales, interceptores de tabla e interceptores de columna, juntos, cargados por este mismo orden. Este fichero se llama, teóricamente, desde el main para cargar los decoradores de la base de datos."
-        ],
-        "@returns": [
-          " `{ Conditionals, Consequencials, Interceptors: { Tables, Columns } }`\n"
-        ],
-        "file": "/home/carlos/Software/Nodejs/express-boilerplate/src/Database/Decorators/Decorators.js"
-      }
-    ],
-    [
-      {
-        "_": [
-          ""
-        ],
-        "@name": [
           " src/Database/Decorators/Interceptors/Columns/fijar_fecha_actual_de_usuario_al_actualizar.js#resolve"
         ],
         "@type": [
@@ -226,9 +181,9 @@
           " `controlador:Object` Requerido. El controlador que lo está llamando."
         ],
         "@description": [
-          " Si es Insertar o Actualizar, toma un nuevo Date, lo formatea a texto y lo asigna a la columna indicada (\"id_columna\").\n"
+          " Si es Insertar, toma un nuevo Date, lo formatea a texto y lo asigna a la columna indicada (\"id_columna\").\n"
         ],
-        "file": "/home/carlos/Software/Nodejs/express-boilerplate/src/Database/Decorators/Interceptors/Columns/fijar_fecha_actual_al_actualizar.js"
+        "file": "/home/carlos/Software/Nodejs/express-boilerplate/src/Database/Decorators/Interceptors/Columns/fijar_fecha_actual_al_insertar.js"
       }
     ],
     [
@@ -251,6 +206,28 @@
           " Si es Insertar o Actualizar, toma el `request.$$authentication.usuario.id` y lo asigna a la columna indicada (\"id_columna\").\n"
         ],
         "file": "/home/carlos/Software/Nodejs/express-boilerplate/src/Database/Decorators/Interceptors/Columns/fijar_id_de_usuario_al_actualizar.js"
+      }
+    ],
+    [
+      {
+        "_": [
+          ""
+        ],
+        "@name": [
+          " src/Database/Decorators/Interceptors/Columns/fijar_id_de_usuario_al_insertar.js#resolve"
+        ],
+        "@type": [
+          " Función"
+        ],
+        "@parameter": [
+          " `data:Object` Requerido. Objeto de parámetros de la petición.",
+          " `id_columna:String` Requerido. El nombre de la columna que contiene el id de usuario.",
+          " `controlador:Object` Requerido."
+        ],
+        "@description": [
+          " Si es Insert, toma el `request.$$authentication.usuario.id` y lo pone en la columna indicada (\"id_columna\").\n"
+        ],
+        "file": "/home/carlos/Software/Nodejs/express-boilerplate/src/Database/Decorators/Interceptors/Columns/fijar_id_de_usuario_al_insertar.js"
       }
     ],
     [
@@ -330,28 +307,6 @@
           ""
         ],
         "@name": [
-          " src/Database/Decorators/Interceptors/Columns/fijar_id_de_usuario_al_insertar.js#resolve"
-        ],
-        "@type": [
-          " Función"
-        ],
-        "@parameter": [
-          " `data:Object` Requerido. Objeto de parámetros de la petición.",
-          " `id_columna:String` Requerido. El nombre de la columna que contiene el id de usuario.",
-          " `controlador:Object` Requerido."
-        ],
-        "@description": [
-          " Si es Insert, toma el `request.$$authentication.usuario.id` y lo pone en la columna indicada (\"id_columna\").\n"
-        ],
-        "file": "/home/carlos/Software/Nodejs/express-boilerplate/src/Database/Decorators/Interceptors/Columns/fijar_id_de_usuario_al_insertar.js"
-      }
-    ],
-    [
-      {
-        "_": [
-          ""
-        ],
-        "@name": [
           " src/Database/Decorators/Interceptors/Columns/fijar_fecha_actual_de_usuario_al_actualizar.js#resolve"
         ],
         "@type": [
@@ -363,9 +318,54 @@
           " `controlador:Object` Requerido. El controlador que lo está llamando."
         ],
         "@description": [
-          " Si es Insertar, toma un nuevo Date, lo formatea a texto y lo asigna a la columna indicada (\"id_columna\").\n"
+          " Si es Insertar o Actualizar, toma un nuevo Date, lo formatea a texto y lo asigna a la columna indicada (\"id_columna\").\n"
         ],
-        "file": "/home/carlos/Software/Nodejs/express-boilerplate/src/Database/Decorators/Interceptors/Columns/fijar_fecha_actual_al_insertar.js"
+        "file": "/home/carlos/Software/Nodejs/express-boilerplate/src/Database/Decorators/Interceptors/Columns/fijar_fecha_actual_al_actualizar.js"
+      }
+    ],
+    [
+      {
+        "_": [
+          ""
+        ],
+        "@name": [
+          " Decorators.js"
+        ],
+        "@type": [
+          " Función"
+        ],
+        "@parameter": [
+          " `api` Objeto principal de la API del proyecto."
+        ],
+        "@description": [
+          " Devuelve cargados los condicionales, consecuenciales, interceptores de tabla e interceptores de columna, juntos, cargados por este mismo orden. Este fichero se llama, teóricamente, desde el main para cargar los decoradores de la base de datos."
+        ],
+        "@returns": [
+          " `{ Conditionals, Consequencials, Interceptors: { Tables, Columns } }`\n"
+        ],
+        "file": "/home/carlos/Software/Nodejs/express-boilerplate/src/Database/Decorators/Decorators.js"
+      }
+    ],
+    [
+      {
+        "_": [
+          ""
+        ],
+        "@name": [
+          " src/Database/Decorators/Interceptors/Columns/es_actualizable_si_id_usuario_coincide_con.js#resolve"
+        ],
+        "@type": [
+          " Función"
+        ],
+        "@parameter": [
+          " `data:Object` Los parámetros de la petición, petición inclusive.",
+          " `id_columna:String` Nombre de la columna.",
+          " `controlador:Object` Instancia de controlador que enchufa este decorador."
+        ],
+        "@description": [
+          " Lanza un error si se está intentando actualizar pero la columna no coincide con el identificador de usuario.\nBusca en `data.item_recuperated` y si no encuentra, hace una query buscando el `data.id` como id, usando `data.table` como tabla.\nCompara el `request.$$authentication.usuario.id` con el valor de esta columna indicada (id_columna).\nSi no coinciden, lanza un error de que el valor no se puede alterar.\n"
+        ],
+        "file": "/home/carlos/Software/Nodejs/express-boilerplate/src/Database/Decorators/Interceptors/Columns/es_actualizable_si_id_usuario_coincide_con.js"
       }
     ],
     [
@@ -630,9 +630,9 @@
           " Función"
         ],
         "@details": [
-          " `return require(\"body-parser\").json({ extended: true });`\n"
+          " `return require(\"body-parser\").urlencoded({ extended: true });`\n"
         ],
-        "file": "/home/carlos/Software/Nodejs/express-boilerplate/src/Middlewares/BodyParserJson.js"
+        "file": "/home/carlos/Software/Nodejs/express-boilerplate/src/Middlewares/BodyParserUrlEncoded.js"
       }
     ],
     [
@@ -647,9 +647,51 @@
           " Función"
         ],
         "@details": [
-          " `return require(\"body-parser\").urlencoded({ extended: true });`\n"
+          " `return require(\"body-parser\").json({ extended: true });`\n"
         ],
-        "file": "/home/carlos/Software/Nodejs/express-boilerplate/src/Middlewares/BodyParserUrlEncoded.js"
+        "file": "/home/carlos/Software/Nodejs/express-boilerplate/src/Middlewares/BodyParserJson.js"
+      }
+    ],
+    [
+      {
+        "_": [
+          ""
+        ],
+        "@name": [
+          " AuthenticateRequest"
+        ],
+        "@type": [
+          " Función"
+        ],
+        "@parameter": [
+          " `request:Object`"
+        ],
+        "@description": [
+          " Autentifica una petición. Esto significa que establece el valor `request.$$authentication` con los datos de sesion, usuario y permisos, si el token proporcionado vía `authorization` pertenece a una sesión válida. De lo contrario, lanzará un error estandarizado.\n"
+        ],
+        "file": "/home/carlos/Software/Nodejs/express-boilerplate/src/Utilities/AuthenticateRequest.js"
+      }
+    ],
+    [
+      {
+        "_": [
+          ""
+        ],
+        "@name": [
+          " api.Utilities.CloneExceptProperties"
+        ],
+        "@type": [
+          " Función"
+        ],
+        "@parameter": [
+          " `object:Object`",
+          " `properties:Array<String>`",
+          " `output:Object`"
+        ],
+        "@returns": [
+          " \n"
+        ],
+        "file": "/home/carlos/Software/Nodejs/express-boilerplate/src/Utilities/CloneExceptProperties.js"
       }
     ],
     [
@@ -681,28 +723,6 @@
           ""
         ],
         "@name": [
-          " api.Utilities.CloneExceptProperties"
-        ],
-        "@type": [
-          " Función"
-        ],
-        "@parameter": [
-          " `object:Object`",
-          " `properties:Array<String>`",
-          " `output:Object`"
-        ],
-        "@returns": [
-          " \n"
-        ],
-        "file": "/home/carlos/Software/Nodejs/express-boilerplate/src/Utilities/CloneExceptProperties.js"
-      }
-    ],
-    [
-      {
-        "_": [
-          ""
-        ],
-        "@name": [
           " api.Utilities.CloneOnlyProperties"
         ],
         "@type": [
@@ -717,6 +737,23 @@
           " `output:Object` Objeto indicado (output) pero extendido con propiedades indicadas (propierties) del objeto indicado (object)."
         ],
         "file": "/home/carlos/Software/Nodejs/express-boilerplate/src/Utilities/CloneOnlyProperties.js"
+      }
+    ],
+    [
+      {
+        "_": [
+          ""
+        ],
+        "@name": [
+          " api.Utilities.CloseDeployment"
+        ],
+        "@type": [
+          " Función"
+        ],
+        "@description": [
+          " Cierra conexiones a bases de datos, servidores, etc. para que termine el proceso de forma natural controlada.\n"
+        ],
+        "file": "/home/carlos/Software/Nodejs/express-boilerplate/src/Utilities/CloseDeployment.js"
       }
     ],
     [
@@ -779,27 +816,6 @@
           " Establece el estado de la respuesta de petición indicada (response) en 500 (ESTADO:BAD REQUEST) y la cabecera de texto en HTML con charset utf8. Luego envía los contenidos como HTM, que son la página de `src/Interface/ejs/error.html` renderizada con el error indicado (error).\nSi esto falla, imprime el error y luego envía el `error.message` como único texto plano.\n"
         ],
         "file": "/home/carlos/Software/Nodejs/express-boilerplate/src/Utilities/DispatchErrorAsHtml.js"
-      }
-    ],
-    [
-      {
-        "_": [
-          ""
-        ],
-        "@name": [
-          " api.Utilities.DispatchSuccess"
-        ],
-        "@type": [
-          " Función"
-        ],
-        "@parameter": [
-          " `response:Object` Respuesta de la petición.",
-          " `data:Object` Datos de respuesta."
-        ],
-        "@description": [
-          " Establece el estado de la respuesta de petición indicada (response) en 200 (ESTADO:OK) y envía un JSON con una cabecera estándar de petición con éxito enviando los datos indicados (data).\n"
-        ],
-        "file": "/home/carlos/Software/Nodejs/express-boilerplate/src/Utilities/DispatchSuccess.js"
       }
     ],
     [
@@ -897,6 +913,27 @@
           ""
         ],
         "@name": [
+          " api.Utilities.DispatchSuccess"
+        ],
+        "@type": [
+          " Función"
+        ],
+        "@parameter": [
+          " `response:Object` Respuesta de la petición.",
+          " `data:Object` Datos de respuesta."
+        ],
+        "@description": [
+          " Establece el estado de la respuesta de petición indicada (response) en 200 (ESTADO:OK) y envía un JSON con una cabecera estándar de petición con éxito enviando los datos indicados (data).\n"
+        ],
+        "file": "/home/carlos/Software/Nodejs/express-boilerplate/src/Utilities/DispatchSuccess.js"
+      }
+    ],
+    [
+      {
+        "_": [
+          ""
+        ],
+        "@name": [
           " api.Utilities.GetDateToString"
         ],
         "@type": [
@@ -921,6 +958,30 @@
           ""
         ],
         "@name": [
+          " api.Utilities.GetRandomString"
+        ],
+        "@type": [
+          " Función"
+        ],
+        "@parameter": [
+          " `len:Integer` Número de caracteres.",
+          " `alphabet:Array<String>` Alfabeto de caracteres válidos."
+        ],
+        "@description": [
+          " Genera un texto aleatorio de longitud indicada (len) con el alfabeto indicado (alphabet)."
+        ],
+        "@returns": [
+          " Devuelve el texto aleatorio generado.\n"
+        ],
+        "file": "/home/carlos/Software/Nodejs/express-boilerplate/src/Utilities/GetRandomString.js"
+      }
+    ],
+    [
+      {
+        "_": [
+          ""
+        ],
+        "@name": [
           " api.Utilities.GetRequestParameter"
         ],
         "@type": [
@@ -935,6 +996,23 @@
           " `parameter:any` Devuelve el parámetro tomado del primero de entre, y por este orden:\n   - `request.body`\n   - `request.query`\n   - `request.headers`\n"
         ],
         "file": "/home/carlos/Software/Nodejs/express-boilerplate/src/Utilities/GetRequestParameter.js"
+      }
+    ],
+    [
+      {
+        "_": [
+          ""
+        ],
+        "@name": [
+          " api.Utilities.InitializeDatabase"
+        ],
+        "@type": [
+          " Función"
+        ],
+        "@description": [
+          " Inicializa la base de datos, esto es: crea las tablas y aplica las migraciones. Consiste en 2 llamadas:\n   - `this.applyCreationScript`: aplica el script de creación.\n   - `this.applyMigrationScript`: aplica el script de migración.\n"
+        ],
+        "file": "/home/carlos/Software/Nodejs/express-boilerplate/src/Utilities/InitializeDatabase.js"
       }
     ],
     [
@@ -968,23 +1046,6 @@
           ""
         ],
         "@name": [
-          " api.Utilities.InitializeDatabase"
-        ],
-        "@type": [
-          " Función"
-        ],
-        "@description": [
-          " Inicializa la base de datos, esto es: crea las tablas y aplica las migraciones. Consiste en 2 llamadas:\n   - `this.applyCreationScript`: aplica el script de creación.\n   - `this.applyMigrationScript`: aplica el script de migración.\n"
-        ],
-        "file": "/home/carlos/Software/Nodejs/express-boilerplate/src/Utilities/InitializeDatabase.js"
-      }
-    ],
-    [
-      {
-        "_": [
-          ""
-        ],
-        "@name": [
           " api.Utilities.QueryDatabase"
         ],
         "@type": [
@@ -1005,30 +1066,6 @@
           ""
         ],
         "@name": [
-          " api.Utilities.GetRandomString"
-        ],
-        "@type": [
-          " Función"
-        ],
-        "@parameter": [
-          " `len:Integer` Número de caracteres.",
-          " `alphabet:Array<String>` Alfabeto de caracteres válidos."
-        ],
-        "@description": [
-          " Genera un texto aleatorio de longitud indicada (len) con el alfabeto indicado (alphabet)."
-        ],
-        "@returns": [
-          " Devuelve el texto aleatorio generado.\n"
-        ],
-        "file": "/home/carlos/Software/Nodejs/express-boilerplate/src/Utilities/GetRandomString.js"
-      }
-    ],
-    [
-      {
-        "_": [
-          ""
-        ],
-        "@name": [
           " api.Utilities.Trace"
         ],
         "@type": [
@@ -1041,26 +1078,6 @@
           " Imprime un mensaje prependizando '[TRACE]' por la consola.\n"
         ],
         "file": "/home/carlos/Software/Nodejs/express-boilerplate/src/Utilities/Trace.js"
-      }
-    ],
-    [
-      {
-        "_": [
-          ""
-        ],
-        "@name": [
-          " AuthenticateRequest"
-        ],
-        "@type": [
-          " Función"
-        ],
-        "@parameter": [
-          " `request:Object`"
-        ],
-        "@description": [
-          " Autentifica una petición. Esto significa que establece el valor `request.$$authentication` con los datos de sesion, usuario y permisos, si el token proporcionado vía `authorization` pertenece a una sesión válida. De lo contrario, lanzará un error estandarizado.\n"
-        ],
-        "file": "/home/carlos/Software/Nodejs/express-boilerplate/src/Utilities/AuthenticateRequest.js"
       }
     ]
   ],

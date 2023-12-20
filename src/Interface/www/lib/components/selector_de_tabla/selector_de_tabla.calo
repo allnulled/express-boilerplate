@@ -133,7 +133,7 @@ asigno window.SelectorDeTabla como un componente vue2 con nombre "SelectorDeTabl
               </xpanel>
             </xlistitem>
           </xlist>
-          <div style="text-align:left;">
+          <div style="text-align:left; margin-bottom: 8px; margin-top: 8px;">
             <xlayouthorizontal>
               <xlayouthorizontalitem>
                 <button v-on:click="() => {if(page < 2) return; page--;obtener_datos_de_tabla()}"> « </button>
@@ -182,7 +182,7 @@ asigno window.SelectorDeTabla como un componente vue2 con nombre "SelectorDeTabl
               No se encontraron resultados para la búsqueda.
             </div>
           </div>
-          <div style="text-align:right;">
+          <div style="text-align:right; margin-bottom: 8px;">
             <xlayouthorizontal>
               <xlayouthorizontalitem style="width:100%;"></xlayouthorizontalitem>
               <xlayouthorizontalitem>

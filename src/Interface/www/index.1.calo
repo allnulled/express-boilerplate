@@ -127,6 +127,20 @@ Ejecutable como documento HTML5
       .status-bar {
         color: black;
       }
+      @media (max-width: 575px) {
+        .win7 input[type="text"],
+        .win7 input[type="number"],
+        .win7 input[type="date"],
+        .win7 input[type="datetime"],
+        .win7 input[type="datetime-local"],
+        .win7 input[type="file"],
+        .win7 input[type="email"],
+        .win7 textarea,
+        .win7 select,
+        .win7 button {
+          min-height: 35px;
+        }
+      }
     </style>
 </head>
 <body><div id="app"></div></body>.
