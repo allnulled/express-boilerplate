@@ -1,9 +1,20 @@
 #! /usr/bin/env node
 
-const fs = require("fs");
+const fs = require("fs-extra");
 const path = require("path");
 const [node_bin, ebo_bin, command] = process.argv;
 const package_path = path.resolve(process.cwd(), "package.json");
+
+if(command === "create") {
+    const destination = process.argv[3];
+    const destination_path = path.resolve(destination);
+    console.log("[*] Generando proyecto «ebo» (de «express-boilerplate») en:\n  - " + destination_path + "");
+    const current_project_path = path.resolve(__dirname, "../../..");
+    console.log("[*] Por favor, espere unos momentos...");
+    fs.copySync(current_project_path, destination_path);
+    console.log("[*] Proyecto generado correctamente")
+    return;
+}
 
 try {
     require(package_path);

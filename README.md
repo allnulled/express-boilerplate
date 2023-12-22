@@ -85,14 +85,19 @@ Código fuente base para servidores basados en Node.js + Express + SQL.
 
 ## Instalación
 
-Por consola sería así:
+Primero, instalas la herramienta globalmente:
 
 ```sh
-git clone https://github.com/allnulled/express-boilerplate .
-npm install
+npm install -g express-boilerplate
 ```
 
-Pero puedes descargarte el proyecto a mano, perscindiendo de `git` en la línea de comandos. El `npm install` es necesario, así que debes tener instalado `npm` y `node`.
+Después, ya puedes crear proyectos desde 0, colocándote en el directorio en el que quieres empezar el proyecto, y luego simplemente con:
+
+```sh
+ebo create .
+```
+
+Alternativamente, también puedes descargarte el proyecto **git** o clonarlo directamente en el directorio que desees, que al final sería lo mismo.
 
 ## Ejecución
 
