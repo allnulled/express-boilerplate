@@ -111,8 +111,9 @@ npm start
 
 Este proyecto es completamente **minimalista**.
 
-La ejecución se basa prácticamente en 1 fichero:
-  - [`src/main.js`](./src/main.js): define el proceso principal.
+La ejecución se basa prácticamente en 2 ficheros:
+  - [`src/load.js`](./src/load.js): carga toda la api. Pero no arranca el servidor.
+  - [`src/main.js`](./src/main.js): carga toda la api y luego arranca el servidor.
 
 Los datos se basan en 2 ficheros más:
   - [`src/Database/Scripts/creation.sql`](./src/Database/Scripts/creation.sql)
@@ -218,7 +219,7 @@ Los comandos se ejecutarían mediante `ebo`. Deberías ampliar los scripts del `
 
 ### Crear una configuración
 
-En [`src/main.js`](./scr/main.js) tienes la función `setupConfigurations`, donde se establecen los valores para las variables de entorno de `process.env`. Puedes añadrila ahí.
+En [`src/load.js`](./scr/load.js) tienes la función `setupConfigurations`, donde se establecen los valores para las variables de entorno de `process.env`. Puedes añadrila ahí.
 
 Alternativamente puedes usar el fichero `src/Configurations/.env` para establecer las variables globales directamente, sin intervenir código.
 
@@ -234,7 +235,7 @@ En [`src/Interface/www/lib/components`](./src/Interface/www/lib/components) aña
 
 Para habilitar controladores solo tienes que mover los controladores, que deben seguir la especificación de clase, en la carpeta [`src/Controllers`](./src/Controllers).
 
-Para deshabilitar controladores solo tienes que mover los controladores de la carpeta [`src/Controllers`](./src/Controllers) a la carpeta [`src/ControllersOff`](./src/ControllersOff).
+Para deshabilitar controladores solo tienes que mover los controladores de la carpeta [`src/Controllers`](./src/Controllers) a la carpeta [`src/Controllers/Off`](./src/Controllers/Off).
 
 ## ¿Qué más ofrece el boilerplate?
 
