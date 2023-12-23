@@ -67,11 +67,11 @@ module.exports = function (api) {
         Columns[column_name] = column_instance.resolve.bind(column_instance);
     }
     const Formatters = {};
-    const formatters_files = fs.readdirSync(__dirname + "/Interceptors/Formatters");
+    const formatters_files = fs.readdirSync(__dirname + "/Formatters");
     for (let index = 0; index < formatters_files.length; index++) {
         const formatter_file = formatters_files[index];
         const formatter_name = formatter_file.replace(/\.js$/g, "");
-        const formatter_path = path.resolve(__dirname + "/Interceptors/Formatters/" + formatter_file);
+        const formatter_path = path.resolve(__dirname + "/Formatters/" + formatter_file);
         const formatter_class = require(formatter_path);
         const formatter_instance = new formatter_class(api);
         formatter_instance.api = api;

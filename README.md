@@ -33,6 +33,10 @@ Código fuente base para servidores basados en Node.js + Express + SQL.
     - [Clases utilitarias](#clases-utilitarias)
     - [Generador de documentación](#generador-de-documentación)
     - [Decoradores de base de datos](#decoradores-de-base-de-datos)
+    - [Las sintaxis del lenguaje de metabases de datos HQL](#las-sintaxis-del-lenguaje-de-metabases-de-datos-hql)
+      - [La sintaxis de permissions](#la-sintaxis-de-permissions)
+      - [La sintaxis de restrictions](#la-sintaxis-de-restrictions)
+      - [La sintaxis de interceptors](#la-sintaxis-de-interceptors)
 
 ## Prestaciones
 
@@ -306,4 +310,106 @@ Los adaptadores que actualmente están disponibles son:
  - [Interceptors/Tables](./src/Database/Decorators/Interceptors/Tables)
     - [$interceptors.Tables.registrar_cambios_en](./src/Database/Decorators/Interceptors/Tables/registrar_cambios_en.js)
 
+### Las sintaxis del lenguaje de metabases de datos HQL
+
+El lenguaje **HQL** o **Hyper-Query-Language** está por detrás parseando el fichero de creación de base de datos. Con el fin de extender las funcionalidades del servidor, a la hora de capacitarlo para decisiones de seguridad, se pueden usar una serie de expresiones incrustadas como comentarios multilínea del SQL.
+
+Estas expresiones o sintaxis son las que siguen:
+
+  - Permissions
+  - Restrictions
+  - Interceptors
+
+A continuación se explicarán uno por uno.
+
+#### La sintaxis de permissions
+
+La sintaxis de *permissions* se usa como sigue:
+
+```
+CREATE TABLE Tabla_determinada /*
+  @comprobar_permiso:
+    al         { OPERACIONES CRUD: select | insert | update | delete }
+    si         { CONDICION }
+    entonces   { CONSECUENCIA }
+*/ ( ... );
+```
+
+Un ejemplo típico es cuando aplicas (un consecuencial) una prohibición cuando (sucede un condicional) no tiene un permiso.
+
+```
+CREATE TABLE Tabla_determinada /*
+  @comprobar_permiso:
+    al         select | insert | update | delete
+    si         $conditionals.no_tiene_permiso(data, "permiso de administración") && $conditionals.no_tiene_permiso(data, "supervisión del almacén")
+    entonces   $consequencials.prohibir(data, "Esta operación requiere de privilegios específicos")
+*/ ( ... );
+```
+
+Ten en cuenta que:
+
+- Las *permissions* se aplican por tabla. 
+- Las *permissions* se aplican por operación CRUD.
+- Las *permissions* se aplican según un condicional.
+- Las *permissions* se aplican mediante un consecuencial, un interceptor, o un método predeterminado cualquiera al fin y al cabo.
+
+#### La sintaxis de restrictions
+
+La sintaxis de *restrictions* se usa como sigue:
+
+```
+CREATE TABLE Tabla_determinada (
+  nombre VARCHAR(500) /*
+    @comprobar_restriccion:
+      { SUBOPERACION CRUD }
+      si { CONDICION }
+  */
+);
+```
+
+```
+CREATE TABLE Tabla_determinada (
+  nombre VARCHAR(500) /*
+    @comprobar_restriccion:
+      no es seleccionable
+      si $conditionals.no_tiene_permido(data, "permiso de administración")
+  */
+);
+```
+
+Ten en cuenta que:
+
+- Las *restrictions* se aplican por columna.
+- Las *restrictions* se aplican por suboperaciones CRUD, éstas son:
+   - **no es seleccionable**
+   - **no es filtrable**
+   - **no es ordenable**
+   - **no es insertable**
+   - **no es actualizable**
+- Las *restrictions* se aplican según un condicional.
+- Las *restrictions* se aplican mediante una expresión de suboperación CRUD.
+
+#### La sintaxis de interceptors
+
+La sintaxis de *interceptors* es mucho más sencilla y permite aplicar decoradores completamente personalizados. Se usa como sigue:
+
+```
+CREATE TABLE Tabla_determinada /*
+  @interceptar: $interceptors.Tables.registrar_cambios_en(data, this, "Tabla_determinada_historial")
+*/
+```
+
+También puede tener aplicaciones en las columnas:
+
+```
+CREATE TABLE Tabla_determinada (
+  creado_por VARCHAR(500) /*
+    @interceptar: $interceptors.Columns.fijar_id_de_usuario_al_insertar(data, "creado_por", this)
+  */
+);
+```
+
+- Los *interceptors* se aplican por tabla y/o por columna.
+- Los *interceptors* se aplican independientemente de la operación CRUD concreta. Eso se discrimina dentro del interceptor en sí.
+- Los *interceptors* son mucho más sencillos y personalizables que las otras categorías de decoradores de base de datos.
 

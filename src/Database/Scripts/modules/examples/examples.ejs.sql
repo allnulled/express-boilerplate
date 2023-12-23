@@ -15,11 +15,11 @@ CREATE TABLE Tabla_1 /*
   @es_eliminable
   @comprobar_permiso:
     al        select | insert | update | delete
-    si        await $conditionals.tiene_permiso(data, "permiso de administración")
+    si        await $conditionals.no_tiene_permiso(data, "permiso de administración")
     entonces  await $consequencials.prohibir(data, "Se necesita permiso de administración para esta operación.")
   @comprobar_permiso:
     al        select | insert | update | delete
-    si        await $conditionals.tiene_permiso(data, "permiso de administración")
+    si        await $conditionals.no_tiene_permiso(data, "permiso de administración")
     entonces  await $consequencials.prohibir(data, "Se requieren permisos específicos para esta operación")
   */ (
   id INTEGER PRIMARY KEY <%-autoincrement_word%>,
@@ -35,7 +35,9 @@ CREATE TABLE Tabla_2 /*
   id INTEGER PRIMARY KEY <%-autoincrement_word%>,
   nombre_privado VARCHAR(100),
   nombre_publico VARCHAR(100) /*
-    @comprobar_restriccion: no es seleccionable si $conditionals.no_tiene_permiso(data, "permiso de administración")
+    @comprobar_restriccion:
+      no es seleccionable
+      si $conditionals.no_tiene_permiso(data, "permiso de administración")
   */,
   nombre_no_filtrable VARCHAR(100) /*
     @comprobar_restriccion: no es filtrable si $conditionals.no_tiene_permiso(data, "permiso de administración")
