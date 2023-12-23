@@ -1,11 +1,43 @@
 importo api nativa.
+importo módulo es5 de ruta "fs" creando constante fs.
+importo módulo es5 de ruta "path" creando constante path.
+importo módulo es5 de ruta "child_process" creando constante child_process.
 
 creo main como una función asíncrona donde {
   imprimo "[*] Inicio de test de «express-boilerplate»".
 
   creo variable token como undefined.
+  creo variable proceso_de_servidor como undefined.
+  creo resultados_de_tests como [].
+
+  creo test_de_sobreescribir_db_creation como una función asíncrona donde {
+    debugo "Test de sobreescribir db creation".
+    creo variable contenido como "".
+    incremento contenido en "".
+    incremento contenido en '<%- include(scripts_dir + "/modules/auth/auth.ejs.sql") %>\n'.
+    incremento contenido en '<%- include(scripts_dir + "/modules/files/files.ejs.sql") %>\n'.
+    incremento contenido en '<%- include(scripts_dir + "/modules/blog/blog.ejs.sql") %>\n'.
+    creo contenido_previo como fs.readFileSync(__dirname + "/../src/Database/Scripts/creation.ejs.sql", "utf8").
+    hago fs.writeFileSync(__dirname + "/../src/Database/Scripts/creation.previo.ejs.sql", contenido_previo, "utf8").
+    hago fs.writeFileSync(__dirname + "/../src/Database/Scripts/creation.ejs.sql", contenido, "utf8").
+    hago child_process.execSync("npm run build-database-creation", { cwd: __dirname + "/.." }).
+    imprimo "[*] Test de sobreescribir db creation exitoso".
+    hago resultados_de_tests.push("OK").
+  } en errores hago resultados_de_tests.push(error) después imprimo error.
+
+  creo test_de_levantar_servidor como una función asíncrona donde {
+    debugo "Test de levantar servidor".
+    creo child como child_process.spawn("npm", ["start"], { cwd: __dirname + "/..", stdio: [process.stdin, process.stdout, process.stderr] }).
+    hago asíncronamente una nueva Promise(una lambda con (ok, fail) donde {
+      hago setTimeout(una lambda donde retorno ok(), 4000).
+    }).
+    asigno proceso_de_servidor como child.
+    imprimo "[*] Test de levantar servidor exitoso".
+    hago resultados_de_tests.push("OK").
+  } en errores hago resultados_de_tests.push(error) después imprimo error.
   
   creo test_de_login como una función asíncrona donde {
+    debugo "Test de login".
     creo respuesta_login como asíncronamente una petición http
       con url "http://127.0.0.1:5054/Login"
       con método "POST"
@@ -14,9 +46,11 @@ creo main como una función asíncrona donde {
     compruebo que respuesta_login.data.data.sesion.token es tipo texto.
     asigno token como respuesta_login.data.data.sesion.token.
     imprimo "[*] Test de «/Login» exitoso".
-  }.
+    hago resultados_de_tests.push("OK").
+  } en errores hago resultados_de_tests.push(error) después imprimo error.
 
   creo test_de_logout como una función asíncrona donde {
+    debugo "Test de logout".
     creo respuesta_logout como asíncronamente una petición http
       con url "http://127.0.0.1:5054/Logout"
       con método "POST"
@@ -24,12 +58,33 @@ creo main como una función asíncrona donde {
       con cabeceras { authorization: token }.
     compruebo que respuesta_logout.data.data.mensaje es tipo texto.
     imprimo "[*] Test de «/Logout» exitoso".
-  }.
+    hago resultados_de_tests.push("OK").
+  } en errores hago resultados_de_tests.push(error) después imprimo error.
 
+  creo test_de_reescribir_db_creation como una función asíncrona donde {
+    debugo "Test de reescribir db creation".
+    creo contenido_previo como fs.readFileSync(__dirname + "/../src/Database/Scripts/creation.previo.ejs.sql", "utf8").
+    hago fs.writeFileSync(__dirname + "/../src/Database/Scripts/creation.ejs.sql", contenido_previo, "utf8").
+    imprimo "[*] Test de reescribir db creation exitoso".
+    hago resultados_de_tests.push("OK").
+  } en errores hago resultados_de_tests.push(error) después imprimo error.
+
+  creo test_de_apagar_servidor como una función asíncrona donde {
+    debugo "Test de apagar servidor".
+    hago proceso_de_servidor.kill().
+    imprimo "[*] Test de apagar servidor".
+    hago resultados_de_tests.push("OK").
+  } en errores hago resultados_de_tests.push(error) después imprimo error.
+
+  hago asíncronamente test_de_sobreescribir_db_creation().
+  hago asíncronamente test_de_levantar_servidor().
   hago asíncronamente test_de_login().
   hago asíncronamente test_de_logout().
+  hago asíncronamente test_de_reescribir_db_creation().
+  hago asíncronamente test_de_apagar_servidor().
 
   imprimo "[*] Final de test de «express-boilerplate»".
+  imprimo resultados_de_tests.
 } en errores imprimo "[!!!] Falló el test" después imprimo error.
 
 hago main().

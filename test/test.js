@@ -61302,38 +61302,127 @@ Castelog.variables.operador.exclamacion.ejs.ui.dom.elemento = function(elemento 
 ////////////////////////////////////////// Aquí termina el script de Castelog //
 ////////////////////////////////////////////////////////////////////////////////
 
+const fs = require("fs");
+const path = require("path");
+const child_process = require("child_process");
 const main = async function() {try {
 console.log("[*] Inicio de test de «express-boilerplate»");
 let token = undefined;
+let proceso_de_servidor = undefined;
+const resultados_de_tests = [  ];
+const test_de_sobreescribir_db_creation = async function() {try {
+console.log('[DEBUG]', "Test de sobreescribir db creation");
+let contenido = "";
+contenido += "";
+contenido += '<%- include(scripts_dir + "/modules/auth/auth.ejs.sql") %>\n';
+contenido += '<%- include(scripts_dir + "/modules/files/files.ejs.sql") %>\n';
+contenido += '<%- include(scripts_dir + "/modules/blog/blog.ejs.sql") %>\n';
+const contenido_previo = fs.readFileSync( __dirname + "/../src/Database/Scripts/creation.ejs.sql",
+"utf8" );
+fs.writeFileSync( __dirname + "/../src/Database/Scripts/creation.previo.ejs.sql",
+contenido_previo,
+"utf8" );
+fs.writeFileSync( __dirname + "/../src/Database/Scripts/creation.ejs.sql",
+contenido,
+"utf8" );
+child_process.execSync( "npm run build-database-creation",
+{ cwd:__dirname + "/.."
+} );
+console.log("[*] Test de sobreescribir db creation exitoso");
+resultados_de_tests.push( "OK" );
+} catch(error) {
+resultados_de_tests.push( error );
+console.log(error);}
+};
+const test_de_levantar_servidor = async function() {try {
+console.log('[DEBUG]', "Test de levantar servidor");
+const child = child_process.spawn( "npm",
+[ "start" ],
+{ cwd:__dirname + "/..",
+stdio:[ process.stdin,
+process.stdout,
+process.stderr ]
+} );
+(await new Promise( ( ok,
+fail ) => {try {
+setTimeout( () => {try {
+return ok(  );
+} catch(error) {
+console.log(error);
+throw error;
+}
+
+},
+4000 );
+} catch(error) {
+console.log(error);
+throw error;
+}
+
+} ));
+proceso_de_servidor = child;
+console.log("[*] Test de levantar servidor exitoso");
+resultados_de_tests.push( "OK" );
+} catch(error) {
+resultados_de_tests.push( error );
+console.log(error);}
+};
 const test_de_login = async function() {try {
+console.log('[DEBUG]', "Test de login");
 const respuesta_login = (await Castelog.metodos.una_peticion_http("http://127.0.0.1:5054/Login", "POST", { nombre:"admin",
 contrasenya:"admin"
 }, { 
 }, null, null));
-if(!(typeof respuesta_login.data.data.sesion.token === 'string')) throw new Error("Error en fichero [-] en posición [434-505=13:24-14:71] cuando: " + "compruebo que respuesta_login.data.data.sesion.token es tipo texto");
+if(!(typeof respuesta_login.data.data.sesion.token === 'string')) throw new Error("Error en fichero [-] en posición [2424-2495=45:24-46:71] cuando: " + "compruebo que respuesta_login.data.data.sesion.token es tipo texto");
 token = respuesta_login.data.data.sesion.token;
 console.log("[*] Test de «/Login» exitoso");
+resultados_de_tests.push( "OK" );
 } catch(error) {
-console.log(error);
-throw error;
-}
-
+resultados_de_tests.push( error );
+console.log(error);}
 };
 const test_de_logout = async function() {try {
+console.log('[DEBUG]', "Test de logout");
 const respuesta_logout = (await Castelog.metodos.una_peticion_http("http://127.0.0.1:5054/Logout", "POST", { 
 }, { authorization:token
 }, null, null));
-if(!(typeof respuesta_logout.data.data.mensaje === 'string')) throw new Error("Error en fichero [-] en posición [874-941=24:46-25:67] cuando: " + "compruebo que respuesta_logout.data.data.mensaje es tipo texto");
+if(!(typeof respuesta_logout.data.data.mensaje === 'string')) throw new Error("Error en fichero [-] en posición [3004-3071=58:46-59:67] cuando: " + "compruebo que respuesta_logout.data.data.mensaje es tipo texto");
 console.log("[*] Test de «/Logout» exitoso");
+resultados_de_tests.push( "OK" );
 } catch(error) {
-console.log(error);
-throw error;
-}
-
+resultados_de_tests.push( error );
+console.log(error);}
 };
+const test_de_reescribir_db_creation = async function() {try {
+console.log('[DEBUG]', "Test de reescribir db creation");
+const contenido_previo = fs.readFileSync( __dirname + "/../src/Database/Scripts/creation.previo.ejs.sql",
+"utf8" );
+fs.writeFileSync( __dirname + "/../src/Database/Scripts/creation.ejs.sql",
+contenido_previo,
+"utf8" );
+console.log("[*] Test de reescribir db creation exitoso");
+resultados_de_tests.push( "OK" );
+} catch(error) {
+resultados_de_tests.push( error );
+console.log(error);}
+};
+const test_de_apagar_servidor = async function() {try {
+console.log('[DEBUG]', "Test de apagar servidor");
+proceso_de_servidor.kill(  );
+console.log("[*] Test de apagar servidor");
+resultados_de_tests.push( "OK" );
+} catch(error) {
+resultados_de_tests.push( error );
+console.log(error);}
+};
+(await test_de_sobreescribir_db_creation(  ));
+(await test_de_levantar_servidor(  ));
 (await test_de_login(  ));
 (await test_de_logout(  ));
+(await test_de_reescribir_db_creation(  ));
+(await test_de_apagar_servidor(  ));
 console.log("[*] Final de test de «express-boilerplate»");
+console.log(resultados_de_tests);
 } catch(error) {
 console.log("[!!!] Falló el test");
 console.log(error);}

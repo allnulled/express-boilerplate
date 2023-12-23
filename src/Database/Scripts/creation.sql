@@ -1,6 +1,6 @@
 
 CREATE TABLE Usuario (
-  id INTEGER PRIMARY KEY AUTOINCREMENT /*
+  id INTEGER PRIMARY KEY AUTO_INCREMENT /*
     @tiene_nombre: Identificador
   */,
   nombre VARCHAR(255) UNIQUE /*
@@ -15,7 +15,7 @@ CREATE TABLE Usuario (
 );
 
 CREATE TABLE Permiso (
-  id INTEGER PRIMARY KEY AUTOINCREMENT /*
+  id INTEGER PRIMARY KEY AUTO_INCREMENT /*
     @tiene_nombre: Identificador
   */,
   nombre VARCHAR(255) /*
@@ -27,7 +27,7 @@ CREATE TABLE Permiso (
 );
 
 CREATE TABLE Permiso_de_usuario (
-  id INTEGER PRIMARY KEY AUTOINCREMENT /*
+  id INTEGER PRIMARY KEY AUTO_INCREMENT /*
     @tiene_nombre: Identificador
   */,
   id_usuario INTEGER /*
@@ -41,7 +41,7 @@ CREATE TABLE Permiso_de_usuario (
 );
 
 CREATE TABLE Sesion (
-  id INTEGER PRIMARY KEY AUTOINCREMENT /*
+  id INTEGER PRIMARY KEY AUTO_INCREMENT /*
     @tiene_nombre: Identificador
   */,
   token VARCHAR(100) /*
@@ -55,7 +55,7 @@ CREATE TABLE Sesion (
 
 
 CREATE TABLE Fichero (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  id INTEGER PRIMARY KEY AUTO_INCREMENT,
   fichero VARCHAR(512) UNIQUE /*
     @es_tipo: fichero
   */,
@@ -64,7 +64,7 @@ CREATE TABLE Fichero (
 );
 
 CREATE TABLE Blog_post (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  id INTEGER PRIMARY KEY AUTO_INCREMENT,
   titulo VARCHAR(255) /*
     @tipo: texto
     @descripcion: El título del post.
@@ -96,7 +96,7 @@ CREATE TABLE Blog_post (
 );
 
 CREATE TABLE Blog_comentario_de_post (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  id INTEGER PRIMARY KEY AUTO_INCREMENT,
   contenido TEXT /*
     @tipo: texto largo
     @descripcion: El contenido en HTML del post.
