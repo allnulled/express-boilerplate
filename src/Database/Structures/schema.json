@@ -7,7 +7,7 @@
         "sentencia": "columna",
         "columna": "id",
         "tipo": "INTEGER",
-        "detalles": "PRIMARY KEY AUTO_INCREMENT",
+        "detalles": "PRIMARY KEY AUTOINCREMENT",
         "atributos": [
           "tiene_nombre: Identificador"
         ]
@@ -40,7 +40,7 @@
         ]
       }
     ],
-    "script": "CREATE TABLE Usuario (\n  id INTEGER PRIMARY KEY AUTO_INCREMENT /*\n    @tiene_nombre: Identificador\n  */,\n  nombre VARCHAR(255) UNIQUE /*\n    @tiene_nombre: Nombre\n  */,\n  contrasenya VARCHAR(255) /*\n    @tiene_nombre: Contraseña\n  */,\n  correo VARCHAR(255) /*\n    @tiene_nombre: Correo\n  */\n);"
+    "script": "CREATE TABLE Usuario (\n  id INTEGER PRIMARY KEY AUTOINCREMENT /*\n    @tiene_nombre: Identificador\n  */,\n  nombre VARCHAR(255) UNIQUE /*\n    @tiene_nombre: Nombre\n  */,\n  contrasenya VARCHAR(255) /*\n    @tiene_nombre: Contraseña\n  */,\n  correo VARCHAR(255) /*\n    @tiene_nombre: Correo\n  */\n);"
   },
   {
     "tabla": "Permiso",
@@ -50,7 +50,7 @@
         "sentencia": "columna",
         "columna": "id",
         "tipo": "INTEGER",
-        "detalles": "PRIMARY KEY AUTO_INCREMENT",
+        "detalles": "PRIMARY KEY AUTOINCREMENT",
         "atributos": [
           "tiene_nombre: Identificador"
         ]
@@ -74,7 +74,7 @@
         ]
       }
     ],
-    "script": "\n\nCREATE TABLE Permiso (\n  id INTEGER PRIMARY KEY AUTO_INCREMENT /*\n    @tiene_nombre: Identificador\n  */,\n  nombre VARCHAR(255) /*\n    @tiene_nombre: Nombre\n  */,\n  descripcion VARCHAR(511) /*\n    @tiene_nombre: Descripción\n  */\n);"
+    "script": "\n\nCREATE TABLE Permiso (\n  id INTEGER PRIMARY KEY AUTOINCREMENT /*\n    @tiene_nombre: Identificador\n  */,\n  nombre VARCHAR(255) /*\n    @tiene_nombre: Nombre\n  */,\n  descripcion VARCHAR(511) /*\n    @tiene_nombre: Descripción\n  */\n);"
   },
   {
     "tabla": "Permiso_de_usuario",
@@ -84,7 +84,7 @@
         "sentencia": "columna",
         "columna": "id",
         "tipo": "INTEGER",
-        "detalles": "PRIMARY KEY AUTO_INCREMENT",
+        "detalles": "PRIMARY KEY AUTOINCREMENT",
         "atributos": [
           "tiene_nombre: Identificador"
         ]
@@ -120,7 +120,7 @@
         "columna_foranea": "id"
       }
     ],
-    "script": "\n\nCREATE TABLE Permiso_de_usuario (\n  id INTEGER PRIMARY KEY AUTO_INCREMENT /*\n    @tiene_nombre: Identificador\n  */,\n  id_usuario INTEGER /*\n    @tiene_nombre: Identificador de usuario\n  */,\n  id_permiso INTEGER /*\n    @tiene_nombre: Identificador de permiso\n  */,\n  FOREIGN KEY (id_usuario) REFERENCES Usuario (id),\n  FOREIGN KEY (id_permiso) REFERENCES Permiso (id)\n);"
+    "script": "\n\nCREATE TABLE Permiso_de_usuario (\n  id INTEGER PRIMARY KEY AUTOINCREMENT /*\n    @tiene_nombre: Identificador\n  */,\n  id_usuario INTEGER /*\n    @tiene_nombre: Identificador de usuario\n  */,\n  id_permiso INTEGER /*\n    @tiene_nombre: Identificador de permiso\n  */,\n  FOREIGN KEY (id_usuario) REFERENCES Usuario (id),\n  FOREIGN KEY (id_permiso) REFERENCES Permiso (id)\n);"
   },
   {
     "tabla": "Sesion",
@@ -130,7 +130,7 @@
         "sentencia": "columna",
         "columna": "id",
         "tipo": "INTEGER",
-        "detalles": "PRIMARY KEY AUTO_INCREMENT",
+        "detalles": "PRIMARY KEY AUTOINCREMENT",
         "atributos": [
           "tiene_nombre: Identificador"
         ]
@@ -160,7 +160,7 @@
         "columna_foranea": "id"
       }
     ],
-    "script": "\n\nCREATE TABLE Sesion (\n  id INTEGER PRIMARY KEY AUTO_INCREMENT /*\n    @tiene_nombre: Identificador\n  */,\n  token VARCHAR(100) /*\n    @tiene_nombre: Token de sesión\n  */,\n  id_usuario INTEGER /*\n    @tiene_nombre: Identificador de usuario\n  */,\n  FOREIGN KEY (id_usuario) REFERENCES Usuario (id)\n);"
+    "script": "\n\nCREATE TABLE Sesion (\n  id INTEGER PRIMARY KEY AUTOINCREMENT /*\n    @tiene_nombre: Identificador\n  */,\n  token VARCHAR(100) /*\n    @tiene_nombre: Token de sesión\n  */,\n  id_usuario INTEGER /*\n    @tiene_nombre: Identificador de usuario\n  */,\n  FOREIGN KEY (id_usuario) REFERENCES Usuario (id)\n);"
   },
   {
     "tabla": "Fichero",
@@ -170,7 +170,7 @@
         "sentencia": "columna",
         "columna": "id",
         "tipo": "INTEGER",
-        "detalles": "PRIMARY KEY AUTO_INCREMENT",
+        "detalles": "PRIMARY KEY AUTOINCREMENT",
         "atributos": []
       },
       {
@@ -196,7 +196,7 @@
         "columna_foranea": "id"
       }
     ],
-    "script": "\n\n\nCREATE TABLE Fichero (\n  id INTEGER PRIMARY KEY AUTO_INCREMENT,\n  fichero VARCHAR(512) UNIQUE /*\n    @es_tipo: fichero\n  */,\n  id_fichero_padre INTEGER,\n  FOREIGN KEY (id_fichero_padre) REFERENCES Fichero (id)\n);"
+    "script": "\n\n\nCREATE TABLE Fichero (\n  id INTEGER PRIMARY KEY AUTOINCREMENT,\n  fichero VARCHAR(512) UNIQUE /*\n    @es_tipo: fichero\n  */,\n  id_fichero_padre INTEGER,\n  FOREIGN KEY (id_fichero_padre) REFERENCES Fichero (id)\n);"
   },
   {
     "tabla": "Blog_post",
@@ -206,7 +206,7 @@
         "sentencia": "columna",
         "columna": "id",
         "tipo": "INTEGER",
-        "detalles": "PRIMARY KEY AUTO_INCREMENT",
+        "detalles": "PRIMARY KEY AUTOINCREMENT",
         "atributos": []
       },
       {
@@ -274,7 +274,7 @@
         ]
       }
     ],
-    "script": "\n\nCREATE TABLE Blog_post (\n  id INTEGER PRIMARY KEY AUTO_INCREMENT,\n  titulo VARCHAR(255) /*\n    @tipo: texto\n    @descripcion: El título del post.\n    @maximo_de_texto: 255\n    @minimo_de_texto: 1\n  */,\n  subtitulo VARCHAR(512) /*\n    @tipo: texto\n    @descripcion: El subtítulo del post.\n    @maximo_de_texto: 255\n    @minimo_de_texto: 1\n  */,\n  contenido TEXT /*\n    @tipo: texto\n    @descripcion: El contenido del post.\n    @maximo_de_texto: 255\n    @minimo_de_texto: 1\n  */,\n  fecha_de_creacion DATETIME /*\n    @tipo: fecha\n    @descripcion: La fecha de la creación del post.\n    @interceptar: await $interceptors.Columns.fijar_fecha_actual_al_insertar(data, 'fecha_de_creacion', this)\n  */,\n  fecha_de_actualizacion DATETIME /*\n    @tipo: fecha\n    @descripcion: La fecha de la última actualización del post.\n    @interceptar: await $interceptors.Columns.fijar_fecha_actual_al_actualizar(data, 'fecha_de_actualizacion', this)\n  */\n);"
+    "script": "\n\nCREATE TABLE Blog_post (\n  id INTEGER PRIMARY KEY AUTOINCREMENT,\n  titulo VARCHAR(255) /*\n    @tipo: texto\n    @descripcion: El título del post.\n    @maximo_de_texto: 255\n    @minimo_de_texto: 1\n  */,\n  subtitulo VARCHAR(512) /*\n    @tipo: texto\n    @descripcion: El subtítulo del post.\n    @maximo_de_texto: 255\n    @minimo_de_texto: 1\n  */,\n  contenido TEXT /*\n    @tipo: texto\n    @descripcion: El contenido del post.\n    @maximo_de_texto: 255\n    @minimo_de_texto: 1\n  */,\n  fecha_de_creacion DATETIME /*\n    @tipo: fecha\n    @descripcion: La fecha de la creación del post.\n    @interceptar: await $interceptors.Columns.fijar_fecha_actual_al_insertar(data, 'fecha_de_creacion', this)\n  */,\n  fecha_de_actualizacion DATETIME /*\n    @tipo: fecha\n    @descripcion: La fecha de la última actualización del post.\n    @interceptar: await $interceptors.Columns.fijar_fecha_actual_al_actualizar(data, 'fecha_de_actualizacion', this)\n  */\n);"
   },
   {
     "tabla": "Blog_comentario_de_post",
@@ -284,7 +284,7 @@
         "sentencia": "columna",
         "columna": "id",
         "tipo": "INTEGER",
-        "detalles": "PRIMARY KEY AUTO_INCREMENT",
+        "detalles": "PRIMARY KEY AUTOINCREMENT",
         "atributos": []
       },
       {
@@ -302,6 +302,6 @@
         "atributos": []
       }
     ],
-    "script": "\n\nCREATE TABLE Blog_comentario_de_post (\n  id INTEGER PRIMARY KEY AUTO_INCREMENT,\n  contenido TEXT,\n  fecha_de_creacion DATETIME\n);"
+    "script": "\n\nCREATE TABLE Blog_comentario_de_post (\n  id INTEGER PRIMARY KEY AUTOINCREMENT,\n  contenido TEXT,\n  fecha_de_creacion DATETIME\n);"
   }
 ]
