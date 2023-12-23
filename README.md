@@ -245,20 +245,27 @@ Hay algunas otras ventajas, como clases utilitarias, o herramientas para anális
 
 Unas pocas clases utilitarias:
 
- - [`CheckThat`](./src/Utilities/CheckThat.js) para hacer comprobaciones con reporte de errores uniforme
- - [`DispatchError`](./src/Utilities/DispatchError.js) para despachar errores en JSON
- - [`DispatchErrorAsHtml`](./src/Utilities/DispatchErrorAsHtml.js) para despachar errores en HTML
- - [`DispatchSuccess`](./src/Utilities/DispatchSuccess.js) para despachar éxitos en JSON
- - [`DispatchSuccessAsHtml`](./src/Utilities/DispatchSuccessAsHtml.js) para despachar ficheros HTML
- - [`GetDatabaseConnection`](./src/Utilities/GetDatabaseConnection.js) para obtener conexión de base de datos
- - [`GetDateFromString`](./src/Utilities/GetDateFromString.js) para obtener Date de String
- - [`GetDateToString`](./src/Utilities/GetDateToString.js) para obtener String de Date
- - [`GetRandomString`](./src/Utilities/GetRandomString.js) para obtener String aleatorio
- - [`GetRequestParameter`](./src/Utilities/GetRequestParameter.js) para obtener parametro de petición
- - [`GetStringLeftPadded`](./src/Utilities/GetStringLeftPadded.js) para obtener String con espaciado por la izquierda
- - [`InitializeDatabase`](./src/Utilities/InitializeDatabase.js) para inicializar la base de datos
- - [`QueryDatabase`](./src/Utilities/QueryDatabase.js) para ejecutar una consulta SQL
- - [`Trace`](./src/Utilities/Trace.js) para tracear un método o función
+ - [`AuthenticateRequest`](./src/Utilities/AuthenticateRequest.js) para autentificar peticiones. Le pone el `request.$$authentication`.
+ - [`CheckThat`](./src/Utilities/CheckThat.js) para hacer comprobaciones con reporte de errores uniforme.
+ - [`CloneExceptProperties`](./src/Utilities/CloneExceptProperties.js) para clonar un objeto, sin ciertas propiedades.
+ - [`CloneOnlyProperties`](./src/Utilities/CloneOnlyProperties.js) para clonar un objeto, solo ciertas propiedades.
+ - [`CloseDeployment`](./src/Utilities/CloseDeployment.js) para cerrar el despliegue: conexiones, sockets, etc.
+ - [`Die`](./src/Utilities/Die.js) para interrumpir el proceso del sistema. Para debugging.
+ - [`DispatchError`](./src/Utilities/DispatchError.js) para despachar errores en JSON.
+ - [`DispatchErrorAsHtml`](./src/Utilities/DispatchErrorAsHtml.js) para despachar errores en HTML.
+ - [`DispatchSuccess`](./src/Utilities/DispatchSuccess.js) para despachar éxitos en JSON.
+ - [`DispatchSuccessAsHtml`](./src/Utilities/DispatchSuccessAsHtml.js) para despachar ficheros HTML.
+ - [`FormatRowsByGroups`](./src/Utilities/FormatRowsByGroups.js) para agrupar los datos resultantes de una consulta con JOINs en el SQL.
+ - [`GetDatabaseConnection`](./src/Utilities/GetDatabaseConnection.js) para obtener conexión de base de datos.
+ - [`GetDateFromString`](./src/Utilities/GetDateFromString.js) para obtener Date de String.
+ - [`GetDateToString`](./src/Utilities/GetDateToString.js) para obtener String de Date.
+ - [`GetRandomString`](./src/Utilities/GetRandomString.js) para obtener String aleatorio.
+ - [`GetRequestParameter`](./src/Utilities/GetRequestParameter.js) para obtener parametro de petición.
+ - [`GetStringLeftPadded`](./src/Utilities/GetStringLeftPadded.js) para obtener String con espaciado por la izquierda.
+ - [`InitializeDatabase`](./src/Utilities/InitializeDatabase.js) para inicializar la base de datos.
+ - [`QueryDatabase`](./src/Utilities/QueryDatabase.js) para ejecutar una consulta SQL.
+ - [`Trace`](./src/Utilities/Trace.js) para tracear un método o función.
+
 
 ### Generador de documentación
 
