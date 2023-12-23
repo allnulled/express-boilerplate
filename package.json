@@ -42,7 +42,7 @@
         "sqlstring": "^2.3.3",
         "xlsx": "^0.18.5"
     },
-    "uuid_commit": 8,
+    "uuid_commit": 9,
     "directories": {
         "test": "test"
     },
