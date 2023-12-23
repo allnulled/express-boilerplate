@@ -66,6 +66,20 @@ module.exports = function (api) {
         console.log("    - Fichero:   " + column_file);
         Columns[column_name] = column_instance.resolve.bind(column_instance);
     }
-    return { Conditionals, Consequencials, Interceptors: { Tables, Columns } };
+    const Formatters = {};
+    const formatters_files = fs.readdirSync(__dirname + "/Interceptors/Formatters");
+    for (let index = 0; index < formatters_files.length; index++) {
+        const formatter_file = formatters_files[index];
+        const formatter_name = formatter_file.replace(/\.js$/g, "");
+        const formatter_path = path.resolve(__dirname + "/Interceptors/Formatters/" + formatter_file);
+        const formatter_class = require(formatter_path);
+        const formatter_instance = new formatter_class(api);
+        formatter_instance.api = api;
+        console.log("[*] Decorador de formateador nº " + index);
+        console.log("    - Nombre:    " + formatter_name);
+        console.log("    - Fichero:   " + formatter_file);
+        Formatters[formatter_name] = formatter_instance.resolve.bind(column_instance);
+    }
+    return { Conditionals, Consequencials, Interceptors: { Tables, Columns }, Formatters };
 
 }
