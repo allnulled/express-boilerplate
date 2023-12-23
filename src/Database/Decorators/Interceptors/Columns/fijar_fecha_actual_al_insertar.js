@@ -1,7 +1,7 @@
 module.exports = class {
     /**
      * 
-     * @name src/Database/Decorators/Interceptors/Columns/fijar_fecha_actual_de_usuario_al_actualizar.js#resolve
+     * @name src/Database/Decorators/Interceptors/Columns/fijar_fecha_actual_al_actualizar.js#resolve
      * @type Función
      * @parameter `data:Object` Requerido. Los parámetros de la request, inclusive request.
      * @parameter `id_columna:String` Requerido. Nombre de la columna.

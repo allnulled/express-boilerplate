@@ -1,8 +1,8 @@
 
 xcomponents_components.xtableviewer = Castelog.metodos.un_componente_vue2("xtableviewer",
-  "<table class=\"Component xtableviewer\">"
+  "<div class=\"Component xtableviewer\">"
  + "    <slot></slot>"
- + "  </table>",
+ + "  </div>",
   function(component) {return { props:{ 
 },
 data() {try {

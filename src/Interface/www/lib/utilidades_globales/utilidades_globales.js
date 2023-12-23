@@ -1,0 +1,3 @@
+
+window.utilidades_globales = { 
+};

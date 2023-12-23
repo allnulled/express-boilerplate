@@ -65,7 +65,7 @@ const xwindowbody = require("./xwindowbody/xwindowbody.js");
 const xwindowfooter = require("./xwindowfooter/xwindowfooter.js");
 const xwindowfooteritem = require("./xwindowfooteritem/xwindowfooteritem.js");
 const xwindowtitle = require("./xwindowtitle/xwindowtitle.js");
-const vuejsCalendario = require("./vuejs-calendario/vuejs-calendario.js");
+const xvuejscalendario = require("./xvuejscalendario/xvuejscalendario.js");
 const xstatic = require("./xstatic/xstatic.js");
 
 Object.assign(window.xcomponents_api, {

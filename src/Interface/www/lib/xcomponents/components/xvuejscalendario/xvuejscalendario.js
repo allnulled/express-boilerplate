@@ -1,10 +1,10 @@
 
-window.VuejsCalendario = Castelog.metodos.un_componente_vue2("VuejsCalendario",
-  "<div class=\"Component VuejsCalendario\">"
+window.xvuejscalendario = Castelog.metodos.un_componente_vue2("xvuejscalendario",
+  "<div class=\"Component xvuejscalendario\">"
  + "    <div class=\"vuejs_calendario_contenedor\">"
+ + "      <div v-if=\"['datetime','date'].indexOf(mode) !== -1\" class=\"chivato_de_fecha\">{{ obtener_fecha_formateada(fecha_seleccionada) }}</div>"
+ + "      <div v-if=\"['datetime','time'].indexOf(mode) !== -1\" class=\"chivato_de_fecha\">{{ espaciar_izquierda(hora_seleccionada, 2) }}:{{ espaciar_izquierda(minuto_seleccionado, 2) }}:{{ espaciar_izquierda(segundo_seleccionado, 2) }}.{{ espaciar_izquierda(milisegundo_seleccionado, 3) }}</div>"
  + "      <template v-if=\"mode === 'datetime' || mode === 'date'\">"
- + "        <div v-if=\"['datetime','date'].indexOf(mode) !== -1\" class=\"chivato_de_fecha\">{{ obtener_fecha_formateada(fecha_seleccionada) }}</div>"
- + "        <div v-if=\"['datetime','time'].indexOf(mode) !== -1\" class=\"chivato_de_fecha\">{{ espaciar_izquierda(hora_seleccionada, 2) }}:{{ espaciar_izquierda(minuto_seleccionado, 2) }}:{{ espaciar_izquierda(segundo_seleccionado, 2) }}.{{ espaciar_izquierda(milisegundo_seleccionado, 3) }}</div>"
  + "        <table class=\"tabla_de_calendario\">"
  + "          <tbody>"
  + "            <tr>"
@@ -99,7 +99,8 @@ throw error;
 },
 initialValue:{ type:String,
 default:function() {try {
-return "";
+const fecha_actual = new Date(  );
+return this.obtener_texto_a_partir_de_fecha( fecha_actual );
 } catch(error) {
 console.log(error);
 throw error;
@@ -229,9 +230,12 @@ throw error;
 
 },
 obtener_fecha_formateada( fecha ) {try {
+console.log('[DEBUG]', "xvuejscalendario.obtener_fecha_formateada");
 if(typeof fecha === 'undefined') {
 return;
 }
+console.log("MES DE LA FECHAAAA");
+console.log(fecha.getMonth(  ));
 let formato = "";
 formato += ( () => {
 try {
@@ -317,21 +321,22 @@ throw error;
 
 },
 obtener_valor() {try {
+console.log('[DEBUG]', "xvuejscalendario.obtener_valor");
 let valor = "";
-if(this.mode === "datetime" || this.mode === "date") {
+if(( this.mode === "datetime" ) || this.mode === "date") {
 valor += this.espaciar_izquierda( this.fecha_seleccionada.getFullYear(  ),
 4 );
 valor += "-";
-valor += this.espaciar_izquierda( this.fecha_seleccionada.getMonth(  ) + 1,
+valor += this.espaciar_izquierda( this.fecha_seleccionada.getMonth(  ),
 2 );
 valor += "-";
 valor += this.espaciar_izquierda( this.fecha_seleccionada.getDate(  ),
 2 );
 }
-if(this.mode === "datetime") {
+if(( this.mode === "datetime" )) {
 valor += " ";
 }
-if(this.mode === "datetime" || this.mode === "time") {
+if(( this.mode === "datetime" ) || this.mode === "time") {
 valor += this.espaciar_izquierda( this.hora_seleccionada,
 2 );
 valor += ":";
@@ -351,11 +356,48 @@ throw error;
 }
 
 },
+obtener_texto_a_partir_de_fecha( fecha_original ) {try {
+console.log('[DEBUG]', "xvuejscalendario.obtener_texto_a_partir_de_fecha");
+let valor = "";
+if(( this.mode === "datetime" ) || this.mode === "date") {
+valor += this.espaciar_izquierda( fecha_original.getFullYear(  ),
+4 );
+valor += "-";
+valor += this.espaciar_izquierda( fecha_original.getMonth(  ),
+2 );
+valor += "-";
+valor += this.espaciar_izquierda( fecha_original.getDate(  ),
+2 );
+}
+if(( this.mode === "datetime" )) {
+valor += " ";
+}
+if(( this.mode === "datetime" ) || this.mode === "time") {
+valor += this.espaciar_izquierda( this.fecha_original.getHours(  ),
+2 );
+valor += ":";
+valor += this.espaciar_izquierda( this.fecha_original.getMinutes(  ),
+2 );
+valor += ":";
+valor += this.espaciar_izquierda( this.fecha_original.getSeconds(  ),
+2 );
+valor += ".";
+valor += this.espaciar_izquierda( this.fecha_original.getMilliseconds(  ),
+3 );
+}
+return valor;
+} catch(error) {
+console.log(error);
+throw error;
+}
+
+},
 obtener_fecha_a_partir_de_texto( texto_de_fecha_original ) {try {
+console.log('[DEBUG]', "xvuejscalendario.obtener_fecha_a_partir_de_texto");
 const argumentos = [  ];
 let texto_de_fecha = texto_de_fecha_original;
 if(this.mode === "time") {
-texto_de_fecha = "2024-01-01 " + texto_de_fecha;
+texto_de_fecha = "2024-00-01 " + texto_de_fecha;
 }
 if(texto_de_fecha) {
 argumentos.push( texto_de_fecha );
@@ -379,6 +421,7 @@ throw error;
 }
 },
 watch:{ fecha_seleccionada( nuevo_valor ) {try {
+console.log('[DEBUG]', "xvuejscalendario.watch.fecha_seleccionada");
 const dias = [  ];
 const dia_1_del_mes = new Date( nuevo_valor );
 dia_1_del_mes.setDate( 1 );
@@ -442,6 +485,7 @@ throw error;
 
 },
 hora_seleccionada( nuevo_valor ) {try {
+console.log('[DEBUG]', "xvuejscalendario.watch.hora_seleccionada");
 this.onChange( this.obtener_valor(  ),
 this );
 } catch(error) {
@@ -451,6 +495,7 @@ throw error;
 
 },
 minuto_seleccionado( nuevo_valor ) {try {
+console.log('[DEBUG]', "xvuejscalendario.watch.minuto_seleccionado");
 this.onChange( this.obtener_valor(  ),
 this );
 } catch(error) {
@@ -460,6 +505,7 @@ throw error;
 
 },
 segundo_seleccionado( nuevo_valor ) {try {
+console.log('[DEBUG]', "xvuejscalendario.watch.segundo_seleccionado");
 this.onChange( this.obtener_valor(  ),
 this );
 } catch(error) {
@@ -469,6 +515,7 @@ throw error;
 
 },
 milisegundo_seleccionado( nuevo_valor ) {try {
+console.log('[DEBUG]', "xvuejscalendario.watch.milisegundo_seleccionado");
 this.onChange( this.obtener_valor(  ),
 this );
 } catch(error) {
@@ -479,6 +526,7 @@ throw error;
 }
 },
 mounted() {try {
+console.log('[DEBUG]', "xvuejscalendario.mounted");
 const date = this.obtener_fecha_a_partir_de_texto( this.initialValue );
 console.log(date);
 this.fecha_seleccionada = date;

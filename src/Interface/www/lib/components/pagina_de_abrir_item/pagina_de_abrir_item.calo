@@ -1,5 +1,5 @@
-asigno window.PaginaDeAbrirFila como un componente vue2 con nombre "PaginaDeAbrirFila" con plantilla {
-  <div class="Component PaginaDeAbrirFila">
+asigno window.PaginaDeAbrirItem como un componente vue2 con nombre "PaginaDeAbrirItem" con plantilla {
+  <div class="Component PaginaDeAbrirItem">
     <xtitle>Abrir fila de «{{ $route.params.tabla }}» con id «{{ $route.params.fila }}»</xtitle>
     <xlayout>
       <xlist>
@@ -103,7 +103,7 @@ asigno window.PaginaDeAbrirFila como un componente vue2 con nombre "PaginaDeAbri
             <textarea style="width:100%;min-height:80px;resize:vertical;" v-model="item[key]"></textarea>
           </xpanel>
           <xpanel v-else-if="root.compacted_schema[ $route.params.tabla ].composicion[key].tipo === 'DATETIME'">
-            <VuejsCalendario :al-cambiar="v => item[key] = v" :valor-inicial="item[key]" />
+            <VuejsCalendario modo="datetime" :al-cambiar="v => item[key] = v" :valor-inicial="adaptar_fecha(item[key])" />
           </xpanel>
           <xpanel v-else-if="false">
             --- END OF Input rendering ---
@@ -137,8 +137,22 @@ asigno window.PaginaDeAbrirFila como un componente vue2 con nombre "PaginaDeAbri
       }.
     }.
     propiedad methods como {
+      
+      método adaptar_fecha con (fecha) donde {
+        debugo "PaginaDeAbrirItem.adaptar_fecha".
+        imprimo "ADAPTAR_FECHAAAAAAAAAAAAAAA".
+        imprimo fecha.
+        creo entorno_de_datos como this.root.environment.DATABASE_DRIVER.
+        creo variable fecha_adaptada como fecha.
+        si entorno_de_datos es igual que "mysql" {
+          asigno fecha_adaptada como fecha.replace("T", " ").replace("Z", "").
+        }.
+        imprimo fecha_adaptada.
+        retorno fecha_adaptada.
+      }.
+
       método asíncrono obtener_datos_de_fila donde {
-        debugo "PaginaDeAbrirFila.obtener_datos_de_fila".
+        debugo "PaginaDeAbrirItem.obtener_datos_de_fila".
         asigno this.item como false.
         creo respuesta_datos_de_fila como asíncronamente una petición http
           con url "/Select"
@@ -153,9 +167,10 @@ asigno window.PaginaDeAbrirFila como un componente vue2 con nombre "PaginaDeAbri
         si respuesta_datos_de_fila.data.data.output.length es igual que 0 retorno this.$router.history.push("/abrir-tabla/" + this.$route.params.tabla).
         asigno this.item como respuesta_datos_de_fila.data.data.output[0].
         hago this.$forceUpdate(true).
-      }.
+      } en errores retorno Vue.prototype.$dialogs.error(error).
+      
       método asíncrono guardar_item donde {
-        debugo "PaginaDeAbrirFila.guardar_item".
+        debugo "PaginaDeAbrirItem.guardar_item".
         creo clon_de_item como {} extendido por this.item.
         creo claves_de_item como un conjunto de claves del objeto clon_de_item.
         desde 0 hasta claves_de_item.length {
@@ -177,9 +192,10 @@ asigno window.PaginaDeAbrirFila como un componente vue2 con nombre "PaginaDeAbri
         si respuesta_guardar_datos_de_fila es instancia de Error retorno.
         hago asíncronamente this.obtener_datos_de_fila().
         hago this.$forceUpdate(true).
-      }.
+      } en errores retorno Vue.prototype.$dialogs.error(error).
+
       método asíncrono eliminar_item donde {
-        debugo "PaginaDeAbrirFila.eliminar_item".
+        debugo "PaginaDeAbrirItem.eliminar_item".
         creo confirmacion como asíncronamente Vue.prototype.$dialogs.form({
           title: "Eliminar registro",
           html: "<xlayout style='color:black;'>¿Seguro que quieres eliminar el registro «" + this.$route.params.fila + "» de «" + this.$route.params.tabla + "»?</xlayout>"
@@ -203,9 +219,10 @@ asigno window.PaginaDeAbrirFila como un componente vue2 con nombre "PaginaDeAbri
         si respuesta_eliminar_dato_de_fila es instancia de Error retorno.
         hago this.$router.history.push("/abrir-tabla/" + this.$route.params.tabla).
         hago this.$forceUpdate(true).
-      }.
+      } en errores retorno Vue.prototype.$dialogs.error(error).
+
       método asíncrono guardar_fichero con (columna) donde {
-        debugo "PaginaDeAbrirFila.guardar_fichero".
+        debugo "PaginaDeAbrirItem.guardar_fichero".
         desacoplo constantes [ fichero ] a partir de this.item[columna].
         creo formulario como un nuevo FormData().
         hago formulario.append("table", this.$route.params.tabla).
@@ -220,13 +237,15 @@ asigno window.PaginaDeAbrirFila como un componente vue2 con nombre "PaginaDeAbri
           en errores retorno Vue.prototype.$dialogs.error(error).
         si respuesta_fichero es instancia de Error retorno.
         hago asíncronamente this.obtener_datos_de_fila().
-      }.
+      } en errores retorno Vue.prototype.$dialogs.error(error).
+      
       método asíncrono refrescar_fichero con (columna) donde {
-        debugo "PaginaDeAbrirFila.refrescar_fichero".
+        debugo "PaginaDeAbrirItem.refrescar_fichero".
         hago asíncronamente this.obtener_datos_de_fila().
-      }.
+      } en errores retorno Vue.prototype.$dialogs.error(error).
+
       método asíncrono desvincular_fichero con (columna) donde {
-        debugo "PaginaDeAbrirFila.desvincular_fichero".
+        debugo "PaginaDeAbrirItem.desvincular_fichero".
         desacoplo constantes [ fichero ] a partir de this.item[columna].
         creo formulario como un nuevo FormData().
         hago formulario.append("table", this.$route.params.tabla).
@@ -241,7 +260,7 @@ asigno window.PaginaDeAbrirFila como un componente vue2 con nombre "PaginaDeAbri
           en errores retorno Vue.prototype.$dialogs.error(error).
         si respuesta_fichero es instancia de Error retorno.
         hago asíncronamente this.obtener_datos_de_fila().
-      }.
+      } en errores retorno Vue.prototype.$dialogs.error(error).
     }.
     propiedad watch como {}.
     propiedad computed como {}.
@@ -249,7 +268,7 @@ asigno window.PaginaDeAbrirFila como un componente vue2 con nombre "PaginaDeAbri
     método created donde {}.
     método beforeMount donde {}.
     método asíncrono mounted donde {
-        debugo "PaginaDeAbrirFila.mounted".
+        debugo "PaginaDeAbrirItem.mounted".
       hago asíncronamente this.obtener_datos_de_fila().
     }.
     método beforeUpdate donde {}.

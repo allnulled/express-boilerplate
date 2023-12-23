@@ -13,7 +13,7 @@ Ejecutable como documento HTML5
     <link rel="stylesheet" type="text/css" href="lib/components/pagina_de_inicio/pagina_de_inicio.css" />
     <link rel="stylesheet" type="text/css" href="lib/components/pagina_de_login/pagina_de_login.css" />
     <link rel="stylesheet" type="text/css" href="lib/components/pagina_de_abrir_tabla/pagina_de_abrir_tabla.css" />
-    <link rel="stylesheet" type="text/css" href="lib/components/pagina_de_abrir_fila/pagina_de_abrir_fila.css" />
+    <link rel="stylesheet" type="text/css" href="lib/components/pagina_de_abrir_item/pagina_de_abrir_item.css" />
     <link rel="stylesheet" type="text/css" href="lib/components/pagina_de_crear_item/pagina_de_crear_item.css" />
     <link rel="stylesheet" type="text/css" href="lib/components/pagina_de_esquema/pagina_de_esquema.css" />
     <link rel="stylesheet" type="text/css" href="lib/components/pagina_de_autentificacion/pagina_de_autentificacion.css" />
@@ -21,13 +21,14 @@ Ejecutable como documento HTML5
     <link rel="stylesheet" type="text/css" href="lib/components/vuejs-calendario/vuejs-calendario.css" />
     
     <script src="lib/calo/calo.js"></script>
+    <script src="lib/utilidades_globales/utilidades_globales.js"></script>
     <script src="lib/xcomponents/xcomponents.js"></script>
     <script src="lib/components/pagina_de_administracion/pagina_de_administracion.js"></script>
     <script src="lib/components/pagina_de_ayuda/pagina_de_ayuda.js"></script>
     <script src="lib/components/pagina_de_inicio/pagina_de_inicio.js"></script>
     <script src="lib/components/pagina_de_login/pagina_de_login.js"></script>
     <script src="lib/components/pagina_de_abrir_tabla/pagina_de_abrir_tabla.js"></script>
-    <script src="lib/components/pagina_de_abrir_fila/pagina_de_abrir_fila.js"></script>
+    <script src="lib/components/pagina_de_abrir_item/pagina_de_abrir_item.js"></script>
     <script src="lib/components/pagina_de_crear_item/pagina_de_crear_item.js"></script>
     <script src="lib/components/pagina_de_esquema/pagina_de_esquema.js"></script>
     <script src="lib/components/pagina_de_autentificacion/pagina_de_autentificacion.js"></script>
@@ -145,6 +146,9 @@ Ejecutable como documento HTML5
 </head>
 <body><div id="app"></div></body>.
 
+asigno Vue.prototype.$window como window.
+asigno Vue.prototype.$utils como utilidades_globales.
+
 asigno window.App como una aplicación vue2 con nombre "App" con rutas [{
   propiedad path como "/".
   propiedad name como "PaginaDeInicio".
@@ -161,9 +165,9 @@ asigno window.App como una aplicación vue2 con nombre "App" con rutas [{
   propiedad component como PaginaDeAbrirTabla.
   propiedad props como {}.
 }, {
-  propiedad path como "/abrir-fila/:tabla/:fila".
-  propiedad name como "PaginaDeAbrirFila".
-  propiedad component como PaginaDeAbrirFila.
+  propiedad path como "/abrir-item/:tabla/:fila".
+  propiedad name como "PaginaDeAbrirItem".
+  propiedad component como PaginaDeAbrirItem.
   propiedad props como {}.
 }, {
   propiedad path como "/crear-item/:tabla".
@@ -216,6 +220,7 @@ asigno window.App como una aplicación vue2 con nombre "App" con rutas [{
         autentication: undefined,
         original_schema: undefined,
         compacted_schema: undefined,
+        environment: undefined,
         sesion_token: undefined
       }.
     }.
@@ -239,6 +244,17 @@ asigno window.App como una aplicación vue2 con nombre "App" con rutas [{
         asigno this.original_schema como respuesta_schema.data.data.esquema.original.
         asigno this.compacted_schema como respuesta_schema.data.data.esquema.compacto.
       } en errores hago Vue.prototype.$dialogs.error(error).
+      método asíncrono obtener_entorno donde {
+        debugo "App.obtener_entorno".
+        creo respuesta_entorno como asíncronamente una petición http
+          con url "/Environment"
+          con método "POST"
+          con cuerpo {}
+          con cabeceras { authorization: this.sesion_token }
+          en errores hago Vue.prototype.$dialogs.error(error).
+        si respuesta_entorno es instancia de Error retorno.
+        asigno this.environment como respuesta_entorno.data.data.entorno.
+      } en errores hago Vue.prototype.$dialogs.error(error).
       método asíncrono login con (nombre, contrasenya) donde {
         debugo "App.login".
         creo respuesta_login como asíncronamente una petición http
@@ -252,6 +268,7 @@ asigno window.App como una aplicación vue2 con nombre "App" con rutas [{
         asigno this.authentication como respuesta_login.data.data.
         asigno this.sesion_token como respuesta_login.data.data.sesion.token.
         hago asíncronamente this.obtener_schema().
+        hago asíncronamente this.obtener_entorno().
       } en errores hago Vue.prototype.$dialogs.error(error).
       método humanizar_texto_de_columna con (tabla_arg, columna_arg) donde {
         creo esquema_compacto como this.compacted_schema.
@@ -276,7 +293,6 @@ asigno window.App como una aplicación vue2 con nombre "App" con rutas [{
     propiedad watch como {}.
     método beforeMount donde {
       debugo "App.beforeMount".
-      asigno this.$window como window.
     }.
     método mounted donde {}.
   }.

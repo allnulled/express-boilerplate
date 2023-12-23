@@ -1,6 +1,6 @@
 
-window.PaginaDeAbrirFila = Castelog.metodos.un_componente_vue2("PaginaDeAbrirFila",
-  "<div class=\"Component PaginaDeAbrirFila\">"
+window.PaginaDeAbrirItem = Castelog.metodos.un_componente_vue2("PaginaDeAbrirItem",
+  "<div class=\"Component PaginaDeAbrirItem\">"
  + "    <xtitle>Abrir fila de «{{ $route.params.tabla }}» con id «{{ $route.params.fila }}»</xtitle>"
  + "    <xlayout>"
  + "      <xlist>"
@@ -104,7 +104,7 @@ window.PaginaDeAbrirFila = Castelog.metodos.un_componente_vue2("PaginaDeAbrirFil
  + "            <textarea style=\"width:100%;min-height:80px;resize:vertical;\" v-model=\"item[key]\"></textarea>"
  + "          </xpanel>"
  + "          <xpanel v-else-if=\"root.compacted_schema[ $route.params.tabla ].composicion[key].tipo === 'DATETIME'\">"
- + "            <VuejsCalendario :al-cambiar=\"v => item[key] = v\" :valor-inicial=\"item[key]\" />"
+ + "            <VuejsCalendario modo=\"datetime\" :al-cambiar=\"v => item[key] = v\" :valor-inicial=\"adaptar_fecha(item[key])\" />"
  + "          </xpanel>"
  + "          <xpanel v-else-if=\"false\">"
  + "            --- END OF Input rendering ---"
@@ -137,8 +137,27 @@ throw error;
 }
 
 },
-methods:{ async obtener_datos_de_fila() {try {
-console.log('[DEBUG]', "PaginaDeAbrirFila.obtener_datos_de_fila");
+methods:{ adaptar_fecha( fecha ) {try {
+console.log('[DEBUG]', "PaginaDeAbrirItem.adaptar_fecha");
+console.log("ADAPTAR_FECHAAAAAAAAAAAAAAA");
+console.log(fecha);
+const entorno_de_datos = this.root.environment.DATABASE_DRIVER;
+let fecha_adaptada = fecha;
+if(entorno_de_datos === "mysql") {
+fecha_adaptada = fecha.replace( "T",
+" " ).replace( "Z",
+"" );
+}
+console.log(fecha_adaptada);
+return fecha_adaptada;
+} catch(error) {
+console.log(error);
+throw error;
+}
+
+},
+async obtener_datos_de_fila() {try {
+console.log('[DEBUG]', "PaginaDeAbrirItem.obtener_datos_de_fila");
 this.item = false;
 const respuesta_datos_de_fila = (await Castelog.metodos.una_peticion_http("/Select", "POST", { table:this.$route.params.tabla,
 where:[ [ "id",
@@ -156,13 +175,10 @@ return this.$router.history.push( "/abrir-tabla/" + this.$route.params.tabla );
 this.item = respuesta_datos_de_fila.data.data.output[ 0 ];
 this.$forceUpdate( true );
 } catch(error) {
-console.log(error);
-throw error;
-}
-
+return Vue.prototype.$dialogs.error( error );}
 },
 async guardar_item() {try {
-console.log('[DEBUG]', "PaginaDeAbrirFila.guardar_item");
+console.log('[DEBUG]', "PaginaDeAbrirItem.guardar_item");
 const clon_de_item = Object.assign({ 
 }, this.item );
 const claves_de_item = Object.keys(clon_de_item);
@@ -182,13 +198,10 @@ return;
 (await this.obtener_datos_de_fila(  ));
 this.$forceUpdate( true );
 } catch(error) {
-console.log(error);
-throw error;
-}
-
+return Vue.prototype.$dialogs.error( error );}
 },
 async eliminar_item() {try {
-console.log('[DEBUG]', "PaginaDeAbrirFila.eliminar_item");
+console.log('[DEBUG]', "PaginaDeAbrirItem.eliminar_item");
 const confirmacion = (await Vue.prototype.$dialogs.form( { title:"Eliminar registro",
 html:"<xlayout style='color:black;'>¿Seguro que quieres eliminar el registro «" + this.$route.params.fila + "» de «" + this.$route.params.tabla + "»?</xlayout>" + "<xseparator />" + "<xpanel style='text-align:right;'>" + "  <button class='boton_rojo padding_bottom_1 margin_left_1 margin_bottom_1' v-on:click='finalize_dialog_accepting'>Sí, seguro</button>" + "  <button class='boton_azul padding_bottom_1 margin_left_1 margin_bottom_1' v-on:click='finalize_dialog_rejecting'>Cancelar</button>" + "</xpanel>",
 footer:false
@@ -207,13 +220,10 @@ return;
 this.$router.history.push( "/abrir-tabla/" + this.$route.params.tabla );
 this.$forceUpdate( true );
 } catch(error) {
-console.log(error);
-throw error;
-}
-
+return Vue.prototype.$dialogs.error( error );}
 },
 async guardar_fichero( columna ) {try {
-console.log('[DEBUG]', "PaginaDeAbrirFila.guardar_fichero");
+console.log('[DEBUG]', "PaginaDeAbrirItem.guardar_fichero");
 const [ fichero ] = this.item[ columna ];
 const formulario = new FormData(  );
 formulario.append( "table",
@@ -233,22 +243,16 @@ return;
 }
 (await this.obtener_datos_de_fila(  ));
 } catch(error) {
-console.log(error);
-throw error;
-}
-
+return Vue.prototype.$dialogs.error( error );}
 },
 async refrescar_fichero( columna ) {try {
-console.log('[DEBUG]', "PaginaDeAbrirFila.refrescar_fichero");
+console.log('[DEBUG]', "PaginaDeAbrirItem.refrescar_fichero");
 (await this.obtener_datos_de_fila(  ));
 } catch(error) {
-console.log(error);
-throw error;
-}
-
+return Vue.prototype.$dialogs.error( error );}
 },
 async desvincular_fichero( columna ) {try {
-console.log('[DEBUG]', "PaginaDeAbrirFila.desvincular_fichero");
+console.log('[DEBUG]', "PaginaDeAbrirItem.desvincular_fichero");
 const [ fichero ] = this.item[ columna ];
 const formulario = new FormData(  );
 formulario.append( "table",
@@ -268,10 +272,7 @@ return;
 }
 (await this.obtener_datos_de_fila(  ));
 } catch(error) {
-console.log(error);
-throw error;
-}
-
+return Vue.prototype.$dialogs.error( error );}
 }
 },
 watch:{ 
@@ -285,7 +286,7 @@ created() {
 beforeMount() {
 },
 async mounted() {try {
-console.log('[DEBUG]', "PaginaDeAbrirFila.mounted");
+console.log('[DEBUG]', "PaginaDeAbrirItem.mounted");
 (await this.obtener_datos_de_fila(  ));
 } catch(error) {
 console.log(error);

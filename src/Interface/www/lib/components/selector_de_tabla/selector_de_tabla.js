@@ -167,7 +167,7 @@ window.SelectorDeTabla = Castelog.metodos.un_componente_vue2("SelectorDeTabla",
  + "                  </xtablecell>"
  + "                  <xtablecell v-for=\"prop, prop_index in row\" v-bind:key=\"'row-' + row_index + '-cell-' + prop_index\">"
  + "                    <template v-if=\"prop_index === 'id'\">"
- + "                      <button v-if=\"modo === 'ver'\" v-on:click=\"() => {$router.history.push('/abrir-fila/' + tabla + '/' + prop);}\">{{ prop }}</button>"
+ + "                      <button v-if=\"modo === 'ver'\" v-on:click=\"() => {$router.history.push('/abrir-item/' + tabla + '/' + prop);}\">{{ prop }}</button>"
  + "                      <span v-else=\"\">{{ prop }}</span>"
  + "                    </template>"
  + "                    <template v-else=\"\">"

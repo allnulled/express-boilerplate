@@ -245,7 +245,8 @@ module.exports = class extends BasicController {
 
     async onBuildUpdateSet(data) {
         this.api.Utilities.Trace("api.Controllers.Update.onBuildUpdateSet");
-        const { table, columns, item } = data;
+        const { table, item } = data;
+        const columns = Object.keys(item);
         let sql = "";
         sql += "UPDATE ";
         sql += sqlstring.escapeId(table);

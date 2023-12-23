@@ -13,7 +13,9 @@ module.exports = class {
     async dispatch(request, response, next) {
         this.api.Utilities.Trace("api.Controllers.Environment");
         return this.api.Utilities.DispatchSuccess(response, {
-            envvars: process.env
+            entorno: {
+                DATABASE_DRIVER: process.env.DATABASE_DRIVER
+            }
         });
     }
 

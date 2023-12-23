@@ -13,7 +13,7 @@
  - **@description**:  Comprueba, con una query si es necesario, que el item tiene uno de los valores indicados (valores_string).
  - **@returns**:  `tiene_valor:Booleano` Si tiene o no alguno de los valores indicados (valores_string).
 
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Database/Decorators/Conditionals/columna_tiene_valor.js
+ - **file**: /home/carlos/Software/Nodejs2/ebo_blog/src/Database/Decorators/Conditionals/columna_tiene_valor.js
 
 ----
 
@@ -24,7 +24,7 @@
  - **@parameter**:   `permisos:Array<String>` Los permisos a comprobar.
  - **@description**:  Devuelve un booleano indicando si tiene alguno de los permisos indicados (permisos).
  - **@returns**:  `no_tiene_permisos:Boolean`
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Database/Decorators/Conditionals/no_tiene_permiso.js
+ - **file**: /home/carlos/Software/Nodejs2/ebo_blog/src/Database/Decorators/Conditionals/no_tiene_permiso.js
 
 ----
 
@@ -36,7 +36,7 @@
  - **@description**:  Devuelve `true` siempre.
  - **@returns**:  `true`
 
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Database/Decorators/Conditionals/ocurre.js
+ - **file**: /home/carlos/Software/Nodejs2/ebo_blog/src/Database/Decorators/Conditionals/ocurre.js
 
 ----
 
@@ -48,7 +48,16 @@
  - **@description**:  Devuelve un booleano para permitir saber si tiene o no alguno de los permisos indicados (permisos).
  - **@returns**:  `tiene_permisos:Boolean` Si tiene o no alguno de los permisos.
 
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Database/Decorators/Conditionals/tiene_permiso.js
+ - **file**: /home/carlos/Software/Nodejs2/ebo_blog/src/Database/Decorators/Conditionals/tiene_permiso.js
+
+----
+
+
+ - **@name**:  src/Database/Decorators/Consequencials/permitir.js#resolve
+ - **@type**:  Función
+ - **@parameter**:  `data:Object`
+ - **@description**:  Deja pasar la acción, no hace nada.
+ - **file**: /home/carlos/Software/Nodejs2/ebo_blog/src/Database/Decorators/Consequencials/permitir.js
 
 ----
 
@@ -62,16 +71,19 @@
  - **@parameter**:  `separador:String` El separador de los valores posibles. Por defecto: "," (coma).
  - **@description**:  Si es un Update comprueba que el valor en la columna indicada (id_columna) sea uno de los valores indicados (valores)
 
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Database/Decorators/Consequencials/columna_solo_actualizable_a.js
+ - **file**: /home/carlos/Software/Nodejs2/ebo_blog/src/Database/Decorators/Consequencials/columna_solo_actualizable_a.js
 
 ----
 
 
- - **@name**:  src/Database/Decorators/Consequencials/permitir.js#resolve
+ - **@name**:  src/Database/Decorators/Interceptors/Columns/fijar_fecha_actual_al_actualizar.js#resolve
  - **@type**:  Función
- - **@parameter**:  `data:Object`
- - **@description**:  Deja pasar la acción, no hace nada.
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Database/Decorators/Consequencials/permitir.js
+ - **@parameter**:  `data:Object` Requerido. Los parámetros de la request, inclusive request.
+ - **@parameter**:  `id_columna:String` Requerido. Nombre de la columna.
+ - **@parameter**:  `controlador:Object` Requerido. El controlador que lo está llamando.
+ - **@description**:  Si es Insertar, toma un nuevo Date, lo formatea a texto y lo asigna a la columna indicada ("id_columna").
+
+ - **file**: /home/carlos/Software/Nodejs2/ebo_blog/src/Database/Decorators/Interceptors/Columns/fijar_fecha_actual_al_insertar.js
 
 ----
 
@@ -82,19 +94,18 @@
  - **@parameter**:  `error:String` Mensaje de error.
  - **@description**:  Se lanza un error, o el indicado (error) o uno estándar.
 
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Database/Decorators/Consequencials/prohibir.js
+ - **file**: /home/carlos/Software/Nodejs2/ebo_blog/src/Database/Decorators/Consequencials/prohibir.js
 
 ----
 
 
- - **@name**:  src/Database/Decorators/Interceptors/Columns/fijar_fecha_actual_de_usuario_al_actualizar.js#resolve
+ - **@name**:  Decorators.js
  - **@type**:  Función
- - **@parameter**:  `data:Object` Requerido. Los parámetros de la request, inclusive request.
- - **@parameter**:  `id_columna:String` Requerido. Nombre de la columna.
- - **@parameter**:  `controlador:Object` Requerido. El controlador que lo está llamando.
- - **@description**:  Si es Insertar, toma un nuevo Date, lo formatea a texto y lo asigna a la columna indicada ("id_columna").
+ - **@parameter**:  `api` Objeto principal de la API del proyecto.
+ - **@description**:  Devuelve cargados los condicionales, consecuenciales, interceptores de tabla e interceptores de columna, juntos, cargados por este mismo orden. Este fichero se llama, teóricamente, desde el main para cargar los decoradores de la base de datos.
+ - **@returns**:  `{ Conditionals, Consequencials, Interceptors: { Tables, Columns } }`
 
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Database/Decorators/Interceptors/Columns/fijar_fecha_actual_al_insertar.js
+ - **file**: /home/carlos/Software/Nodejs2/ebo_blog/src/Database/Decorators/Decorators.js
 
 ----
 
@@ -106,7 +117,7 @@
  - **@parameter**:  `controlador:Object` Requerido. El controlador que lo está llamando.
  - **@description**:  Si es Insertar o Actualizar, toma el `request.$$authentication.usuario.id` y lo asigna a la columna indicada ("id_columna").
 
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Database/Decorators/Interceptors/Columns/fijar_id_de_usuario_al_actualizar.js
+ - **file**: /home/carlos/Software/Nodejs2/ebo_blog/src/Database/Decorators/Interceptors/Columns/fijar_id_de_usuario_al_actualizar.js
 
 ----
 
@@ -118,21 +129,7 @@
  - **@parameter**:  `controlador:Object` Requerido.
  - **@description**:  Si es Insert, toma el `request.$$authentication.usuario.id` y lo pone en la columna indicada ("id_columna").
 
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Database/Decorators/Interceptors/Columns/fijar_id_de_usuario_al_insertar.js
-
-----
-
-
- - **@name**:  src/Database/Decorators/Interceptors/Columns/fijar_valor_inicial.js#resolve
- - **@type**:  Función
- - **@parameter**:  `data:Object` Requerido. Este objeto contiene los parámetros de la petición, inclusive la petición y la respuesta.
- - **@parameter**:  `id_columna:String|Number` Requerido. Nombre de la columna cuyo valor es a fijar.
- - **@parameter**:  `controlador:Object` Requerido. Este es el objeto del controlador que lo ha enchufado. Puede ser uno entre los controladores CRUD: Select, Insert, Update o Delete.
- - **@parameter**:  `valor:String` Requerido. Valor a fijar.
- - **@description**:  Comprueba si es operación Insert.
-Si es, fija el valor indicado (valor) en la columna indicada (id_columna).
-
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Database/Decorators/Interceptors/Columns/fijar_valor_inicial.js
+ - **file**: /home/carlos/Software/Nodejs2/ebo_blog/src/Database/Decorators/Interceptors/Columns/fijar_id_de_usuario_al_insertar.js
 
 ----
 
@@ -150,7 +147,21 @@ Si es, fija el valor indicado (valor) en la columna indicada (id_columna).
  - **@parameter**:  `columna_creado_en_historial:String` Por defecto: `creado_en`.
  - **@description**:  Cuando es "Insert" / "Update" / "Delete" hace un insert en la tabla indicada (tabla_historial) con los campos indicados.
 
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Database/Decorators/Interceptors/Tables/registrar_cambios_en.js
+ - **file**: /home/carlos/Software/Nodejs2/ebo_blog/src/Database/Decorators/Interceptors/Tables/registrar_cambios_en.js
+
+----
+
+
+ - **@name**:  src/Database/Decorators/Interceptors/Columns/fijar_valor_inicial.js#resolve
+ - **@type**:  Función
+ - **@parameter**:  `data:Object` Requerido. Este objeto contiene los parámetros de la petición, inclusive la petición y la respuesta.
+ - **@parameter**:  `id_columna:String|Number` Requerido. Nombre de la columna cuyo valor es a fijar.
+ - **@parameter**:  `controlador:Object` Requerido. Este es el objeto del controlador que lo ha enchufado. Puede ser uno entre los controladores CRUD: Select, Insert, Update o Delete.
+ - **@parameter**:  `valor:String` Requerido. Valor a fijar.
+ - **@description**:  Comprueba si es operación Insert.
+Si es, fija el valor indicado (valor) en la columna indicada (id_columna).
+
+ - **file**: /home/carlos/Software/Nodejs2/ebo_blog/src/Database/Decorators/Interceptors/Columns/fijar_valor_inicial.js
 
 ----
 
@@ -168,30 +179,7 @@ Crea una conexión neta con 2 propiedades:
 
 Devuelve la conexión neta.
 
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Database/Drivers/sqlite.js
-
-----
-
-
- - **@name**:  src/Database/Decorators/Interceptors/Columns/fijar_fecha_actual_de_usuario_al_actualizar.js#resolve
- - **@type**:  Función
- - **@parameter**:  `data:Object` Requerido. Los parámetros de la request, inclusive request.
- - **@parameter**:  `id_columna:String` Requerido. Nombre de la columna.
- - **@parameter**:  `controlador:Object` Requerido. El controlador que lo está llamando.
- - **@description**:  Si es Insertar o Actualizar, toma un nuevo Date, lo formatea a texto y lo asigna a la columna indicada ("id_columna").
-
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Database/Decorators/Interceptors/Columns/fijar_fecha_actual_al_actualizar.js
-
-----
-
-
- - **@name**:  Decorators.js
- - **@type**:  Función
- - **@parameter**:  `api` Objeto principal de la API del proyecto.
- - **@description**:  Devuelve cargados los condicionales, consecuenciales, interceptores de tabla e interceptores de columna, juntos, cargados por este mismo orden. Este fichero se llama, teóricamente, desde el main para cargar los decoradores de la base de datos.
- - **@returns**:  `{ Conditionals, Consequencials, Interceptors: { Tables, Columns } }`
-
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Database/Decorators/Decorators.js
+ - **file**: /home/carlos/Software/Nodejs2/ebo_blog/src/Database/Drivers/sqlite.js
 
 ----
 
@@ -206,7 +194,19 @@ Busca en `data.item_recuperated` y si no encuentra, hace una query buscando el `
 Compara el `request.$$authentication.usuario.id` con el valor de esta columna indicada (id_columna).
 Si no coinciden, lanza un error de que el valor no se puede alterar.
 
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Database/Decorators/Interceptors/Columns/es_actualizable_si_id_usuario_coincide_con.js
+ - **file**: /home/carlos/Software/Nodejs2/ebo_blog/src/Database/Decorators/Interceptors/Columns/es_actualizable_si_id_usuario_coincide_con.js
+
+----
+
+
+ - **@name**:  src/Database/Decorators/Interceptors/Columns/fijar_fecha_actual_al_actualizar.js#resolve
+ - **@type**:  Función
+ - **@parameter**:  `data:Object` Requerido. Los parámetros de la request, inclusive request.
+ - **@parameter**:  `id_columna:String` Requerido. Nombre de la columna.
+ - **@parameter**:  `controlador:Object` Requerido. El controlador que lo está llamando.
+ - **@description**:  Si es Insertar o Actualizar, toma un nuevo Date, lo formatea a texto y lo asigna a la columna indicada ("id_columna").
+
+ - **file**: /home/carlos/Software/Nodejs2/ebo_blog/src/Database/Decorators/Interceptors/Columns/fijar_fecha_actual_al_actualizar.js
 
 ----
 
@@ -216,7 +216,7 @@ Si no coinciden, lanza un error de que el valor no se puede alterar.
  - **@parameter**:  `api` 
  - **@description**:  Inicializa una aplicación express en `api.app`.
 
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/load.js
+ - **file**: /home/carlos/Software/Nodejs2/ebo_blog/src/load.js
 
 ----
 
@@ -226,7 +226,7 @@ Si no coinciden, lanza un error de que el valor no se puede alterar.
  - **@parameter**:  `api` 
  - **@description**:  Inicializa variables `process.env` a partir del código y de `src/Configurations/.env`.
 
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/load.js
+ - **file**: /home/carlos/Software/Nodejs2/ebo_blog/src/load.js
 
 ----
 
@@ -241,7 +241,7 @@ Le inyecta la api.
 Si encuentra una `utilidad.action`: establece como utilidad este método bindeado a la utilidad.
 Si, en cambio, encuentra una `utilidad.factory`: establece como utilidad el resultado de llamar a este método, bindeado a la utilidad.
 Si no, lanza un error porque la interfaz estaría incompleta en la utilidad.
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/load.js
+ - **file**: /home/carlos/Software/Nodejs2/ebo_blog/src/load.js
 
 ----
 
@@ -257,7 +257,7 @@ Le inyecta la api.
 Si encuentra el método `query.query`: establece como query este método bindeado a la instancia de query.
 Si, en cambio, encuentra el método `query.factory`: establece como query el resultado de una llamada a este método bindeado a la instancia de query.
 
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/load.js
+ - **file**: /home/carlos/Software/Nodejs2/ebo_blog/src/load.js
 
 ----
 
@@ -274,7 +274,7 @@ Si encuentra el método "initialize" lo llama.
 Asigna el resultado de "initialize" o si no el modelo creado en "api.Models.$orm[modelName]".
 Imprime el número de modelo y su origen.
 
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/load.js
+ - **file**: /home/carlos/Software/Nodejs2/ebo_blog/src/load.js
 
 ----
 
@@ -292,7 +292,7 @@ Al final del proceso, también se escriben los ficheros:
     - `Database/Structures/schema.json`
     - `Database/Structures/schema.compacted.json`
 
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/load.js
+ - **file**: /home/carlos/Software/Nodejs2/ebo_blog/src/load.js
 
 ----
 
@@ -308,7 +308,7 @@ Al final del proceso, también se escriben los ficheros:
 
 Estos decoradores no son los únicos que la API permite como decoradores significativos para la seguridad del servidor y los datos. Pero sí representan el grupo de decoradores más personalizable. Esto se explicará en otra parte de la API.
 
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/load.js
+ - **file**: /home/carlos/Software/Nodejs2/ebo_blog/src/load.js
 
 ----
 
@@ -318,7 +318,7 @@ Estos decoradores no son los únicos que la API permite como decoradores signifi
  - **@parameter**:  `api` 
  - **@description**:  Monta la aplicación express, aplicando CORS, body-parser y un middleware de ficheros estáticos en "/ui" con la carpeta "src/Interface/www".
 
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/load.js
+ - **file**: /home/carlos/Software/Nodejs2/ebo_blog/src/load.js
 
 ----
 
@@ -333,7 +333,7 @@ Crea un middleware.
 Le inyecta la API.
 Asigna el nuevo middleware llamando a su función "factory()".
 
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/load.js
+ - **file**: /home/carlos/Software/Nodejs2/ebo_blog/src/load.js
 
 ----
 
@@ -350,7 +350,7 @@ Ordena todos los controladores según su propiedad "priority", el cual a mayor e
 Itera sobre los controladores ordenados.
 Monta cada controlador en la aplicación.
 
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/load.js
+ - **file**: /home/carlos/Software/Nodejs2/ebo_blog/src/load.js
 
 ----
 
@@ -360,7 +360,7 @@ Monta cada controlador en la aplicación.
  - **@parameter**:  `api` 
  - **@description**:  Despliega la aplicación express por el puerto `process.env.APP_PORT`. Imprime entonces las URLs de la aplicación servidor y de la aplicación del backoffice en Castelog/Vue.js.
 
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/load.js
+ - **file**: /home/carlos/Software/Nodejs2/ebo_blog/src/load.js
 
 ----
 
@@ -382,7 +382,7 @@ await setupMiddlewares(api, configurations);
 await setupControllers(api, configurations);
 await deployApplication(api, configurations);
 
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/load.js
+ - **file**: /home/carlos/Software/Nodejs2/ebo_blog/src/load.js
 
 ----
 
@@ -391,7 +391,7 @@ await deployApplication(api, configurations);
  - **@type**:  Promise
  - **@description**:  Exporta una llamada a la función `main()`.
 
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/load.js
+ - **file**: /home/carlos/Software/Nodejs2/ebo_blog/src/load.js
 
 ----
 
@@ -400,16 +400,7 @@ await deployApplication(api, configurations);
  - **@type**:  Función
  - **@details**:  `await this.api.Utilities.AuthenticateRequest(request);`. En errores, despacha un error en formato JSON.
 
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Middlewares/AuthenticateRequest.js
-
-----
-
-
- - **@name**:  api.Middlewares.BodyParserUrlEncoded
- - **@type**:  Función
- - **@details**:  `return require("body-parser").urlencoded({ extended: true });`
-
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Middlewares/BodyParserUrlEncoded.js
+ - **file**: /home/carlos/Software/Nodejs2/ebo_blog/src/Middlewares/AuthenticateRequest.js
 
 ----
 
@@ -418,7 +409,16 @@ await deployApplication(api, configurations);
  - **@type**:  Función
  - **@details**:  `return require("body-parser").json({ extended: true });`
 
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Middlewares/BodyParserJson.js
+ - **file**: /home/carlos/Software/Nodejs2/ebo_blog/src/Middlewares/BodyParserJson.js
+
+----
+
+
+ - **@name**:  api.Middlewares.BodyParserUrlEncoded
+ - **@type**:  Función
+ - **@details**:  `return require("body-parser").urlencoded({ extended: true });`
+
+ - **file**: /home/carlos/Software/Nodejs2/ebo_blog/src/Middlewares/BodyParserUrlEncoded.js
 
 ----
 
@@ -428,17 +428,7 @@ await deployApplication(api, configurations);
  - **@parameter**:  `request:Object`
  - **@description**:  Autentifica una petición. Esto significa que establece el valor `request.$$authentication` con los datos de sesion, usuario y permisos, si el token proporcionado vía `authorization` pertenece a una sesión válida. De lo contrario, lanzará un error estandarizado.
 
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Utilities/AuthenticateRequest.js
-
-----
-
-
- - **@name**:  api.Utilities.CloneExceptProperties
- - **@type**:  Función
- - **@parameter**:  `object:Object`
- - **@parameter**:  `properties:Array<String>`
- - **@parameter**:  `output:Object`
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Utilities/CloneExceptProperties.js
+ - **file**: /home/carlos/Software/Nodejs2/ebo_blog/src/Utilities/AuthenticateRequest.js
 
 ----
 
@@ -449,7 +439,26 @@ await deployApplication(api, configurations);
  - **@description**:  Este método sirve como puente con la API de check-that, otro proyecto del autor que sirve para hacer comprobaciones de tipos y tener un reporte de errores uniforme y más o menos asistido.
  - **@returns**:  Devuelve un `check.that(...args)` de la libería `check-that`. Para saber más de cómo se utiliza `check-that`, puedes ir a [https://github.com/allnulled/check-that](https://github.com/allnulled/check-that).
 
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Utilities/CheckThat.js
+ - **file**: /home/carlos/Software/Nodejs2/ebo_blog/src/Utilities/CheckThat.js
+
+----
+
+
+ - **@name**:  api.Utilities.CloneExceptProperties
+ - **@type**:  Función
+ - **@parameter**:  `object:Object`
+ - **@parameter**:  `properties:Array<String>`
+ - **@parameter**:  `output:Object`
+ - **file**: /home/carlos/Software/Nodejs2/ebo_blog/src/Utilities/CloneExceptProperties.js
+
+----
+
+
+ - **@name**:  api.Utilities.CloseDeployment
+ - **@type**:  Función
+ - **@description**:  Cierra conexiones a bases de datos, servidores, etc. para que termine el proceso de forma natural controlada.
+
+ - **file**: /home/carlos/Software/Nodejs2/ebo_blog/src/Utilities/CloseDeployment.js
 
 ----
 
@@ -460,16 +469,7 @@ await deployApplication(api, configurations);
  - **@parameter**:  `properties:Array<String>`
  - **@parameter**:  `output:Object`
  - **@returns**:  `output:Object` Objeto indicado (output) pero extendido con propiedades indicadas (propierties) del objeto indicado (object).
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Utilities/CloneOnlyProperties.js
-
-----
-
-
- - **@name**:  api.Utilities.CloseDeployment
- - **@type**:  Función
- - **@description**:  Cierra conexiones a bases de datos, servidores, etc. para que termine el proceso de forma natural controlada.
-
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Utilities/CloseDeployment.js
+ - **file**: /home/carlos/Software/Nodejs2/ebo_blog/src/Utilities/CloneOnlyProperties.js
 
 ----
 
@@ -479,7 +479,7 @@ await deployApplication(api, configurations);
  - **@parameter**:   `...args:Array<any>` Lista de textos o cosas que se quieren imprimir por consola antes de matar el proceso.
  - **@description**:  Imprime por consola cualquier cosa y luego termina el proceso actual. Solo se usa para propósitos de debug.
 
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Utilities/Die.js
+ - **file**: /home/carlos/Software/Nodejs2/ebo_blog/src/Utilities/Die.js
 
 ----
 
@@ -490,7 +490,7 @@ await deployApplication(api, configurations);
  - **@parameter**:  `error:Error` Error.
  - **@description**:  Establece el estado de la respuesta de petición indicada (response) en 500 (ESTADO:BAD REQUEST) y envía un JSON con una cabecera estándar de petición con fallo enviando el error indicado (error).
 
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Utilities/DispatchError.js
+ - **file**: /home/carlos/Software/Nodejs2/ebo_blog/src/Utilities/DispatchError.js
 
 ----
 
@@ -502,7 +502,18 @@ await deployApplication(api, configurations);
  - **@description**:  Establece el estado de la respuesta de petición indicada (response) en 500 (ESTADO:BAD REQUEST) y la cabecera de texto en HTML con charset utf8. Luego envía los contenidos como HTM, que son la página de `src/Interface/ejs/error.html` renderizada con el error indicado (error).
 Si esto falla, imprime el error y luego envía el `error.message` como único texto plano.
 
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Utilities/DispatchErrorAsHtml.js
+ - **file**: /home/carlos/Software/Nodejs2/ebo_blog/src/Utilities/DispatchErrorAsHtml.js
+
+----
+
+
+ - **@name**:  api.Utilities.DispatchSuccess
+ - **@type**:  Función
+ - **@parameter**:  `response:Object` Respuesta de la petición.
+ - **@parameter**:  `data:Object` Datos de respuesta.
+ - **@description**:  Establece el estado de la respuesta de petición indicada (response) en 200 (ESTADO:OK) y envía un JSON con una cabecera estándar de petición con éxito enviando los datos indicados (data).
+
+ - **file**: /home/carlos/Software/Nodejs2/ebo_blog/src/Utilities/DispatchSuccess.js
 
 ----
 
@@ -513,7 +524,17 @@ Si esto falla, imprime el error y luego envía el `error.message` como único te
  - **@parameter**:  `contents`
  - **@description**:  Establece el estado de la respuesta de petición indicada (response) en 200 (ESTADO:OK) y la cabecera de texto en HTML con charset utf8. Luego envía los contenidos (contents) como HTML.
 
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Utilities/DispatchSuccessAsHtml.js
+ - **file**: /home/carlos/Software/Nodejs2/ebo_blog/src/Utilities/DispatchSuccessAsHtml.js
+
+----
+
+
+ - **@name**:  api.Utilities.GetDatabaseConnection
+ - **@type**:  Función
+ - **@description**:  Devuelve `this.api.Database.Connection`.
+ - **@returns**:  `connection:Object` Objeto conexión neta.
+
+ - **file**: /home/carlos/Software/Nodejs2/ebo_blog/src/Utilities/GetDatabaseConnection.js
 
 ----
 
@@ -532,17 +553,7 @@ Si `inListMode` es `false` se devuelve:
    - Un objeto donde las claves son los grupos y los valores son:
    - Objetos donde las claves son los id de los objetos y los valores son los objetos.
 
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Utilities/FormatRowsByGroups.js
-
-----
-
-
- - **@name**:  api.Utilities.GetDatabaseConnection
- - **@type**:  Función
- - **@description**:  Devuelve `this.api.Database.Connection`.
- - **@returns**:  `connection:Object` Objeto conexión neta.
-
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Utilities/GetDatabaseConnection.js
+ - **file**: /home/carlos/Software/Nodejs2/ebo_blog/src/Utilities/FormatRowsByGroups.js
 
 ----
 
@@ -553,18 +564,7 @@ Si `inListMode` es `false` se devuelve:
  - **@description**:  Devuelve una fecha (tipo Date) a partir de una fecha tipo texto indicada (`dateString`)
  - **@returns**:  `date:Date` Fecha en formato Date.
 
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Utilities/GetDateFromString.js
-
-----
-
-
- - **@name**:  api.Utilities.DispatchSuccess
- - **@type**:  Función
- - **@parameter**:  `response:Object` Respuesta de la petición.
- - **@parameter**:  `data:Object` Datos de respuesta.
- - **@description**:  Establece el estado de la respuesta de petición indicada (response) en 200 (ESTADO:OK) y envía un JSON con una cabecera estándar de petición con éxito enviando los datos indicados (data).
-
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Utilities/DispatchSuccess.js
+ - **file**: /home/carlos/Software/Nodejs2/ebo_blog/src/Utilities/GetDateFromString.js
 
 ----
 
@@ -576,19 +576,7 @@ Si `inListMode` es `false` se devuelve:
  - **@description**:  Transforma una fecha (o Date) indicado (date) en texto (o String) con el formato indicado (format).
  - **@returns**:  `output:String` La fecha formateada a texto.
 
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Utilities/GetDateToString.js
-
-----
-
-
- - **@name**:  api.Utilities.GetRandomString
- - **@type**:  Función
- - **@parameter**:  `len:Integer` Número de caracteres.
- - **@parameter**:  `alphabet:Array<String>` Alfabeto de caracteres válidos.
- - **@description**:  Genera un texto aleatorio de longitud indicada (len) con el alfabeto indicado (alphabet).
- - **@returns**:  Devuelve el texto aleatorio generado.
-
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Utilities/GetRandomString.js
+ - **file**: /home/carlos/Software/Nodejs2/ebo_blog/src/Utilities/GetDateToString.js
 
 ----
 
@@ -603,18 +591,7 @@ Si `inListMode` es `false` se devuelve:
    - `request.query`
    - `request.headers`
 
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Utilities/GetRequestParameter.js
-
-----
-
-
- - **@name**:  api.Utilities.InitializeDatabase
- - **@type**:  Función
- - **@description**:  Inicializa la base de datos, esto es: crea las tablas y aplica las migraciones. Consiste en 2 llamadas:
-   - `this.applyCreationScript`: aplica el script de creación.
-   - `this.applyMigrationScript`: aplica el script de migración.
-
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Utilities/InitializeDatabase.js
+ - **file**: /home/carlos/Software/Nodejs2/ebo_blog/src/Utilities/GetRequestParameter.js
 
 ----
 
@@ -626,7 +603,30 @@ Si `inListMode` es `false` se devuelve:
  - **@parameter**:  `padding:String` Texto a usar en el espaciamiento.
  - **@descripcion**:  Devuelve la copia de un texto (text) pero con tantos espacios como se indiquen (spaces) de los cuales los que falten serán rellenados con el texto indicado (padding), aplicado por la izquierda.
  - **@returns**:  `output:String` Texto resultante del espaciamiento.
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Utilities/GetStringLeftPadded.js
+ - **file**: /home/carlos/Software/Nodejs2/ebo_blog/src/Utilities/GetStringLeftPadded.js
+
+----
+
+
+ - **@name**:  api.Utilities.InitializeDatabase
+ - **@type**:  Función
+ - **@description**:  Inicializa la base de datos, esto es: crea las tablas y aplica las migraciones. Consiste en 2 llamadas:
+   - `this.applyCreationScript`: aplica el script de creación.
+   - `this.applyMigrationScript`: aplica el script de migración.
+
+ - **file**: /home/carlos/Software/Nodejs2/ebo_blog/src/Utilities/InitializeDatabase.js
+
+----
+
+
+ - **@name**:  api.Utilities.GetRandomString
+ - **@type**:  Función
+ - **@parameter**:  `len:Integer` Número de caracteres.
+ - **@parameter**:  `alphabet:Array<String>` Alfabeto de caracteres válidos.
+ - **@description**:  Genera un texto aleatorio de longitud indicada (len) con el alfabeto indicado (alphabet).
+ - **@returns**:  Devuelve el texto aleatorio generado.
+
+ - **file**: /home/carlos/Software/Nodejs2/ebo_blog/src/Utilities/GetRandomString.js
 
 ----
 
@@ -636,7 +636,7 @@ Si `inListMode` es `false` se devuelve:
  - **@parameter**:  `query:String` Consulta SQL a ejecutar.
  - **@returns**:  `any` Resultado de la consulta ejecutada.
 
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Utilities/QueryDatabase.js
+ - **file**: /home/carlos/Software/Nodejs2/ebo_blog/src/Utilities/QueryDatabase.js
 
 ----
 
@@ -646,4 +646,4 @@ Si `inListMode` es `false` se devuelve:
  - **@parameter**:  `msg:String`. Mensaje a imprimir por traceo.
  - **@description**:  Imprime un mensaje prependizando '[TRACE]' por la consola.
 
- - **file**: /home/carlos/Software/Nodejs/express-boilerplate/src/Utilities/Trace.js
+ - **file**: /home/carlos/Software/Nodejs2/ebo_blog/src/Utilities/Trace.js

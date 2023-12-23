@@ -156,6 +156,7 @@ window.App = Castelog.metodos.una_aplicacion_vue2(
 return { autentication:undefined,
 original_schema:undefined,
 compacted_schema:undefined,
+environment:undefined,
 sesion_token:undefined
 };
 } catch(error) {
@@ -178,6 +179,19 @@ this.compacted_schema = respuesta_schema.data.data.esquema.compacto;
 } catch(error) {
 Vue.prototype.$dialogs.error( error );}
 },
+async obtener_entorno() {try {
+console.log('[DEBUG]', "App.obtener_entorno");
+const respuesta_entorno = (await Castelog.metodos.una_peticion_http("/Environment", "POST", { 
+}, { authorization:this.sesion_token
+}, null, error => {
+Vue.prototype.$dialogs.error( error );}));
+if(respuesta_entorno instanceof Error) {
+return;
+}
+this.environment = respuesta_entorno.data.data.entorno;
+} catch(error) {
+Vue.prototype.$dialogs.error( error );}
+},
 async login( nombre,
 contrasenya ) {try {
 console.log('[DEBUG]', "App.login");
@@ -194,6 +208,7 @@ contrasenya );
 this.authentication = respuesta_login.data.data;
 this.sesion_token = respuesta_login.data.data.sesion.token;
 (await this.obtener_schema(  ));
+(await this.obtener_entorno(  ));
 } catch(error) {
 Vue.prototype.$dialogs.error( error );}
 },
@@ -276,7 +291,7 @@ component:PaginaDeAbrirTabla,
 props:{ 
 }
 },
-{ path:"/abrir-fila/:tabla/:fila",
+{ path:"/abrir-item/:tabla/:fila",
 name:"PaginaDeAbrirFila",
 component:PaginaDeAbrirFila,
 props:{ 

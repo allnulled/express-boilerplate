@@ -1,7 +1,7 @@
 asigno xcomponents_components.xtableviewer como un componente vue2 con nombre "xtableviewer" con plantilla {
-  <table class="Component xtableviewer">
+  <div class="Component xtableviewer">
     <slot></slot>
-  </table>
+  </div>
 } con lógica {
   retorno {
     propiedad props como {}.

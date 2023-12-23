@@ -4,15 +4,33 @@ const autoincrement_word = process.env.DATABASE_DRIVER === "sqlite" ? "AUTOINCRE
 CREATE TABLE Blog_post (
   id INTEGER PRIMARY KEY <%-autoincrement_word%>,
   titulo VARCHAR(255) /*
-    @tipo: Texto normal
-    @tipo-en-formulario: text
-    @descripcion: El título del post del blog.
-    @maximo-de-texto: 100
-    @minimo-de-texto: 1
+    @tipo: texto
+    @descripcion: El título del post.
+    @maximo_de_texto: 255
+    @minimo_de_texto: 1
   */,
-  subtitulo VARCHAR(512),
-  contenido TEXT,
-  fecha_de_creacion DATETIME
+  subtitulo VARCHAR(512) /*
+    @tipo: texto
+    @descripcion: El subtítulo del post.
+    @maximo_de_texto: 255
+    @minimo_de_texto: 1
+  */,
+  contenido TEXT /*
+    @tipo: texto
+    @descripcion: El contenido del post.
+    @maximo_de_texto: 255
+    @minimo_de_texto: 1
+  */,
+  fecha_de_creacion DATETIME /*
+    @tipo: fecha
+    @descripcion: La fecha de la creación del post.
+    @interceptar: await $interceptors.Columns.fijar_fecha_actual_al_insertar(data, 'fecha_de_creacion', this)
+  */,
+  fecha_de_actualizacion DATETIME /*
+    @tipo: fecha
+    @descripcion: La fecha de la última actualización del post.
+    @interceptar: await $interceptors.Columns.fijar_fecha_actual_al_actualizar(data, 'fecha_de_actualizacion', this)
+  */
 );
 
 CREATE TABLE Blog_comentario_de_post (

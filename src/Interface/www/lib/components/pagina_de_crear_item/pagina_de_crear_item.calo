@@ -84,7 +84,7 @@ asigno window.PaginaDeCrearItem como un componente vue2 con nombre "PaginaDeCrea
             <textarea style="width:100%;min-height:80px;resize:vertical;" v-model="item[field.columna]"></textarea>
           </xpanel>
           <xpanel v-else-if="root.compacted_schema[ $route.params.tabla ].composicion[field.columna].tipo === 'DATETIME'">
-            <VuejsCalendario :al-cambiar="v => item[field.columna] = v" />
+            <VuejsCalendario modo="datetime" :al-cambiar="v => item[field.columna] = v" />
           </xpanel>
           <xpanel v-else-if="false">
             --- END OF Input rendering ---
@@ -126,7 +126,7 @@ asigno window.PaginaDeCrearItem como un componente vue2 con nombre "PaginaDeCrea
           con cabeceras { authorization: this.root.sesion_token }
           en errores retorno Vue.prototype.$dialogs.error(error).
         si respuesta_crear_item es instancia de Error retorno.
-        hago this.$router.history.push("/abrir-fila/" + this.$route.params.tabla + "/" + respuesta_crear_item.data.data.id).
+        hago this.$router.history.push("/abrir-item/" + this.$route.params.tabla + "/" + respuesta_crear_item.data.data.id).
       }.
       método asíncrono guardar_fichero donde {
         debugo "PaginaDeCrearItem.guardar_fichero".

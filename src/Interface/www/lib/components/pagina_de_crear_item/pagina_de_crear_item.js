@@ -85,7 +85,7 @@ window.PaginaDeCrearItem = Castelog.metodos.un_componente_vue2("PaginaDeCrearIte
  + "            <textarea style=\"width:100%;min-height:80px;resize:vertical;\" v-model=\"item[field.columna]\"></textarea>"
  + "          </xpanel>"
  + "          <xpanel v-else-if=\"root.compacted_schema[ $route.params.tabla ].composicion[field.columna].tipo === 'DATETIME'\">"
- + "            <VuejsCalendario :al-cambiar=\"v => item[field.columna] = v\" />"
+ + "            <VuejsCalendario modo=\"datetime\" :al-cambiar=\"v => item[field.columna] = v\" />"
  + "          </xpanel>"
  + "          <xpanel v-else-if=\"false\">"
  + "            --- END OF Input rendering ---"
@@ -125,7 +125,7 @@ return Vue.prototype.$dialogs.error( error );}));
 if(respuesta_crear_item instanceof Error) {
 return;
 }
-this.$router.history.push( "/abrir-fila/" + this.$route.params.tabla + "/" + respuesta_crear_item.data.data.id );
+this.$router.history.push( "/abrir-item/" + this.$route.params.tabla + "/" + respuesta_crear_item.data.data.id );
 } catch(error) {
 console.log(error);
 throw error;

@@ -28,6 +28,11 @@ module.exports = class Blog_post_Base {
                 type: Sequelize.DATE,
                 allowNull: true,
                 field: "fecha_de_creacion"
+            },
+            fecha_de_actualizacion: {
+                type: Sequelize.DATE,
+                allowNull: true,
+                field: "fecha_de_actualizacion"
             }
         }, {
           timestamps: false,
