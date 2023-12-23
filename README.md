@@ -23,7 +23,7 @@ Código fuente base para servidores basados en Node.js + Express + SQL.
     - [Crear un modelo de dato](#crear-un-modelo-de-dato)
     - [Crear un modelo de dato programático](#crear-un-modelo-de-dato-programático)
     - [Crear datos de migración inicial](#crear-datos-de-migración-inicial)
-    - [Crear consulta](#crear-consulta)
+    - [Crear una consulta](#crear-una-consulta)
     - [Crear un comando](#crear-un-comando)
     - [Crear una configuración](#crear-una-configuración)
     - [Crear librería de interfaz](#crear-librería-de-interfaz)
@@ -32,6 +32,7 @@ Código fuente base para servidores basados en Node.js + Express + SQL.
   - [¿Qué más ofrece el boilerplate?](#qué-más-ofrece-el-boilerplate)
     - [Clases utilitarias](#clases-utilitarias)
     - [Generador de documentación](#generador-de-documentación)
+    - [Decoradores de base de datos](#decoradores-de-base-de-datos)
 
 ## Prestaciones
 
@@ -209,7 +210,7 @@ En [`src/Models`](./src/Models) añades la clase de modelo que deseas. No tienen
 
 En [`src/Database/Scripts/migration.sql`](./src/Database/Scripts/migration.sql) añades la tabla de datos que deseas.
 
-### Crear consulta
+### Crear una consulta
 
 En [`src/Queries/`](./src/Queries) añades una nueva clase con el método `query` o `factory`.
 
@@ -276,4 +277,33 @@ npm run build-documentation
 ```
 
 Así puedes generar documentación en [`src/Documentation/REFERENCE.md`](./src/Documentation/REFERENCE.md).
+
+
+### Decoradores de base de datos
+
+Los **decoradores de base de datos** son una de las *features* estrella de «express-boilerplate». Con ellos, podemos decorar partes de la base de datos (tabla o columna, básicamente) con referencias que podemos recuperar luego en el código, y usarlas para que tenga comportamientos específicos en según qué  partes del código.
+
+Los adaptadores que actualmente están disponibles son:
+
+ - [Conditionals](./src/Database/Decorators/Conditionals)
+    - [columna_tiene_valor.js](./src/Database/Decorators/Conditionals/columna_tiene_valor.js)
+    - [no_tiene_permiso.js](./src/Database/Decorators/Conditionals/no_tiene_permiso.js)
+    - [ocurre.js](./src/Database/Decorators/Conditionals/ocurre.js)
+    - [tiene_permiso.js](./src/Database/Decorators/Conditionals/tiene_permiso.js)
+ - [Consequencials](./src/Database/Decorators/Consequencials)
+    - [columna_solo_actualizable_a.js](./src/Database/Decorators/Consequencials/columna_solo_actualizable_a.js)
+    - [permitir.js](./src/Database/Decorators/Consequencials/permitir.js)
+    - [prohibir.js](./src/Database/Decorators/Consequencials/prohibir.js)
+ - [Formateadores](./src/Database/Decorators/Formateadores)
+ - [Interceptors/Columns](./src/Database/Decorators/Interceptors/Columns)
+    - [es_actualizable_si_id_usuario_coincide_con.js](./src/Database/Decorators/Interceptors/Columns/es_actualizable_si_id_usuario_coincide_con.js)
+    - [fijar_fecha_actual_al_actualizar.js](./src/Database/Decorators/Interceptors/Columns/fijar_fecha_actual_al_actualizar.js)
+    - [fijar_fecha_actual_al_insertar.js](./src/Database/Decorators/Interceptors/Columns/fijar_fecha_actual_al_insertar.js)
+    - [fijar_id_de_usuario_al_actualizar.js](./src/Database/Decorators/Interceptors/Columns/fijar_id_de_usuario_al_actualizar.js)
+    - [fijar_id_de_usuario_al_insertar.js](./src/Database/Decorators/Interceptors/Columns/fijar_id_de_usuario_al_insertar.js)
+    - [fijar_valor_inicial.js](./src/Database/Decorators/Interceptors/Columns/fijar_valor_inicial.js)
+    - [solo_html_seguro.js](./src/Database/Decorators/Interceptors/Columns/solo_html_seguro.js)
+ - [Interceptors/Tables](./src/Database/Decorators/Interceptors/Tables)
+    - [registrar_cambios_en.js](./src/Database/Decorators/Interceptors/Tables/registrar_cambios_en.js)
+
 
