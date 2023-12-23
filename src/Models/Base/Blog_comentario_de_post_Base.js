@@ -14,6 +14,11 @@ module.exports = class Blog_comentario_de_post_Base {
                 allowNull: true,
                 field: "contenido"
             },
+            detalles: {
+                type: Sequelize.TEXT,
+                allowNull: true,
+                field: "detalles"
+            },
             fecha_de_creacion: {
                 type: Sequelize.DATE,
                 allowNull: true,

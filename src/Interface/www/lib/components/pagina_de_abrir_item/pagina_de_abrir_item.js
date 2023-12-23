@@ -139,8 +139,6 @@ throw error;
 },
 methods:{ adaptar_fecha( fecha ) {try {
 console.log('[DEBUG]', "PaginaDeAbrirItem.adaptar_fecha");
-console.log("ADAPTAR_FECHAAAAAAAAAAAAAAA");
-console.log(fecha);
 const entorno_de_datos = this.root.environment.DATABASE_DRIVER;
 let fecha_adaptada = fecha;
 if(entorno_de_datos === "mysql") {
@@ -148,8 +146,18 @@ fecha_adaptada = fecha.replace( "T",
 " " ).replace( "Z",
 "" );
 }
-console.log(fecha_adaptada);
 return fecha_adaptada;
+} catch(error) {
+console.log(error);
+throw error;
+}
+
+},
+adaptar_texto_largo( texto_largo ) {try {
+console.log('[DEBUG]', "PaginaDeAbrirItem.adaptar_texto_largo");
+return texto_largo.replace( new RegExp( "\\n",
+"g" ),
+"\n" );
 } catch(error) {
 console.log(error);
 throw error;
@@ -173,6 +181,23 @@ if(respuesta_datos_de_fila.data.data.output.length === 0) {
 return this.$router.history.push( "/abrir-tabla/" + this.$route.params.tabla );
 }
 this.item = respuesta_datos_de_fila.data.data.output[ 0 ];
+corrijo_saltos_de_linea: {
+const columnas = Object.keys( this.root.compacted_schema[ this.$route.params.tabla ].composicion ).filter( ( columna_id ) => {try {
+return (!(columna_id.startsWith( "$" )));
+} catch(error) {
+console.log(error);
+throw error;
+}
+
+} );
+for(let index = 0; index < columnas.length; index++) {const columna = columnas[ index ];
+const columna_valor = this.item[ columna ];
+const columna_metadato = this.root.compacted_schema[ this.$route.params.tabla ].composicion[ columna ];
+if(typeof this.item[ columna ] === 'string') {
+this.item[ columna ] = this.item[ columna ].replaceAll( "\\n",
+"\n" );
+}}}
+
 this.$forceUpdate( true );
 } catch(error) {
 return Vue.prototype.$dialogs.error( error );}

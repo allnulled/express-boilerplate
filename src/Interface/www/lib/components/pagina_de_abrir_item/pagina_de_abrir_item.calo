@@ -140,15 +140,17 @@ asigno window.PaginaDeAbrirItem como un componente vue2 con nombre "PaginaDeAbri
       
       método adaptar_fecha con (fecha) donde {
         debugo "PaginaDeAbrirItem.adaptar_fecha".
-        imprimo "ADAPTAR_FECHAAAAAAAAAAAAAAA".
-        imprimo fecha.
         creo entorno_de_datos como this.root.environment.DATABASE_DRIVER.
         creo variable fecha_adaptada como fecha.
         si entorno_de_datos es igual que "mysql" {
           asigno fecha_adaptada como fecha.replace("T", " ").replace("Z", "").
         }.
-        imprimo fecha_adaptada.
         retorno fecha_adaptada.
+      }.
+
+      método adaptar_texto_largo con (texto_largo) donde {
+        debugo "PaginaDeAbrirItem.adaptar_texto_largo".
+        retorno texto_largo.replace(una nueva RegExp("\\n", "g"), "\n").
       }.
 
       método asíncrono obtener_datos_de_fila donde {
@@ -166,6 +168,21 @@ asigno window.PaginaDeAbrirItem como un componente vue2 con nombre "PaginaDeAbri
         si respuesta_datos_de_fila es instancia de Error retorno.
         si respuesta_datos_de_fila.data.data.output.length es igual que 0 retorno this.$router.history.push("/abrir-tabla/" + this.$route.params.tabla).
         asigno this.item como respuesta_datos_de_fila.data.data.output[0].
+        
+        en proceso corrijo_saltos_de_linea {
+          creo columnas como Object.keys(this.root.compacted_schema[ this.$route.params.tabla ].composicion).filter(una lambda con (columna_id) donde {
+            retorno no columna_id.startsWith("$").
+          }).
+          desde 0 hasta columnas.length {
+            creo columna como columnas[index].
+            creo columna_valor como this.item[columna].
+            creo columna_metadato como this.root.compacted_schema[this.$route.params.tabla].composicion[columna].
+            si this.item[columna] es tipo texto {
+              asigno this.item[columna] como this.item[columna].replaceAll("\\n", "\n").
+            }.
+          }.
+        }.
+
         hago this.$forceUpdate(true).
       } en errores retorno Vue.prototype.$dialogs.error(error).
       

@@ -359,18 +359,47 @@
         "tipo": "TEXT",
         "detalles": "",
         "orden": 1,
-        "atributos": {}
+        "atributos": {
+          "tipo": "texto largo",
+          "descripcion": "El contenido en HTML del post.",
+          "interceptar": [
+            {
+              "tipo": "interceptar",
+              "eval": " await $interceptors.Columns.solo_html_seguro(data, 'contenido', this)"
+            }
+          ]
+        }
+      },
+      "detalles": {
+        "sentencia": "columna",
+        "columna": "detalles",
+        "tipo": "TEXT",
+        "detalles": "",
+        "orden": 2,
+        "atributos": {
+          "tipo": "texto largo",
+          "descripcion": "Detalles sobre el post."
+        }
       },
       "fecha_de_creacion": {
         "sentencia": "columna",
         "columna": "fecha_de_creacion",
         "tipo": "DATETIME",
         "detalles": "",
-        "orden": 2,
-        "atributos": {}
+        "orden": 3,
+        "atributos": {
+          "tipo": "fecha",
+          "descripcion": "La fecha de la creación del post.",
+          "interceptar": [
+            {
+              "tipo": "interceptar",
+              "eval": " await $interceptors.Columns.fijar_fecha_actual_al_insertar(data, 'fecha_de_creacion', this)"
+            }
+          ]
+        }
       }
     },
-    "script": "\n\nCREATE TABLE Blog_comentario_de_post (\n  id INTEGER PRIMARY KEY AUTOINCREMENT,\n  contenido TEXT,\n  fecha_de_creacion DATETIME\n);",
+    "script": "\n\nCREATE TABLE Blog_comentario_de_post (\n  id INTEGER PRIMARY KEY AUTOINCREMENT,\n  contenido TEXT /*\n    @tipo: texto largo\n    @descripcion: El contenido en HTML del post.\n    @interceptar: await $interceptors.Columns.solo_html_seguro(data, 'contenido', this)\n  */,\n  detalles TEXT /*\n    @tipo: texto largo\n    @descripcion: Detalles sobre el post.\n  */,\n  fecha_de_creacion DATETIME /*\n    @tipo: fecha\n    @descripcion: La fecha de la creación del post.\n    @interceptar: await $interceptors.Columns.fijar_fecha_actual_al_insertar(data, 'fecha_de_creacion', this)\n  */\n);",
     "atributos": {}
   }
 }
