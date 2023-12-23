@@ -1,0 +1,38 @@
+.win7 table.tabla_de_calendario {
+    width: 100%;
+}
+.win7 button.boton_de_calendario {
+    min-width: auto;
+    width: 100%;
+    padding: 2px;
+    white-space: nowrap;
+}
+.win7 button.boton_de_mover_mes {
+    width: 100%;
+}
+.win7 input.entrada_de_calendario {
+    min-width: auto;
+    width: 100%;
+    text-align: center;
+    position: relative;
+}
+.win7 .chivato_de_fecha {
+    font-size: 8px;
+    font-family: monospace;
+    text-align: center;
+}
+.win7 .tabla_de_entrada_de_calendario {
+    width: 100%;
+    border-collapse: collapse;
+}
+.win7 .calendario {
+    background-color: #333;
+    padding: 4px;
+    margin-top: 4px;
+    box-shadow: 0 0 4px black;
+    position: absolute;
+    width: 100%;
+    left: auto;
+    right: 12px;
+    display: inline-block;
+}
