@@ -24,7 +24,9 @@ const setupInitialization = async function (api) {
  */
 const setupConfigurations = async function (api) {
   process.env.APP_IDENTIFIER = "Express Boilerplate - Example";
+  process.env.APP_HOST = "http://127.0.0.1";
   process.env.APP_PORT = 5054;
+  process.env.APP_URL = process.env.APP_HOST + ":" + process.env.APP_PORT;
   process.env.DATABASE_FILE = path.resolve(__dirname + "/Database/database.sqlite");
   process.env.DATABASE_RESET = true;
   process.env.DATABASE_DRIVER = "sqlite";

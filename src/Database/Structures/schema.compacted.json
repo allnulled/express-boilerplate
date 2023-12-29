@@ -1,4 +1,61 @@
 {
+  "Usuario_no_confirmado": {
+    "tabla": "Usuario_no_confirmado",
+    "composicion": {
+      "id": {
+        "sentencia": "columna",
+        "columna": "id",
+        "tipo": "INTEGER",
+        "detalles": "PRIMARY KEY AUTO_INCREMENT",
+        "orden": 0,
+        "atributos": {
+          "tiene_nombre": "Identificador"
+        }
+      },
+      "nombre": {
+        "sentencia": "columna",
+        "columna": "nombre",
+        "tipo": "VARCHAR",
+        "detalles": "(255) UNIQUE",
+        "orden": 1,
+        "atributos": {
+          "tiene_nombre": "Nombre"
+        }
+      },
+      "contrasenya": {
+        "sentencia": "columna",
+        "columna": "contrasenya",
+        "tipo": "VARCHAR",
+        "detalles": "(255)",
+        "orden": 2,
+        "atributos": {
+          "tiene_nombre": "Contraseña"
+        }
+      },
+      "correo": {
+        "sentencia": "columna",
+        "columna": "correo",
+        "tipo": "VARCHAR",
+        "detalles": "(255) UNIQUE",
+        "orden": 3,
+        "atributos": {
+          "tiene_nombre": "Correo"
+        }
+      },
+      "token_de_confirmacion": {
+        "sentencia": "columna",
+        "columna": "token_de_confirmacion",
+        "tipo": "VARCHAR",
+        "detalles": "(30) UNIQUE",
+        "orden": 4,
+        "atributos": {
+          "tiene_nombre": "Token de confirmación"
+        }
+      }
+    },
+    "script": "CREATE TABLE Usuario_no_confirmado (\n  id INTEGER PRIMARY KEY AUTO_INCREMENT /*\n    @tiene_nombre: Identificador\n  */,\n  nombre VARCHAR(255) UNIQUE /*\n    @tiene_nombre: Nombre\n  */,\n  contrasenya VARCHAR(255) /*\n    @tiene_nombre: Contraseña\n  */,\n  correo VARCHAR(255) UNIQUE /*\n    @tiene_nombre: Correo\n  */,\n  token_de_confirmacion VARCHAR(30) UNIQUE /*\n    @tiene_nombre: Token de confirmación\n  */\n);",
+    "atributos": {}
+  },
   "Usuario": {
     "tabla": "Usuario",
     "composicion": {
@@ -36,14 +93,24 @@
         "sentencia": "columna",
         "columna": "correo",
         "tipo": "VARCHAR",
-        "detalles": "(255)",
+        "detalles": "(255) UNIQUE",
         "orden": 3,
         "atributos": {
           "tiene_nombre": "Correo"
         }
+      },
+      "token_de_recuperacion": {
+        "sentencia": "columna",
+        "columna": "token_de_recuperacion",
+        "tipo": "VARCHAR",
+        "detalles": "(255) UNIQUE",
+        "orden": 4,
+        "atributos": {
+          "tiene_nombre": "Token de recuperación"
+        }
       }
     },
-    "script": "CREATE TABLE Usuario (\n  id INTEGER PRIMARY KEY AUTO_INCREMENT /*\n    @tiene_nombre: Identificador\n  */,\n  nombre VARCHAR(255) UNIQUE /*\n    @tiene_nombre: Nombre\n  */,\n  contrasenya VARCHAR(255) /*\n    @tiene_nombre: Contraseña\n  */,\n  correo VARCHAR(255) /*\n    @tiene_nombre: Correo\n  */\n);",
+    "script": "\nCREATE TABLE Usuario (\n  id INTEGER PRIMARY KEY AUTO_INCREMENT /*\n    @tiene_nombre: Identificador\n  */,\n  nombre VARCHAR(255) UNIQUE /*\n    @tiene_nombre: Nombre\n  */,\n  contrasenya VARCHAR(255) /*\n    @tiene_nombre: Contraseña\n  */,\n  correo VARCHAR(255) UNIQUE /*\n    @tiene_nombre: Correo\n  */,\n  token_de_recuperacion VARCHAR(255) UNIQUE /*\n    @tiene_nombre: Token de recuperación\n  */\n);",
     "atributos": {}
   },
   "Permiso": {

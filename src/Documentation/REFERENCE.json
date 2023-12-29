@@ -24,7 +24,7 @@
         "@returns": [
           " `tiene_valor:Booleano` Si tiene o no alguno de los valores indicados (valores_string).\n"
         ],
-        "file": "/home/carlos/Software/Nodejs2/ebo_blog/src/Database/Decorators/Conditionals/columna_tiene_valor.js"
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Database/Decorators/Conditionals/columna_tiene_valor.js"
       }
     ],
     [
@@ -48,7 +48,7 @@
         "@returns": [
           " `no_tiene_permisos:Boolean`"
         ],
-        "file": "/home/carlos/Software/Nodejs2/ebo_blog/src/Database/Decorators/Conditionals/no_tiene_permiso.js"
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Database/Decorators/Conditionals/no_tiene_permiso.js"
       }
     ],
     [
@@ -72,7 +72,7 @@
         "@returns": [
           " `true`\n"
         ],
-        "file": "/home/carlos/Software/Nodejs2/ebo_blog/src/Database/Decorators/Conditionals/ocurre.js"
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Database/Decorators/Conditionals/ocurre.js"
       }
     ],
     [
@@ -81,22 +81,64 @@
           ""
         ],
         "@name": [
-          " src/Database/Decorators/Conditionals/tiene_permiso.js#resolve"
+          " src/Database/Decorators/Consequencials/prohibir.js#resolve"
         ],
         "@type": [
           " Función"
         ],
         "@parameter": [
           " `data:Object` Los parámetros de la petición, petición inclusive.",
-          " `...permisos:Array<String>` Permisos a comprobar."
+          " `error:String` Mensaje de error."
         ],
         "@description": [
-          " Devuelve un booleano para permitir saber si tiene o no alguno de los permisos indicados (permisos)."
+          " Se lanza un error, o el indicado (error) o uno estándar.\n"
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Database/Decorators/Consequencials/prohibir.js"
+      }
+    ],
+    [
+      {
+        "_": [
+          ""
+        ],
+        "@name": [
+          " Decorators.js"
+        ],
+        "@type": [
+          " Función"
+        ],
+        "@parameter": [
+          " `api` Objeto principal de la API del proyecto."
+        ],
+        "@description": [
+          " Devuelve cargados los condicionales, consecuenciales, interceptores de tabla e interceptores de columna, juntos, cargados por este mismo orden. Este fichero se llama, teóricamente, desde el main para cargar los decoradores de la base de datos."
         ],
         "@returns": [
-          " `tiene_permisos:Boolean` Si tiene o no alguno de los permisos.\n"
+          " `{ Conditionals, Consequencials, Interceptors: { Tables, Columns } }`\n"
         ],
-        "file": "/home/carlos/Software/Nodejs2/ebo_blog/src/Database/Decorators/Conditionals/tiene_permiso.js"
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Database/Decorators/Decorators.js"
+      }
+    ],
+    [
+      {
+        "_": [
+          ""
+        ],
+        "@name": [
+          " src/Database/Decorators/Interceptors/Columns/es_actualizable_si_id_usuario_coincide_con.js#resolve"
+        ],
+        "@type": [
+          " Función"
+        ],
+        "@parameter": [
+          " `data:Object` Los parámetros de la petición, petición inclusive.",
+          " `id_columna:String` Nombre de la columna.",
+          " `controlador:Object` Instancia de controlador que enchufa este decorador."
+        ],
+        "@description": [
+          " Lanza un error si se está intentando actualizar pero la columna no coincide con el identificador de usuario.\nBusca en `data.item_recuperated` y si no encuentra, hace una query buscando el `data.id` como id, usando `data.table` como tabla.\nCompara el `request.$$authentication.usuario.id` con el valor de esta columna indicada (id_columna).\nSi no coinciden, lanza un error de que el valor no se puede alterar.\n"
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Database/Decorators/Interceptors/Columns/es_actualizable_si_id_usuario_coincide_con.js"
       }
     ],
     [
@@ -116,7 +158,51 @@
         "@description": [
           " Deja pasar la acción, no hace nada."
         ],
-        "file": "/home/carlos/Software/Nodejs2/ebo_blog/src/Database/Decorators/Consequencials/permitir.js"
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Database/Decorators/Consequencials/permitir.js"
+      }
+    ],
+    [
+      {
+        "_": [
+          ""
+        ],
+        "@name": [
+          " src/Database/Decorators/Interceptors/Columns/fijar_fecha_actual_al_actualizar.js#resolve"
+        ],
+        "@type": [
+          " Función"
+        ],
+        "@parameter": [
+          " `data:Object` Requerido. Los parámetros de la request, inclusive request.",
+          " `id_columna:String` Requerido. Nombre de la columna.",
+          " `controlador:Object` Requerido. El controlador que lo está llamando."
+        ],
+        "@description": [
+          " Si es Insertar o Actualizar, toma un nuevo Date, lo formatea a texto y lo asigna a la columna indicada (\"id_columna\").\n"
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Database/Decorators/Interceptors/Columns/fijar_fecha_actual_al_actualizar.js"
+      }
+    ],
+    [
+      {
+        "_": [
+          ""
+        ],
+        "@name": [
+          " src/Database/Decorators/Interceptors/Columns/fijar_fecha_actual_al_actualizar.js#resolve"
+        ],
+        "@type": [
+          " Función"
+        ],
+        "@parameter": [
+          " `data:Object` Requerido. Los parámetros de la request, inclusive request.",
+          " `id_columna:String` Requerido. Nombre de la columna.",
+          " `controlador:Object` Requerido. El controlador que lo está llamando."
+        ],
+        "@description": [
+          " Si es Insertar, toma un nuevo Date, lo formatea a texto y lo asigna a la columna indicada (\"id_columna\").\n"
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Database/Decorators/Interceptors/Columns/fijar_fecha_actual_al_insertar.js"
       }
     ],
     [
@@ -140,7 +226,7 @@
         "@description": [
           " Si es un Update comprueba que el valor en la columna indicada (id_columna) sea uno de los valores indicados (valores)\n"
         ],
-        "file": "/home/carlos/Software/Nodejs2/ebo_blog/src/Database/Decorators/Consequencials/columna_solo_actualizable_a.js"
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Database/Decorators/Consequencials/columna_solo_actualizable_a.js"
       }
     ],
     [
@@ -149,64 +235,22 @@
           ""
         ],
         "@name": [
-          " src/Database/Decorators/Interceptors/Columns/fijar_fecha_actual_al_actualizar.js#resolve"
-        ],
-        "@type": [
-          " Función"
-        ],
-        "@parameter": [
-          " `data:Object` Requerido. Los parámetros de la request, inclusive request.",
-          " `id_columna:String` Requerido. Nombre de la columna.",
-          " `controlador:Object` Requerido. El controlador que lo está llamando."
-        ],
-        "@description": [
-          " Si es Insertar, toma un nuevo Date, lo formatea a texto y lo asigna a la columna indicada (\"id_columna\").\n"
-        ],
-        "file": "/home/carlos/Software/Nodejs2/ebo_blog/src/Database/Decorators/Interceptors/Columns/fijar_fecha_actual_al_insertar.js"
-      }
-    ],
-    [
-      {
-        "_": [
-          ""
-        ],
-        "@name": [
-          " src/Database/Decorators/Consequencials/prohibir.js#resolve"
+          " src/Database/Decorators/Conditionals/tiene_permiso.js#resolve"
         ],
         "@type": [
           " Función"
         ],
         "@parameter": [
           " `data:Object` Los parámetros de la petición, petición inclusive.",
-          " `error:String` Mensaje de error."
+          " `...permisos:Array<String>` Permisos a comprobar."
         ],
         "@description": [
-          " Se lanza un error, o el indicado (error) o uno estándar.\n"
-        ],
-        "file": "/home/carlos/Software/Nodejs2/ebo_blog/src/Database/Decorators/Consequencials/prohibir.js"
-      }
-    ],
-    [
-      {
-        "_": [
-          ""
-        ],
-        "@name": [
-          " Decorators.js"
-        ],
-        "@type": [
-          " Función"
-        ],
-        "@parameter": [
-          " `api` Objeto principal de la API del proyecto."
-        ],
-        "@description": [
-          " Devuelve cargados los condicionales, consecuenciales, interceptores de tabla e interceptores de columna, juntos, cargados por este mismo orden. Este fichero se llama, teóricamente, desde el main para cargar los decoradores de la base de datos."
+          " Devuelve un booleano para permitir saber si tiene o no alguno de los permisos indicados (permisos)."
         ],
         "@returns": [
-          " `{ Conditionals, Consequencials, Interceptors: { Tables, Columns } }`\n"
+          " `tiene_permisos:Boolean` Si tiene o no alguno de los permisos.\n"
         ],
-        "file": "/home/carlos/Software/Nodejs2/ebo_blog/src/Database/Decorators/Decorators.js"
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Database/Decorators/Conditionals/tiene_permiso.js"
       }
     ],
     [
@@ -228,7 +272,7 @@
         "@description": [
           " Si es Insertar o Actualizar, toma el `request.$$authentication.usuario.id` y lo asigna a la columna indicada (\"id_columna\").\n"
         ],
-        "file": "/home/carlos/Software/Nodejs2/ebo_blog/src/Database/Decorators/Interceptors/Columns/fijar_id_de_usuario_al_actualizar.js"
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Database/Decorators/Interceptors/Columns/fijar_id_de_usuario_al_actualizar.js"
       }
     ],
     [
@@ -250,7 +294,53 @@
         "@description": [
           " Si es Insert, toma el `request.$$authentication.usuario.id` y lo pone en la columna indicada (\"id_columna\").\n"
         ],
-        "file": "/home/carlos/Software/Nodejs2/ebo_blog/src/Database/Decorators/Interceptors/Columns/fijar_id_de_usuario_al_insertar.js"
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Database/Decorators/Interceptors/Columns/fijar_id_de_usuario_al_insertar.js"
+      }
+    ],
+    [
+      {
+        "_": [
+          ""
+        ],
+        "@name": [
+          " src/Database/Decorators/Interceptors/Columns/fijar_valor_inicial.js#resolve"
+        ],
+        "@type": [
+          " Función"
+        ],
+        "@parameter": [
+          " `data:Object` Requerido. Este objeto contiene los parámetros de la petición, inclusive la petición y la respuesta.",
+          " `id_columna:String|Number` Requerido. Nombre de la columna cuyo valor es a fijar.",
+          " `controlador:Object` Requerido. Este es el objeto del controlador que lo ha enchufado. Puede ser uno entre los controladores CRUD: Select, Insert, Update o Delete.",
+          " `valor:String` Requerido. Valor a fijar."
+        ],
+        "@description": [
+          " Comprueba si es operación Insert.\nSi es, fija el valor indicado (valor) en la columna indicada (id_columna).\n"
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Database/Decorators/Interceptors/Columns/fijar_valor_inicial.js"
+      }
+    ],
+    [
+      {
+        "_": [
+          ""
+        ],
+        "@name": [
+          " src/Database/Decorators/Interceptors/Columns/solo_html_seguro.js#resolve"
+        ],
+        "@type": [
+          " Función"
+        ],
+        "@parameter": [
+          " `data:Object` Requerido. Este objeto contiene los parámetros de la petición, inclusive la petición y la respuesta.",
+          " `id_columna:String|Number` Requerido. Nombre de la columna cuyo valor es a fijar.",
+          " `controlador:Object` Requerido. Este es el objeto del controlador que lo ha enchufado. Puede ser uno entre los controladores CRUD: Select, Insert, Update o Delete.",
+          " `valor:String` Requerido. Valor a fijar."
+        ],
+        "@description": [
+          " Comprueba si es operación Insert o Update.\nSi es, parsea el valor de la columna con la librería `sanitize-html` y establece el valor en lo que ésta devuelve.\n"
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Database/Decorators/Interceptors/Columns/solo_html_seguro.js"
       }
     ],
     [
@@ -278,30 +368,7 @@
         "@description": [
           " Cuando es \"Insert\" / \"Update\" / \"Delete\" hace un insert en la tabla indicada (tabla_historial) con los campos indicados.\n"
         ],
-        "file": "/home/carlos/Software/Nodejs2/ebo_blog/src/Database/Decorators/Interceptors/Tables/registrar_cambios_en.js"
-      }
-    ],
-    [
-      {
-        "_": [
-          ""
-        ],
-        "@name": [
-          " src/Database/Decorators/Interceptors/Columns/fijar_valor_inicial.js#resolve"
-        ],
-        "@type": [
-          " Función"
-        ],
-        "@parameter": [
-          " `data:Object` Requerido. Este objeto contiene los parámetros de la petición, inclusive la petición y la respuesta.",
-          " `id_columna:String|Number` Requerido. Nombre de la columna cuyo valor es a fijar.",
-          " `controlador:Object` Requerido. Este es el objeto del controlador que lo ha enchufado. Puede ser uno entre los controladores CRUD: Select, Insert, Update o Delete.",
-          " `valor:String` Requerido. Valor a fijar."
-        ],
-        "@description": [
-          " Comprueba si es operación Insert.\nSi es, fija el valor indicado (valor) en la columna indicada (id_columna).\n"
-        ],
-        "file": "/home/carlos/Software/Nodejs2/ebo_blog/src/Database/Decorators/Interceptors/Columns/fijar_valor_inicial.js"
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Database/Decorators/Interceptors/Tables/registrar_cambios_en.js"
       }
     ],
     [
@@ -321,51 +388,195 @@
         "@returns": [
           " Devuelve una interfaz homogénea para ejecutar código en la base de datos SQL. En este caso, rellena con la lógica para funcionar con una base de datos SQLite. El proceso es el que sigue.\nSi `process.env.DATABASE_RESET` tiene valor true sobreescribe en blanco el fichero `process.env.DATABASE_FILE`.\nCrea una conexión bruta con tal fichero.\nCrea una conexión neta con 2 propiedades:\n\n   - NativeConnection: conexión nativa de sqlite (la conexión \"bruta\").\n   - Execute: función para ejecutar código SQL contra la base de datos.\n\nDevuelve la conexión neta.\n"
         ],
-        "file": "/home/carlos/Software/Nodejs2/ebo_blog/src/Database/Drivers/sqlite.js"
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Database/Drivers/sqlite.js"
       }
     ],
     [
       {
         "_": [
-          ""
+          "Create key-value caches of limited size"
         ],
-        "@name": [
-          " src/Database/Decorators/Interceptors/Columns/es_actualizable_si_id_usuario_coincide_con.js#resolve"
+        "@returns": [
+          " {function(string, object)} Returns the Object data after storing it on itself with\nproperty name the (space-suffixed) string and (if the cache is larger than Expr.cacheLength)\ndeleting the oldest entry"
         ],
-        "@type": [
-          " Función"
-        ],
-        "@parameter": [
-          " `data:Object` Los parámetros de la petición, petición inclusive.",
-          " `id_columna:String` Nombre de la columna.",
-          " `controlador:Object` Instancia de controlador que enchufa este decorador."
-        ],
-        "@description": [
-          " Lanza un error si se está intentando actualizar pero la columna no coincide con el identificador de usuario.\nBusca en `data.item_recuperated` y si no encuentra, hace una query buscando el `data.id` como id, usando `data.table` como tabla.\nCompara el `request.$$authentication.usuario.id` con el valor de esta columna indicada (id_columna).\nSi no coinciden, lanza un error de que el valor no se puede alterar.\n"
-        ],
-        "file": "/home/carlos/Software/Nodejs2/ebo_blog/src/Database/Decorators/Interceptors/Columns/es_actualizable_si_id_usuario_coincide_con.js"
-      }
-    ],
-    [
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/dev/public/lib/jquery/jquery.js"
+      },
       {
         "_": [
-          ""
+          "Mark a function for special use by Sizzle"
         ],
-        "@name": [
-          " src/Database/Decorators/Interceptors/Columns/fijar_fecha_actual_al_actualizar.js#resolve"
+        "@param": [
+          " {Function} fn The function to mark"
         ],
-        "@type": [
-          " Función"
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/dev/public/lib/jquery/jquery.js"
+      },
+      {
+        "_": [
+          "Support testing using an element"
         ],
-        "@parameter": [
-          " `data:Object` Requerido. Los parámetros de la request, inclusive request.",
-          " `id_columna:String` Requerido. Nombre de la columna.",
-          " `controlador:Object` Requerido. El controlador que lo está llamando."
+        "@param": [
+          " {Function} fn Passed the created div and expects a boolean result"
         ],
-        "@description": [
-          " Si es Insertar o Actualizar, toma un nuevo Date, lo formatea a texto y lo asigna a la columna indicada (\"id_columna\").\n"
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/dev/public/lib/jquery/jquery.js"
+      },
+      {
+        "_": [
+          "Adds the same handler for all of the specified attrs"
         ],
-        "file": "/home/carlos/Software/Nodejs2/ebo_blog/src/Database/Decorators/Interceptors/Columns/fijar_fecha_actual_al_actualizar.js"
+        "@param": [
+          " {String} attrs Pipe-separated list of attributes",
+          " {Function} handler The method that will be applied"
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/dev/public/lib/jquery/jquery.js"
+      },
+      {
+        "_": [
+          "Checks document order of two siblings"
+        ],
+        "@param": [
+          " {Element} a",
+          " {Element} b"
+        ],
+        "@returns": [
+          " {Number} Returns less than 0 if a precedes b, greater than 0 if a follows b"
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/dev/public/lib/jquery/jquery.js"
+      },
+      {
+        "_": [
+          "Returns a function to use in pseudos for input types"
+        ],
+        "@param": [
+          " {String} type"
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/dev/public/lib/jquery/jquery.js"
+      },
+      {
+        "_": [
+          "Returns a function to use in pseudos for buttons"
+        ],
+        "@param": [
+          " {String} type"
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/dev/public/lib/jquery/jquery.js"
+      },
+      {
+        "_": [
+          "Returns a function to use in pseudos for positionals"
+        ],
+        "@param": [
+          " {Function} fn"
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/dev/public/lib/jquery/jquery.js"
+      },
+      {
+        "_": [
+          "Checks a node for validity as a Sizzle context"
+        ],
+        "@param": [
+          " {Element|Object=} context"
+        ],
+        "@returns": [
+          " {Element|Object|Boolean} The input node if acceptable, otherwise a falsy value"
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/dev/public/lib/jquery/jquery.js"
+      },
+      {
+        "_": [
+          "Detects XML nodes"
+        ],
+        "@param": [
+          " {Element|Object} elem An element or a document"
+        ],
+        "@returns": [
+          " {Boolean} True iff elem is a non-HTML XML node"
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/dev/public/lib/jquery/jquery.js"
+      },
+      {
+        "_": [
+          "Sets document-related variables once based on the current document"
+        ],
+        "@param": [
+          " {Element|Object} [doc] An element or document object to use to set the document"
+        ],
+        "@returns": [
+          " {Object} Returns the current document"
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/dev/public/lib/jquery/jquery.js"
+      },
+      {
+        "_": [
+          "Document sorting and removing duplicates"
+        ],
+        "@param": [
+          " {ArrayLike} results"
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/dev/public/lib/jquery/jquery.js"
+      },
+      {
+        "_": [
+          "Utility function for retrieving the text value of an array of DOM nodes"
+        ],
+        "@param": [
+          " {Array|Element} elem"
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/dev/public/lib/jquery/jquery.js"
+      },
+      {
+        "_": [
+          "A low-level selection function that works with Sizzle's compiled\n selector functions"
+        ],
+        "@param": [
+          " {String|Function} selector A selector or a pre-compiled\n selector function built with Sizzle.compile",
+          " {Element} context",
+          " {Array} [results]",
+          " {Array} [seed] A set of elements to match against"
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/dev/public/lib/jquery/jquery.js"
+      },
+      {
+        "_": [
+          "Clean-up method for dom ready events"
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/dev/public/lib/jquery/jquery.js"
+      },
+      {
+        "_": [
+          "The ready event handler and self cleanup method"
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/dev/public/lib/jquery/jquery.js"
+      },
+      {
+        "_": [
+          "Retrieve the actual display of a element"
+        ],
+        "@param": [
+          " {String} name nodeName of the element",
+          " {Object} doc Document object"
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/dev/public/lib/jquery/jquery.js"
+      },
+      {
+        "_": [
+          "Try to determine the default display value of an element"
+        ],
+        "@param": [
+          " {String} nodeName"
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/dev/public/lib/jquery/jquery.js"
+      },
+      {
+        "_": [
+          "Load a url into a page"
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/dev/public/lib/jquery/jquery.js"
+      },
+      {
+        "_": [
+          "Gets a window from an element"
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/dev/public/lib/jquery/jquery.js"
       }
     ],
     [
@@ -385,7 +596,7 @@
         "@description": [
           " Inicializa una aplicación express en `api.app`.\n"
         ],
-        "file": "/home/carlos/Software/Nodejs2/ebo_blog/src/load.js"
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/load.js"
       },
       {
         "_": [
@@ -403,7 +614,7 @@
         "@description": [
           " Inicializa variables `process.env` a partir del código y de `src/Configurations/.env`.\n"
         ],
-        "file": "/home/carlos/Software/Nodejs2/ebo_blog/src/load.js"
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/load.js"
       },
       {
         "_": [
@@ -421,7 +632,7 @@
         "@description": [
           " Monta todas las utilidades a partir de `src/Utilities`.\nItera sobre todas las utilidades.\nCrea cada utilidad con el operador `new` y pasándole la `api`.\nLe inyecta la api.\nSi encuentra una `utilidad.action`: establece como utilidad este método bindeado a la utilidad.\nSi, en cambio, encuentra una `utilidad.factory`: establece como utilidad el resultado de llamar a este método, bindeado a la utilidad.\nSi no, lanza un error porque la interfaz estaría incompleta en la utilidad."
         ],
-        "file": "/home/carlos/Software/Nodejs2/ebo_blog/src/load.js"
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/load.js"
       },
       {
         "_": [
@@ -439,7 +650,7 @@
         "@description": [
           " Monta todas las queries a partir de `src/Queries`.\nEl proceso es similar al de las utilidades.\nItera sobre las queries.\nCrea cada query.\nLe inyecta la api.\nSi encuentra el método `query.query`: establece como query este método bindeado a la instancia de query.\nSi, en cambio, encuentra el método `query.factory`: establece como query el resultado de una llamada a este método bindeado a la instancia de query.\n"
         ],
-        "file": "/home/carlos/Software/Nodejs2/ebo_blog/src/load.js"
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/load.js"
       },
       {
         "_": [
@@ -457,7 +668,7 @@
         "@description": [
           " Monta todos los modelos a partir de `src/Models`.\nEl proceso es similar al de los otros tipos de componente.\nIgnorando la carpeta \"Base\", itera sobre todos los ficheros de la carpeta.\nCrea una instancia del modelo.\nLe inyecta la api.\nSi encuentra el método \"initialize\" lo llama.\nAsigna el resultado de \"initialize\" o si no el modelo creado en \"api.Models.$orm[modelName]\".\nImprime el número de modelo y su origen.\n"
         ],
-        "file": "/home/carlos/Software/Nodejs2/ebo_blog/src/load.js"
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/load.js"
       },
       {
         "_": [
@@ -475,7 +686,7 @@
         "@description": [
           " Crea `api.Database` con:\n    - `api.Database.SequelizeConnection`: conexión para los modelos en Sequelize.\n    - `api.Database.Connection`: conexión para las queries crudas.\n    - `api.Database.Schema`: esquema de los datos original. Lo extrae de parsear el fichero \"src/Database/Scripts/creation.sql\" con el HQL Parser.\n    - `api.Database.CompactedSchema`: esquema de los datos compacto. Compacta los atributos directamente aquí.\n\nAl final del proceso, también se escriben los ficheros:\n    - `Database/Structures/schema.json`\n    - `Database/Structures/schema.compacted.json`\n"
         ],
-        "file": "/home/carlos/Software/Nodejs2/ebo_blog/src/load.js"
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/load.js"
       },
       {
         "_": [
@@ -493,7 +704,7 @@
         "@description": [
           " Monta los decoradores de base de datos, esto es:\n   - Conditionals: bloques de código que devuelven un booleano.\n   - Consequencials: bloques de código que representan acciones.\n   - Table interceptors: bloques de código que representan acciones aplicadas a una tabla.\n   - Column interceptors: bloques de código que representan acciones aplicadas a una columna.\n\nEstos decoradores no son los únicos que la API permite como decoradores significativos para la seguridad del servidor y los datos. Pero sí representan el grupo de decoradores más personalizable. Esto se explicará en otra parte de la API.\n"
         ],
-        "file": "/home/carlos/Software/Nodejs2/ebo_blog/src/load.js"
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/load.js"
       },
       {
         "_": [
@@ -511,7 +722,7 @@
         "@description": [
           " Monta la aplicación express, aplicando CORS, body-parser y un middleware de ficheros estáticos en \"/ui\" con la carpeta \"src/Interface/www\".\n"
         ],
-        "file": "/home/carlos/Software/Nodejs2/ebo_blog/src/load.js"
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/load.js"
       },
       {
         "_": [
@@ -529,7 +740,7 @@
         "@description": [
           " Monta los middlewares.\nEl proceso es similar al de otros tipos de componente.\nItera sobre la carpeta \"src/Middlewares\".\nCrea un middleware.\nLe inyecta la API.\nAsigna el nuevo middleware llamando a su función \"factory()\".\n"
         ],
-        "file": "/home/carlos/Software/Nodejs2/ebo_blog/src/load.js"
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/load.js"
       },
       {
         "_": [
@@ -547,7 +758,7 @@
         "@description": [
           " Monta los controladores.\nEl proceso es similar al de otros tipos de componente.\nItera sobre la carpeta \"src/Controllers\".\nCrea un controller.\nLe inyecta la API.\nOrdena todos los controladores según su propiedad \"priority\", el cual a mayor es, mayor es también la prioridad.\nItera sobre los controladores ordenados.\nMonta cada controlador en la aplicación.\n"
         ],
-        "file": "/home/carlos/Software/Nodejs2/ebo_blog/src/load.js"
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/load.js"
       },
       {
         "_": [
@@ -565,7 +776,7 @@
         "@description": [
           " Despliega la aplicación express por el puerto `process.env.APP_PORT`. Imprime entonces las URLs de la aplicación servidor y de la aplicación del backoffice en Castelog/Vue.js.\n"
         ],
-        "file": "/home/carlos/Software/Nodejs2/ebo_blog/src/load.js"
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/load.js"
       },
       {
         "_": [
@@ -583,7 +794,7 @@
         "@description": [
           " Define todo el *setup* del main. Esto es lo que sigue.\n\nawait setupInitialization(api, configurations);\nawait setupConfigurations(api, configurations);\nawait setupUtilities(api, configurations);\nawait setupQueries(api, configurations);\nawait setupDatabaseConnection(api, configurations);\nawait setupDatabaseDecorators(api, configurations);\nawait setupModels(api, configurations);\nawait setupApplication(api, configurations);\nawait setupMiddlewares(api, configurations);\nawait setupControllers(api, configurations);\nawait deployApplication(api, configurations);\n"
         ],
-        "file": "/home/carlos/Software/Nodejs2/ebo_blog/src/load.js"
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/load.js"
       },
       {
         "_": [
@@ -598,7 +809,15 @@
         "@description": [
           " Exporta una llamada a la función `main()`.\n"
         ],
-        "file": "/home/carlos/Software/Nodejs2/ebo_blog/src/load.js"
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/load.js"
+      }
+    ],
+    [
+      {
+        "@license": [
+          "\n\nPush v1.0.9\n=========\nA compact, cross-browser solution for the JavaScript Notifications API\n\nCredits\n-------\nTsvetan Tsvetkov (ttsvetko)\nAlex Gibson (alexgibson)\n\nLicense\n-------\n\nThe MIT License (MIT)\n\nCopyright (c) 2015-2017 Tyler Nickerson\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in\nall copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\nTHE SOFTWARE."
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/www/js/chunk-vendors.f0e3c645.js"
       }
     ],
     [
@@ -615,7 +834,7 @@
         "@details": [
           " `await this.api.Utilities.AuthenticateRequest(request);`. En errores, despacha un error en formato JSON.\n"
         ],
-        "file": "/home/carlos/Software/Nodejs2/ebo_blog/src/Middlewares/AuthenticateRequest.js"
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Middlewares/AuthenticateRequest.js"
       }
     ],
     [
@@ -632,7 +851,7 @@
         "@details": [
           " `return require(\"body-parser\").json({ extended: true });`\n"
         ],
-        "file": "/home/carlos/Software/Nodejs2/ebo_blog/src/Middlewares/BodyParserJson.js"
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Middlewares/BodyParserJson.js"
       }
     ],
     [
@@ -649,7 +868,195 @@
         "@details": [
           " `return require(\"body-parser\").urlencoded({ extended: true });`\n"
         ],
-        "file": "/home/carlos/Software/Nodejs2/ebo_blog/src/Middlewares/BodyParserUrlEncoded.js"
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Middlewares/BodyParserUrlEncoded.js"
+      }
+    ],
+    [
+      {
+        "_": [
+          "Create key-value caches of limited size"
+        ],
+        "@returns": [
+          " {function(string, object)} Returns the Object data after storing it on itself with\nproperty name the (space-suffixed) string and (if the cache is larger than Expr.cacheLength)\ndeleting the oldest entry"
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/www/lib/jquery/jquery.js"
+      },
+      {
+        "_": [
+          "Mark a function for special use by Sizzle"
+        ],
+        "@param": [
+          " {Function} fn The function to mark"
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/www/lib/jquery/jquery.js"
+      },
+      {
+        "_": [
+          "Support testing using an element"
+        ],
+        "@param": [
+          " {Function} fn Passed the created div and expects a boolean result"
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/www/lib/jquery/jquery.js"
+      },
+      {
+        "_": [
+          "Adds the same handler for all of the specified attrs"
+        ],
+        "@param": [
+          " {String} attrs Pipe-separated list of attributes",
+          " {Function} handler The method that will be applied"
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/www/lib/jquery/jquery.js"
+      },
+      {
+        "_": [
+          "Checks document order of two siblings"
+        ],
+        "@param": [
+          " {Element} a",
+          " {Element} b"
+        ],
+        "@returns": [
+          " {Number} Returns less than 0 if a precedes b, greater than 0 if a follows b"
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/www/lib/jquery/jquery.js"
+      },
+      {
+        "_": [
+          "Returns a function to use in pseudos for input types"
+        ],
+        "@param": [
+          " {String} type"
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/www/lib/jquery/jquery.js"
+      },
+      {
+        "_": [
+          "Returns a function to use in pseudos for buttons"
+        ],
+        "@param": [
+          " {String} type"
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/www/lib/jquery/jquery.js"
+      },
+      {
+        "_": [
+          "Returns a function to use in pseudos for positionals"
+        ],
+        "@param": [
+          " {Function} fn"
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/www/lib/jquery/jquery.js"
+      },
+      {
+        "_": [
+          "Checks a node for validity as a Sizzle context"
+        ],
+        "@param": [
+          " {Element|Object=} context"
+        ],
+        "@returns": [
+          " {Element|Object|Boolean} The input node if acceptable, otherwise a falsy value"
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/www/lib/jquery/jquery.js"
+      },
+      {
+        "_": [
+          "Detects XML nodes"
+        ],
+        "@param": [
+          " {Element|Object} elem An element or a document"
+        ],
+        "@returns": [
+          " {Boolean} True iff elem is a non-HTML XML node"
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/www/lib/jquery/jquery.js"
+      },
+      {
+        "_": [
+          "Sets document-related variables once based on the current document"
+        ],
+        "@param": [
+          " {Element|Object} [doc] An element or document object to use to set the document"
+        ],
+        "@returns": [
+          " {Object} Returns the current document"
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/www/lib/jquery/jquery.js"
+      },
+      {
+        "_": [
+          "Document sorting and removing duplicates"
+        ],
+        "@param": [
+          " {ArrayLike} results"
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/www/lib/jquery/jquery.js"
+      },
+      {
+        "_": [
+          "Utility function for retrieving the text value of an array of DOM nodes"
+        ],
+        "@param": [
+          " {Array|Element} elem"
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/www/lib/jquery/jquery.js"
+      },
+      {
+        "_": [
+          "A low-level selection function that works with Sizzle's compiled\n selector functions"
+        ],
+        "@param": [
+          " {String|Function} selector A selector or a pre-compiled\n selector function built with Sizzle.compile",
+          " {Element} context",
+          " {Array} [results]",
+          " {Array} [seed] A set of elements to match against"
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/www/lib/jquery/jquery.js"
+      },
+      {
+        "_": [
+          "Clean-up method for dom ready events"
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/www/lib/jquery/jquery.js"
+      },
+      {
+        "_": [
+          "The ready event handler and self cleanup method"
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/www/lib/jquery/jquery.js"
+      },
+      {
+        "_": [
+          "Retrieve the actual display of a element"
+        ],
+        "@param": [
+          " {String} name nodeName of the element",
+          " {Object} doc Document object"
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/www/lib/jquery/jquery.js"
+      },
+      {
+        "_": [
+          "Try to determine the default display value of an element"
+        ],
+        "@param": [
+          " {String} nodeName"
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/www/lib/jquery/jquery.js"
+      },
+      {
+        "_": [
+          "Load a url into a page"
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/www/lib/jquery/jquery.js"
+      },
+      {
+        "_": [
+          "Gets a window from an element"
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/www/lib/jquery/jquery.js"
       }
     ],
     [
@@ -669,7 +1076,7 @@
         "@description": [
           " Autentifica una petición. Esto significa que establece el valor `request.$$authentication` con los datos de sesion, usuario y permisos, si el token proporcionado vía `authorization` pertenece a una sesión válida. De lo contrario, lanzará un error estandarizado.\n"
         ],
-        "file": "/home/carlos/Software/Nodejs2/ebo_blog/src/Utilities/AuthenticateRequest.js"
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Utilities/AuthenticateRequest.js"
       }
     ],
     [
@@ -692,7 +1099,7 @@
         "@returns": [
           " Devuelve un `check.that(...args)` de la libería `check-that`. Para saber más de cómo se utiliza `check-that`, puedes ir a [https://github.com/allnulled/check-that](https://github.com/allnulled/check-that).\n"
         ],
-        "file": "/home/carlos/Software/Nodejs2/ebo_blog/src/Utilities/CheckThat.js"
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Utilities/CheckThat.js"
       }
     ],
     [
@@ -714,24 +1121,7 @@
         "@returns": [
           " \n"
         ],
-        "file": "/home/carlos/Software/Nodejs2/ebo_blog/src/Utilities/CloneExceptProperties.js"
-      }
-    ],
-    [
-      {
-        "_": [
-          ""
-        ],
-        "@name": [
-          " api.Utilities.CloseDeployment"
-        ],
-        "@type": [
-          " Función"
-        ],
-        "@description": [
-          " Cierra conexiones a bases de datos, servidores, etc. para que termine el proceso de forma natural controlada.\n"
-        ],
-        "file": "/home/carlos/Software/Nodejs2/ebo_blog/src/Utilities/CloseDeployment.js"
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Utilities/CloneExceptProperties.js"
       }
     ],
     [
@@ -753,7 +1143,24 @@
         "@returns": [
           " `output:Object` Objeto indicado (output) pero extendido con propiedades indicadas (propierties) del objeto indicado (object)."
         ],
-        "file": "/home/carlos/Software/Nodejs2/ebo_blog/src/Utilities/CloneOnlyProperties.js"
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Utilities/CloneOnlyProperties.js"
+      }
+    ],
+    [
+      {
+        "_": [
+          ""
+        ],
+        "@name": [
+          " api.Utilities.CloseDeployment"
+        ],
+        "@type": [
+          " Función"
+        ],
+        "@description": [
+          " Cierra conexiones a bases de datos, servidores, etc. para que termine el proceso de forma natural controlada.\n"
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Utilities/CloseDeployment.js"
       }
     ],
     [
@@ -773,28 +1180,7 @@
         "@description": [
           " Imprime por consola cualquier cosa y luego termina el proceso actual. Solo se usa para propósitos de debug.\n"
         ],
-        "file": "/home/carlos/Software/Nodejs2/ebo_blog/src/Utilities/Die.js"
-      }
-    ],
-    [
-      {
-        "_": [
-          ""
-        ],
-        "@name": [
-          " api.Utilities.DispatchSuccess"
-        ],
-        "@type": [
-          " Función"
-        ],
-        "@parameter": [
-          " `response:Object` Respuesta de la petición.",
-          " `error:Error` Error."
-        ],
-        "@description": [
-          " Establece el estado de la respuesta de petición indicada (response) en 500 (ESTADO:BAD REQUEST) y envía un JSON con una cabecera estándar de petición con fallo enviando el error indicado (error).\n"
-        ],
-        "file": "/home/carlos/Software/Nodejs2/ebo_blog/src/Utilities/DispatchError.js"
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Utilities/Die.js"
       }
     ],
     [
@@ -815,7 +1201,28 @@
         "@description": [
           " Establece el estado de la respuesta de petición indicada (response) en 500 (ESTADO:BAD REQUEST) y la cabecera de texto en HTML con charset utf8. Luego envía los contenidos como HTM, que son la página de `src/Interface/ejs/error.html` renderizada con el error indicado (error).\nSi esto falla, imprime el error y luego envía el `error.message` como único texto plano.\n"
         ],
-        "file": "/home/carlos/Software/Nodejs2/ebo_blog/src/Utilities/DispatchErrorAsHtml.js"
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Utilities/DispatchErrorAsHtml.js"
+      }
+    ],
+    [
+      {
+        "_": [
+          ""
+        ],
+        "@name": [
+          " api.Utilities.DispatchSuccess"
+        ],
+        "@type": [
+          " Función"
+        ],
+        "@parameter": [
+          " `response:Object` Respuesta de la petición.",
+          " `error:Error` Error."
+        ],
+        "@description": [
+          " Establece el estado de la respuesta de petición indicada (response) en 500 (ESTADO:BAD REQUEST) y envía un JSON con una cabecera estándar de petición con fallo enviando el error indicado (error).\n"
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Utilities/DispatchError.js"
       }
     ],
     [
@@ -836,7 +1243,7 @@
         "@description": [
           " Establece el estado de la respuesta de petición indicada (response) en 200 (ESTADO:OK) y envía un JSON con una cabecera estándar de petición con éxito enviando los datos indicados (data).\n"
         ],
-        "file": "/home/carlos/Software/Nodejs2/ebo_blog/src/Utilities/DispatchSuccess.js"
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Utilities/DispatchSuccess.js"
       }
     ],
     [
@@ -857,27 +1264,7 @@
         "@description": [
           " Establece el estado de la respuesta de petición indicada (response) en 200 (ESTADO:OK) y la cabecera de texto en HTML con charset utf8. Luego envía los contenidos (contents) como HTML.\n"
         ],
-        "file": "/home/carlos/Software/Nodejs2/ebo_blog/src/Utilities/DispatchSuccessAsHtml.js"
-      }
-    ],
-    [
-      {
-        "_": [
-          ""
-        ],
-        "@name": [
-          " api.Utilities.GetDatabaseConnection"
-        ],
-        "@type": [
-          " Función"
-        ],
-        "@description": [
-          " Devuelve `this.api.Database.Connection`."
-        ],
-        "@returns": [
-          " `connection:Object` Objeto conexión neta.\n"
-        ],
-        "file": "/home/carlos/Software/Nodejs2/ebo_blog/src/Utilities/GetDatabaseConnection.js"
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Utilities/DispatchSuccessAsHtml.js"
       }
     ],
     [
@@ -902,7 +1289,27 @@
         "@returns": [
           " `lists:Object<Array<Object>> | lists:Object<Object<Object>>` Objeto con los grupos indicados (groups) como clave y las rows con las columnas agrupadas como valor.\nSi `inListMode` es `true` se devuelve:\n   - Un objeto donde las claves son los grupos y los valores son:\n   - Arrays con los objetos como valores.\nSi `inListMode` es `false` se devuelve:\n   - Un objeto donde las claves son los grupos y los valores son:\n   - Objetos donde las claves son los id de los objetos y los valores son los objetos.\n"
         ],
-        "file": "/home/carlos/Software/Nodejs2/ebo_blog/src/Utilities/FormatRowsByGroups.js"
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Utilities/FormatRowsByGroups.js"
+      }
+    ],
+    [
+      {
+        "_": [
+          ""
+        ],
+        "@name": [
+          " api.Utilities.GetDatabaseConnection"
+        ],
+        "@type": [
+          " Función"
+        ],
+        "@description": [
+          " Devuelve `this.api.Database.Connection`."
+        ],
+        "@returns": [
+          " `connection:Object` Objeto conexión neta.\n"
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Utilities/GetDatabaseConnection.js"
       }
     ],
     [
@@ -925,7 +1332,7 @@
         "@returns": [
           " `date:Date` Fecha en formato Date.\n"
         ],
-        "file": "/home/carlos/Software/Nodejs2/ebo_blog/src/Utilities/GetDateFromString.js"
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Utilities/GetDateFromString.js"
       }
     ],
     [
@@ -949,7 +1356,31 @@
         "@returns": [
           " `output:String` La fecha formateada a texto.\n"
         ],
-        "file": "/home/carlos/Software/Nodejs2/ebo_blog/src/Utilities/GetDateToString.js"
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Utilities/GetDateToString.js"
+      }
+    ],
+    [
+      {
+        "_": [
+          ""
+        ],
+        "@name": [
+          " api.Utilities.GetRandomString"
+        ],
+        "@type": [
+          " Función"
+        ],
+        "@parameter": [
+          " `len:Integer` Número de caracteres.",
+          " `alphabet:Array<String>` Alfabeto de caracteres válidos."
+        ],
+        "@description": [
+          " Genera un texto aleatorio de longitud indicada (len) con el alfabeto indicado (alphabet)."
+        ],
+        "@returns": [
+          " Devuelve el texto aleatorio generado.\n"
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Utilities/GetRandomString.js"
       }
     ],
     [
@@ -971,7 +1402,7 @@
         "@returns": [
           " `parameter:any` Devuelve el parámetro tomado del primero de entre, y por este orden:\n   - `request.body`\n   - `request.query`\n   - `request.headers`\n"
         ],
-        "file": "/home/carlos/Software/Nodejs2/ebo_blog/src/Utilities/GetRequestParameter.js"
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Utilities/GetRequestParameter.js"
       }
     ],
     [
@@ -996,48 +1427,7 @@
         "@returns": [
           " `output:String` Texto resultante del espaciamiento."
         ],
-        "file": "/home/carlos/Software/Nodejs2/ebo_blog/src/Utilities/GetStringLeftPadded.js"
-      }
-    ],
-    [
-      {
-        "_": [
-          ""
-        ],
-        "@name": [
-          " api.Utilities.InitializeDatabase"
-        ],
-        "@type": [
-          " Función"
-        ],
-        "@description": [
-          " Inicializa la base de datos, esto es: crea las tablas y aplica las migraciones. Consiste en 2 llamadas:\n   - `this.applyCreationScript`: aplica el script de creación.\n   - `this.applyMigrationScript`: aplica el script de migración.\n"
-        ],
-        "file": "/home/carlos/Software/Nodejs2/ebo_blog/src/Utilities/InitializeDatabase.js"
-      }
-    ],
-    [
-      {
-        "_": [
-          ""
-        ],
-        "@name": [
-          " api.Utilities.GetRandomString"
-        ],
-        "@type": [
-          " Función"
-        ],
-        "@parameter": [
-          " `len:Integer` Número de caracteres.",
-          " `alphabet:Array<String>` Alfabeto de caracteres válidos."
-        ],
-        "@description": [
-          " Genera un texto aleatorio de longitud indicada (len) con el alfabeto indicado (alphabet)."
-        ],
-        "@returns": [
-          " Devuelve el texto aleatorio generado.\n"
-        ],
-        "file": "/home/carlos/Software/Nodejs2/ebo_blog/src/Utilities/GetRandomString.js"
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Utilities/GetStringLeftPadded.js"
       }
     ],
     [
@@ -1057,7 +1447,56 @@
         "@returns": [
           " `any` Resultado de la consulta ejecutada.\n"
         ],
-        "file": "/home/carlos/Software/Nodejs2/ebo_blog/src/Utilities/QueryDatabase.js"
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Utilities/QueryDatabase.js"
+      }
+    ],
+    [
+      {
+        "_": [
+          ""
+        ],
+        "@name": [
+          " api.Utilities.InitializeDatabase"
+        ],
+        "@type": [
+          " Función"
+        ],
+        "@description": [
+          " Inicializa la base de datos, esto es: crea las tablas y aplica las migraciones. Consiste en 2 llamadas:\n   - `this.applyCreationScript`: aplica el script de creación.\n   - `this.applyMigrationScript`: aplica el script de migración.\n"
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Utilities/InitializeDatabase.js"
+      }
+    ],
+    [
+      {
+        "_": [
+          ""
+        ],
+        "@type": [
+          " Función"
+        ],
+        "@description": [
+          " Transporte de `nodemailer` para `gmail` con la cuenta de correo de las configuraciones globales.\n"
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Utilities/SendEmail.js"
+      },
+      {
+        "_": [
+          ""
+        ],
+        "@name": [
+          " api.Utilities.SendEmail"
+        ],
+        "@type": [
+          " Función"
+        ],
+        "@parameter": [
+          " `email_options:Object` Opciones para `nodemailer` de envío de correo."
+        ],
+        "@returns": [
+          " `any` Resultado devuelto por la API de `nodemailer`.\n"
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Utilities/SendEmail.js"
       }
     ],
     [
@@ -1077,7 +1516,65 @@
         "@description": [
           " Imprime un mensaje prependizando '[TRACE]' por la consola.\n"
         ],
-        "file": "/home/carlos/Software/Nodejs2/ebo_blog/src/Utilities/Trace.js"
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Utilities/Trace.js"
+      }
+    ],
+    [
+      {
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/dev/public/lib/jquery-ui/jquery-ui.js"
+      },
+      {
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/dev/public/lib/jquery-ui/jquery-ui.js"
+      },
+      {
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/dev/public/lib/jquery-ui/jquery-ui.js"
+      },
+      {
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/dev/public/lib/jquery-ui/jquery-ui.js"
+      },
+      {
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/dev/public/lib/jquery-ui/jquery-ui.js"
+      },
+      {
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/dev/public/lib/jquery-ui/jquery-ui.js"
+      },
+      {
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/dev/public/lib/jquery-ui/jquery-ui.js"
+      },
+      {
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/dev/public/lib/jquery-ui/jquery-ui.js"
+      },
+      {
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/dev/public/lib/jquery-ui/jquery-ui.js"
+      }
+    ],
+    [
+      {
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/www/lib/jquery-ui/jquery-ui.js"
+      },
+      {
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/www/lib/jquery-ui/jquery-ui.js"
+      },
+      {
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/www/lib/jquery-ui/jquery-ui.js"
+      },
+      {
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/www/lib/jquery-ui/jquery-ui.js"
+      },
+      {
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/www/lib/jquery-ui/jquery-ui.js"
+      },
+      {
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/www/lib/jquery-ui/jquery-ui.js"
+      },
+      {
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/www/lib/jquery-ui/jquery-ui.js"
+      },
+      {
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/www/lib/jquery-ui/jquery-ui.js"
+      },
+      {
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/www/lib/jquery-ui/jquery-ui.js"
       }
     ]
   ],

@@ -1,3 +1,0 @@
-
-window.utilidades_globales = { 
-};

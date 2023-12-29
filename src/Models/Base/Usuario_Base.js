@@ -23,7 +23,14 @@ module.exports = class Usuario_Base {
             correo: {
                 type: Sequelize.STRING,
                 allowNull: true,
+                unique: true,
                 field: "correo"
+            },
+            token_de_recuperacion: {
+                type: Sequelize.STRING,
+                allowNull: true,
+                unique: true,
+                field: "token_de_recuperacion"
             }
         }, {
           timestamps: false,

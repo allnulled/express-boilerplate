@@ -1,6 +1,23 @@
 <%
 const autoincrement_word = process.env.DATABASE_DRIVER === "sqlite" ? "AUTOINCREMENT" : "AUTO_INCREMENT";
 %>
+CREATE TABLE Usuario_no_confirmado (
+  id INTEGER PRIMARY KEY <%-autoincrement_word%> /*
+    @tiene_nombre: Identificador
+  */,
+  nombre VARCHAR(255) UNIQUE /*
+    @tiene_nombre: Nombre
+  */,
+  contrasenya VARCHAR(255) /*
+    @tiene_nombre: Contraseña
+  */,
+  correo VARCHAR(255) UNIQUE /*
+    @tiene_nombre: Correo
+  */,
+  token_de_confirmacion VARCHAR(30) UNIQUE /*
+    @tiene_nombre: Token de confirmación
+  */
+);
 CREATE TABLE Usuario (
   id INTEGER PRIMARY KEY <%-autoincrement_word%> /*
     @tiene_nombre: Identificador
@@ -11,8 +28,11 @@ CREATE TABLE Usuario (
   contrasenya VARCHAR(255) /*
     @tiene_nombre: Contraseña
   */,
-  correo VARCHAR(255) /*
+  correo VARCHAR(255) UNIQUE /*
     @tiene_nombre: Correo
+  */,
+  token_de_recuperacion VARCHAR(255) UNIQUE /*
+    @tiene_nombre: Token de recuperación
   */
 );
 
