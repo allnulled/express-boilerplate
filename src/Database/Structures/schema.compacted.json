@@ -468,5 +468,126 @@
     },
     "script": "\n\nCREATE TABLE Blog_comentario_de_post (\n  id INTEGER PRIMARY KEY AUTO_INCREMENT,\n  contenido TEXT /*\n    @tipo: texto largo\n    @descripcion: El contenido en HTML del post.\n    @interceptar: await $interceptors.Columns.solo_html_seguro(data, 'contenido', this)\n  */,\n  detalles TEXT /*\n    @tipo: texto largo\n    @descripcion: Detalles sobre el post.\n  */,\n  fecha_de_creacion DATETIME /*\n    @tipo: fecha\n    @descripcion: La fecha de la creación del post.\n    @interceptar: await $interceptors.Columns.fijar_fecha_actual_al_insertar(data, 'fecha_de_creacion', this)\n  */\n);",
     "atributos": {}
+  },
+  "Horarios_entrenador": {
+    "tabla": "Horarios_entrenador",
+    "composicion": {
+      "id": {
+        "sentencia": "columna",
+        "columna": "id",
+        "tipo": "INTEGER",
+        "detalles": "PRIMARY KEY AUTO_INCREMENT",
+        "orden": 0,
+        "atributos": {}
+      },
+      "id_usuario": {
+        "sentencia": "columna",
+        "columna": "id_usuario",
+        "tipo": "INTEGER",
+        "detalles": "",
+        "orden": 1,
+        "atributos": {},
+        "es_clave_foranea": {
+          "sentencia": "clave foránea",
+          "columna": "id_usuario",
+          "tabla_foranea": "Usuario",
+          "columna_foranea": "id",
+          "orden": 2,
+          "atributos": {}
+        }
+      },
+      "$id_usuario$Usuario$id": {
+        "sentencia": "clave foránea",
+        "columna": "id_usuario",
+        "tabla_foranea": "Usuario",
+        "columna_foranea": "id",
+        "orden": 2,
+        "atributos": {}
+      }
+    },
+    "script": "\n\n\nCREATE TABLE Horarios_entrenador /*\n  @comprobar_permiso:\n    al         insert | update | delete\n    si         $conditionals.no_tiene_permiso(data, \"permiso de administración\")\n    entonces   $consequencials.prohibir(data, \"Esta operación requiere de permisos específicos\")\n*/ (\n  id INTEGER PRIMARY KEY AUTO_INCREMENT,\n  id_usuario INTEGER,\n  FOREIGN KEY (id_usuario) REFERENCES Usuario (id)\n);",
+    "atributos": {
+      "comprobar_permiso": [
+        {
+          "tipo": "comprobar_permiso",
+          "al": [
+            "insert",
+            "update",
+            "delete"
+          ],
+          "si": "$conditionals.no_tiene_permiso(data, \"permiso de administración\")",
+          "entonces": "$consequencials.prohibir(data, \"Esta operación requiere de permisos específicos\")"
+        }
+      ]
+    }
+  },
+  "Horarios_cita_previa": {
+    "tabla": "Horarios_cita_previa",
+    "composicion": {
+      "id": {
+        "sentencia": "columna",
+        "columna": "id",
+        "tipo": "INTEGER",
+        "detalles": "PRIMARY KEY AUTO_INCREMENT",
+        "orden": 0,
+        "atributos": {}
+      },
+      "cita_previa_inicio": {
+        "sentencia": "columna",
+        "columna": "cita_previa_inicio",
+        "tipo": "TIMESTAMP",
+        "detalles": "NOT NULL",
+        "orden": 1,
+        "atributos": {}
+      },
+      "cita_previa_final": {
+        "sentencia": "columna",
+        "columna": "cita_previa_final",
+        "tipo": "TIMESTAMP",
+        "detalles": "NOT NULL",
+        "orden": 2,
+        "atributos": {}
+      },
+      "id_entrenador": {
+        "sentencia": "columna",
+        "columna": "id_entrenador",
+        "tipo": "INTEGER",
+        "detalles": "",
+        "orden": 3,
+        "atributos": {},
+        "es_clave_foranea": {
+          "sentencia": "clave foránea",
+          "columna": "id_entrenador",
+          "tabla_foranea": "Horarios_entrenador",
+          "columna_foranea": "id",
+          "orden": 4,
+          "atributos": {}
+        }
+      },
+      "$id_entrenador$Horarios_entrenador$id": {
+        "sentencia": "clave foránea",
+        "columna": "id_entrenador",
+        "tabla_foranea": "Horarios_entrenador",
+        "columna_foranea": "id",
+        "orden": 4,
+        "atributos": {}
+      }
+    },
+    "script": "\n\nCREATE TABLE Horarios_cita_previa /*\n  @comprobar_permiso:\n    al         select | insert | update | delete\n    si         $conditionals.no_tiene_permiso(data, \"permiso de administración\")\n    entonces   $consequencials.prohibir(data, \"Esta operación requiere de permisos específicos\")\n*/ (\n  id INTEGER PRIMARY KEY AUTO_INCREMENT,\n  cita_previa_inicio TIMESTAMP NOT NULL,\n  cita_previa_final TIMESTAMP NOT NULL,\n  id_entrenador INTEGER,\n  FOREIGN KEY (id_entrenador) REFERENCES Horarios_entrenador (id)\n);",
+    "atributos": {
+      "comprobar_permiso": [
+        {
+          "tipo": "comprobar_permiso",
+          "al": [
+            "select",
+            "insert",
+            "update",
+            "delete"
+          ],
+          "si": "$conditionals.no_tiene_permiso(data, \"permiso de administración\")",
+          "entonces": "$consequencials.prohibir(data, \"Esta operación requiere de permisos específicos\")"
+        }
+      ]
+    }
   }
 }

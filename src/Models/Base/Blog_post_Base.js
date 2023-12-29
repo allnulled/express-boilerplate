@@ -35,8 +35,8 @@ module.exports = class Blog_post_Base {
                 field: "fecha_de_actualizacion"
             }
         }, {
-          timestamps: false,
-          freezeTableName: true
+            timestamps: false,
+            freezeTableName: true
         });
     }
 };

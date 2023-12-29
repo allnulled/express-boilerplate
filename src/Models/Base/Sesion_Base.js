@@ -20,8 +20,8 @@ module.exports = class Sesion_Base {
                 field: "id_usuario"
             }
         }, {
-          timestamps: false,
-          freezeTableName: true
+            timestamps: false,
+            freezeTableName: true
         });
     }
 };

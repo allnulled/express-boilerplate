@@ -105,6 +105,17 @@ module.exports = class <%-table_id%>_Base {
                   aplicar_field(columna);
                   __append("\n            ");
                   __append("}");
+                } else if(columna.tipo === "TIMESTAMP") {
+                  __append(column_id);
+                  __append(": {");
+                  __append("\n                ");
+                  __append("type: Sequelize.DATE");
+                  __append(",\n                ");
+                  __append("allowNull: " + (columna.detalles.toUpperCase().indexOf("NOT NULL") !== -1 ? "false" : "true"));
+                  aplicar_unique(columna);
+                  aplicar_field(columna);
+                  __append("\n            ");
+                  __append("}");
                 } else if(columna.tipo === "DATE") {
                   __append(column_id);
                   __append(": {");
@@ -116,13 +127,15 @@ module.exports = class <%-table_id%>_Base {
                   aplicar_field(columna);
                   __append("\n            ");
                   __append("}");
+                } else {
+                  throw new Error("No se reconoció tipo de columna: " + columna.tipo);
                 }
               }
             }
             %>
         }, {
-          timestamps: false,
-          freezeTableName: true
+            timestamps: false,
+            freezeTableName: true
         });
     }
 };

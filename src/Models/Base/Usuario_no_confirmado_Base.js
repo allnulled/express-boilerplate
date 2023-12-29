@@ -33,8 +33,8 @@ module.exports = class Usuario_no_confirmado_Base {
                 field: "token_de_confirmacion"
             }
         }, {
-          timestamps: false,
-          freezeTableName: true
+            timestamps: false,
+            freezeTableName: true
         });
     }
 };

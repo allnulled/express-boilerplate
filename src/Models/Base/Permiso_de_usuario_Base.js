@@ -20,8 +20,8 @@ module.exports = class Permiso_de_usuario_Base {
                 field: "id_permiso"
             }
         }, {
-          timestamps: false,
-          freezeTableName: true
+            timestamps: false,
+            freezeTableName: true
         });
     }
 };

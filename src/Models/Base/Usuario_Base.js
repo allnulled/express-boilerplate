@@ -33,8 +33,8 @@ module.exports = class Usuario_Base {
                 field: "token_de_recuperacion"
             }
         }, {
-          timestamps: false,
-          freezeTableName: true
+            timestamps: false,
+            freezeTableName: true
         });
     }
 };

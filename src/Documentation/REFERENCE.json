@@ -6,6 +6,30 @@
           ""
         ],
         "@name": [
+          " src/Database/Decorators/Conditionals/ocurre.js#resolve"
+        ],
+        "@type": [
+          " Función"
+        ],
+        "@parameter": [
+          " `data` Los parámetros de la petición, petición inclusive.",
+          "  `...permisos:Array<String>` Permisos."
+        ],
+        "@description": [
+          " Devuelve `true` siempre."
+        ],
+        "@returns": [
+          " `true`\n"
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Database/Decorators/Conditionals/ocurre.js"
+      }
+    ],
+    [
+      {
+        "_": [
+          ""
+        ],
+        "@name": [
           " src/Database/Decorator/Conditionals/columna_tiene_valor.js#resolve"
         ],
         "@type": [
@@ -57,22 +81,22 @@
           ""
         ],
         "@name": [
-          " src/Database/Decorators/Conditionals/ocurre.js#resolve"
+          " src/Database/Decorators/Consequencials/columna_solo_actualizable_a.js#resolve"
         ],
         "@type": [
           " Función"
         ],
         "@parameter": [
-          " `data` Los parámetros de la petición, petición inclusive.",
-          "  `...permisos:Array<String>` Permisos."
+          " `data:Object` Los parámetros de la petición, petición inclusive. Requerido.",
+          " `columna_id:String` El nombre de la columna. Requerido.",
+          " `controlador:Object` El controlador que enchufa este decorador. Requerido.",
+          " `valores:String` Los valores posibles, separados. Requerido.",
+          " `separador:String` El separador de los valores posibles. Por defecto: \",\" (coma)."
         ],
         "@description": [
-          " Devuelve `true` siempre."
+          " Si es un Update comprueba que el valor en la columna indicada (id_columna) sea uno de los valores indicados (valores)\n"
         ],
-        "@returns": [
-          " `true`\n"
-        ],
-        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Database/Decorators/Conditionals/ocurre.js"
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Database/Decorators/Consequencials/columna_solo_actualizable_a.js"
       }
     ],
     [
@@ -94,6 +118,26 @@
           " Se lanza un error, o el indicado (error) o uno estándar.\n"
         ],
         "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Database/Decorators/Consequencials/prohibir.js"
+      }
+    ],
+    [
+      {
+        "_": [
+          ""
+        ],
+        "@name": [
+          " src/Database/Decorators/Consequencials/permitir.js#resolve"
+        ],
+        "@type": [
+          " Función"
+        ],
+        "@parameter": [
+          " `data:Object`"
+        ],
+        "@description": [
+          " Deja pasar la acción, no hace nada."
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Database/Decorators/Consequencials/permitir.js"
       }
     ],
     [
@@ -125,48 +169,6 @@
           ""
         ],
         "@name": [
-          " src/Database/Decorators/Interceptors/Columns/es_actualizable_si_id_usuario_coincide_con.js#resolve"
-        ],
-        "@type": [
-          " Función"
-        ],
-        "@parameter": [
-          " `data:Object` Los parámetros de la petición, petición inclusive.",
-          " `id_columna:String` Nombre de la columna.",
-          " `controlador:Object` Instancia de controlador que enchufa este decorador."
-        ],
-        "@description": [
-          " Lanza un error si se está intentando actualizar pero la columna no coincide con el identificador de usuario.\nBusca en `data.item_recuperated` y si no encuentra, hace una query buscando el `data.id` como id, usando `data.table` como tabla.\nCompara el `request.$$authentication.usuario.id` con el valor de esta columna indicada (id_columna).\nSi no coinciden, lanza un error de que el valor no se puede alterar.\n"
-        ],
-        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Database/Decorators/Interceptors/Columns/es_actualizable_si_id_usuario_coincide_con.js"
-      }
-    ],
-    [
-      {
-        "_": [
-          ""
-        ],
-        "@name": [
-          " src/Database/Decorators/Consequencials/permitir.js#resolve"
-        ],
-        "@type": [
-          " Función"
-        ],
-        "@parameter": [
-          " `data:Object`"
-        ],
-        "@description": [
-          " Deja pasar la acción, no hace nada."
-        ],
-        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Database/Decorators/Consequencials/permitir.js"
-      }
-    ],
-    [
-      {
-        "_": [
-          ""
-        ],
-        "@name": [
           " src/Database/Decorators/Interceptors/Columns/fijar_fecha_actual_al_actualizar.js#resolve"
         ],
         "@type": [
@@ -181,76 +183,6 @@
           " Si es Insertar o Actualizar, toma un nuevo Date, lo formatea a texto y lo asigna a la columna indicada (\"id_columna\").\n"
         ],
         "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Database/Decorators/Interceptors/Columns/fijar_fecha_actual_al_actualizar.js"
-      }
-    ],
-    [
-      {
-        "_": [
-          ""
-        ],
-        "@name": [
-          " src/Database/Decorators/Interceptors/Columns/fijar_fecha_actual_al_actualizar.js#resolve"
-        ],
-        "@type": [
-          " Función"
-        ],
-        "@parameter": [
-          " `data:Object` Requerido. Los parámetros de la request, inclusive request.",
-          " `id_columna:String` Requerido. Nombre de la columna.",
-          " `controlador:Object` Requerido. El controlador que lo está llamando."
-        ],
-        "@description": [
-          " Si es Insertar, toma un nuevo Date, lo formatea a texto y lo asigna a la columna indicada (\"id_columna\").\n"
-        ],
-        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Database/Decorators/Interceptors/Columns/fijar_fecha_actual_al_insertar.js"
-      }
-    ],
-    [
-      {
-        "_": [
-          ""
-        ],
-        "@name": [
-          " src/Database/Decorators/Consequencials/columna_solo_actualizable_a.js#resolve"
-        ],
-        "@type": [
-          " Función"
-        ],
-        "@parameter": [
-          " `data:Object` Los parámetros de la petición, petición inclusive. Requerido.",
-          " `columna_id:String` El nombre de la columna. Requerido.",
-          " `controlador:Object` El controlador que enchufa este decorador. Requerido.",
-          " `valores:String` Los valores posibles, separados. Requerido.",
-          " `separador:String` El separador de los valores posibles. Por defecto: \",\" (coma)."
-        ],
-        "@description": [
-          " Si es un Update comprueba que el valor en la columna indicada (id_columna) sea uno de los valores indicados (valores)\n"
-        ],
-        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Database/Decorators/Consequencials/columna_solo_actualizable_a.js"
-      }
-    ],
-    [
-      {
-        "_": [
-          ""
-        ],
-        "@name": [
-          " src/Database/Decorators/Conditionals/tiene_permiso.js#resolve"
-        ],
-        "@type": [
-          " Función"
-        ],
-        "@parameter": [
-          " `data:Object` Los parámetros de la petición, petición inclusive.",
-          " `...permisos:Array<String>` Permisos a comprobar."
-        ],
-        "@description": [
-          " Devuelve un booleano para permitir saber si tiene o no alguno de los permisos indicados (permisos)."
-        ],
-        "@returns": [
-          " `tiene_permisos:Boolean` Si tiene o no alguno de los permisos.\n"
-        ],
-        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Database/Decorators/Conditionals/tiene_permiso.js"
       }
     ],
     [
@@ -581,6 +513,14 @@
     ],
     [
       {
+        "@license": [
+          "\n\nPush v1.0.9\n=========\nA compact, cross-browser solution for the JavaScript Notifications API\n\nCredits\n-------\nTsvetan Tsvetkov (ttsvetko)\nAlex Gibson (alexgibson)\n\nLicense\n-------\n\nThe MIT License (MIT)\n\nCopyright (c) 2015-2017 Tyler Nickerson\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in\nall copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\nTHE SOFTWARE."
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/www/js/chunk-vendors.f0e3c645.js"
+      }
+    ],
+    [
+      {
         "_": [
           ""
         ],
@@ -814,14 +754,6 @@
     ],
     [
       {
-        "@license": [
-          "\n\nPush v1.0.9\n=========\nA compact, cross-browser solution for the JavaScript Notifications API\n\nCredits\n-------\nTsvetan Tsvetkov (ttsvetko)\nAlex Gibson (alexgibson)\n\nLicense\n-------\n\nThe MIT License (MIT)\n\nCopyright (c) 2015-2017 Tyler Nickerson\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in\nall copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\nTHE SOFTWARE."
-        ],
-        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Interface/www/js/chunk-vendors.f0e3c645.js"
-      }
-    ],
-    [
-      {
         "_": [
           ""
         ],
@@ -869,6 +801,30 @@
           " `return require(\"body-parser\").urlencoded({ extended: true });`\n"
         ],
         "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Middlewares/BodyParserUrlEncoded.js"
+      }
+    ],
+    [
+      {
+        "_": [
+          ""
+        ],
+        "@name": [
+          " src/Database/Decorators/Conditionals/tiene_permiso.js#resolve"
+        ],
+        "@type": [
+          " Función"
+        ],
+        "@parameter": [
+          " `data:Object` Los parámetros de la petición, petición inclusive.",
+          " `...permisos:Array<String>` Permisos a comprobar."
+        ],
+        "@description": [
+          " Devuelve un booleano para permitir saber si tiene o no alguno de los permisos indicados (permisos)."
+        ],
+        "@returns": [
+          " `tiene_permisos:Boolean` Si tiene o no alguno de los permisos.\n"
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Database/Decorators/Conditionals/tiene_permiso.js"
       }
     ],
     [
@@ -1152,23 +1108,6 @@
           ""
         ],
         "@name": [
-          " api.Utilities.CloseDeployment"
-        ],
-        "@type": [
-          " Función"
-        ],
-        "@description": [
-          " Cierra conexiones a bases de datos, servidores, etc. para que termine el proceso de forma natural controlada.\n"
-        ],
-        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Utilities/CloseDeployment.js"
-      }
-    ],
-    [
-      {
-        "_": [
-          ""
-        ],
-        "@name": [
           " api.Utilities.Die"
         ],
         "@type": [
@@ -1181,6 +1120,27 @@
           " Imprime por consola cualquier cosa y luego termina el proceso actual. Solo se usa para propósitos de debug.\n"
         ],
         "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Utilities/Die.js"
+      }
+    ],
+    [
+      {
+        "_": [
+          ""
+        ],
+        "@name": [
+          " api.Utilities.DispatchSuccess"
+        ],
+        "@type": [
+          " Función"
+        ],
+        "@parameter": [
+          " `response:Object` Respuesta de la petición.",
+          " `data:Object` Datos de respuesta."
+        ],
+        "@description": [
+          " Establece el estado de la respuesta de petición indicada (response) en 200 (ESTADO:OK) y envía un JSON con una cabecera estándar de petición con éxito enviando los datos indicados (data).\n"
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Utilities/DispatchSuccess.js"
       }
     ],
     [
@@ -1210,19 +1170,20 @@
           ""
         ],
         "@name": [
-          " api.Utilities.DispatchSuccess"
+          " src/Database/Decorators/Interceptors/Columns/es_actualizable_si_id_usuario_coincide_con.js#resolve"
         ],
         "@type": [
           " Función"
         ],
         "@parameter": [
-          " `response:Object` Respuesta de la petición.",
-          " `error:Error` Error."
+          " `data:Object` Los parámetros de la petición, petición inclusive.",
+          " `id_columna:String` Nombre de la columna.",
+          " `controlador:Object` Instancia de controlador que enchufa este decorador."
         ],
         "@description": [
-          " Establece el estado de la respuesta de petición indicada (response) en 500 (ESTADO:BAD REQUEST) y envía un JSON con una cabecera estándar de petición con fallo enviando el error indicado (error).\n"
+          " Lanza un error si se está intentando actualizar pero la columna no coincide con el identificador de usuario.\nBusca en `data.item_recuperated` y si no encuentra, hace una query buscando el `data.id` como id, usando `data.table` como tabla.\nCompara el `request.$$authentication.usuario.id` con el valor de esta columna indicada (id_columna).\nSi no coinciden, lanza un error de que el valor no se puede alterar.\n"
         ],
-        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Utilities/DispatchError.js"
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Database/Decorators/Interceptors/Columns/es_actualizable_si_id_usuario_coincide_con.js"
       }
     ],
     [
@@ -1231,19 +1192,15 @@
           ""
         ],
         "@name": [
-          " api.Utilities.DispatchSuccess"
+          " api.Utilities.CloseDeployment"
         ],
         "@type": [
           " Función"
         ],
-        "@parameter": [
-          " `response:Object` Respuesta de la petición.",
-          " `data:Object` Datos de respuesta."
-        ],
         "@description": [
-          " Establece el estado de la respuesta de petición indicada (response) en 200 (ESTADO:OK) y envía un JSON con una cabecera estándar de petición con éxito enviando los datos indicados (data).\n"
+          " Cierra conexiones a bases de datos, servidores, etc. para que termine el proceso de forma natural controlada.\n"
         ],
-        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Utilities/DispatchSuccess.js"
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Utilities/CloseDeployment.js"
       }
     ],
     [
@@ -1298,18 +1255,19 @@
           ""
         ],
         "@name": [
-          " api.Utilities.GetDatabaseConnection"
+          " api.Utilities.DispatchSuccess"
         ],
         "@type": [
           " Función"
         ],
+        "@parameter": [
+          " `response:Object` Respuesta de la petición.",
+          " `error:Error` Error."
+        ],
         "@description": [
-          " Devuelve `this.api.Database.Connection`."
+          " Establece el estado de la respuesta de petición indicada (response) en 500 (ESTADO:BAD REQUEST) y envía un JSON con una cabecera estándar de petición con fallo enviando el error indicado (error).\n"
         ],
-        "@returns": [
-          " `connection:Object` Objeto conexión neta.\n"
-        ],
-        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Utilities/GetDatabaseConnection.js"
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Utilities/DispatchError.js"
       }
     ],
     [
@@ -1333,6 +1291,26 @@
           " `date:Date` Fecha en formato Date.\n"
         ],
         "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Utilities/GetDateFromString.js"
+      }
+    ],
+    [
+      {
+        "_": [
+          ""
+        ],
+        "@name": [
+          " api.Utilities.GetDatabaseConnection"
+        ],
+        "@type": [
+          " Función"
+        ],
+        "@description": [
+          " Devuelve `this.api.Database.Connection`."
+        ],
+        "@returns": [
+          " `connection:Object` Objeto conexión neta.\n"
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Utilities/GetDatabaseConnection.js"
       }
     ],
     [
@@ -1436,6 +1414,23 @@
           ""
         ],
         "@name": [
+          " api.Utilities.InitializeDatabase"
+        ],
+        "@type": [
+          " Función"
+        ],
+        "@description": [
+          " Inicializa la base de datos, esto es: crea las tablas y aplica las migraciones. Consiste en 2 llamadas:\n   - `this.applyCreationScript`: aplica el script de creación.\n   - `this.applyMigrationScript`: aplica el script de migración.\n"
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Utilities/InitializeDatabase.js"
+      }
+    ],
+    [
+      {
+        "_": [
+          ""
+        ],
+        "@name": [
           " api.Utilities.QueryDatabase"
         ],
         "@type": [
@@ -1448,23 +1443,6 @@
           " `any` Resultado de la consulta ejecutada.\n"
         ],
         "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Utilities/QueryDatabase.js"
-      }
-    ],
-    [
-      {
-        "_": [
-          ""
-        ],
-        "@name": [
-          " api.Utilities.InitializeDatabase"
-        ],
-        "@type": [
-          " Función"
-        ],
-        "@description": [
-          " Inicializa la base de datos, esto es: crea las tablas y aplica las migraciones. Consiste en 2 llamadas:\n   - `this.applyCreationScript`: aplica el script de creación.\n   - `this.applyMigrationScript`: aplica el script de migración.\n"
-        ],
-        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Utilities/InitializeDatabase.js"
       }
     ],
     [
@@ -1497,6 +1475,28 @@
           " `any` Resultado devuelto por la API de `nodemailer`.\n"
         ],
         "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Utilities/SendEmail.js"
+      }
+    ],
+    [
+      {
+        "_": [
+          ""
+        ],
+        "@name": [
+          " src/Database/Decorators/Interceptors/Columns/fijar_fecha_actual_al_actualizar.js#resolve"
+        ],
+        "@type": [
+          " Función"
+        ],
+        "@parameter": [
+          " `data:Object` Requerido. Los parámetros de la request, inclusive request.",
+          " `id_columna:String` Requerido. Nombre de la columna.",
+          " `controlador:Object` Requerido. El controlador que lo está llamando."
+        ],
+        "@description": [
+          " Si es Insertar, toma un nuevo Date, lo formatea a texto y lo asigna a la columna indicada (\"id_columna\").\n"
+        ],
+        "file": "/home/carlos/Software/Nodejs2/sistema-de-horarios/src/Database/Decorators/Interceptors/Columns/fijar_fecha_actual_al_insertar.js"
       }
     ],
     [

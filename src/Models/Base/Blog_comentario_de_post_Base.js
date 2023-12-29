@@ -25,8 +25,8 @@ module.exports = class Blog_comentario_de_post_Base {
                 field: "fecha_de_creacion"
             }
         }, {
-          timestamps: false,
-          freezeTableName: true
+            timestamps: false,
+            freezeTableName: true
         });
     }
 };

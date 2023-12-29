@@ -20,8 +20,8 @@ module.exports = class Permiso_Base {
                 field: "descripcion"
             }
         }, {
-          timestamps: false,
-          freezeTableName: true
+            timestamps: false,
+            freezeTableName: true
         });
     }
 };

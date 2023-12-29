@@ -21,8 +21,8 @@ module.exports = class Fichero_Base {
                 field: "id_fichero_padre"
             }
         }, {
-          timestamps: false,
-          freezeTableName: true
+            timestamps: false,
+            freezeTableName: true
         });
     }
 };
